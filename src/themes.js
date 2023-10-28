@@ -126,7 +126,7 @@ export const themeSettings = (mode) => {
     return {
         palette: {
             mode: mode,
-            ...colors(mode==='dark'
+            ...colors(mode==='dark' 
             ? {
                 primary : {
                     main: colors.primary[500],
@@ -165,9 +165,41 @@ export const themeSettings = (mode) => {
             fontFamily: ["Source Sans Pro","sans-serif"].join(","),
             fontSize: 12,
             h1: {
-                fontFamily: ["Soure"]
-            }
+                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontSize: 40,
+            },
+            h2: {
+                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontSize: 40,
+            },
+            h3: {
+                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontSize: 24,
+            },
+            h4: {
+                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontSize: 20,
+            },
+            h5: {
+                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontSize: 16,
+            },
+            h6: {
+                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontSize: 14,
+            },
+            
         }
     };
 }
 
+//context for color mode
+export const ColorModeContext = createContext({
+    toggleColorMode: () => {}
+});
+
+export const useMode = () => {
+    const [mode, setMode] = useState("dark");
+    
+
+}
