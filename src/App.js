@@ -2,6 +2,8 @@ import { Navbar } from "@material-tailwind/react";
 import { ColorModeContext, useMode } from "./themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./Scenes/Global/Topbar"
+import { Routes } from "react-router-dom"
+import Sidebar from "./Scenes/Global/Sidebar"
 
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
         <div className="app">
+          <Sidebar />
           <main className="content">
             <Topbar/>
           </main>
