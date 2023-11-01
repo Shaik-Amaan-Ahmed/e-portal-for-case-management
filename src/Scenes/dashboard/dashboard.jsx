@@ -1,10 +1,15 @@
-
+import { Box } from "@mui/material";
+import Header from "../../Components/Header"
+import RegistrarTable from "../../Components/Tables/Regsitrar";
 
 const Dashboard = () => {
     return (
-        <div>
-            Dashboard
-        </div>
+        <Box m="20px">
+            <Box>
+                <RegistrarTable/>
+            </Box>
+            
+        </Box>
     );
 };
 

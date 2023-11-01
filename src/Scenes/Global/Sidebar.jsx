@@ -5,19 +5,31 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import MyImage from "../../assets/user.png"
 import { Link } from "@mui/material";
 import { tokens } from "../../themes";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import  DashboardCustomizeOutlined  from "@mui/icons-material/DashboardCustomizeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import { CalendarTodayOutlinedIcon } from "@mui/icons-material/CalendarTodayOutlined";
-import { HelpOutlined } from "@mui/icons-material/HelpOutlined";
-import { BarChartOutlined } from "@mui/icons-material/BarChartOutlined";
-import { PieChartOutlineOutlined } from "@mui/icons-material/PieChartOutlineOutlined";
-import { TimelineOutlined } from "@mui/icons-material/TimelineOutlined";
+import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlined"
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
-import { MapOutlined } from "@mui/icons-material/MapOutlined";
 
+
+
+
+
+const Item = ({ title, to, icon, selected, setSelected}) => {
+   const theme = useTheme()
+   const colors = tokens(theme)
+   
+   return (
+      <MenuItem 
+         active={selected === title}
+         style={{ color: colors.grey[100]}}
+         onClick={() => setSelected(title)}
+         icon = {icon}  
+      >
+         <Typography>{title}</Typography>
+         <Link to = {to} />
+      </MenuItem>
+   )
+}
 
  const Sidebar = () => {
    const theme = useTheme();
@@ -29,16 +41,18 @@ import { MapOutlined } from "@mui/icons-material/MapOutlined";
       <Box
          sx={{
             "& .pro-sidebar-inner": {
-               background: `${colors.primary[400]} !important`
+               background: `${colors.primary[600]} !important`
             },
             "& .pro-icon-wrapper": {
                backgroundColor: "transparent !important"
             },
             "& .pro-inner-item": {
-               padding: "5px 35px 5px 20px !important"
+               padding: "5px 35px 5px 20px !important",
+               fontSize: "20px",
+               color: "#e0e0e0 !important"
             },
             "& .pro-inner-item:hover": {
-               color: "#868dfb !important" 
+               color: "grey !important" 
             },
             "& .pro-menu-item.active": {
                color: "#6870fa !important"
@@ -63,7 +77,8 @@ import { MapOutlined } from "@mui/icons-material/MapOutlined";
                         display="flex"
                         justifyContent="space-between"
                         alignItems="center"
-                        ml="15px"
+                        ml="50px"
+                        
                      >
                         <Typography variant="h3" color={colors.grey[100]}>
                            ADMINS
@@ -94,7 +109,7 @@ import { MapOutlined } from "@mui/icons-material/MapOutlined";
                         fontWeight="bold" 
                         sx={{m: "10px 0 0 0"}}
                         >
-                           Shaik Amaan Ahmed
+                           Mark Zuck Zuck
                            </Typography>
                         <Typography
                            variant="h5"
@@ -105,6 +120,88 @@ import { MapOutlined } from "@mui/icons-material/MapOutlined";
                      </Box>
                   </Box>
                )}
+
+               { /* MENU ITEMS */}
+            
+               <Box paddingLeft={isCollapsed? undefined: "10%"}>
+                  <Item 
+                     title="Dashboard"
+                     to="/"
+                     icon={<DashboardCustomizeOutlined/>}
+                     selected={selected}
+                     setSelected={setSelected}
+                  />
+                  <Typography
+                  variant="h6"
+                  color={colors.grey[400]}
+                  sx= {{m: "15px 0 0 25px"}}
+
+               >
+                  Data
+               </Typography>
+                   <Item 
+                     title="Cause List"
+                     to="/causelist"
+                     icon={<PeopleOutlinedIcon/>}
+                     selected={selected}
+                     setSelected={setSelected}
+                  />
+                   <Item 
+                     title="Calendar"
+                     to="/calendar"
+                     icon={<CalendarTodayOutlinedIcon/>}
+                     selected={selected}
+                     setSelected={setSelected}
+                  />
+                   <Typography
+                  variant="h6"
+                  color={colors.grey[400]}
+                  sx= {{m: "15px 0 0 25px"}}
+
+                  >
+                     INFO
+                  </Typography>
+                  <Item 
+                        title="Judges"
+                        to="/judges"
+                        icon={<PeopleOutlinedIcon/>}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+
+                  <Item 
+                        title="Lawyers"
+                        to="/lawyers"
+                        icon={<PeopleOutlinedIcon/>}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+
+                   <Item 
+                     title="Parties"
+                     to="/parties"
+                     icon={<PeopleOutlinedIcon/>}
+                     selected={selected}
+                     setSelected={setSelected}
+                  />
+                  <Typography
+                  variant="h6"
+                  color={colors.grey[400]}
+                  sx= {{m: "15px 0 0 25px"}}
+
+                  >
+                     STATS
+                  </Typography>
+                  <Item 
+                     title="Line"
+                     to="/Line"
+                     icon={<PeopleOutlinedIcon/>}
+                     selected={selected}
+                     setSelected={setSelected}
+                  />
+
+               </Box>
+                
 
             </Menu>
          </ProSidebar>
