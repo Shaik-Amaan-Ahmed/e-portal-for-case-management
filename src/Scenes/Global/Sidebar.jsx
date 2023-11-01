@@ -9,6 +9,7 @@ import  DashboardCustomizeOutlined  from "@mui/icons-material/DashboardCustomize
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlined"
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
+import  SettingsOutlined  from "@mui/icons-material/SettingsOutlined";
 
 
 
@@ -196,6 +197,14 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                      title="Line"
                      to="/Line"
                      icon={<PeopleOutlinedIcon/>}
+                     selected={selected}
+                     setSelected={setSelected}
+                  />
+
+                  <Item 
+                     title="Settings"
+                     to="/Settings"
+                     icon={<SettingsOutlined/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
