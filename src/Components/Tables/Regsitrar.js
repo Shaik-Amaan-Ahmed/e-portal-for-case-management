@@ -103,7 +103,7 @@ const RegistrarTable = () => {
                 )
             },
             type: "number",
-            flex:0,
+            flex:1,
             alignItems:"center"
         },
         {
