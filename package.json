@@ -27,9 +27,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-pro-sidebar": "^0.7.1",
+<<<<<<< HEAD
     "react-router-dom": "^6.18.0",
     "react-scripts": "^5.0.1",
     "source-map-support": "^0.5.21",
+=======
+    "react-router-dom": "^6.17.0",
+    "react-scripts": "5.0.1",
+    "use-react-countries": "^1.1.0",
+>>>>>>> d1dbf4981382f8322ceadeefe359a117050747da
     "web-vitals": "^2.1.4",
     "yup": "^1.3.2"
   },
