@@ -80,7 +80,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-            flex:0,
+            flex:1,
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell : ({row: {Status}}) => {
@@ -122,6 +122,26 @@ const RegistrarTable = () => {
                 return (
                 <Typography variant="h5" color={colors.grey[200]}>
                         {Judge}
+                </Typography>
+                )
+            }
+        },
+        {
+            field: "date",
+            renderHeader: () => {
+                return (
+                    <Typography variant="h3" >
+                        Date
+                    </Typography>
+                )
+            },
+            flex:1,
+            cellClassName: "name-column-cell",
+            alignItems: "center",
+            renderCell: ({row: {date}}) => {
+                return (
+                <Typography variant="h5" color={colors.grey[200]}>
+                        {date}
                 </Typography>
                 )
             }
