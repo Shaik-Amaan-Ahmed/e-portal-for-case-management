@@ -22,7 +22,6 @@ function App() {
               <Route path="/" element = {<Dashboard/>} />
            </Routes>
           </main>
-     
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
