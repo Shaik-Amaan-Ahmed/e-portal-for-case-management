@@ -59,6 +59,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                color: "#6870fa !important"
             }
          }}
+         
       >
          {/* Start */}
          <ProSidebar collapsed={isCollapsed}>

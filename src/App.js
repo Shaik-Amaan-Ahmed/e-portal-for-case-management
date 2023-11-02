@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
 import RegistrarTable from "./Components/Tables/Regsitrar";
+import SignIn from "./Scenes/Login/Login";
 
 
 function App() {
@@ -12,18 +13,19 @@ function App() {
   const [theme, colorMode] = useMode();
 
   return (<ColorModeContext.Provider>
+
     <ThemeProvider theme={theme}>
       <CssBaseline/>
+      
         <div className="app">
-          <Sidebar />
+           <Sidebar />
           <main className="content">
             <Topbar/>
             <Routes>
               <Route path="/" element = {<Dashboard/>} />
            </Routes>
-          </main>
-     
-        </div>
+          </main> 
+        </div> 
       </ThemeProvider>
     </ColorModeContext.Provider>
 
