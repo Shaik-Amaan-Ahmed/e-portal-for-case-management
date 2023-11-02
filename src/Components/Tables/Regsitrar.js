@@ -60,7 +60,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-            flex:0.8,
+            flex:0.4,
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell: ({row: {Defendant}}) => {
@@ -103,8 +103,9 @@ const RegistrarTable = () => {
                 )
             },
             type: "number",
-            flex:0,
-            alignItems:"center"
+            flex:0.3,
+            alignItems:"center",
+            align:"center"
         },
         {
             field: "Judge",
