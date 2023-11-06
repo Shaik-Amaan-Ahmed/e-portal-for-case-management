@@ -16,20 +16,25 @@ const NavBar = () => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    
+    <div className=" p-2 flex justify-start w-screen bg-orange-700">
       {/* LOGO */}
-      {/* <Box display="inline-flex">
-        <img src={Logo} style={{width:"100px",height:"100px"}}></img>
-        <Typography variant="h5">HIGH COURT</Typography>
-      </Box> */}
-      <Box style={{ display: "flex", alignItems: "center" }}>
-  <img src={Logo} style={{ width: "100px", height: "100px" }} alt="Logo" />
-  <Typography variant="h4" style={{ marginLeft: "10px" }}>HIGH COURT</Typography>
-</Box>
-
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img src={Logo} style={{ width: "100px", height: "100px" }} alt="Logo" />
+        <Typography variant="h4" style={{ marginLeft: "10px" }}><span style={{fontWeight:"bold", fontSize:"1.9em"}}>HIGH COURT</span><br></br>For The State of Telangana</Typography>
+      </div>
+      <div className="ml-9">
+        <ul className="mt-7">
+            <li className="text-xl inline-flex p-2"><a href="/causelist">Cause List</a></li>
+            <li className="text-xl inline-flex p-2"><a href="/profiles">Profiles</a></li>
+            <li className="text-xl inline-flex p-2"><a href="/judgments">Judgements</a></li>
+            <li className="text-xl inline-flex p-2"><a href="/login">Login</a></li>
+        </ul>
+      </div>
+            
       
 
-      {/* ICONS */}
+      {/* ICONS
       <Box display="flex">
         <IconButton>
           <LightModeOutlinedIcon/>
@@ -43,8 +48,9 @@ const NavBar = () => {
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>
-      </Box>
-    </Box>
+      </Box> */}
+    </div>
+    
   );
 };
 
