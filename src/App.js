@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
 import RegistrarTable from "./Components/Tables/Regsitrar";
+import SignIn from "./Scenes/Login/Login";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Topbar/>
             <Routes>
               <Route path="/" element = {<Dashboard/>} />
+              
            </Routes>
           </main>
      

@@ -135,7 +135,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-            flex:1,
+            width:150,
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell: ({row: {date}}) => {
