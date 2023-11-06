@@ -31,7 +31,6 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 
-
 export default function SignIn() {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)

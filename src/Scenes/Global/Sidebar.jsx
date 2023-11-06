@@ -10,10 +10,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlined"
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
 import  SettingsOutlined  from "@mui/icons-material/SettingsOutlined";
-
-
-
-
+import Causelist from "../Causelist/causelist";
 
 const Item = ({ title, to, icon, selected, setSelected}) => {
    const theme = useTheme()
@@ -42,7 +39,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
       <Box
          sx={{
             "& .pro-sidebar-inner": {
-               background: `${colors.primary[600]} !important`
+               background: `${colors.primary[500]} !important`
             },
             "& .pro-icon-wrapper": {
                backgroundColor: "transparent !important"
@@ -57,8 +54,13 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
             },
             "& .pro-menu-item.active": {
                color: "#6870fa !important"
-            }
+            },
+
+            
+            
          }}
+         borderRight="solid"
+         borderRightWidth="2px"
          
       >
          {/* Start */}
@@ -143,8 +145,9 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                </Typography>
                    <Item 
                      title="Cause List"
-                     to="/causelist"
+                     to="/Causelist"
                      icon={<PeopleOutlinedIcon/>}
+                     onClick ={<Causelist/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
