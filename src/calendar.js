@@ -41,6 +41,7 @@ export const MyCalendar = () => {
         select={handleSelect}
         headerToolbar={{
           start: "today prev next",
+          center:"title",
           end: "dayGridMonth dayGridWeek dayGridDay"
         }}
         eventContent={(info) => <EventItem info={info} />}
