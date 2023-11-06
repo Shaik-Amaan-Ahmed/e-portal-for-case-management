@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../themes";
 import InputBase from "@mui/material/InputBase";
@@ -8,6 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import Logo from "./logo3.jpg";
 
 const NavBar = () => {
   const theme = useTheme();
@@ -16,17 +17,17 @@ const NavBar = () => {
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
-      {/* SEARCH BAR */}
-      <Box
-        display="flex"
-        backgroundColor={colors.primary[400]}
-        borderRadius="3px"
-      >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" id="search-main" />
-        <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton>
-      </Box>
+      {/* LOGO */}
+      {/* <Box display="inline-flex">
+        <img src={Logo} style={{width:"100px",height:"100px"}}></img>
+        <Typography variant="h5">HIGH COURT</Typography>
+      </Box> */}
+      <Box style={{ display: "flex", alignItems: "center" }}>
+  <img src={Logo} style={{ width: "100px", height: "100px" }} alt="Logo" />
+  <Typography variant="h4" style={{ marginLeft: "10px" }}>HIGH COURT</Typography>
+</Box>
+
+      
 
       {/* ICONS */}
       <Box display="flex">
