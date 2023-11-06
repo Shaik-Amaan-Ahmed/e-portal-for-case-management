@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom"
 import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
 import RegistrarTable from "./Components/Tables/Regsitrar";
+import HomePage from "./Scenes/HomePage/HomePage";
+
 
 
 function App() {
@@ -16,14 +18,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
         <div className="app">
-          <Sidebar />
+          {/* <Sidebar />
           <main className="content">
             <Topbar/>
             <Routes>
               <Route path="/" element = {<Dashboard/>} />
            </Routes>
-          </main>
-     
+          </main> */}
+          <HomePage/>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
