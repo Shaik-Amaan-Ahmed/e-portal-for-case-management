@@ -88,11 +88,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-<<<<<<< HEAD
             flex:1,
-=======
-            width:150,
->>>>>>> main
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell : ({row: {Status}}) => {
@@ -114,22 +110,9 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-<<<<<<< HEAD
             type: "number",
             flex:1,
             alignItems:"center"
-=======
-            width:120,
-            alignItems:"center",
-            align:"center",
-            renderCell: ({row: {CourtNo}}) => {
-                return (
-                <Typography variant="h4" color={colors.grey[200]}>
-                        {CourtNo}
-                </Typography>
-                )
-            }
->>>>>>> main
         },
         {
             field: "Judge",

@@ -11,10 +11,6 @@ import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlin
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
 import  SettingsOutlined  from "@mui/icons-material/SettingsOutlined";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 const Item = ({ title, to, icon, selected, setSelected}) => {
    const theme = useTheme()
    const colors = tokens(theme)
