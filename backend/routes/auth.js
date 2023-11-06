@@ -7,7 +7,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fetchUser = require('../middleware/fetchUser')
-const JWT_SECRET = "lohithello"
+const JWT_SECRET = "projectSchool"
 // ROUTE 1: Create a User using :Post: "/api/auth/createuser". No login required 
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
