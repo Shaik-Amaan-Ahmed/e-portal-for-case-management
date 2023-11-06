@@ -6,7 +6,7 @@ import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
 import RegistrarTable from "./Components/Tables/Regsitrar";
 import SignIn from "./Scenes/Login/Login";
-
+import { MyCalendar } from "./calendar";
 
 function App() {
 
@@ -23,7 +23,8 @@ function App() {
             <Topbar/>
             <Routes>
               <Route path="/" element = {<Dashboard/>} />
-              
+              <Route path="/login" element = {<SignIn/>} />
+              <Route path="/calendar" element = {<MyCalendar/>}/>
            </Routes>
           </main> 
         </div> 
