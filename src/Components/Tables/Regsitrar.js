@@ -6,16 +6,21 @@ import  AdminPanelSettingsOutlined  from "@mui/icons-material/AdminPanelSettings
 import  LockOpenOutlined  from "@mui/icons-material/LockOpenOutlined";
 import { SecurityOutlined } from "@mui/icons-material/SecurityOutlined";
 import Header from "../Header";
+import { useMemo } from "react";
+import { Maximize } from "@mui/icons-material";
+
 
 
 const RegistrarTable = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const VISIBLE_FIELDS = ['CaseId','Prosecution','Defandant','Status','CourtNo', 'Judge']
     const columns = 
     [
         {
             field: "id",
+            width:50,
             renderHeader: () => {
                 return (
                     <Typography variant="h3" >
@@ -34,6 +39,8 @@ const RegistrarTable = () => {
         },
         {
             field: "Prosecution",
+            width:200,
+            editable:true,
             renderHeader: () => {
                 return (
                     <Typography variant="h3" >
@@ -41,7 +48,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-            flex:0.8,
+           
             cellClassName: "name-column-cell",
             renderCell: ({row: {Prosecution}}) => {
                 return (
@@ -53,6 +60,7 @@ const RegistrarTable = () => {
         },
         {
             field: "Defandant",
+            width:200,
             renderHeader: () => {
                 return (
                     <Typography variant="h3" >
@@ -60,7 +68,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-            flex:0.8,
+            
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell: ({row: {Defendant}}) => {
@@ -80,7 +88,11 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
+<<<<<<< HEAD
             flex:1,
+=======
+            width:150,
+>>>>>>> main
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell : ({row: {Status}}) => {
@@ -102,9 +114,22 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
+<<<<<<< HEAD
             type: "number",
             flex:1,
             alignItems:"center"
+=======
+            width:120,
+            alignItems:"center",
+            align:"center",
+            renderCell: ({row: {CourtNo}}) => {
+                return (
+                <Typography variant="h4" color={colors.grey[200]}>
+                        {CourtNo}
+                </Typography>
+                )
+            }
+>>>>>>> main
         },
         {
             field: "Judge",
@@ -115,7 +140,7 @@ const RegistrarTable = () => {
                     </Typography>
                 )
             },
-            flex:1,
+            width:150,
             cellClassName: "name-column-cell",
             alignItems: "center",
             renderCell: ({row: {Judge}}) => {
@@ -169,7 +194,7 @@ const RegistrarTable = () => {
     ]
 
     return (
-        <Box>
+        <Box sx={{position:"relative"}}>
             <Header title="CASES" subtitle="Managing the cases" />
             <Box>
                 <DataGrid
@@ -178,9 +203,11 @@ const RegistrarTable = () => {
                   ...data.initialState,
                   pagination: { paginationModel: { pageSize: 10 } },
                 }}
-                pageSizeOptions={[5, 10, 25]}
+                pageSizeOptions={[10, 20, 100]}
                  rows={data}
-                 columns={columns}/>
+                 rowHeight={69}
+                 columns={columns} sx={{width:"maxWidth"}}
+                 />
             </Box>
         </Box>
     )

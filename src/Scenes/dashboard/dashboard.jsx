@@ -1,15 +1,22 @@
-import { Box } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import Header from "../../Components/Header"
+import { useTheme } from "@emotion/react";
+import { tokens } from "../../themes";
 import RegistrarTable from "../../Components/Tables/Regsitrar";
 
 const Dashboard = () => {
+
+    const theme = useTheme();
+    const colors = tokens(theme)
+
     return (
+        <ThemeProvider theme={theme}>
         <Box m="20px">
             <Box>
                 <RegistrarTable/>
             </Box>
-            
         </Box>
+        </ThemeProvider>
     );
 };
 
