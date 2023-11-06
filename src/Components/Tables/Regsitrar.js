@@ -127,6 +127,26 @@ const RegistrarTable = () => {
             }
         },
         {
+            field: "district",
+            renderHeader: () => {
+                return (
+                    <Typography variant="h3" >
+                        District
+                    </Typography>
+                )
+            },
+            flex:1,
+            cellClassName: "name-column-cell",
+            alignItems: "center",
+            renderCell: ({row: {district}}) => {
+                return (
+                <Typography variant="h5" color={colors.grey[200]}>
+                        {district}
+                </Typography>
+                )
+            }
+        },
+        {
             field: "date",
             renderHeader: () => {
                 return (
