@@ -10,7 +10,6 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlined"
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
 import  SettingsOutlined  from "@mui/icons-material/SettingsOutlined";
-import Causelist from "../Causelist/causelist";
 
 const Item = ({ title, to, icon, selected, setSelected}) => {
    const theme = useTheme()
@@ -147,7 +146,6 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                      title="Cause List"
                      to="/Causelist"
                      icon={<PeopleOutlinedIcon/>}
-                     onClick ={<Causelist/>}
                      selected={selected}
                      setSelected={setSelected}
                   />

@@ -6,7 +6,6 @@ import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
 import RegistrarTable from "./Components/Tables/Regsitrar";
 import SignIn from "./Scenes/Login/Login";
-import Causelist from "./Scenes/Causelist/causelist";
 
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
             <Topbar/>
             <Routes>
               <Route path="/" element = {<Dashboard/>} />
-              <Route path="/Causelist" element = {<Causelist/>} />
            </Routes>
           </main> 
         </div> 
