@@ -19,12 +19,12 @@ const NavBar = () => {
     
     <div className=" p-2 flex justify-start w-screen bg-orange-700">
       {/* LOGO */}
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img src={Logo} style={{ width: "100px", height: "100px" }} alt="Logo" />
+      <div className="flex items-center ">
+        <img className="rounded-full w-20 h-20" src={Logo}  alt="Logo" />
         <Typography variant="h4" style={{ marginLeft: "10px" }}><span style={{fontWeight:"bold", fontSize:"1.9em"}}>HIGH COURT</span><br></br>For The State of Telangana</Typography>
       </div>
       <div className="ml-9">
-        <ul className="mt-7">
+        <ul className="mt-5">
             <li className="text-xl inline-flex p-2"><a href="/causelist">Cause List</a></li>
             <li className="text-xl inline-flex p-2"><a href="/profiles">Profiles</a></li>
             <li className="text-xl inline-flex p-2"><a href="/judgments">Judgements</a></li>
