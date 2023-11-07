@@ -8,7 +8,6 @@ export default function HomePage() {
   return (
     <Box>
       <NavBar/>
-      
     </Box>
   )
 }
