@@ -4,7 +4,6 @@ import Topbar from "./Scenes/Global/Topbar"
 import { Routes, Route } from "react-router-dom"
 import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
-import RegistrarTable from "./Components/Tables/Regsitrar";
 import SignIn from "./Scenes/Login/Login";
 import { MyCalendar } from "./calendar";
 
@@ -12,14 +11,15 @@ function App() {
 
   const [theme, colorMode] = useMode();
 
-  return (<ColorModeContext.Provider>
+  return (<ColorModeContext.Provider value={colorMode}>
 
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       
         <div className="app">
-           <Sidebar />
+        <Sidebar />
           <main className="content">
+          
             <Topbar/>
             <Routes>
               <Route path="/" element = {<Dashboard/>} />

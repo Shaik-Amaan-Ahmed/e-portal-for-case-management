@@ -3,7 +3,7 @@ import Header from "../../Components/Header"
 import { useTheme } from "@emotion/react";
 import { tokens } from "../../themes";
 import RegistrarTable from "../../Components/Tables/Regsitrar";
-
+import MyTable from "../../Components/Tables/myowntable";
 const Dashboard = () => {
 
     const theme = useTheme();

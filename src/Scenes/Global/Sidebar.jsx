@@ -18,11 +18,10 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
    return (
       <MenuItem 
          active={selected === title}
-         style={{ color: colors.grey[100]}}
          onClick={() => setSelected(title)}
          icon = {icon}  
       >
-         <Typography>{title}</Typography>
+         <Typography variant="h5">{title}</Typography>
          <Link to = {to} />
       </MenuItem>
    )
@@ -46,21 +45,20 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
             "& .pro-inner-item": {
                padding: "5px 35px 5px 20px !important",
                fontSize: "20px",
-               color: "#e0e0e0 !important"
+               
             },
             "& .pro-inner-item:hover": {
-               color: "grey !important" 
+               color: "#0096FF !important" 
             },
             "& .pro-menu-item.active": {
-               color: "#6870fa !important"
+               color: "#0096FF !important"
             },
 
             
             
          }}
-         borderRight="solid"
-         borderRightWidth="2px"
-         
+         borderRight="0.9px solid"
+         position="relative"
       >
          {/* Start */}
          <ProSidebar collapsed={isCollapsed}>
@@ -72,7 +70,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   icon= {isCollapsed? <MenuOutlined/> : undefined}
                   style={{
                      margin: "10px 0 20px 0",
-                     color: colors.grey[100],
+                     
                   }} 
                >
                   {!isCollapsed && (
@@ -83,7 +81,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                         ml="50px"
                         
                      >
-                        <Typography variant="h3" color={colors.grey[100]}>
+                        <Typography variant="h3" sx={{color:colors.black[100]}}>
                            ADMINS
                         </Typography>
                         <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -108,9 +106,9 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                      <Box textAlign="center">
                         <Typography 
                         variant="h4" 
-                        color={colors.grey[100]} 
+                        
                         fontWeight="bold" 
-                        sx={{m: "10px 0 0 0"}}
+                        sx={{m: "10px 0 0 0",color:colors.black[100]}}
                         >
                            Mark Zuck Zuck
                            </Typography>
@@ -130,36 +128,34 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   <Item 
                      title="Dashboard"
                      to="/"
-                     icon={<DashboardCustomizeOutlined/>}
+                     icon={<DashboardCustomizeOutlined sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
                   <Typography
                   variant="h6"
-                  color={colors.grey[400]}
-                  sx= {{m: "15px 0 0 25px"}}
+                  sx= {{m: "15px 0 0 25px",color:colors.black[100]}}
 
                >
-                  Data
+                  DATA
                </Typography>
                    <Item 
                      title="Cause List"
                      to="/Causelist"
-                     icon={<PeopleOutlinedIcon/>}
+                     icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
                    <Item 
                      title="Calendar"
                      to="/calendar"
-                     icon={<CalendarTodayOutlinedIcon/>}
+                     icon={<CalendarTodayOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
                    <Typography
                   variant="h6"
-                  color={colors.grey[400]}
-                  sx= {{m: "15px 0 0 25px"}}
+                  sx= {{m: "15px 0 0 25px",color:colors.black[100]}}
 
                   >
                      INFO
@@ -167,7 +163,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   <Item 
                         title="Judges"
                         to="/judges"
-                        icon={<PeopleOutlinedIcon/>}
+                        icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                         selected={selected}
                         setSelected={setSelected}
                      />
@@ -175,7 +171,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   <Item 
                         title="Lawyers"
                         to="/lawyers"
-                        icon={<PeopleOutlinedIcon/>}
+                        icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                         selected={selected}
                         setSelected={setSelected}
                      />
@@ -183,14 +179,14 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                    <Item 
                      title="Parties"
                      to="/parties"
-                     icon={<PeopleOutlinedIcon/>}
+                     icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
                   <Typography
                   variant="h6"
-                  color={colors.grey[400]}
-                  sx= {{m: "15px 0 0 25px"}}
+                  
+                  sx= {{m: "15px 0 0 25px", color:colors.black[100]}}
 
                   >
                      STATS
@@ -198,7 +194,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   <Item 
                      title="Line"
                      to="/Line"
-                     icon={<PeopleOutlinedIcon/>}
+                     icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
@@ -206,7 +202,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   <Item 
                      title="Settings"
                      to="/Settings"
-                     icon={<SettingsOutlined/>}
+                     icon={<SettingsOutlined sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
                   />
