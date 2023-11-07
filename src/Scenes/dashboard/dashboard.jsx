@@ -14,6 +14,7 @@ const Dashboard = () => {
         <Box m="20px">
             <Box>
                 <RegistrarTable/>
+
             </Box>
         </Box>
         </ThemeProvider>

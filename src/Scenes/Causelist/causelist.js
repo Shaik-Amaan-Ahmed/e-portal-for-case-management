@@ -1,8 +1,10 @@
+import React from 'react'
+import Header from '../../Components/Header'
 
-function Causelist() {
-    return (
-        <h1>Causelist</h1>
-    )
+const Causelist = () => {
+  return (
+    <Header title="CAUSE LIST"/>
+  )
 }
 
-export default Causelist;
+export default Causelist

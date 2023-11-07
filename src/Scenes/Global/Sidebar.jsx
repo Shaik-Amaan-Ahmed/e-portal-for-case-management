@@ -10,24 +10,25 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlined"
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
 import  SettingsOutlined  from "@mui/icons-material/SettingsOutlined";
+import {useNavigate} from "react-router-dom"
 
 const Item = ({ title, to, icon, selected, setSelected}) => {
    const theme = useTheme()
    const colors = tokens(theme)
-   
+   let navigate = useNavigate();
    return (
       <MenuItem 
-         active={selected === title}
-         onClick={() => setSelected(title)}
+      active={selected === title}
+         onClick={() => navigate(to)}
          icon = {icon}  
       >
          <Typography variant="h5">{title}</Typography>
-         <Link to = {to} />
+         
       </MenuItem>
    )
 }
 
- const Sidebar = () => {
+const Sidebar = () => {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
    const [isCollapsed, setIsCollapsed] = useState(false);
@@ -141,7 +142,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                </Typography>
                    <Item 
                      title="Cause List"
-                     to="/Causelist"
+                     to="/causelist"
                      icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
@@ -176,13 +177,6 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                         setSelected={setSelected}
                      />
 
-                   <Item 
-                     title="Parties"
-                     to="/parties"
-                     icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
-                     selected={selected}
-                     setSelected={setSelected}
-                  />
                   <Typography
                   variant="h6"
                   
@@ -193,7 +187,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
                   </Typography>
                   <Item 
                      title="Line"
-                     to="/Line"
+                     to="/line"
                      icon={<PeopleOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
@@ -201,7 +195,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
 
                   <Item 
                      title="Settings"
-                     to="/Settings"
+                     to="/settings"
                      icon={<SettingsOutlined sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}

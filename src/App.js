@@ -5,7 +5,10 @@ import { Routes, Route } from "react-router-dom"
 import Sidebar from "./Scenes/Global/Sidebar"
 import Dashboard from "./Scenes/dashboard/dashboard";
 import SignIn from "./Scenes/Login/Login";
-import { MyCalendar } from "./calendar";
+import { MyCalendar } from "./Scenes/calendar/calendar";
+import Causelist from "./Scenes/Causelist/causelist";
+import Judges from "./Scenes/Judges&Lawers/judges";
+import Lawers from "./Scenes/Judges&Lawers/lawers";
 
 function App() {
 
@@ -22,10 +25,14 @@ function App() {
           
             <Topbar/>
             <Routes>
-              <Route path="/" element = {<Dashboard/>} />
-              <Route path="/login" element = {<SignIn/>} />
-              <Route path="/calendar" element = {<MyCalendar/>}/>
-           </Routes>
+              <Route exact path="/" element = {<Dashboard/>} />
+              <Route exact path="/login" element = {<SignIn/>} />
+              <Route exact path="/calendar" element = {<MyCalendar/>}/>
+              <Route exact path="/causelist" element = {<Causelist/>}/>
+              <Route exact path="/judges" element = {<Judges/>}/>
+              <Route exact path="/lawyers" element = {<Lawers/>}/>
+              <Route exact path="/parties" element = {<MyCalendar/>}/>
+           </Routes> 
           </main> 
         </div> 
       </ThemeProvider>
