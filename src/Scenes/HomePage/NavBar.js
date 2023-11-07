@@ -20,7 +20,7 @@ const NavBar = () => {
     <div className=" p-2 flex justify-start w-screen bg-orange-700">
       {/* LOGO */}
       <div className="flex items-center ">
-        <img className="rounded-full w-20 h-20" src={Logo}  alt="Logo" />
+        <a href="/"><img className="rounded-full w-20 h-20" src={Logo}  alt="Logo" /></a>
         <Typography variant="h4" style={{ marginLeft: "10px" }}><span style={{fontWeight:"bold", fontSize:"1.9em"}}>HIGH COURT</span><br></br>For The State of Telangana</Typography>
       </div>
       <div className="justify-between inline-flex">
