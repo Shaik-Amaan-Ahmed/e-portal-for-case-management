@@ -1,31 +1,31 @@
 import {createContext, useState, useMemo} from "react";
 import {createTheme} from "@mui/material";
 
-
 //color design tokens
 export const tokens = (mode) => ({
     ...(mode==='dark' ? {
-        grey: {
-            100: "#e0e0e0",
-            200: "#c2c2c2",
-            300: "#a3a3a3",
-            400: "#858585",
-            500: "#666666",
-            600: "#525252",
-            700: "#3d3d3d",
-            800: "#292929",
-            900: "#141414"
+        black: {
+            100: "#cccccc",
+            200: "#999999",
+            300: "#666666",
+            400: "#333333",
+            500: "#000000",
+            600: "#000000",
+            700: "#000000",
+            800: "#000000",
+            900: "#000000"
         },
+
         primary: {
-            100: "#d0d1d5",
-            200: "#a1a4ab",
-            300: "#727681",
-            400: "#434957",
-            500: "#141b2d",
-            600: "#101624",
-            700: "#0c101b",
-            800: "#080b12",
-            900: "#040509"
+            100: "#cccccc",
+            200: "#999999",
+            300: "#666666",
+            400: "#333333",
+            500: "#000000",
+            600: "#000000",
+            700: "#000000",
+            800: "#000000",
+            900: "#000000"
         },
         greenAccent: {
             100: "#dbf5ee",
@@ -62,7 +62,7 @@ export const tokens = (mode) => ({
         },
     }
     : {
-        grey: {
+        black: {
             100: "#141414",
             200: "#292929",
             300: "#3d3d3d",
@@ -74,15 +74,15 @@ export const tokens = (mode) => ({
             900: "#e0e0e0",
         },
         primary: {
-            100: "#040509",
-            200: "#080b12",
-            300: "#0c101b",
-            400: "#101624",
-            500: "#141b2d",
-            600: "#434957",
-            700: "#727681",
-            800: "#a1a4ab",
-            900: "#d0d1d5",
+            100: "#ffffff",
+            200: "#ffffff",
+            300: "#ffffff",
+            400: "#ffffff",
+            500: "#ffffff",
+            600: "#cccccc",
+            700: "#999999",
+            800: "#666666",
+            900: "#333333"
         },
         greenAccent: {
             100: "#0f2922",
@@ -137,12 +137,12 @@ export const themeSettings = (mode) => {
                     main: colors.greenAccent[500],
                 },
                 neutral: {
-                    dark: colors.grey[700],
-                    main: colors.grey[500],
-                    light: colors.grey[100]
+                    dark: colors.black[700],
+                    main: colors.black[500],
+                    light: colors.black[100]
                 },
                 background: {
-                    default:colors.primary[500],
+                    default: colors.primary[500],
                 }
             }:{
                 primary : {
@@ -153,12 +153,12 @@ export const themeSettings = (mode) => {
                     main: colors.greenAccent[500],
                 },
                 neutral: {
-                    dark: colors.grey[700],
-                    main: colors.grey[500],
-                    light: colors.grey[100]
+                    dark: colors.black[700],
+                    main: colors.black[500],
+                    light: colors.black[100]
                 },
                 background: {
-                    default: "#fcfcfc",
+                    default: "#FFFFFF",
                 },
             }),
         },
@@ -196,10 +196,7 @@ export const themeSettings = (mode) => {
 
 //context for color mode
 export const ColorModeContext = createContext({
-    toggleColorMode: () => {
-
-    },
-    
+    toggleColorMode: () => {},
 });
 
 export const useMode = () => {

@@ -8,6 +8,9 @@ export default function HomePage() {
   return (
     <Box>
       <NavBar/>
+      <div>
+        <p className='italic m-40'>Updates and Notifications</p>
+      </div>
     </Box>
   )
 }
