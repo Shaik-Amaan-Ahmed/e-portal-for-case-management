@@ -18,7 +18,7 @@ const NavBar = () => {
 
   return (
 
-    <div className="p-2 flex justify-between items-center w-screen sticky top-0">
+    <div className="p-2 flex justify-between items-center w-screen fixed">
       <ul>
         <li className="text-xl inline-flex p-2 mx-5"><a href="/causelist">Cause List</a></li>
         <li className="text-xl inline-flex p-2 mx-5"><a href="/profiles">Profiles</a></li>
@@ -30,7 +30,7 @@ const NavBar = () => {
       </div>
       <ul className="mr-4">
         <li className="text-xl inline-flex p-2 mx-5"><a href="/judgments">Judgements</a></li>
-        <li className="text-xl inline-flex p-2 mx-5"><button className="bg-red-500 py-1 px-5 rounded-lg">Login</button></li>
+        <li className="text-xl inline-flex p-2 mx-5"><button className="bg-orange-700 py-1 px-5 rounded-lg">Login</button></li>
       </ul>
     </div>
 

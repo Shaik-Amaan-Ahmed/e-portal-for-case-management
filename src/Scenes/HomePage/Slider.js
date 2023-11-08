@@ -1,8 +1,10 @@
 import React from 'react'
+import { Box } from '@mui/material'
+
 
 export default function Slider() {
   return (
-    <div>
+    <div className='mt-28'>
       <Box sx={{backgroundImage:"url('https://tshc.gov.in/dds/images/6.jpg')",backgroundRepeat: `no-repeat`,
             backgroundSize: 'cover',
             backgroundPosition:"center",

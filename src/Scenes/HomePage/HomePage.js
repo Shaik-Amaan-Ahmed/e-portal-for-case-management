@@ -10,9 +10,9 @@ import Slider from './Slider';
 export default function HomePage() {
   return (
     <>
-    <Box>
+      <div>
       <NavBar/>
-      
+      <Slider/>
       {/* <div className='flex p-1 w-30'>
         <h2 className=''>Updates and Notifications</h2>
         <br/>
@@ -25,7 +25,7 @@ export default function HomePage() {
       <NoticeBoard/>
       <NoticeBoard/>
       <NoticeBoard/>      
-      </Box>
+      </div>
       </>
     
   )
