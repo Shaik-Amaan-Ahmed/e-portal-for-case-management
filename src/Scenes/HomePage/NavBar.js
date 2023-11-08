@@ -9,6 +9,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import Logo from "./logo3.jpg";
+import { red } from "@mui/material/colors";
 
 const NavBar = () => {
   const theme = useTheme();
@@ -16,49 +17,23 @@ const NavBar = () => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    
-    <div className=" p-2 flex justify-start w-screen bg-orange-700">
-      {/* LOGO */}
-      <div className="flex items-center ">
-        <a href="/"><img className="rounded-full w-20 h-20" src={Logo}  alt="Logo" /></a>
-        <Typography variant="h4" style={{ marginLeft: "10px" }}><span style={{fontWeight:"bold", fontSize:"1.9em"}}>HIGH COURT</span><br></br>For The State of Telangana</Typography>
-      </div>
-      <div className="justify-between inline-flex">
-        <div className="ml-9">
-          <ul className="mt-5">
-              <li className="text-xl inline-flex p-2"><a href="/causelist">Cause List</a></li>
-              <li className="text-xl inline-flex p-2"><a href="/profiles">Profiles</a></li>
-              <li className="text-xl inline-flex p-2"><a href="/judgments">Judgements</a></li>
-              <li className="text-xl inline-flex p-2"><a href="/login">Login</a></li>
-          </ul>
-        </div>
-        {/* <div className="mt-6">
-          <IconButton sx={{ml:8}}>
-            {theme.palette.mode==="dark"?<LightModeOutlinedIcon/>: <DarkModeOutlinedIcon/>}
-          </IconButton>
-        </div> */}
-      </div>
-      
-            
-      
 
-      {/* ICONS
-      <Box display="flex">
-        <IconButton>
-          <LightModeOutlinedIcon/>
-        </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
-      </Box> */}
+    <div className="p-2 flex justify-between items-center w-screen sticky top-0">
+      <ul>
+        <li className="text-xl inline-flex p-2 mx-5"><a href="/causelist">Cause List</a></li>
+        <li className="text-xl inline-flex p-2 mx-5"><a href="/profiles">Profiles</a></li>
+      </ul>
+      {/* LOGO */}
+      <div className="flex items-center">
+        <a href="/"><img className="rounded-full w-20 h-20" src={Logo} alt="Logo" /></a>
+        <Typography variant="h4" style={{ marginLeft: "10px" }}><span style={{ fontWeight: "bold", fontSize: "1.9em" }}>HIGH COURT</span><br></br>For The State of Telangana</Typography>
+      </div>
+      <ul className="mr-4">
+        <li className="text-xl inline-flex p-2 mx-5"><a href="/judgments">Judgements</a></li>
+        <li className="text-xl inline-flex p-2 mx-5"><button className="bg-red-500 py-1 px-5 rounded-lg">Login</button></li>
+      </ul>
     </div>
-    
+
   );
 };
 

@@ -1,9 +1,13 @@
 li {
     font-size: larger;
     margin-top: 3px;
+    list-style-type: disc;
 }
 
 h2 {
     font-size: xx-large;
     font-style: italic;
 }
+body {
+    overflow-x: hidden;
+  }
