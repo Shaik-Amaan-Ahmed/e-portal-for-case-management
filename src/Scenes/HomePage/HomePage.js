@@ -6,27 +6,50 @@ import Header from '../../Components/Header';
 import "./homepage.css"
 import NoticeBoard from './NoticeBoard';
 import Slider from './Slider';
+import { useState, useEffect } from 'react';
+import { ArrowUpwardRounded } from '@mui/icons-material';
+
+
 
 export default function HomePage() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Show button when page is scrolled up to given distance
+  const toggleVisibility = () => {
+    if (window.scrollY) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  // Event to listen to scroll
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
   return (
     <>
       <div>
-      <NavBar/>
-      <Slider/>
-      {/* <div className='flex p-1 w-30'>
-        <h2 className=''>Updates and Notifications</h2>
-        <br/>
-        <ul>
-          <li>
-            <a href="http://" target="_blank" rel="noopener noreferrer">"NJA, BHOPAL - Relief Arrangements - Nomination of (02) Judicial Officers of the District Judiciary to participate in the Academic Programme (No.P-1372) scheduled on 18.11.2023 and 19.11.2023 at NJA, Bhopal - Orders - Issued - B.Spl., dated 07-11-2023"</a>
-          </li>
-        </ul>
-      </div> */}
-      <NoticeBoard/>
-      <NoticeBoard/>
-      <NoticeBoard/>      
+        <NavBar />
+        <Slider />
+        {isVisible &&
+          <button
+            className="bg-orange-700 py-2 px-2 rounded-full"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            style={{ position: 'fixed', bottom: '20px', right: '20px' }}
+          >
+            <ArrowUpwardRounded fontSize='large' />
+          </button>
+        }
+
+        <NoticeBoard />
+        <NoticeBoard />
+        <NoticeBoard />
+
+
       </div>
-      </>
-    
+    </>
+
   )
 }

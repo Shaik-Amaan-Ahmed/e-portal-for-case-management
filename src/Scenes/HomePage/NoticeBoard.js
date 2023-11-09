@@ -5,9 +5,9 @@ export default function
 () {
   return (
     <div>
-        <Box width="maxContent" marginTop={5}  marginLeft={100} marginRight={2} justifyItems="start"> 
+        <Box width="maxContent" paddingTop={4} marginTop={5}  marginLeft={100} marginRight={2} justifyItems="start"> 
       <Box border="2px solid" padding="10px 20px 20px 20px">
-      <h2 >Updates and Notifications <span>:</span></h2>
+      <h2 className='font-semibold'>Updates and Notifications <span>:</span></h2>
        
        <ul>
          <li>
