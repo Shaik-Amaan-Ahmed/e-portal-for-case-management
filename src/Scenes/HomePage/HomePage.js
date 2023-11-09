@@ -1,8 +1,5 @@
 import React from 'react';
-import { Typography, Box, useTheme } from "@mui/material";
-import { tokens } from '../../themes';
 import NavBar from './NavBar';
-import Header from '../../Components/Header';
 import "./homepage.css"
 import NoticeBoard from './NoticeBoard';
 import Slider from './Slider';

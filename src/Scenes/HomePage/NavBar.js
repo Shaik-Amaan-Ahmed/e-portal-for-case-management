@@ -18,7 +18,7 @@ const NavBar = () => {
 
   return (
 
-    <div className="p-2 flex justify-between items-center w-screen fixed">
+    <div className="p-2 flex justify-between items-center w-screen fixed" style={{backgroundColor: 'rgba(70, 130, 180, 0.8)'}}>
       <ul>
         <li className="text-xl inline-flex p-2 mx-5"><a href="/causelist">Cause List</a></li>
         <li className="text-xl inline-flex p-2 mx-5"><a href="/profiles">Profiles</a></li>
