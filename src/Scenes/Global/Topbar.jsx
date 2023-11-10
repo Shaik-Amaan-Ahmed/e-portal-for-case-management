@@ -15,36 +15,45 @@ const Topbar = () => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2} position="sticky">
+    <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
-      <Box
-        display="flex"
-        borderRadius="3px"
-      >
-        <InputBase style={{borderRadius:15, width:200, border:"solid", placeContent:"center"}} placeholder="Search" id="search-main"/>
-        <IconButton type="button" sx={{border:"solid"}}>
+      <Box display="flex" borderRadius="3px">
+        <input
+          style={{
+            width: "17rem",
+            border: "solid",
+            borderRadius: 40,
+            height: 40,
+            justifyContent: "center",
+          }}
+          placeholder="Search"
+        />
+        <IconButton type="button" sx={{ border: "solid" }}>
           <SearchIcon />
         </IconButton>
       </Box>
 
       {/* ICONS */}
       <Box display="flex">
-        <IconButton sx={{ml:8}} onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode==="dark"?<LightModeOutlinedIcon/>: <DarkModeOutlinedIcon/>}
+        <IconButton sx={{ ml: 8 }} onClick={colorMode.toggleColorMode}>
+          {theme.palette.mode === "dark" ? (
+            <LightModeOutlinedIcon />
+          ) : (
+            <DarkModeOutlinedIcon />
+          )}
         </IconButton>
         <IconButton>
-          <NotificationsOutlinedIcon/>
+          <NotificationsOutlinedIcon />
         </IconButton>
         <IconButton>
-          <SettingsOutlinedIcon/>
+          <SettingsOutlinedIcon />
         </IconButton>
         <IconButton>
-          <PersonOutlinedIcon/>
+          <PersonOutlinedIcon />
         </IconButton>
       </Box>
     </Box>
   );
 };
-
 
 export default Topbar;

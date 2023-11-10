@@ -10,15 +10,16 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import  CalendarTodayOutlinedIcon  from "@mui/icons-material/CalendarTodayOutlined"
 import  MenuOutlined  from "@mui/icons-material/MenuOutlined";
 import  SettingsOutlined  from "@mui/icons-material/SettingsOutlined";
-import {useNavigate} from "react-router-dom"
+import Causelist from "../Causelist/causelist";
+import { useNavigate } from "react-router-dom";
 
 const Item = ({ title, to, icon, selected, setSelected}) => {
    const theme = useTheme()
    const colors = tokens(theme)
-   let navigate = useNavigate();
+   const navigate = useNavigate()
    return (
       <MenuItem 
-      active={selected === title}
+         active={selected === title}
          onClick={() => navigate(to)}
          icon = {icon}  
       >
@@ -90,7 +91,6 @@ const Sidebar = () => {
                         </IconButton>
                      </Box>
                   )}
-               
                </MenuItem>
                   {/* USER */}
                {!isCollapsed && (
@@ -149,7 +149,7 @@ const Sidebar = () => {
                   />
                    <Item 
                      title="Calendar"
-                     to="/calendar"
+                     to="/Calendar"
                      icon={<CalendarTodayOutlinedIcon sx={{color: colors.blueAccent[100]}}/>}
                      selected={selected}
                      setSelected={setSelected}
@@ -179,9 +179,7 @@ const Sidebar = () => {
 
                   <Typography
                   variant="h6"
-                  
                   sx= {{m: "15px 0 0 25px", color:colors.black[100]}}
-
                   >
                      STATS
                   </Typography>
