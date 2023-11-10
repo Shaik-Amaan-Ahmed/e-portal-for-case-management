@@ -1,7 +1,8 @@
+import Header from "../../Components/Header";
 
 function Causelist() {
     return (
-        <h1>Causelist</h1>
+        <Header title="Cause list" subtitle="View causelist"/>
     )
 }
 

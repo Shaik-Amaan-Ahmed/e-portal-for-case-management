@@ -11,7 +11,7 @@ const Dashboard = () => {
 
     return (
         <ThemeProvider theme={theme}>
-        <Box m="20px">
+        <Box ml="20px">
             <Box>
                 <RegistrarTable/>
             </Box>
