@@ -16,27 +16,30 @@ const EventItem = ({ info }) => {
 
 
 export const MyCalendar = () => {
-  // const [events, setEvents] = useState([]);
-  const [etitle, setEtitle] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [etitle, setEtitle] = useState(null);
   const ref = useRef(null);
-  const handleSelect = (info) => {
+  const handleSelect = (info,e) => {
     const { start, end } = info;
+    setEvents([
+      ...events,
+      {
+        start,
+        end,
+        title: etitle
+      }
+    ]);
     ref.current.click();
+    console.log(events)
 
-    // setEvents([
-    //   ...events,
-    //   {
-    //     id: uuid(),
-    //     title: items.title,
-    //     start,
-    //     end
-    //   }
-    // // ]);
-    // console.log(events)
   }
   const onChange = (e) => {
-    setEtitle()
-}
+    e.preventDefault();
+    setEtitle(e.target.value);
+  }
+   
+
+
   return (
     <>
       <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -51,15 +54,16 @@ export const MyCalendar = () => {
             </div>
             <div className="modal-body">
               <form>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label htmlFor="title" className="form-label">Enter Title</label>
-                  <input type="text" className="form-control" id="title"  value={etitle} onChange={onChange} name={etitle} aria-describedby="title" />
-                </div>
+                  <input type="text" className="form-control" id="title" onChange={onChange}  aria-describedby="title" />
+                </div> */}
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum delectus impedit a eos, deleniti temporibus consectetur quos vero nulla libero, tempore, quidem ratione recusandae. Praesentium aut voluptatibus iusto officia distinctio odio, ab enim harum? Explicabo minima sed debitis odio laboriosam quod eaque earum voluptatem eius quis. Quibusdam eos ut soluta, officia iste nisi, incidunt atque, placeat ea veniam aut fugit! Impedit minus numquam veritatis cumque aliquam eum dignissimos praesentium labore beatae corrupti sint quidem optio, a recusandae temporibus asperiores, adipisci fugiat! Obcaecati illo culpa consequatur asperiores nulla commodi iure aperiam exercitationem molestias. Aspernatur, ducimus veritatis veniam animi expedita dicta temporibus.</p>
               </form>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" className="btn btn-primary">Save changes</button>
+              {/* <button type="submit" className="btn btn-primary" onClick={handleSelect}>Save changes</button> */}
             </div>
           </div>
         </div>
@@ -69,21 +73,14 @@ export const MyCalendar = () => {
         <FullCalendar
           // editable
           selectable
-          select={handleSelect}
+          // select={handleSelect}
           headerToolbar={{
             start: "today prev next",
             center: "title",
             end: "dayGridMonth dayGridWeek dayGridDay"
           }}
-          events={[
-            { title: 'text', date: '2023-11-08' },
-            { title: 'event 2', date: '2023-11-09' },
-            { title: 'event 2', date: '2023-11-10' },
-            { title: 'event 2', date: '2023-11-11' },
-            { title: 'event 2', date: '2023-11-12' },
-            { title: 'event 2', date: '2023-11-08' },
-            { title: 'event 2', date: '2023-11-08' }
-          ]}
+          eventClick={handleSelect}
+          events={events}
           eventContent={(info) => <EventItem info={info} />}
           plugins={[daygridPlugin, interactionPlugin]}
           views={["dayGridMonth", "dayGridWeek", "dayGridDay"]}
@@ -92,3 +89,4 @@ export const MyCalendar = () => {
     </>
   );
 };
+

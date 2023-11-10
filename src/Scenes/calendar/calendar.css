@@ -1,0 +1,69 @@
+/* Style for the Calendar container */
+.calendar {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .heading {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Style for the input fields and buttons */
+
+  .date,.description, .add,.edit,.delete {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .add,.edit,.delete {
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .add,.delete,.edit:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the events list */
+  .ulist {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .list {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .list .edit,.delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+  }
+  
+  .list .add,.delete:hover {
+    background-color: #a01c2e;
+  }
+  
