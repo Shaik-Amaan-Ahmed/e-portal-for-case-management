@@ -5,6 +5,7 @@ import NoticeBoard from './NoticeBoard';
 import Slider from './Slider';
 import { useState, useEffect } from 'react';
 import { ArrowUpwardRounded } from '@mui/icons-material';
+import Footer from './Footer';
 
 
 
@@ -43,8 +44,7 @@ export default function HomePage() {
         <NoticeBoard />
         <NoticeBoard />
         <NoticeBoard />
-
-
+        <Footer/> 
       </div>
     </>
 
