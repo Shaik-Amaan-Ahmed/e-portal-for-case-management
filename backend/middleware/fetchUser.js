@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = "projectSchool"
+require('dotenv').config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 const fetchUser = (req, res, next) =>{
