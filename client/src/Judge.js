@@ -6,6 +6,7 @@ import Sidebar from "./Scenes/Global/Sidebar";
 import Calendar from "./Scenes/Calendar/calendar";
 import Causelist from "./Scenes/Causelist/causelist";
 import RegistrarTable from "./Components/Tables/Regsitrar";
+import Home from "./Scenes/dashboard/dashboard";
 import SignIn from "./Scenes/Login/login";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -43,9 +44,10 @@ function Judge() {
               <Topbar />
               <div className="side-content">
               <Routes>
-                <Route path="/" element={<RegistrarTable />} />
-                <Route path="/Causelist" element={<Causelist />} />
-                <Route path="/Calendar" element={<Calendar />} />
+                <Route path="/cases" element={<RegistrarTable />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/Causelist" element={<Causelist />} />
+                  <Route path="/Calendar" element={<Calendar />} />
               </Routes>
               </div>
             </main>
