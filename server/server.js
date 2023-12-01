@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
+const createAuth = require("./auth/createUser");
 const judgeToken = require("./verifyToken/judgeToken");
 require("dotenv").config();
 
@@ -39,7 +40,7 @@ app.use(
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/judge", judgeToken);
-
+app.use("/createuser", createAuth);
 app
   .listen(port, (res, req) => {
     console.log(`Server is running on port: ${port}`);
