@@ -10,6 +10,10 @@ body,
     font-family: 'Source Sans Pro',sans-serif;
 }
 
+.side-content {
+    margin-left:20vh;
+}
+
 .app {
     display: flex;
     position: relative;

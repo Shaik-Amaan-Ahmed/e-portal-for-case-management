@@ -7,6 +7,7 @@ const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
 const createAuth = require("./auth/createUser");
 const judgeToken = require("./verifyToken/judgeToken");
+const clientToken = require("./verifyToken/clientToken");
 require("dotenv").config();
 
 const app = express();
@@ -41,6 +42,8 @@ app.use("/login", login);
 app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/createuser", createAuth);
+app.use("/client",clientToken);
+
 app
   .listen(port, (res, req) => {
     console.log(`Server is running on port: ${port}`);

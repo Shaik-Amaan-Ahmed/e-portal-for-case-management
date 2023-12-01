@@ -41,12 +41,13 @@ function Judge() {
             </Box>
             <main className="content">
               <Topbar />
-              
+              <div className="side-content">
               <Routes>
                 <Route path="/" element={<RegistrarTable />} />
                 <Route path="/Causelist" element={<Causelist />} />
                 <Route path="/Calendar" element={<Calendar />} />
               </Routes>
+              </div>
             </main>
           </div>
         </ThemeProvider>
