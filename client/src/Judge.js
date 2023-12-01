@@ -1,0 +1,61 @@
+import { ColorModeContext, useMode } from "./themes";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import Topbar from "./Scenes/Global/Topbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./Scenes/Global/Sidebar";
+import Calendar from "./Scenes/Calendar/calendar";
+import Causelist from "./Scenes/Causelist/causelist";
+import RegistrarTable from "./Components/Tables/Regsitrar";
+import SignIn from "./Scenes/Login/login";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
+import axios from "axios";
+
+function Judge() {
+  const [theme, colorMode] = useMode();
+  const [isloggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    axios.get("http://localhost:64000/judge").then((res) => {
+      if (res.data.message === "success") {
+        setIsLoggedIn(true);
+        window.history.pushState(null, "", "/judge");
+      } else {
+        setIsLoggedIn(false);
+        navigate("/login");
+      }
+    });
+  }, [isloggedIn]);
+
+  return ( 
+    isloggedIn ? (
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="app">
+            <Box>
+              <Sidebar />
+            </Box>
+            <main className="content">
+              <Topbar />
+              
+              <Routes>
+                <Route path="/" element={<RegistrarTable />} />
+                <Route path="/Causelist" element={<Causelist />} />
+                <Route path="/Calendar" element={<Calendar />} />
+              </Routes>
+            </main>
+          </div>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    ) : (
+      navigate("/login")
+      
+    )
+  );
+}
+
+export default Judge;
