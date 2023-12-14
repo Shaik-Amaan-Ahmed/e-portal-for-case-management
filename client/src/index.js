@@ -5,6 +5,7 @@ import Judge from "./Judge";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./Scenes/Login/login";
+import HomePage from "./Scenes/HomePage/HomePage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,6 +13,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/judge/*" element={<Judge/>} />
+        <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
