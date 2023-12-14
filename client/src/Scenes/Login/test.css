@@ -1,0 +1,6 @@
+.outer-div {
+    display: "flex";
+        justify-items: "center";
+        margin-block: auto;
+        height: "100vh";
+}
