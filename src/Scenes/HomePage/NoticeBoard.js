@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-export default function 
-() {
+export default function NoticeBoard() {
   return (
     <div>
         <Box width="maxContent" paddingTop={4} marginTop={5}  marginLeft={100} marginRight={2} justifyItems="start"> 
