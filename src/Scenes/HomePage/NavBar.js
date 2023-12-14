@@ -18,7 +18,7 @@ const NavBar = () => {
 
   return (
 
-    <div className="p-2 flex justify-between items-center w-screen fixed" style={{ backgroundColor: 'rgba(70, 130, 180, 0.8)' }}>
+    <div className="p-2 flex justify-between items-center w-screen fixed" style={{ backgroundColor: 'rgba(70, 130, 180, 1)' }}>
       <div className="flex-1">
         <div className="flex">
         <ul>
