@@ -28,7 +28,8 @@ router.post('/judge', [
         }
         // const salt = await bcrypt.genSalt(3);
         // const secPass = await bcrypt.hash(req.body.password, salt);
-        //create a new user
+        //create a new 
+        
         user = await Judge.create({
             username: req.body.username,
             password: req.body.password, //secPass

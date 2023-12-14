@@ -41,8 +41,8 @@ function Judge() {
               <Sidebar />
             </Box>
             <main className="content">
-              <Topbar />
               <div className="side-content">
+              <Topbar />
               <Routes>
                 <Route path="/cases" element={<RegistrarTable />} />
                   <Route path="/" element={<Home />} />
