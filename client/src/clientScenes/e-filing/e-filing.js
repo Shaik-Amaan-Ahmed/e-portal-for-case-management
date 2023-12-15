@@ -7,6 +7,7 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
+import RespondantForm from "../../Components/Forms/respondent-form/respondent-form";
 
 const steps = [
   "Enter plaint details",
@@ -105,6 +106,7 @@ const Efiling = () => {
               {/* making forms */}
               
               {activeStep === 0 && (<PlaintForm />)}
+              {activeStep === 1 && (<RespondantForm />)}
 
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
