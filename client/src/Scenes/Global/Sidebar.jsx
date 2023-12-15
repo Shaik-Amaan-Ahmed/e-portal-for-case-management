@@ -57,6 +57,7 @@ const Sidebar = () => {
         width: "20vh",
         flexDirection: "column",
         backgroundColor: theme.palette.background.paper,
+        overflowY: "scroll",
       }}
     >
       <div className="inner-items">
