@@ -1,15 +1,7 @@
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../themes";
-import InputBase from "@mui/material/InputBase";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchIcon from "@mui/icons-material/Search";
 import Logo from "./logo3.jpg";
-import { red } from "@mui/material/colors";
 
 const NavBar = () => {
   const theme = useTheme();
@@ -40,7 +32,7 @@ const NavBar = () => {
       <div className="flex-1">
         <div className=" flex justify-end">
           <ul className="mr-4">
-            <li className="text-xl inline-flex p-2 mx-5 hover:bg-orange-700 py-1 px-5 rounded-lg"><a href="/efiling">E-Filing</a></li>
+            <li className="text-xl inline-flex p-2 mx-5 hover:bg-orange-700 rounded-lg"><a href="/efiling">E-Filing</a></li>
             <li className="text-xl inline-flex p-2 mx-5"><a href="/login" className="bg-orange-700 py-1 px-5 rounded-lg">Login</a></li>
           </ul>
         </div>
