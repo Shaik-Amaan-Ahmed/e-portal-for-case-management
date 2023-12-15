@@ -33,7 +33,7 @@ const NavBar = () => {
         <div className=" flex justify-end">
           <ul className="mr-4">
             <li className="text-xl inline-flex p-2 mx-5 hover:bg-orange-700 rounded-lg"><a href="/efiling">E-Filing</a></li>
-            <li className="text-xl inline-flex p-2 mx-5"><a href="/login" className="bg-orange-700 py-1 px-5 rounded-lg">Login</a></li>
+            <li className="text-xl inline-flex p-2 mx-5 bg-orange-700 rounded-lg"><a href="/login" className="">Login</a></li>
           </ul>
         </div>
       </div>
