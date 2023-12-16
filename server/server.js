@@ -5,9 +5,9 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
-const createAuth = require("./auth/createUser");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
+const registerClient = require("./create-docs/clientRegister");
 require("dotenv").config();
 
 const app = express();
@@ -41,8 +41,9 @@ app.use(
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/judge", judgeToken);
-app.use("/createuser", createAuth);
-app.use("/client",clientToken);
+app.use("/client", clientToken);
+app.use('/register', registerClient);
+
 
 app
   .listen(port, (res, req) => {

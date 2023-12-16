@@ -8,31 +8,31 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 export default function SignIn() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("judge");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
-  const data = { username, password ,role};
+  const data = { email, password, role };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:64000/login/"+role;
+    const url = "http://localhost:64000/login/" + role;
     const res = await axios.post(url, data);
-    if (res.data.status === "Success") {
-      navigate("/"+role);
-    } else {
-      alert("Invalid Credentials");
-      navigate('/login');
-    }
-  
 
+    if (res.data.status === "Success") {
+      navigate("/" + role);
+    } else {
+      alert("Invalid Credentialsss");
+      navigate("/login");
+    }
   };
   return (
     <ThemeProvider theme={theme}>
@@ -93,7 +93,7 @@ export default function SignIn() {
                   background: "white",
                   borderRadius: "8px",
                 }}
-                onClick={()=>setRole("registrar")}
+                onClick={() => setRole("registrar")}
               >
                 Registrar
               </button>
@@ -103,18 +103,26 @@ export default function SignIn() {
                   background: "white",
                   borderRadius: "8px",
                 }}
-                onClick={()=>setRole("client")}
+                onClick={() => setRole("client")}
               >
                 Client
               </button>
             </div>
-            <div className="roles" style={{display:"flex", justifyContent:"center"}}> 
-              <Typography variant="h4" justifySelf="center"> {role}</Typography>
+            <div
+              className="roles"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Typography variant="h4" justifySelf="center">
+                {" "}
+                {role}
+              </Typography>
             </div>
-            
+
             <input
               name="remember"
-              value={username}
+              type="text"
+              value={email}
+              required="true"
               className="username"
               style={{
                 padding: "10px",
@@ -124,15 +132,15 @@ export default function SignIn() {
                 borderRadius: "10px",
                 marginTop: "auto",
               }}
-              defaultValue="true"
-              placeholder="Username"
+              placeholder="Email"
               onChange={(e) => setUsername(e.target.value)}
-            />{" "}
+            />
             <br />
             <input
-              name="remember"
+              type="password"
               value={password}
               className="username"
+              required="true"
               style={{
                 padding: "10px",
                 margin: "10px",
@@ -140,15 +148,15 @@ export default function SignIn() {
                 width: "90%",
                 borderRadius: "10px",
               }}
-              defaultValue="true"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
-            />{" "}
+            />
             <br />
             <div style={{ display: "flex" }}>
               <button
                 className="submit"
                 onClick={handleSubmit}
+                onSubmit={handleSubmit}
                 type="text"
                 style={{
                   width: "50%",

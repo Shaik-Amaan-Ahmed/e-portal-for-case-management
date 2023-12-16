@@ -12,7 +12,7 @@ import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import Causelist from "../Causelist/causelist";
 import { useNavigate } from "react-router-dom";
 import "./sidebar.css";
-import { RoleContext } from "../../hooks/RoleContext";
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();

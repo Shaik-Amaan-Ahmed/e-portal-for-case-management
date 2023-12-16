@@ -5,18 +5,23 @@ import Judge from "./Judge";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./Scenes/Login/login";
-import HomePage from "./Scenes/HomePage/HomePage";
+import Client from "./Clients";
+import Register from "./Scenes/Register/register";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
+    
     <BrowserRouter>
       <Routes>
         <Route path="/judge/*" element={<Judge/>} />
-        <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<SignIn />} />
+        <Route path="/client/*" element={<Client/>} />
+        <Route path="/register" element={<Register/>} />
       </Routes>
     </BrowserRouter>
+    
   </React.StrictMode>
 );
 
