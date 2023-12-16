@@ -17,11 +17,14 @@ export const Item = ({type, placeholder, name}) => {
   )
 }
 
-const RespondantForm = () => {
+
+
+  const RespondantForm = (activeStep) => {
   const petionerType = ["Individual", "Group"];
   const relation = ["Son of", "Daughter of", "Husband of", "Wife of", "Other"];
   const caseCategory = ["one", "two", "three"];
   const [earlierCourts, setEarlierCourts] = useState(false);
+  
   const genders = [
     "Male",
     "Female",
@@ -83,8 +86,6 @@ const RespondantForm = () => {
     "Two-Spirit",
   ];
 
-  
-
   return (
     <div
       style={{
@@ -109,7 +110,7 @@ const RespondantForm = () => {
         <div className="left-form">
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5" style={{fontWeight:"bold"}}>Petioner No.</span>
+              <span variant="h5" style={{fontWeight:"bold"}}>Respondent No.</span>
             </div>
             <div className="input-element">
               <select className="input-field">
@@ -119,7 +120,7 @@ const RespondantForm = () => {
               </select>
             </div>
           </div>
-          <Item type="text" name="Main Petitioner name" placeholder="Name" />
+          <Item type="text" name="Main Respondent Name" placeholder="Name" />
           <div className="inner-form-elements">
             <div className="title">
               <span variant="h5">Relation</span>
@@ -164,7 +165,7 @@ const RespondantForm = () => {
             </div>
             <div className="input-element">
               <select className="input-field">
-                {genders.map((option) => (
+                {genders.map((index,option) => (
                   <option value={option}>{option}</option>
                 ))}
               </select>
