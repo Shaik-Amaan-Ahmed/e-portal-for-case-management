@@ -24,6 +24,6 @@ li {
     margin-top: 10px;
     /* border-top: 0.1px solid grey; */
     border-bottom: 0.1px solid grey;
-    border-bottom-width: 10%;
-    border-bottom-style: inset;
+    border-bottom-width: 1%;
+    margin-top: 10px;
 }

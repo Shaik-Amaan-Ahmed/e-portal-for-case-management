@@ -7,6 +7,7 @@ const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
+const registerClient = require("./create-docs/clientRegister");
 require("dotenv").config();
 
 const app = express();
@@ -40,7 +41,9 @@ app.use(
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/judge", judgeToken);
-app.use("/client",clientToken);
+app.use("/client", clientToken);
+app.use('/register', registerClient);
+
 
 app
   .listen(port, (res, req) => {
