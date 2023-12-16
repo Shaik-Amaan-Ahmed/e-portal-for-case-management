@@ -11,7 +11,7 @@ const Header = ({title, subtitle}) => {
                 {title}
             </Typography>
             <Typography variant="h5" color={colors.greenAccent[400]}>
-                {subtitle}
+                For The State of Telangana
             </Typography>
         </Box>
     )
