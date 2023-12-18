@@ -62,7 +62,8 @@ function Judge() {
         navigate("/login");
       }
     }
-  );
+  )
+  )
 }
 
 export default Judge;
