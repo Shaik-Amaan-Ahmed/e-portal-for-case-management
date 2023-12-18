@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./Scenes/Login/login";
 import Client from "./Clients";
 import Register from "./Scenes/Register/register";
+import HomePage from "./Scenes/HomePage/HomePage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -15,6 +16,7 @@ root.render(
     
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<HomePage/>} />
         <Route path="/judge/*" element={<Judge/>} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client/>} />
