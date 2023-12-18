@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useState } from "react";
 
 export const Item = ({type, placeholder, name}) => {
@@ -19,7 +20,7 @@ export const Item = ({type, placeholder, name}) => {
 
 
 
-  const PetitionerForm = (activeStep) => {
+  const PetitionerForm = () => {
   const petionerType = ["Individual", "Group"];
   const relation = ["Son of", "Daughter of", "Husband of", "Wife of", "Other"];
   const caseCategory = ["one", "two", "three"];
@@ -94,6 +95,7 @@ export const Item = ({type, placeholder, name}) => {
         alignItems: "center",
         justifyContent: "center",
         border: "0.1px solid grey",
+        borderRadius: "10px",
       }}
     >
       {/* left start  */}
@@ -110,7 +112,7 @@ export const Item = ({type, placeholder, name}) => {
         <div className="left-form">
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5" style={{fontWeight:"bold"}}>Petioner No.</span>
+              <span variant="h5" style={{fontWeight:"bold"}}>Petitioner No.</span>
             </div>
             <div className="input-element">
               <select className="input-field">
@@ -136,7 +138,7 @@ export const Item = ({type, placeholder, name}) => {
           <Item type="text" name="Parent/Spouse Name" placeholder="Name" />
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{fontWeight:"bold"}}>Is Dead/Minon</span>
+              <span style={{fontWeight:"bold"}}>Is Dead/Minor</span>
             </div>
             <div className="input-element">
               <select className="input-field">
@@ -165,7 +167,7 @@ export const Item = ({type, placeholder, name}) => {
             </div>
             <div className="input-element">
               <select className="input-field">
-                {genders.map((index,option) => (
+                {genders.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
               </select>

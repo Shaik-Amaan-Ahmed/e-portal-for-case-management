@@ -19,7 +19,7 @@ export const Item = ({type, placeholder, name}) => {
 
 
 
-  const RespondantForm = (activeStep) => {
+  const RespondantForm = () => {
   const petionerType = ["Individual", "Group"];
   const relation = ["Son of", "Daughter of", "Husband of", "Wife of", "Other"];
   const caseCategory = ["one", "two", "three"];
@@ -94,6 +94,7 @@ export const Item = ({type, placeholder, name}) => {
         alignItems: "center",
         justifyContent: "center",
         border: "0.1px solid grey",
+        borderRadius: "10px",
       }}
     >
       {/* left start  */}
@@ -165,7 +166,7 @@ export const Item = ({type, placeholder, name}) => {
             </div>
             <div className="input-element">
               <select className="input-field">
-                {genders.map((index,option) => (
+                {genders.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
               </select>

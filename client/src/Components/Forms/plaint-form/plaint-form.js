@@ -14,6 +14,7 @@ const PlaintForm = () => {
         alignItems: "center",
         justifyContent: "center",
         border: "0.1px solid grey",
+        borderRadius: "10px",
       }}
     >
       {/* left start  */}

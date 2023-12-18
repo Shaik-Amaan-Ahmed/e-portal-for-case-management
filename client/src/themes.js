@@ -163,26 +163,26 @@ export const themeSettings = (mode) => {
             }),
         },
         typography: {
-            fontFamily: ["Source Sans Pro","sans-serif"].join(","),
+            fontFamily: ["Poppins","sans-serif"].join(","),
             fontSize: 12,
             h1: {
-                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontFamily: ["Poppins", "sans-serif"].join(","),
                 fontSize: 40,
             },
             h2: {
-                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontFamily: ["Poppins", "sans-serif"].join(","),
                 fontSize: 40,
             },
             h3: {
-                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontFamily: ["Poppins", "sans-serif"].join(","),
                 fontSize: 24,
             },
             h4: {
-                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontFamily: ["Poppins", "sans-serif"].join(","),
                 fontSize: 20,
             },
             h5: {
-                fontFamily: ["Soure Sans Pro", "sans-serif"].join(","),
+                fontFamily: ["Poppins", "sans-serif"].join(","),
                 fontSize: 16,
             },
             h6: {
