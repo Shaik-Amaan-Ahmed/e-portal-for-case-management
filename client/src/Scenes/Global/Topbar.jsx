@@ -8,7 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -19,17 +19,25 @@ const Topbar = () => {
   const navigate = useNavigate();
 
   function handleLogout() {
-    axios.get('http://localhost:64000/logout').then((res) => {
-      if(res.status === 200) {
-        window.location.reload(true);
-      }
-    }).catch((err) => {
-      console.log(err.message);
-    })
+    axios
+      .get("http://localhost:64000/logout")
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.reload(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 
   return (
-    <Box display="flex" justifyContent="space-between" p={0.2} borderBottom="0.1px solid grey" marginBottom="5px">
+    <Box
+      display="flex"
+      backgroundColor={theme.palette.background.paper}
+      justifyContent="space-between"
+      borderBottom="0.1px solid grey"
+    >
       {/* SEARCH BAR */}
       <Box display="flex" borderRadius="3px">
         <input
@@ -43,7 +51,7 @@ const Topbar = () => {
           placeholder="Search"
         />
         <IconButton type="button" sx={{ border: "solid" }}>
-          <SearchIcon/>
+          <SearchIcon />
         </IconButton>
       </Box>
 
