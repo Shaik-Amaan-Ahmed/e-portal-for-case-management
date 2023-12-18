@@ -123,7 +123,7 @@ export const Item = ({type, placeholder, name}) => {
           <Item type="text" name="Main Respondent Name" placeholder="Name" />
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5">Relation</span>
+              <span style={{fontWeight:"bold"}} variant="h5">Relation</span>
             </div>
             <div className="input-element">
               <select className="input-field">
