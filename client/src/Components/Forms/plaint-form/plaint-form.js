@@ -43,13 +43,13 @@ const PlaintForm = () => {
           </div>
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5">Cause titile Respondant</span>
+              <span variant="h5">Cause titile Defendant</span>
             </div>
             <div className="input-element">
               <input
                 type="text"
                 className="input-field"
-                placeholder="Cause title respondant"
+                placeholder="Cause title defendant"
               />
             </div>
           </div>
@@ -108,27 +108,27 @@ const PlaintForm = () => {
         <div className="right-form">
           <div className="inner-form-elements">
             <div className="title">
-              <span>Number of petitioners</span>
+              <span>Number of Plaintiffs</span>
             </div>
             <div className="input-element">
               <input
                 type="number"
                 min={0}
                 className="input-field"
-                placeholder="No. of petitioners"
+                placeholder="No. of Plaintiffs"
               />
             </div>
           </div>
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5">Number of Respondants</span>
+              <span variant="h5">Number of Defendants</span>
             </div>
             <div className="input-element">
               <input
                 type="number"
                 min={0}
                 className="input-field"
-                placeholder="No. of Respondants"
+                placeholder="No. of Defendants"
               />
             </div>
           </div>

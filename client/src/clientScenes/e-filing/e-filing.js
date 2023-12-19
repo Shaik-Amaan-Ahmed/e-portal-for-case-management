@@ -7,14 +7,15 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
-import PetitionerForm from "../../Components/Forms/petitioner-form/petitioner-form";
-import RespondantForm from "../../Components/Forms/respondent-form/respondent-form";
+import PetitionerForm from "../../Components/Forms/plaintiff-form/plaintiff-form";
+import RespondantForm from "../../Components/Forms/defendant-form/defendant-form";
 import EarilerCourts from "../../Components/Forms/earlier-courts/earlier-courts";
+import UploadDocs from "../../Components/Forms/upload-docs/uploadDocs";
 
 const steps = [
   "Enter plaint details",
-  "Petitioner details",
-  "Respondent details",
+  "Plaintiff details",
+  "Defendant details",
   "Eariler courts",
   "Upload documents",
   "Preview",
@@ -112,6 +113,7 @@ const Efiling = () => {
               {activeStep === 1 && (<PetitionerForm/>)}
               {activeStep === 2 && (<RespondantForm/>)}
               {activeStep === 3 && (<EarilerCourts activeStep = {activeStep} handleNext = {handleNext}/>)}
+              {activeStep === 4 && (<UploadDocs/>)}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   color="inherit"
