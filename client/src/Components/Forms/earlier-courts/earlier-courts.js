@@ -135,63 +135,21 @@ const EarilerCourts = (props) => {
               <div className="court-type">
                 <input type="radio" name="earlier" value="High Court" onClick={()=> setSelectedCourt("High Court")}/>
                 <label for="high-court">High Court</label>
-              </div>
-              <div className="court-type">
-                <input type="radio" name="earlier" value="Supreme Court" onClick={()=> setSelectedCourt("Supreme Court")}/>
-                <label for="supreme-court">Supreme Court</label>
-              </div>
-            </div>
-          
-          {selectedCourt === "High Court" && (
-            <div className="left-main">
-                <div className="left-form">
-                {/* CNR number */}
-                  <Item
-                  type="number"
-                  name="CNR"
-                  placeholder="CNR"
-                  value={value("cnr")}
-                  onChange={(e) => onChange("cnr", e.target.value)}
-                  />
-                <span style={{fontWeight:'bolder' ,display:"flex", alignItems:'center', justifyContent: 'center'}}>OR</span>
-                {/* High Court */}
-                  <Item
-                  type="text"
-                  name="High Court"
-                  placeholder="Name"
-                  value={value("courtName")}
-                  onChange={(e) => {
-                    onChange("courtName", e.target.value);
-                  }}
-                  />
-                {/* Bench */}
-                  <Item
-                  type="text"
-                  name="Bench"
-                  placeholder="Name"
-                  value={value("bench")}
-                  onChange={(e) => onChange("bench", e.target.value)}
-                  />
-                {/* Case Type */}
-                  <Item
-                  type="text"
-                  name="Case Type"
-                  placeholder="Name"
-                  value={value("caseType")}
-                  onChange={(e) => onChange("caseType", e.target.value)}
-                  />
-                {/* Case No */}
-                  <Item
-                  type="number"
-                  name="Case No"
-                  placeholder="Case No."
-                  value={value("caseNo")}
-                  onChange={(e) => {onChange("caseNo", e.target.value)}}
-                  />
                 </div>
+                <div className="court-type">
+                <input type="radio" name="earlier"/>
+                <label for="high-court">High Court</label>
+                </div>
+               
+              </div>
             </div>
-          
-          )}
+            <div className="crn">
+              <Typography className="crn-title" variant="h5">
+                CRN Number:
+              </Typography>
+              <input type="text" placeholder="CRN Number" />
+            </div>
+            
           </div>
         )}
       </div>
