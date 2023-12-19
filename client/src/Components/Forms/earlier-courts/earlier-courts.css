@@ -70,39 +70,3 @@
     cursor: pointer;
     color: white;
 }
-
-.court-types {
-    display: flex;
-    margin: 10px 10px 10px 10px;
-    padding: 10px;
-    border-radius: 10px;
-    justify-content: center;
-}
-
-.crn {
-    display: flex;
-    padding: 10px;
-    justify-content: space-evenly;
-    border: 0.1px solid grey;
-    border-radius: 10px;
-    margin-top: 20px;
-    input {
-        width: 100%;
-        height: 40px;
-        border-radius: 10px;
-        border: 0.2px solid grey;
-        background :transparent;
-        color: inherit;
-        padding: 5px;
-        margin: 10px 10px 10px 10px;
-    }
-
-    .crn-title {
-        width: 100%;
-        display: flex;
-        align-self: center;
-        justify-content: center;
-
-    }
-
-}
