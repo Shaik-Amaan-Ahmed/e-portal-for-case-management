@@ -8,7 +8,7 @@ import SignIn from "./Scenes/Login/login";
 import Client from "./Clients";
 import Register from "./Scenes/Register/register";
 import HomePage from "./Scenes/HomePage/HomePage";
-
+import Profiles from "./Scenes/HomePage/JudgeProfiles/Profiles";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -21,6 +21,7 @@ root.render(
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/profiles" element={<Profiles/>} />
       </Routes>
     </BrowserRouter>
     
