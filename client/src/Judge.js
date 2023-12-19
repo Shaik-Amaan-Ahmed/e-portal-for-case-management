@@ -71,5 +71,4 @@ function Judge() {
     }
   );
 }
-
 export default Judge;
