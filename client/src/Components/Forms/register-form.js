@@ -6,7 +6,6 @@ import axios from "axios";
 import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-
 const RegisterForm = () => {
   const [data, setData] = useState({
     firstName: "",
@@ -16,6 +15,7 @@ const RegisterForm = () => {
     phoneNumber: "",
     dateOfBirth: "",
   });
+
 // var ml = 0;
 
 //   const inputRef = useRef(null);
@@ -50,9 +50,6 @@ const RegisterForm = () => {
   };
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
     <div
       style={{
         display: "flex",
@@ -98,37 +95,36 @@ const RegisterForm = () => {
               }}
             />
           </div>
-          <div className="first-name">
-            <input
-              type={passwordType}
-              placeholder="Password"
-              className="register-input"
-              onChange={(e) => {
-                setData({ ...data, password: e.target.value });
-              }}
-            />
-            {/* <button
-              style={{
-                width: "50px",
-                height: "30px",
-                borderRadius: "10px",
-                backgroundColor: "#ffbf00",
-                cursor: "pointer",
-                marginLeft: `${ml}px`,
-                transform: "translateY(-120%)",
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                if (passwordType === "password") {
-                  setPasswordType("text");
-                } else {
-                  setPasswordType("password");
-                }
-              }}
-            >
-              show
-            </button> */}
-          </div>
+          <div className="password-field">
+  <input
+    type={passwordType}
+    placeholder="Password"
+    className="register-input"
+    onChange={(e) => {
+      setData({ ...data, password: e.target.value });
+    }}
+  />
+  <button
+    style={{
+      width: "50px",
+      height: "30px",
+      borderRadius: "10px",
+      backgroundColor: "transparent",
+      cursor: "pointer",
+      marginRight:"5px"
+    }}
+    onClick={(e) => {
+      e.preventDefault();
+      if (passwordType === "password") {
+        setPasswordType("text");
+      } else {
+        setPasswordType("password");
+      }
+    }}
+  >
+    show
+  </button>
+</div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
               <input
@@ -182,8 +178,6 @@ const RegisterForm = () => {
         </button>
       </div>
     </div>
-    </ThemeProvider>
-    </ColorModeContext.Provider >
   );
 };
 

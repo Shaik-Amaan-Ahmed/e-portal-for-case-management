@@ -2,7 +2,7 @@ import { ColorModeContext, useMode } from "../../themes";
 import { Box, Typography } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { BarChart } from "@mui/x-charts/BarChart";
-import CaseProgress from "../../Components/caseProgresstable";
+
 const Home = () => {
   const [theme, colorMode] = useMode();
   const data = [
@@ -75,8 +75,7 @@ const Home = () => {
               { data: [2, 8, 1, 3, 1], stack: "B", label: "Series B2" },
               { data: [10, 6, 5, 8, 9], label: "Series C1" },
             ]}
-            width={600}
-            height={300}
+            
           />
         </Box>
             
@@ -91,7 +90,6 @@ const Home = () => {
             justifyItems:"center",
           }}
         >
-          <CaseProgress />
       </Box>
     </Box>
   );
