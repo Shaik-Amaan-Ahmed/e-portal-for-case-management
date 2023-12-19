@@ -9,11 +9,13 @@ import Typography from "@mui/material/Typography";
 import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
 import PetitionerForm from "../../Components/Forms/petitioner-form/petitioner-form";
 import RespondantForm from "../../Components/Forms/respondent-form/respondent-form";
+import EarilerCourts from "../../Components/Forms/earlier-courts/earlier-courts";
 
 const steps = [
   "Enter plaint details",
   "Petitioner details",
   "Respondent details",
+  "Eariler courts",
   "Upload documents",
   "Preview",
   "Payment",
@@ -107,19 +109,20 @@ const Efiling = () => {
               {/* making forms */}
               
               {activeStep === 0 && (<PlaintForm />)}
-              {activeStep === 1 && (<PetitionerForm activeStep={activeStep}/>)}
-              {activeStep === 2 && (<RespondantForm activeStep={activeStep}/>)}
+              {activeStep === 1 && (<PetitionerForm/>)}
+              {activeStep === 2 && (<RespondantForm/>)}
+              {activeStep === 3 && (<EarilerCourts activeStep = {activeStep} handleNext = {handleNext}/>)}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   color="inherit"
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  sx={{ mr: 1 }}
+                  sx={{ mr: 1 , backgroundColor: "orange", display: activeStep === 0 ? "none" : "block"}}
                 >
                   Back
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} sx={{ mr: 1, color: "inherit" }}>
+                <Button onClick={handleNext} sx={{ mr: 1, color: "inherit", backgroundColor: "orange" }}>
                   Next
                 </Button>
                 {activeStep !== steps.length &&
@@ -131,7 +134,7 @@ const Efiling = () => {
                       Step {activeStep + 1} already completed
                     </Typography>
                   ) : (
-                    <Button onClick={handleComplete} color="inherit">
+                    <Button onClick={handleComplete} color="inherit" sx={{backgroundColor:'orange'}}>
                       {completedSteps() === totalSteps() - 1
                         ? "Finish"
                         : "Complete Step"}
