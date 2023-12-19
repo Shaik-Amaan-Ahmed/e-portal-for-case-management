@@ -18,6 +18,8 @@
 .select-court {
     display: flex;
     flex-direction: row;
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
 }
 
 .title{
@@ -36,6 +38,15 @@
 
 .label {
     font-size: medium;
+}
+
+.court-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 0.1px solid grey;
+    margin: 10px 10px 10px 10px;
 }
 
 .declaration {

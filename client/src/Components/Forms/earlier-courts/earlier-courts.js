@@ -66,15 +66,15 @@ const EarilerCourts = (props) => {
               <Typography variant="h5">Select Court</Typography>
               </div>
               <div className="select-court">
-                <div>
+                <div className="court-type">
                 <input type="radio" name="earlier"/>
                 <label for="high-court">District Court</label>
                 </div>
-                <div>
+                <div className="court-type">
                 <input type="radio" name="earlier"/>
                 <label for="high-court">High Court</label>
                 </div>
-                <div>
+                <div className="court-type">
                 <input type="radio" name="earlier"/>
                 <label for="high-court">High Court</label>
                 </div>
