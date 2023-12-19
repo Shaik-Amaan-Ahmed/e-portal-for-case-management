@@ -37,7 +37,6 @@ export default function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <div
-        className="outer-div"
         style={{
           display: "flex",
           justifyItems: "center",
@@ -55,7 +54,7 @@ export default function SignIn() {
             padding: "20px",
             justifyContent: "center",
             borderRadius: "10px",
-            height: "50vh",
+
           }}
         >
           <div
@@ -82,6 +81,8 @@ export default function SignIn() {
                   display: "flex",
                   background: "white",
                   borderRadius: "8px",
+                  border: "0.2px solid",
+                  padding:"10px"
                 }}
                 onClick={() => setRole("judge")}
               >
@@ -92,6 +93,8 @@ export default function SignIn() {
                   display: "flex",
                   background: "white",
                   borderRadius: "8px",
+                  border: "0.1px solid",
+                  padding:"10px"
                 }}
                 onClick={() => setRole("registrar")}
               >
@@ -102,6 +105,8 @@ export default function SignIn() {
                   display: "flex",
                   background: "white",
                   borderRadius: "8px",
+                  border: "0.1px solid",
+                  padding:"10px"
                 }}
                 onClick={() => setRole("client")}
               >
@@ -130,6 +135,7 @@ export default function SignIn() {
                 display: "flex",
                 width: "90%",
                 borderRadius: "10px",
+                border:"0.2px solid grey",
                 marginTop: "auto",
               }}
               placeholder="Email"
@@ -147,6 +153,7 @@ export default function SignIn() {
                 display: "flex",
                 width: "90%",
                 borderRadius: "10px",
+                border:"0.1px solid grey"
               }}
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
@@ -160,7 +167,7 @@ export default function SignIn() {
                 type="text"
                 style={{
                   width: "50%",
-                  margin: "auto",
+                  margin:"auto",
                   height: "2rem",
                   borderRadius: "10px",
                   backgroundColor: "lightblue",

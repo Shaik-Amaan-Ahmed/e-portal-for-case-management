@@ -33,25 +33,18 @@ function Judge() {
     });
   }, [isloggedIn]);
 
-  useEffect(() => {
-    if (performance.navigation.type === 1) {
-      navigate("/judge");
-      setReload(true);
-    }
-  }, [reload]);
-
-  return isloggedIn ? (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-
-        <div className="app">
-          <Sidebar />
-
-          <main className="content">
-            <div className="side-content">
-              <Topbar />
-
+  return ( 
+    isloggedIn ? (
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="app">
+            <Box>
+              <Sidebar />
+            </Box>
+            <main className="content">
+              <div className="side-content">
+              <Topbar/>
               <Routes>
                 <Route path="/cases" element={<RegistrarTable />} />
                 <Route path="/" element={<Home />} />
@@ -69,6 +62,7 @@ function Judge() {
         navigate("/login");
       }
     }
-  );
+  )
+  )
 }
 export default Judge;
