@@ -72,9 +72,27 @@
     border-radius: 5px;
     justify-content: center;
     background-color: transparent;
-    color: azure;
     padding: 10px;
 }
+.password-field {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .password-field .register-input {
+ /* adjust as needed */
+    width: 100%;
+  }
+  
+  .password-field button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto; /* vertically center the button */
+  }
 
 /* .register-input:focus {
     border: 0.11px solid wheat;
