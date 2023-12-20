@@ -4,7 +4,7 @@ import NoticeBoard from './NoticeBoard';
 
 export default function Slider() {
   return (
-    <div className='mt-28'>
+    <div>
       <Box sx={{
             backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://tshc.gov.in/dds/images/6.jpg')",
             backgroundRepeat: 'no-repeat',
