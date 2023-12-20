@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import "./test.css"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 export default function SignIn() {
@@ -42,20 +43,24 @@ export default function SignIn() {
           justifyItems: "center",
           marginBlock: "auto",
           height: "100vh",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+
         }}
       >
         <div
           className="inner-div"
-          style={{
-            border: "1px solid black",
-            display: "flex",
-            width: "30%",
-            margin: "auto",
-            padding: "20px",
-            justifyContent: "center",
-            borderRadius: "10px",
+          // style={{
+          //   border: "1px solid black",
+          //   display: "flex",
+          //   width: "30%",
+          //   margin: "auto",
+          //   padding: "20px",
+          //   justifyContent: "center",
+          //   borderRadius: "10px",
 
-          }}
+          // }}
         >
           <div
             className="inner-items"
