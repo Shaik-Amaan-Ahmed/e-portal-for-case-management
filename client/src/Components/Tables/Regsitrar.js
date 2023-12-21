@@ -2,7 +2,6 @@ import { Box, InputBase, Typography, useTheme } from "@mui/material";
 import {
   DataGrid,
   GridToolbar,
-  
 } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import data from "../../Data/people.json";
