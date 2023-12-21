@@ -17,7 +17,7 @@ const Register = () => {
         <div className="register">
           <div className="register-left">
             <div className="image-container">
-              <img src={logohc} className="high-court-image" />
+              <img src={logohc} alt="high-courtimage" className="high-court-image" />
             </div>
           </div>
           <div className="register-right">
