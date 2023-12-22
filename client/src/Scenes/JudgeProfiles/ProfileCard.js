@@ -71,7 +71,8 @@ export default function JudgeItem(props) {
           </Grid>
         </Grid>
       </Grid>
-      <Popover
+     
+      <Popover 
         open={open}
         anchorReference="anchorPosition"
         anchorPosition={anchorPosition}
@@ -86,6 +87,7 @@ export default function JudgeItem(props) {
             backdropFilter: "blur(5px)",
             padding:'10px',
             WebkitFilter: "blur(0px)",
+            width:'60vw',
           },
         }}
       >

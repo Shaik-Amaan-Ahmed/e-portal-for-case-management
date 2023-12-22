@@ -13,7 +13,7 @@ const CaseDetails = () => {
           src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
           alt="profile"
         />
-        <Typography variant="h5">SHAIK AMAAN AHMED</Typography>
+        <Typography variant="h5">User Name</Typography>
         <div
           style={{
             display: "flex",
@@ -22,7 +22,7 @@ const CaseDetails = () => {
           }}
         >
           <Typography variant="h4" component="div" fontWeight="bold">
-            CASE ID: 22BD1A051M
+            CASE ID: G71
           </Typography>
         </div>
         <div>
@@ -38,7 +38,7 @@ const CaseDetails = () => {
           <Typography variant="h4" component="div">
             Case Details:{" "}
             <span style={{ color: "orange" }}>
-              Shaik Amaan Ahmed Vs Institute of KMIT
+                E-portal-for-case-management
             </span>
           </Typography>
           <br />
