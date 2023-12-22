@@ -10,6 +10,7 @@ import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
 import PetitionerForm from "../../Components/Forms/petitioner-form/petitioner-form";
 import RespondantForm from "../../Components/Forms/respondent-form/respondent-form";
 import EarilerCourts from "../../Components/Forms/earlier-courts/earlier-courts";
+import UploadDocs from "../../Components/Forms/upload-docs/uploadDocs";
 
 const steps = [
   "Enter plaint details",
@@ -112,6 +113,7 @@ const Efiling = () => {
               {activeStep === 1 && (<PetitionerForm/>)}
               {activeStep === 2 && (<RespondantForm/>)}
               {activeStep === 3 && (<EarilerCourts activeStep = {activeStep} handleNext = {handleNext}/>)}
+              {activeStep === 4 && (<UploadDocs/>)}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   color="inherit"
