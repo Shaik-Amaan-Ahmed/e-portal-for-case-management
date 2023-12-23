@@ -14,22 +14,23 @@ function Profiles() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
       <NavBar/>
-    <Typography variant='h1' fontWeight='bold' sx={{textAlign:'center'}}>
-        Judges
-    </Typography>
-    <div className='flex mx-auto p-8'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
-            {
-                judgeProfile.map((judge) => (
-                    <JudgeItem name={judge.name} description ={judge.description} imageUrl = {judge.imgUrl} key={judge.id} judge={judge} />
-                ))
-            }
+      <div style={{paddingTop:'110px'}}>
+        <Typography variant='h1' fontWeight='bold' sx={{textAlign:'center'}}>
+            Judges
+        </Typography>
+        <div className='flex mx-auto p-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
+                {
+                    judgeProfile.map((judge) => (
+                        <JudgeItem name={judge.name} description ={judge.description} imageUrl = {judge.imgUrl} key={judge.id} judge={judge} />
+                    ))
+                }
+            </div>
         </div>
-    </div>
+      </div>
         <Footer/>
         </ThemeProvider>
       </ColorModeContext.Provider>
-
     </>
   )
 }
