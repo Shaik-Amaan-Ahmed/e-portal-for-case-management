@@ -11,6 +11,7 @@ import HomePage from "./Scenes/HomePage/HomePage";
 import Registrar from "./Registrars";
 import AdminRegister from "./Register/admin-register/admin-register";
 import SetPassword from "./Components/set-password/set-password";
+import Profiles from "./Scenes/JudgeProfiles/Profiles"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -27,6 +28,7 @@ root.render(
         <Route path="/client-register" element={<ClientRegister/>} />
         <Route path="/admin-register" element={<AdminRegister/>} />
         <Route path="/set-password" element={<SetPassword />} />
+        <Route path="/profiles" element={<Profiles/>} />
       </Routes>
     </BrowserRouter>
     
