@@ -44,6 +44,7 @@ export default function JudgeItem(props) {
     <Paper
       sx={{
         p: 2,
+        width:'100%',
         zIndex:1,
         margin: 'auto',
         maxWidth: 500,
@@ -81,6 +82,7 @@ export default function JudgeItem(props) {
           "& .MuiPopover-paper": {
             maxHeight: "50vh", // Adjust this value as needed
             overflow: "auto",
+            width:"60vh",
             backgroundColor: "black",
             background: "",
             borderRadius: "10px",
