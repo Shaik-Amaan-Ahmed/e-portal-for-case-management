@@ -13,7 +13,10 @@ function Profiles() {
      <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          
+    <NavBar/>
+    <Typography variant='h1' fontWeight='bold' sx={{textAlign:'center'}}>
+        Judges
+    </Typography>
     <div className='flex mx-auto p-8'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
             {

@@ -44,10 +44,12 @@ export default function JudgeItem(props) {
     <Paper
       sx={{
         p: 2,
+        zIndex:1,
         margin: 'auto',
         maxWidth: 500,
         flexGrow: 1,
         border:'2px solid',
+        width:'100%',
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
       }}
@@ -71,8 +73,7 @@ export default function JudgeItem(props) {
           </Grid>
         </Grid>
       </Grid>
-     
-      <Popover 
+      <Popover
         open={open}
         anchorReference="anchorPosition"
         anchorPosition={anchorPosition}
@@ -82,7 +83,6 @@ export default function JudgeItem(props) {
             maxHeight: "50vh", // Adjust this value as needed
             overflow: "auto",
             backgroundColor: "black",
-            background: "",
             borderRadius: "10px",
             backdropFilter: "blur(5px)",
             padding:'10px',
