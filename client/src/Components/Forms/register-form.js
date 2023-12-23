@@ -49,9 +49,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    //main div
+    
     <div
       // style={{
       //   display: "flex",
@@ -211,8 +210,6 @@ const RegisterForm = () => {
         </button>
       </div>
     </div>
-    </ThemeProvider>
-    </ColorModeContext.Provider>
   );
 };
 
