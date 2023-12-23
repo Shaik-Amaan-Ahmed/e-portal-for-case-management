@@ -1,165 +1,210 @@
-import "../../../clientScenes/e-filing/e-filing.css";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { EmailContext } from "../../../hooks/emailContext";
+import axios from "axios";
+import "./plaint-form.css";
 
-const PlaintForm = () => {
-  const caseType = ["one", "two", "three"];
+const PlaintForm = (props) => {
+  const caseType = ["civil", "criminal", "three"];
   const caseCategory = ["one", "two", "three"];
   const [earlierCourts, setEarlierCourts] = useState(false);
+  const [response, setResponse] = useState("");
+  const [error, setError] = useState("");
+  const [submit, setSubmit] = useState(false);
+  
+
+  const email = useContext(EmailContext);
+
+  const storedPlaintDetails = JSON.parse(
+    localStorage.getItem("plaintDetails")
+  ); //getting the stored data from the local storage
+
+  const initialDetails = storedPlaintDetails ? storedPlaintDetails : { 
+    causeTitlePlaintiff: "",
+    causeTitleDefendant: "",
+    caseType: "",
+    caseCategory: "",
+    caseSubCategory: "",
+    numberOfPlaintiff: "",
+    numberOfDefendant: "",
+  }//
+
+  const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
+
+  //to check whether all the details are filled or not
+  const areDetailsFilled = () => {
+
+    return Object.values(plaintDetails).every(value => value !== "");
+  };
+
+  //submitting the plaint details to the database
+  const submitPlaintDetails = () => {
+    if(!areDetailsFilled()){
+      setError("Please fill all the details");
+    }else{
+      setError(null);
+      props.handleNext(props.activeStep);
+      
+    }
+  };
+
+  //to get the data from the database and store it in the local storage
+  const value = (val) => {
+    return plaintDetails[val];
+  }
+
+  //onChange event handler common for all the input fields
+  const onChange = (sub, value) => {
+    const updatedDetails = {
+      ...plaintDetails,
+      [sub]: value,
+    };
+
+    setPlaintDetails(updatedDetails);
+    localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+  };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "0.1px solid grey",
-        borderRadius: "10px",
-      }}
-    >
-      {/* left start  */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          margin: "10px 10px 10px 10px",
-          flex: 1,
-        }}
-      >
-        {/* form left start  */}
-        <div className="left-form">
-          <div className="inner-form-elements">
-            <div className="title">
-              <span variant="h5">Cause titile plaintiff</span>
+    <>
+    {error && <div className="error">{error}</div>}
+      <div className="main-div">
+        {/* left start  */}
+        <div className="left-main">
+          {/* form left start  */}
+          <div className="left-form">
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Cause titile plaintiff */}
+                <span variant="h5">Cause titile plaintiff</span>
+              </div>
+              <div className="input-element">
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder="Cause title plaintiff"
+                  value={value("causeTitlePlaintiff")}
+                  onChange={(e) => onChange("causeTitlePlaintiff", e.target.value) }
+                />
+              </div>
             </div>
-            <div className="input-element">
-              <input
-                type="text"
-                className="input-field"
-                placeholder="Cause title plaintiff"
-              />
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Cause titile Defendant */}
+                <span variant="h5">Cause titile Defendant</span>
+              </div>
+              <div className="input-element">
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder="Cause title defendant"
+                  value={value("causeTitleDefendant")}
+                  onChange={(e) => onChange("causeTitleDefendant", e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-          <div className="inner-form-elements">
-            <div className="title">
-              <span variant="h5">Cause titile Defendant</span>
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Case Type */}
+                <span>Case Type</span>
+              </div>
+              <div className="input-element">
+                <select
+                  className="input-field"
+                  value={value("caseType")}
+                  onChange={(e) => onChange("caseType", e.target.value)}
+                >
+                  {caseType.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="input-element">
-              <input
-                type="text"
-                className="input-field"
-                placeholder="Cause title defendant"
-              />
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Case Category */}
+                <span>Case Category</span>
+              </div>
+              <div className="input-element">
+                <select
+                  className="input-field"
+                  value={value("caseCategory")}
+                  onChange={(e) => onChange("caseCategory", e.target.value)}
+                >
+                  {caseCategory.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="inner-form-elements">
-            <div className="title">
-              <span>Case Type</span>
-            </div>
-            <div className="input-element">
-              <select className="input-field">
-                {caseType.map((option) => (
-                  <option value={option}>{option}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="inner-form-elements">
-            <div className="title">
-              <span>Case Category</span>
-            </div>
-            <div className="input-element">
-              <select className="input-field">
-                {caseCategory.map((option) => (
-                  <option value={option}>{option}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="inner-form-elements">
-            <div className="title">
-              <span variant="h5">Case Sub-category</span>
-            </div>
-            <div className="input-element">
-              <select className="input-field">
-                {caseCategory.map((option) => (
-                  <option value={option}>{option}</option>
-                ))}
-              </select>
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Case Sub-category */}
+                <span variant="h5">Case Sub-category</span>
+              </div>
+              <div className="input-element">
+                <select
+                  className="input-field"
+                  value={value("caseSubCategory")}
+                  onChange={(e) => onChange("caseSubCategory", e.target.value)}
+                >
+                  {caseCategory.map((option, index) => (
+                    <option key={index}>{option}</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* form left end  */}
 
-      {/* left end  */}
-      {/* right start  */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          margin: "10px 10px 10px 10px",
-          flex: 1,
-        }}
-      >
-        <div className="right-form">
-          <div className="inner-form-elements">
-            <div className="title">
-              <span>Number of Plaintiffs</span>
+        {/* form left end  */}
+
+        {/* left end  */}
+        {/* right start  */}
+        <div className="right-main">
+          <div className="right-form">
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Number of Plaintiffs */}
+                <span>Number of Plaintiffs</span>
+              </div>
+              <div className="input-element">
+                <input
+                  type="number"
+                  min={0}
+                  className="input-field"
+                  placeholder="No. of Plaintiffs"
+                  value={value("numberOfPlaintiff")}
+                  onChange={(e) => onChange("numberOfPlaintiff", e.target.value)}
+                />
+              </div>
             </div>
-            <div className="input-element">
-              <input
-                type="number"
-                min={0}
-                className="input-field"
-                placeholder="No. of Plaintiffs"
-              />
+            <div className="inner-form-elements">
+              <div className="title">
+                {/* Number of Defendants */}
+                <span variant="h5">Number of Defendants</span>
+              </div>
+              <div className="input-element">
+                <input
+                  type="number"
+                  min={0}
+                  className="input-field"
+                  placeholder="No. of Defendants"
+                  value={value("numberOfDefendant")}
+                  onChange={(e) => onChange("numberOfDefendant", e.target.value)}
+                />
+              </div>
             </div>
           </div>
-          <div className="inner-form-elements">
-            <div className="title">
-              <span variant="h5">Number of Defendants</span>
-            </div>
-            <div className="input-element">
-              <input
-                type="number"
-                min={0}
-                className="input-field"
-                placeholder="No. of Defendants"
-              />
-            </div>
-          </div>
-          <div className="inner-form-elements">
-            <div className="title">
-              <span variant="h5">Earlier Courts</span>
-              <input type="radio" value={setEarlierCourts} color="inherit" name="earlierCourts" onClick={() => setEarlierCourts(true)}/>
-              <label for="yes">Yes</label>
-              <input type="radio" placeholder="No" name="earlierCourts" value={setEarlierCourts} onClick={()=> setEarlierCourts(false)}/>
-              <label for="no">No</label>
-            </div>
-              </div>
-              {earlierCourts && ( 
-                <div className="inner-form-elements">
-                <div className="title">
-                  <span variant="h5">Court Details</span>
-                </div>
-                <div className="input-element">
-                  <input
-                    type="text"
-                    className="input-field"
-                    placeholder="Court Details"
-                  />
-                </div>
-              </div>
-              )}
         </div>
-        
+        {/* right end  */}
       </div>
-      {/* right end  */}
-    </div>
+      <div className="submit-button-div">
+        <button className="submit-button" onClick={submitPlaintDetails}>submit</button>
+      </div>
+    </>
   );
 };
 
