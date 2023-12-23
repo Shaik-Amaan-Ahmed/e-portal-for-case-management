@@ -14,6 +14,7 @@ function Profiles() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
     <NavBar/>
+    <div style={{paddingTop:'110px'}}>
     <Typography variant='h1' fontWeight='bold' sx={{textAlign:'center'}}>
         Judges
     </Typography>
@@ -25,6 +26,7 @@ function Profiles() {
                 ))
             }
         </div>
+    </div>
     </div>
         <Footer/>
         </ThemeProvider>
