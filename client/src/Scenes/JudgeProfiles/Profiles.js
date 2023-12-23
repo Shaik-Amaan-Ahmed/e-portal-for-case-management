@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 import Footer from '../HomePage/Footer'
 import { ColorModeContext,useMode } from '../../themes'
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import NavBar from '../HomePage/NavBar'
 function Profiles() {
     const [theme, colorMode] = useMode();
   return (
@@ -12,9 +13,7 @@ function Profiles() {
      <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-    <Typography variant='h2' fontWeight='bold' sx={{textAlign:'center'}}>
-        Judges
-    </Typography>
+          <NavBar/>
     <div className='flex mx-auto p-8'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
             {
