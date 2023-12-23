@@ -44,6 +44,7 @@ export default function JudgeItem(props) {
     <Paper
       sx={{
         p: 2,
+        zIndex:1,
         margin: 'auto',
         maxWidth: 500,
         flexGrow: 1,
