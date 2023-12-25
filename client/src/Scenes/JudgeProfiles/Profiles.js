@@ -6,8 +6,27 @@ import Footer from '../HomePage/Footer'
 import { ColorModeContext,useMode } from '../../themes'
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import NavBar from '../HomePage/NavBar'
+import { useState, useEffect } from "react";
+import { ArrowUpwardRounded } from "@mui/icons-material";
+
 function Profiles() {
-    const [theme, colorMode] = useMode();
+const [theme, colorMode] = useMode();
+const [isVisible, setIsVisible] = useState(false);
+
+// Show button when page is scrolled up to given distance
+const toggleVisibility = () => {
+  if (window.scrollY) {
+    setIsVisible(true);
+  } else {
+    setIsVisible(false);
+  }
+};
+
+  // Event to listen to scroll
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
   return (
     <>
      <ColorModeContext.Provider value={colorMode}>
@@ -26,6 +45,15 @@ function Profiles() {
                     ))
                 }
             </div>
+            {isVisible && (
+              <button
+                className="bg-orange-700 py-2 px-2 rounded-full"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                style={{ position: "fixed", bottom: "20px", right: "20px", zIndex:1 }}
+              >
+                <ArrowUpwardRounded fontSize="large" />
+              </button>
+            )}
         </div>
       </div>
         <Footer/>
