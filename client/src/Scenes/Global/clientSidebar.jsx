@@ -15,7 +15,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       <div
         style={{
           display: "flex",
-          justifyContent: "start",
+          justifyContent: "flex-start",
           marginTop: "10px",
           marginLeft: "25px",
           marginBottom: "2px",
@@ -44,7 +44,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         style={{
           display: "flex",
           borderRight: "0.5px solid",
-          height: "100vh",
+          height: "100%",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",

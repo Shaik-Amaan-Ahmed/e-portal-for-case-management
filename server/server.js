@@ -8,6 +8,7 @@ const logout = require("./auth/authLogout");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const registerClient = require("./create-docs/clientRegister");
+const efiling = require("./create-docs/clientEfiling");
 require("dotenv").config();
 
 const app = express();
@@ -43,6 +44,7 @@ app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/client", clientToken);
 app.use('/register', registerClient);
+app.use('/e-filing', efiling);
 
 
 app
