@@ -11,7 +11,7 @@ import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import { EmailContext } from "./hooks/emailContext";
 import Efiling from "./clientScenes/e-filing/e-filing";
-
+import ClientDashboard from "./clientScenes/MyCases/ClientDashboard";
 
 const Client = () => {
   const [isloggedIn, setIsLoggedIn] = useState(false);
@@ -49,7 +49,7 @@ const Client = () => {
                 width: "100%",
                }}>
                <Routes>
-                    <Route path="/" element={<CaseDetails/>} />
+                    <Route path="/" element={<ClientDashboard/>} />
                     <Route path="/e-filing" element = {<Efiling />} />
                 </Routes>
               </div> 
