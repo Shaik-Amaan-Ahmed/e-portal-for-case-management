@@ -6,6 +6,7 @@ import axios from "axios";
 import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
+
 const RegisterForm = () => {
   const [data, setData] = useState({
     firstName: "",
@@ -26,7 +27,6 @@ const RegisterForm = () => {
 
   const navigitate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
-  const [theme, colorMode] = useMode();
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -50,9 +50,6 @@ const RegisterForm = () => {
   };
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-       <ThemeProvider theme={theme}>
-       <CssBaseline />
     <div
       style={{
         display: "flex",
@@ -181,8 +178,6 @@ const RegisterForm = () => {
         </button>
       </div>
     </div>
-    </ThemeProvider>
-    </ColorModeContext.Provider>
   );
 };
 
