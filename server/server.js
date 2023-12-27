@@ -7,6 +7,7 @@ const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
+const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
 require("dotenv").config();
 
@@ -43,6 +44,7 @@ app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/client", clientToken);
 app.use('/register', registerClient);
+app.use("/registrar", registrarToken);
 
 
 app
