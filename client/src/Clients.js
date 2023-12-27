@@ -33,6 +33,7 @@ const Client = () => {
     });
   }, [isloggedIn]);
 
+
   return (
     <EmailContext.Provider value={email}>
     <ColorModeContext.Provider value={colorMode}>

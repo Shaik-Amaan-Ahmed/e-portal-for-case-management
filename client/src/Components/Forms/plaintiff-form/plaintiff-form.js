@@ -7,9 +7,9 @@ export const Item = ({ type, placeholder, name, value, onChange }) => {
     // {inner-form-elements}
     <div className="inner-form-elements">
       <div className="title">
-        <span variant="h5" style={{ fontWeight: "bold" }}>
+        <Typography variant="h5" style={{ fontWeight: "500"}}>
           {name}
-        </span>
+        </Typography>
       </div>
       <div className="input-element">
         <input
@@ -98,9 +98,9 @@ const PlaintiffForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
 {/* Plaintiff No. */}
-                <span variant="h5" style={{ fontWeight: "bold" }}>
+                <Typography variant="h5" style={{ fontWeight: "500" }}>
                   Plaintiff No.
-                </span>
+                </Typography>
               </div>
               <div className="input-element">
                 <select
@@ -132,9 +132,9 @@ const PlaintiffForm = (props) => {
 {/* Relation */}
             <div className="inner-form-elements">
               <div className="title">
-                <span variant="h5" style={{ fontWeight: "bold" }}>
+                <Typography variant="h5" style={{ fontWeight: "500" }}>
                   Relation
-                </span>
+                </Typography>
               </div>
               <div className="input-element">
                 <select
@@ -166,7 +166,7 @@ const PlaintiffForm = (props) => {
 {/* Is Dead/Minor */}
             <div className="inner-form-elements">
               <div className="title">
-                <span style={{ fontWeight: "bold" }}>Is Dead/Minor</span>
+                <Typography variant="h5" style={{ fontWeight: "500" }}>Is Dead/Minor</Typography>
               </div>
               <div className="input-element">
                 <select
@@ -198,7 +198,7 @@ const PlaintiffForm = (props) => {
 {/* Age */}
             <div className="inner-form-elements">
               <div className="title">
-                <span style={{ fontWeight: "bold" }}>Age</span>
+                <Typography variant="h5" style={{ fontWeight: "500" }}>Age</Typography>
               </div>
               <div className="input-element">
                 <input
@@ -216,7 +216,7 @@ const PlaintiffForm = (props) => {
 {/* Gender */}
             <div className="inner-form-elements">
               <div className="title">
-                <span style={{ fontWeight: "bold" }}>Gender</span>
+                <Typography variant="h5" style={{ fontWeight: "500" }}>Gender</Typography>
               </div>
               <div className="input-element">
                 <select

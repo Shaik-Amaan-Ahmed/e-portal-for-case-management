@@ -62,6 +62,62 @@ const PlaintForm = (props) => {
     setPlaintDetails(updatedDetails);
     localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
   };
+  const [response, setResponse] = useState("");
+  const [error, setError] = useState("");
+  const [submit, setSubmit] = useState(false);
+  
+
+  const email = useContext(EmailContext);
+
+
+  const storedPlaintDetails = JSON.parse(
+    localStorage.getItem("plaintDetails")
+  ); //getting the stored data from the local storage
+
+  const initialDetails = storedPlaintDetails ? storedPlaintDetails : { 
+    causeTitlePlaintiff: "",
+    causeTitleDefendant: "",
+    caseType: "",
+    caseCategory: "",
+    caseSubCategory: "",
+    numberOfPlaintiff: "",
+    numberOfDefendant: "",
+  }//
+
+  const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
+
+  //to check whether all the details are filled or not
+  const areDetailsFilled = () => {
+
+    return Object.values(plaintDetails).every(value => value !== "");
+  };
+
+  //submitting the plaint details to the database
+  const submitPlaintDetails = () => {
+    if(!areDetailsFilled()){
+      setError("Please fill all the details");
+    }else{
+      setError(null);
+      props.handleNext(props.activeStep);
+      
+    }
+  };
+
+  //to get the data from the database and store it in the local storage
+  const value = (val) => {
+    return plaintDetails[val];
+  }
+
+  //onChange event handler common for all the input fields
+  const onChange = (sub, value) => {
+    const updatedDetails = {
+      ...plaintDetails,
+      [sub]: value,
+    };
+
+    setPlaintDetails(updatedDetails);
+    localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+  };
 
   return (
     <>

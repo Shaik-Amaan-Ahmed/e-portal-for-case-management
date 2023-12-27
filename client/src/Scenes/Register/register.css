@@ -31,6 +31,27 @@
     align-items: center;
 }
 
+@media (max-width: 600px) {
+    .register {
+        flex-direction: column;
+
+    }
+
+    .register-left {
+        display: flex;
+        border-right: none;
+
+    }
+    .register-right {
+        flex: 1;
+        height: auto;
+        border-right: none;
+
+    }
+}
+
+
+
 .image-container {
     display: flex;
     margin: 10px 10px 10px 10px;
@@ -39,10 +60,44 @@
     height: 100%;
 }
 
+@media (max-width: 600px) {
+    .image-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 .high-court-image {
     width: 80%;
     height: 50%;
 
+}
+
+.register-container {
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        width: 70%;
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 10px;
+}
+
+@media (max-width: 600px) {
+    .register-container {
+        display: flex;
+        padding: 5px;
+        width: 100%;
+        border: 1px solid grey;
+        border-radius: 10px;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        
+    }
 }
 
 .register-form {
@@ -54,6 +109,8 @@
     justify-self: center;
     margin: 10px 10px 10px 10px;
 }
+
+
 
 .inner-register-elements {
     display: flex;
@@ -78,7 +135,7 @@
     position: relative;
     display: inline-block;
     margin-bottom: 20px;
-    width: 100%;
+
   }
   
   .password-field .register-input {

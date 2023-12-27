@@ -11,6 +11,7 @@ import PlaintiffForm from "../../Components/Forms/plaintiff-form/plaintiff-form"
 import RespondantForm from "../../Components/Forms/defendant-form/defendant-form";
 import EarilerCourts from "../../Components/Forms/earlier-courts/earlier-courts";
 import UploadDocs from "../../Components/Forms/upload-docs/uploadDocs";
+import Preview from "../../Components/Forms/preview-efiling/preview-efiling.js";
 
 const steps = [
   "Enter plaint details",
@@ -115,7 +116,8 @@ const Efiling = () => {
               {activeStep === 1 && (<PlaintiffForm activeStep={activeStep} handleNext={handleNext}/>)}
               {activeStep === 2 && (<RespondantForm activeStep={activeStep} handleNext={handleNext}/>)}
               {activeStep === 3 && (<EarilerCourts activeStep = {activeStep} handleNext = {handleNext}/>)}
-              {activeStep === 4 && (<UploadDocs/>)}
+              {activeStep === 4 && (<UploadDocs activeStep = {activeStep} handleNext = {handleNext}/>)}
+              {activeStep === 5 && (<Preview activeStep = {activeStep} handleNext = {handleNext}/>)}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 {activeStep > 0 && (
                 <Box sx={{ display:"flex",justifyContent:"flex-start"}}>

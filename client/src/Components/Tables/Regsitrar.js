@@ -1,4 +1,5 @@
 import { Box, InputBase, Typography, useTheme } from "@mui/material";
+import "./registrar.css";
 import {
   DataGrid,
   GridToolbar,
@@ -221,6 +222,7 @@ const RegistrarTable = () => {
           slotProps={{
             toolbar: {
               showQuickFilter: true,
+              className: "my-toolbar",
             },
           }}
           getRowSpacing={params=>({
