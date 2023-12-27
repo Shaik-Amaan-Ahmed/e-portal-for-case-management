@@ -47,6 +47,7 @@ const Topbar = () => {
             borderRadius: 40,
             height: 40,
             justifyContent: "center",
+            padding: "10px",
           }}
           placeholder="Search"
         />

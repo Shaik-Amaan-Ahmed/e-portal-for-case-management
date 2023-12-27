@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import axios from "axios";
-import registrarDashboard from "./Scenes/dashboard/registrarDashboard";
+import RegistrarDashboard from "./Scenes/dashboard/RegistrarDashboard";
 
 function Registrar() {
   const [theme, colorMode] = useMode();
@@ -43,7 +43,7 @@ function Registrar() {
               <div className="side-content">
               <Topbar/>
               <Routes>
-                <Route path="/" element={<registrarDashboard />} />
+                <Route path="/" element={<RegistrarDashboard />} />
               </Routes>
             </div>
           </main>
