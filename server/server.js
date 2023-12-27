@@ -60,6 +60,8 @@ app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
 
+app.use("/registrar", registrarToken);
+
 
 app
   .listen(port, (res, req) => {
