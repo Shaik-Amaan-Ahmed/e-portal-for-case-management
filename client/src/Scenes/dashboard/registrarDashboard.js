@@ -2,7 +2,7 @@ import React from "react";
 
 
 
-export default function registrarDashboard() {
+export default function RegistrarDashboard() {
     return (
         <div>
         <h1>Registrar Dashboard</h1>
