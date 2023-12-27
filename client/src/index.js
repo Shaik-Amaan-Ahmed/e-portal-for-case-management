@@ -29,6 +29,7 @@ root.render(
         <Route path="/admin-register" element={<AdminRegister/>} />
         <Route path="/set-password" element={<SetPassword />} />
         <Route path="/profiles" element={<Profiles/>} />
+        <Route path="/registrar/" element={<Registrar/>} />
       </Routes>
     </BrowserRouter>
     

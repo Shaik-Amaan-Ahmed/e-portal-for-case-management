@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import axios from "axios";
-import EFilingTable from "./Scenes/dashboard/RegistrarDashboard";
+import registrarDashboard from "./Scenes/dashboard/registrarDashboard";
 
 function Registrar() {
   const [theme, colorMode] = useMode();
@@ -43,7 +43,7 @@ function Registrar() {
               <div className="side-content">
               <Topbar/>
               <Routes>
-                <Route path="/" element={<EFilingTable />} />
+                <Route path="/" element={<registrarDashboard />} />
               </Routes>
             </div>
           </main>
