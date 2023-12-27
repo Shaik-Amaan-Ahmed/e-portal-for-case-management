@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 const UploadDocs = (props) => {
 
     const [error, seterror] = useState("");//to store error message
-
+     //to store the url of the uploaded file
     //to store selected petition and aadhar
     const storedDocDetails = JSON.parse(localStorage.getItem('docDetails'));
 
@@ -22,16 +22,21 @@ const UploadDocs = (props) => {
     } 
 
     const [uploadDocs, setUploadDocs] = useState(initialDetails);//to store petition and aadhar
-    
+
     //petition file handler
     const petitionSelectedHandler = event => {
-        const file1=event.target.files[0];
-        setUploadDocs({
-            ...uploadDocs,
-            petitionBase64: file1,
-            petitionFileName: file1.name,
-        })
-    }
+        const file1 = event.target.files[0];
+    
+
+
+            setUploadDocs({
+                ...uploadDocs,
+                petitionBase64: file1,
+                petitionFileName: file1.name,
+            });
+
+    
+    };
 
     //aadhar file handler
     const aadharSelectedHandler = event => {

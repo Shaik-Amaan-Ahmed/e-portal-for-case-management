@@ -1,5 +1,9 @@
 import { Typography } from "@mui/material";
 import "./preview-efiling.css";
+import { useContext, useState } from "react";
+import SpringModal from "../../Modals/springModal";
+import axios from "axios";
+import { EmailContext } from "../../../hooks/emailContext";
 
 const Item = ({ title, value }) => { 
     return (
@@ -24,15 +28,36 @@ const Title = ({title}) => {
 
 const Preview = (props) => { 
 
+    const email = useContext(EmailContext);
     const storedPlaintDetails = JSON.parse(localStorage.getItem('plaintDetails'));
     const storedPlaintiffDetails = JSON.parse(localStorage.getItem('plaintiffDetails'));
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
     const storedDocumentDetails = JSON.parse(localStorage.getItem('docDetails'));
-    const keys = Object.keys(storedPlaintDetails);
+    const [open, setOpen] =useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
+    const data = {
+        email,
+        storedPlaintDetails,
+        storedPlaintiffDetails,
+        storedDefendantDetails,
+        storedDocumentDetails
+    }
 
-    const handleSubmit = () => {
-        props.handleNext(props.activeStep +1);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const res = await axios.post("http://localhost:64000/e-filing", data);
+
+        if(res.status === 200){ 
+            handleClose();
+            alert("Your case has been submitted successfully");
+            localStorage.clear();
+            window.location.reload();
+        }
+        else{ 
+            alert("Something went wrong. Please try again later");
+        }
     }
 
     return (
@@ -122,8 +147,14 @@ const Preview = (props) => {
           </div>
         </div>
         <div className="submit">
-            <button className="submit-button" onClick={handleSubmit}>Save and Next</button>
+            <button className="submit-button" onClick={handleOpen}>Save and Submit</button>
         </div>
+        <SpringModal 
+            handleOpen={handleOpen} 
+            handleClose={handleClose} 
+            open={open}
+            handleSubmit={handleSubmit}    
+        />
       </div>
     );
 }
