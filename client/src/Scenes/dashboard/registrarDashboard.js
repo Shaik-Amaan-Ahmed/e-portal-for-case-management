@@ -16,7 +16,7 @@ import Header from "../../Components/Header";
 import { useMemo, useState } from "react";
 import { Maximize } from "@mui/icons-material";
 import UserActions from "../../Components/useractions";
-import SignIn from "../../Scenes/Login/login";
+import SignIn from "../Login/login";
 
 const style = {
     position: 'absolute',
