@@ -7,7 +7,6 @@ const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
-const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
 const registerJudge = require("./create-docs/judgeRegister");
 const efiling = require("./create-docs/clientEfiling");
