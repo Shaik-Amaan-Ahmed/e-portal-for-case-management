@@ -26,7 +26,7 @@ router.post('/judge', async (req, res) => {
 });
 
 router.post('/registrar', async (req, res) => {
-    const username = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
     try {
