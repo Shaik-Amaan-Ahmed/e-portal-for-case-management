@@ -9,6 +9,7 @@ const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
+const efiling = require("./create-docs/clientEfiling");
 require("dotenv").config();
 
 const app = express();
@@ -44,7 +45,7 @@ app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/client", clientToken);
 app.use('/register', registerClient);
-app.use("/registrar", registrarToken);
+app.use('/e-filing', efiling);
 
 
 app

@@ -7,14 +7,16 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
-import PetitionerForm from "../../Components/Forms/petitioner-form/petitioner-form";
-import RespondantForm from "../../Components/Forms/respondent-form/respondent-form";
+import PlaintiffForm from "../../Components/Forms/plaintiff-form/plaintiff-form";
+import RespondantForm from "../../Components/Forms/defendant-form/defendant-form";
 import EarilerCourts from "../../Components/Forms/earlier-courts/earlier-courts";
+import UploadDocs from "../../Components/Forms/upload-docs/uploadDocs";
+import Preview from "../../Components/Forms/preview-efiling/preview-efiling.js";
 
 const steps = [
   "Enter plaint details",
-  "Petitioner details",
-  "Respondent details",
+  "Plaintiff details",
+  "Defendant details",
   "Eariler courts",
   "Upload documents",
   "Preview",
@@ -22,8 +24,9 @@ const steps = [
 ];
 
 const Efiling = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(  JSON.parse(localStorage.getItem('activeStep')) || 0);
   const [completed, setCompleted] = React.useState({});
+  
 
   const totalSteps = () => {
     return steps.length;
@@ -49,6 +52,7 @@ const Efiling = () => {
           steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
+    localStorage.setItem('activeStep', JSON.stringify(newActiveStep));
   };
 
   const handleBack = () => {
@@ -81,8 +85,8 @@ const Efiling = () => {
                 sx={{
                   color: activeStep === index ? "green !important" : "inherit",
                   fontWeight: "bold",
+
                 }}
-                onClick={handleStep(index)}
               >
                 <Typography variant="h5" fontWeight={activeStep === index ? "bold" : "none" } color={activeStep === index ? "orange" : "inherit"}>{label}</Typography>
               </StepButton>
@@ -108,38 +112,23 @@ const Efiling = () => {
               </Typography>
               {/* making forms */}
               
-              {activeStep === 0 && (<PlaintForm />)}
-              {activeStep === 1 && (<PetitionerForm/>)}
-              {activeStep === 2 && (<RespondantForm/>)}
+              {activeStep === 0 && (<PlaintForm activeStep={activeStep} handleNext={handleNext}/>)}
+              {activeStep === 1 && (<PlaintiffForm activeStep={activeStep} handleNext={handleNext}/>)}
+              {activeStep === 2 && (<RespondantForm activeStep={activeStep} handleNext={handleNext}/>)}
               {activeStep === 3 && (<EarilerCourts activeStep = {activeStep} handleNext = {handleNext}/>)}
+              {activeStep === 4 && (<UploadDocs activeStep = {activeStep} handleNext = {handleNext}/>)}
+              {activeStep === 5 && (<Preview activeStep = {activeStep} handleNext = {handleNext}/>)}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button
-                  color="inherit"
-                  disabled={activeStep === 0}
+                {activeStep > 0 && (
+                <Box sx={{ display:"flex",justifyContent:"flex-start"}}>
+                <button
+                  variant="contained"
                   onClick={handleBack}
-                  sx={{ mr: 1 , backgroundColor: "orange", display: activeStep === 0 ? "none" : "block"}}
-                >
-                  Back
-                </Button>
-                <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} sx={{ mr: 1, color: "inherit", backgroundColor: "orange" }}>
-                  Next
-                </Button>
-                {activeStep !== steps.length &&
-                  (completed[activeStep] ? (
-                    <Typography
-                      variant="caption"
-                      sx={{ display: "inline-block" }}
-                    >
-                      Step {activeStep + 1} already completed
-                    </Typography>
-                  ) : (
-                    <Button onClick={handleComplete} color="inherit" sx={{backgroundColor:'orange'}}>
-                      {completedSteps() === totalSteps() - 1
-                        ? "Finish"
-                        : "Complete Step"}
-                    </Button>
-                  ))}
+                  className="submit-button"
+                  >
+                    Back
+                  </button>
+                </Box>)}
               </Box>
             </React.Fragment>
           )}

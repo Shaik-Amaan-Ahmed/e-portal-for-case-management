@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
+
 const verifyUser = (req, res, next) => {
     const token = req.cookies.accessToken;
     if (!token) {
@@ -12,6 +13,7 @@ const verifyUser = (req, res, next) => {
           res.json({ message: "You are not authorised" });
         } else {
           req.role = data.role;
+          req.email = data.email;
           next();
         }
       });
@@ -19,7 +21,7 @@ const verifyUser = (req, res, next) => {
   };
 
 router.get("/", verifyUser, (req, res) => {
-    res.json({ message: "success", role: req.role });
+    res.json({ message: "success", role: req.role, email: req.email });
   });
 
 module.exports = router;

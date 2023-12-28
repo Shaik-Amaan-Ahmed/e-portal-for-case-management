@@ -1,47 +1,5 @@
-.main-content {
+.main-case {
     display: flex;
-    flex-direction: row;
-    border: 0.2px solid;
-    margin: 10px 10px 10px 10px;
-    border-radius: 10px;
-    height: fit-content !important;
-    background-color: transparent; 
-}
-
-.case-profile-img {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    border-right: 0.1px solid;
-    padding: 1px;
-    
-}
-
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 10px 10px 10px 10px;
-    display: flex;
-    justify-content: center;
-
-}
-
-.case-profile-details {
-    display: flex;
-    flex-direction: column;
-    width:100%;
-    border-radius: 10px;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.inner-case-profile-details {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 10px 10px 10px;
-    border: 0.2px solid grey;
-    border-radius: 10px;
-    padding: 20px;
+    border: 0.1px solid grey;
+    margin: 10px;
 }
