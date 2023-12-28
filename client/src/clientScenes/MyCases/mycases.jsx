@@ -1,13 +1,70 @@
-import { Typography } from "@mui/material";
+import { Icon, IconButton, Typography } from "@mui/material";
 import "./mycases.css";
 import { EmailContext } from "../../hooks/emailContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import Header from "../../Components/Header";
+import axios from "axios";
+import { useState } from "react";
+import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
+import ShowItem from "../../Components/Modals/notifications-menu";
 
 const CaseDetails = () => {
   const email = useContext(EmailContext);
+  const [casedetails, setCaseDetails] = useState([]);
+  const [notification, setNotification] = useState(false);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:64000/casedetails/client-case-details?email=" + email
+      )
+      .then((res) => {
+        setCaseDetails(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [email]);
+
   return (
     <div className="main-case">
-      hello
+      <div className="title">
+        <Header title="Case Details" />
+      </div>
+      <div className="main-table">
+        <table>
+          <tr>
+            <th>Registration No </th>
+            <th>Cause Title</th>
+            <th>Case Type</th>
+            <th>Case Status</th>
+            <th>Next Hearing Date</th>
+          </tr>
+          <tbody>
+            {casedetails.map((item) => (
+              <tr key={item._id}>
+                <td>{item._id}</td>
+                <td>
+                  {item.plaintDetails.causeTitlePlaintiff} VS{" "}
+                  {item.plaintDetails.causeTitleDefendant}
+                </td>
+                <td>{item.plaintDetails.caseType}</td>
+                <td>{item.status}</td>
+                <td>{item.plaintDetails.nextHearingDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="notifications">
+        <IconButton
+          onClick={() => {
+            setNotification(!notification);
+          }}
+        >
+          <NotificationsOutlined className="noti-icon" />
+        </IconButton>
+      </div>
+      {notification ? <ShowItem /> : null}
     </div>
   );
 };

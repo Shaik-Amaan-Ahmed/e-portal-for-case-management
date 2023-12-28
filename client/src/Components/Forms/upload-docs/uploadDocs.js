@@ -9,117 +9,83 @@ const UploadDocs = (props) => {
      //to store the url of the uploaded file
     //to store selected petition and aadhar
     const storedDocDetails = JSON.parse(localStorage.getItem('docDetails'));
-
-
-    //setting initial values of petition and aadhar if stored in local storage else passing the object
-    const initialDetails = storedDocDetails ? storedDocDetails : {
-        petitionBase64: '',
+    const [titles, setTitles] = useState({
         petitionTitle: '',
-        petitionFileName: '',
-        aadharBase64: '',
         aadharTitle: '',
-        aadharFileName: '',
-    } 
+    })
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedFile2, setSelectedFile2] = useState();
 
-    const [uploadDocs, setUploadDocs] = useState(initialDetails);//to store petition and aadhar
+    //handle upload
+    const handleFileChange = (event) =>{
+        setSelectedFiles(Array.from(event.target.files));
 
-    //petition file handler
-    const petitionSelectedHandler = event => {
-        const file1 = event.target.files[0];
-    
-
-
-            setUploadDocs({
-                ...uploadDocs,
-                petitionBase64: file1,
-                petitionFileName: file1.name,
-            });
-
-    
-    };
-
-    //aadhar file handler
-    const aadharSelectedHandler = event => {
-        const file2=event.target.files[0];
-        setUploadDocs({
-            ...uploadDocs,
-            aadharBase64: file2,
-            aadharFileName: file2.name,
-        })
     }
 
-    //petition title handler
-    const petitionTitleHandler = event => {
-        setUploadDocs({
-            ...uploadDocs,
-            petitionTitle: event.target.value,
-        })
-    }
+    const handleFileChange2 = (event) => {
+        setSelectedFile2(event.target.files[0]);
+      };
     
-    //aadhar title handler
-    const aadharTitleHandler = event => {
-        setUploadDocs({
-            ...uploadDocs,
-            aadharTitle: event.target.value,
-        })
+    //handle petition title
+    const petitionTitleHandler = (event) => { 
+        setTitles({...titles, petitionTitle: event.target.value});
     }
 
-    //convert file to base64
+    //handle aadhar title
+    const aadharTitleHandler = (event) => { 
+        setTitles({...titles, aadharTitle: event.target.value});
+    }
 
-    
-    //handle submit on click of submit button
-    const handleSubmit = async event => { 
+    const handleUpload = async () => {
+        const formData = new FormData();
+        selectedFiles.forEach((file, index) => {
+          formData.append(`file${index}`, file);
+        });
 
-        /* start of validation */
-        if(!uploadDocs.petitionBase64 && !uploadDocs.aadharBase64) { 
-            seterror("Please select both the files");
-            return;
-        }
-
-        if(!uploadDocs.petitionBase64){ 
-            seterror("Please upload petition");
-            return;
-        }
-
-        if(!uploadDocs.aadharBase64) { 
-            seterror("Please upload aadhar");
-            return;
-        }
-
-        if(!uploadDocs.petitionTitle && !uploadDocs.aadharTitle){ 
+        if(!titles.petitionTitle && !titles.aadharTitle){ 
             seterror("Please enter petition & aadhar title");
             return;
         }
 
-        if(!uploadDocs.petitionTitle){ 
+        if(!titles.petitionTitle){ 
             seterror("Please enter petition title");
             return;
         }
 
-        if(!uploadDocs.aadharTitle) { 
+        if(!titles.aadharTitle) { 
             seterror("Please enter aadhar title");
             return;
         }
-        /* end of validation */
 
-        event.preventDefault();
-
-        if(uploadDocs.petitionBase64.size > 200*1024) { 
-            seterror("Petition size should be less than 200KB");
+       if(!selectedFiles[0]) { 
+            seterror("Please upload petition");
             return;
-        }
+       }
+    
+        const fileDetails = selectedFiles.map(file => ({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            title: titles.petitionTitle,
+          }));
 
-        if(uploadDocs.aadharBase64.size > 200 *1024) { 
-            seterror("Aadhar size should be less than 200KB");
+          if(!selectedFile2) { 
+            seterror("Please upload aadhar");
             return;
-        }
+          }
 
-        //storing the uploaded documents in the local storage with key docDetails
-        localStorage.setItem('docDetails', JSON.stringify(uploadDocs));
+          if (selectedFile2) {
+            fileDetails.push({
+                name: selectedFile2.name,
+                size: selectedFile2.size,
+                type: selectedFile2.type,
+                title: titles.aadharTitle,
+              });
+          }
 
-        //calling handleNext function to move to next step
-        props.handleNext(props.activeStep + 1);
+        localStorage.setItem('docDetails', JSON.stringify(fileDetails));
     }
+
 
     return (
         <>
@@ -145,19 +111,24 @@ const UploadDocs = (props) => {
 
 
             <div className='upload-div'>
-            
-                <div className="doc-title">
-                    <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Petition</Typography>
-                </div>
                 <div className='doc-input'>
-                    <input type="text" className='docs-title' placeholder='Title' onChange={petitionTitleHandler} value={uploadDocs.petitionTitle}/>
-                    <input type="file" id="petition-file" onChange={petitionSelectedHandler} placeholder='Select Files' style={{display: 'none'}} />
-                    <label htmlFor="petition-file" className="custom-file-upload">Browse</label>
+                <Typography style={{display:"flex",marginRight:"10px"}} variant='h5'>Petition</Typography>
+                    <input type="text" className='docs-title' placeholder='Petition Title' onChange={petitionTitleHandler} />
+                    <input type="file" id="petition-file"  onChange={handleFileChange} placeholder='Select Files' />
                 </div>
-                <span style={{display:"flex",width:"100%"}}>{uploadDocs.petitionFileName}</span>
+                
             </div>
-            
             <div className='upload-div'>
+                <div className='doc-input'>
+                <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Aadhar</Typography>
+                    <input type="text" className='docs-title' placeholder='Aadhar Title' onChange={aadharTitleHandler} />
+                    <input type="file" id="petition-file" onChange={handleFileChange2} placeholder='Select Files' />
+                    
+                </div>
+                
+            </div>
+            <button className='upload' onClick={handleUpload}>Upload</button>
+            {/* <div className='upload-div'>
                 <div className="doc-title">
                     <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Aadhar</Typography>
                 </div>
@@ -167,9 +138,9 @@ const UploadDocs = (props) => {
                     <label htmlFor="aadhar-file" className="custom-file-upload">Browse</label>
                 </div>
                 <span style={{display:"flex",width:"100%"}}>{uploadDocs.aadharFileName}</span>
+            </div> */}
             </div>
-            </div>
-            <button onClick={handleSubmit} 
+            {/* <button onClick={handleSubmit} 
                 style={{
                     backgroundColor: "orange",
                     display: "flex",
@@ -183,7 +154,7 @@ const UploadDocs = (props) => {
                     margin : "10px 10px 10px 10px",
                     fontSize: "15px",
                 }}
-            >Submit</button>
+            >Submit</button> */}
             
         </div>
         </>

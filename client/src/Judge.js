@@ -24,7 +24,6 @@ function Judge() {
     axios.get("http://localhost:64000/judge").then((res) => {
       if (res.data.message === "success" && res.data.role === "judge") {
         setIsLoggedIn(true);
-        window.history.pushState(null, "", "/judge");
       } else {
         setIsLoggedIn(false);
 

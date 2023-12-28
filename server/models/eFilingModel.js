@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 
 const efiling = new Schema({ 
     email: {type : String, required: true},
+    status: {type: String},
+    nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
@@ -51,14 +53,12 @@ const efiling = new Schema({
     },
     docDetails: {
         petitionBase64: {
-            data : Buffer,
-            contentType: String,
+            type: Buffer,
         },
         petitionTitle: {type: String},
         petitionFileName : {type: String},
         aadharBase64: {
-            data : Buffer,
-            contentType: String,
+            type: Buffer,
         },
         aadharTitle: {type: String},
         aadharFileName : {type: String},
