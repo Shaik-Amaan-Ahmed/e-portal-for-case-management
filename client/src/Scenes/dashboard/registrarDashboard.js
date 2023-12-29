@@ -17,6 +17,7 @@ import { useMemo, useState } from "react";
 import { Maximize } from "@mui/icons-material";
 import UserActions from "../../Components/useractions";
 import SignIn from "../Login/login";
+import mongoose from "mongoose";
 
 const style = {
     position: 'absolute',
@@ -31,6 +32,10 @@ const style = {
     px: 4,
     pb: 3,
 };
+
+const efiling = mongoose.model('efiling');
+
+
 
 function ChildModal() {
     const [open, setOpen] = useState(false);
@@ -71,6 +76,30 @@ const ViewButton = (props) => {
     const handleClose = () => {
         setOpen(false);
     };
+    const Item = ({ title, value }) => { 
+        return (
+            <div className="item">
+                <div className="item-title">
+                    <Typography variant="h5" sx={{fontWeight: "bold", fontWeight:"500",display:"flex",justifyContent:"center"}}>{title}</Typography>
+                </div>
+                <div className="item-value">
+                    <Typography variant="h5" sx={{fontWeight:"500"}}>{value}</Typography>
+                </div>        
+            </div>
+        )
+    }
+    
+    const Title = ({title}) => {
+        return (
+            <div className="doc-title">
+                <Typography variant="h4" color="orange" sx={{fontWeight: "500"}}>{title}</Typography>
+              </div>
+        )
+    }
+    // const storedPlaintDetails = JSON.parse();
+    // const storedPlaintiffDetails = JSON.parse();
+    // const storedDefendantDetails = JSON.parse();
+    // const storedDocumentDetails = JSON.parse();
 
     return (
         <div>
@@ -85,9 +114,9 @@ const ViewButton = (props) => {
                 aria-describedby="parent-modal-description"
             >
                 <Box sx={{ ...style, width: 400 }}>
-                    <h2 id="parent-modal-title">Text in a modal</h2>
+                    <h2 id="parent-modal-title">Details</h2>
                     <p id="parent-modal-description">
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        
                     </p>
                     <ChildModal />
                 </Box>
