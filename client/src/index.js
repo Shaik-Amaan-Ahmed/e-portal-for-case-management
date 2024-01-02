@@ -9,7 +9,7 @@ import Client from "./Clients";
 import Register from "./Scenes/Register/register";
 import HomePage from "./Scenes/HomePage/HomePage";
 import Registrar from "./Registrars";
-
+import Profiles from "./Scenes/JudgeProfiles/Profiles";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
