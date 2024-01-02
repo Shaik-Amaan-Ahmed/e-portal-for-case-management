@@ -4,12 +4,12 @@ import { useContext, useState } from "react";
 import SpringModal from "../../Modals/springModal";
 import axios from "axios";
 import { EmailContext } from "../../../hooks/emailContext";
-
+import UploadDocs from "../upload-docs/uploadDocs";
 const Item = ({ title, value }) => { 
     return (
         <div className="item">
             <div className="item-title">
-                <Typography variant="h5" sx={{fontWeight: "bold", fontWeight:"500",display:"flex",justifyContent:"center"}}>{title}</Typography>
+                <Typography variant="h5" sx={{fontWeight: "bold", display:"flex",justifyContent:"center"}}>{title}</Typography>
             </div>
             <div className="item-value">
                 <Typography variant="h5" sx={{fontWeight:"500"}}>{value}</Typography>
@@ -132,6 +132,7 @@ const Preview = (props) => {
              </div>
           </div>
         </div>
+        <UploadDocs/>
         <div className="doc-details">
             <Title title={"Document Details"} />
           <div className="doc-main">

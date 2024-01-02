@@ -9,6 +9,7 @@ const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const registerClient = require("./create-docs/clientRegister");
 const efiling = require("./create-docs/clientEfiling");
+const uploads = require("./create-docs/uploadDocs");
 require("dotenv").config();
 
 const app = express();
@@ -28,6 +29,8 @@ mongoose
     console.log("Error: ", err.message);
   });
 
+
+
 app.use(cookieParser());
 //middlewares
 app.use(express.json());
@@ -45,7 +48,6 @@ app.use("/judge", judgeToken);
 app.use("/client", clientToken);
 app.use('/register', registerClient);
 app.use('/e-filing', efiling);
-
 
 app
   .listen(port, (res, req) => {

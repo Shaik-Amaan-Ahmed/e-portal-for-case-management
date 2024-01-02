@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
         plaintiffDetails: data.storedPlaintiffDetails,
         defendantDetails: data.storedDefendantDetails,
         docDetails: data.storedDocumentDetails
-    })
+    });
 
     try {
         const savedEfiling = await newEfiling.save();
