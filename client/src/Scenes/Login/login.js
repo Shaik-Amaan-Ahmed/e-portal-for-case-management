@@ -2,13 +2,14 @@ import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useTheme } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Home} from "@mui/icons-material";
 import "./test.css"
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -28,15 +29,24 @@ export default function SignIn() {
     const url = "http://localhost:64000/login/" + role;
     const res = await axios.post(url, data);
 
-    if (res.data.status === "Success") {
+    if (res.data.message === "success") {
       navigate("/" + role);
     } else {
-      alert("Invalid Credentialsss");
+      alert(res.data.message);
       navigate("/login");
     }
   };
   return (
     <ThemeProvider theme={theme}>
+      <div>
+        <IconButton onClick={() => navigate('/')}>
+          <Home /> 
+          <label style={{
+            fontSize: "20px",
+            fontWeight: "500",
+          }}>Home</label>
+        </IconButton>
+      </div>
       <div
         style={{
           display: "flex",

@@ -1,56 +1,82 @@
-import { Typography } from "@mui/material";
+import { Icon, IconButton, Typography } from "@mui/material";
 import "./mycases.css";
 import { EmailContext } from "../../hooks/emailContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import Header from "../../Components/Header";
+import axios from "axios";
+import { useState } from "react";
+import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
+import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu";
+import ErrorIcon from '@mui/icons-material/Error';
 
 const CaseDetails = () => {
   const email = useContext(EmailContext);
+  const [casedetails, setCaseDetails] = useState([]);
+  const [notification, setNotification] = useState(false);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:64000/casedetails/client-case-details?email=" + email
+      )
+      .then((res) => {
+        setCaseDetails(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [email]);
+
   return (
-    <div className="main-content">
-      <div className="case-profile-img">
-        <img
-          className="profile-img"
-          src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-          alt="profile"
-        />
-        <Typography variant="h5">SHAIK AMAAN AHMED</Typography>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "10px 0 0 0",
+    <div className="main-case">
+      <div className="title">
+        <Header title="Case Details" />
+      </div>
+      <div className="main-table">
+      {casedetails.length > 0 ? (
+        <table>
+        <tr>
+          <th>Registration No </th>
+          <th>Cause Title</th>
+          <th>Case Type</th>
+          <th>Case Status</th>
+          <th>Next Hearing Date</th>
+        </tr>
+        <tbody>
+          {casedetails.map((item) => (
+            <tr key={item._id}>
+              <td>{item._id}</td>
+              <td>
+                {item.plaintDetails.causeTitlePlaintiff} VS{" "}
+                {item.plaintDetails.causeTitleDefendant}
+              </td>
+              <td>{item.plaintDetails.caseType}</td>
+              <td>{item.status}</td>
+              <td>{item.plaintDetails.nextHearingDate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      ): 
+      (<div className="no-records">
+        <ErrorIcon className="error-icon"/>
+        <Typography variant="h5" color="red" fontSize="large" fontWeight="600">
+          No Records Found
+        </Typography>
+      </div>
+        )
+    }
+        
+      </div>
+      <div className="notifications">
+        <IconButton
+          onClick={() => {
+            setNotification(!notification);
           }}
         >
-          <Typography variant="h4" component="div" fontWeight="bold">
-            CASE ID: 22BD1A051M
-          </Typography>
-        </div>
-        <div>
-          <progress
-            value="50"
-            max="100"
-            style={{ width: "40vh", margin: "0 10px 0 10px" }}
-          />
-        </div>
+          <NotificationsOutlined className="noti-icon" />
+        </IconButton>
       </div>
-      <div className="case-profile-details">
-        <div className="inner-case-profile-details">
-          <Typography variant="h4" component="div">
-            Case Details:{" "}
-            <span style={{ color: "orange" }}>
-              Shaik Amaan Ahmed Vs Institute of KMIT
-            </span>
-          </Typography>
-          <br />
-          <Typography variant="h4" component="div">
-            Case Status: <span style={{ color: "green" }}>Active</span>
-          </Typography>
-          <br />
-          <Typography variant="h4" component="div">
-            <span>Next hearing Date: 11/12/2023</span>
-          </Typography>
-        </div>
-      </div>
+      {notification ? <ShowItem /> : null}
     </div>
   );
 };

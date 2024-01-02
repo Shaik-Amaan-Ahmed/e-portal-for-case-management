@@ -1,188 +1,100 @@
-import React, { useState } from 'react';
-import "./uploadDocs.css";
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import "./uploadDocs.css"
+import { EmailContext } from '../../../hooks/emailContext';
 import { Typography } from '@mui/material';
-import { useEffect } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const UploadDocs = (props) => {
-
-    const [error, seterror] = useState("");//to store error message
-
-    //to store selected petition and aadhar
-    const storedDocDetails = JSON.parse(localStorage.getItem('docDetails'));
-
-
-    //setting initial values of petition and aadhar if stored in local storage else passing the object
-    const initialDetails = storedDocDetails ? storedDocDetails : {
-        petitionBase64: '',
+    const [docDetails, setDocdetails] = useState({
+        petition: null,
         petitionTitle: '',
-        petitionFileName: '',
-        aadharBase64: '',
-        aadharTitle: '',
-        aadharFileName: '',
-    } 
+        aadhar: null,
+        aadharTitle: ''
+    });
 
-    const [uploadDocs, setUploadDocs] = useState(initialDetails);//to store petition and aadhar
+    const initialId = localStorage.getItem('caseId') ? localStorage.getItem('caseId') : uuidv4();
+
+     const [caseId, setCaseId] = useState(initialId);
+
+    localStorage.setItem('caseId', caseId);
+
+    const [error, setError] = useState('');
+
+    const email = useContext(EmailContext);
+
+    const handleFileChange = (e) => {
+        const { name, files } = e.target;
+        setDocdetails(prevState => ({
+            ...prevState,
+            [name]: files[0]
+        }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!docDetails.petition || !docDetails.aadhar) {
+            setError('Please upload all documents');
+            return;
+        }
     
-    //petition file handler
-    const petitionSelectedHandler = event => {
-        const file1=event.target.files[0];
-        setUploadDocs({
-            ...uploadDocs,
-            petitionBase64: file1,
-            petitionFileName: file1.name,
-        })
-    }
-
-    //aadhar file handler
-    const aadharSelectedHandler = event => {
-        const file2=event.target.files[0];
-        setUploadDocs({
-            ...uploadDocs,
-            aadharBase64: file2,
-            aadharFileName: file2.name,
-        })
-    }
-
-    //petition title handler
-    const petitionTitleHandler = event => {
-        setUploadDocs({
-            ...uploadDocs,
-            petitionTitle: event.target.value,
-        })
-    }
-    
-    //aadhar title handler
-    const aadharTitleHandler = event => {
-        setUploadDocs({
-            ...uploadDocs,
-            aadharTitle: event.target.value,
-        })
-    }
-
-    //convert file to base64
-
-    
-    //handle submit on click of submit button
-    const handleSubmit = async event => { 
-
-        /* start of validation */
-        if(!uploadDocs.petitionBase64 && !uploadDocs.aadharBase64) { 
-            seterror("Please select both the files");
+        // Check file sizes
+        if (docDetails.petition.size > 200 * 1024) {
+            setError('Petition size exceeds 200KB');
             return;
         }
 
-        if(!uploadDocs.petitionBase64){ 
-            seterror("Please upload petition");
+        if (docDetails.aadhar.size > 200 * 1024) { 
+            setError('Aadhar size exceeds 200KB');
             return;
         }
 
-        if(!uploadDocs.aadharBase64) { 
-            seterror("Please upload aadhar");
-            return;
+        const formData = new FormData();
+        formData.append('petition', docDetails.petition);
+        formData.append('aadhar', docDetails.aadhar);
+        formData.append('email', email);
+        formData.append('caseId', caseId);
+
+        try {
+            await axios.post('http://localhost:64000/e-filing/upload-docs', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            props.handleNext(props.activeStep +1);
+
+        }catch (error) {
+            console.error('Error:', error);
         }
-
-        if(!uploadDocs.petitionTitle && !uploadDocs.aadharTitle){ 
-            seterror("Please enter petition & aadhar title");
-            return;
-        }
-
-        if(!uploadDocs.petitionTitle){ 
-            seterror("Please enter petition title");
-            return;
-        }
-
-        if(!uploadDocs.aadharTitle) { 
-            seterror("Please enter aadhar title");
-            return;
-        }
-        /* end of validation */
-
-        event.preventDefault();
-
-        if(uploadDocs.petitionBase64.size > 200*1024) { 
-            seterror("Petition size should be less than 200KB");
-            return;
-        }
-
-        if(uploadDocs.aadharBase64.size > 200 *1024) { 
-            seterror("Aadhar size should be less than 200KB");
-            return;
-        }
-
-        //storing the uploaded documents in the local storage with key docDetails
-        localStorage.setItem('docDetails', JSON.stringify(uploadDocs));
-
-        //calling handleNext function to move to next step
-        props.handleNext(props.activeStep + 1);
+        
     }
 
     return (
         <>
-        {error && <span className="error-message">{error}</span>}
-        <div className="main-doc">
-            <Typography variant='h4'>Upload Docs</Typography>
-            <div style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                flexDirection:"column",
-                margin: "10px",
-            }}>
-                <Typography style={{color: "orange"}} variant='h5'>*File size should be less than 200kb</Typography>
+        {error && <Typography variant="h4" style={{display:"flex", justifyContent:"center", marginBottom:"10px"}} color="red">{error}</Typography>}
+        <div className='doc-container'>
+            <label style={{fontSize:"large", fontWeight:"500", color:"orange"}}>Upload Documents</label>
+        <form onSubmit={handleSubmit}>
+        <div className='doc-upload-file'>
+            <label for="petition">Petition</label>
+            <input type="file" name="petition" onChange={handleFileChange} accept='.pdf' />
+        </div>
+        <div className='doc-upload-file'>
+            <label for="petition">Aadhar</label>
+            <input type="file" name="aadhar" onChange={handleFileChange} accept='.pdf'/>
+        </div>
+            </form>
+            <div className='buttons-div'>
+                <button className='submit-btn'>Cancel</button>
+                <button type="submit" className='submit-btn' onClick={handleSubmit}>Upload</button>
             </div>
-            <div style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                flexDirection:"column",
-                width:"100%",
-            }}>
-
-
-            <div className='upload-div'>
-            
-                <div className="doc-title">
-                    <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Petition</Typography>
-                </div>
-                <div className='doc-input'>
-                    <input type="text" className='docs-title' placeholder='Title' onChange={petitionTitleHandler} value={uploadDocs.petitionTitle}/>
-                    <input type="file" id="petition-file" onChange={petitionSelectedHandler} placeholder='Select Files' style={{display: 'none'}} />
-                    <label htmlFor="petition-file" className="custom-file-upload">Browse</label>
-                </div>
-                <span style={{display:"flex",width:"100%"}}>{uploadDocs.petitionFileName}</span>
-            </div>
-            
-            <div className='upload-div'>
-                <div className="doc-title">
-                    <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Aadhar</Typography>
-                </div>
-                <div className='doc-input'>
-                    <input type="text" className='docs-title' placeholder='Title' onChange={aadharTitleHandler} value={uploadDocs.aadharTitle}/>
-                    <input type="file" id="aadhar-file" onChange={aadharSelectedHandler} placeholder='Select Files' style={{display: 'none'}} />
-                    <label htmlFor="aadhar-file" className="custom-file-upload">Browse</label>
-                </div>
-                <span style={{display:"flex",width:"100%"}}>{uploadDocs.aadharFileName}</span>
-            </div>
-            </div>
-            <button onClick={handleSubmit} 
-                style={{
-                    backgroundColor: "orange",
-                    display: "flex",
-                    color: "white",
-                    border: "none",
-                    justifyContent: "center",
-                    borderRadius: "10px",
-                    padding: "10px",
-                    cursor: "pointer",
-                    marginTop: "20px",
-                    margin : "10px 10px 10px 10px",
-                    fontSize: "15px",
-                }}
-            >Submit</button>
             
         </div>
         </>
-    )
+
+    );
 }
 
 export default UploadDocs;

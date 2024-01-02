@@ -14,6 +14,7 @@ const PlaintForm = (props) => {
 
   const email = useContext(EmailContext);
 
+
   const storedPlaintDetails = JSON.parse(
     localStorage.getItem("plaintDetails")
   ); //getting the stored data from the local storage

@@ -1,5 +1,9 @@
 import { Typography } from "@mui/material";
 import "./preview-efiling.css";
+import { useContext, useState } from "react";
+import SpringModal from "../../Modals/springModal";
+import axios from "axios";
+import { EmailContext } from "../../../hooks/emailContext";
 
 const Item = ({ title, value }) => { 
     return (
@@ -24,23 +28,51 @@ const Title = ({title}) => {
 
 const Preview = (props) => { 
 
+    const email = useContext(EmailContext);
     const storedPlaintDetails = JSON.parse(localStorage.getItem('plaintDetails'));
     const storedPlaintiffDetails = JSON.parse(localStorage.getItem('plaintiffDetails'));
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
-    const storedDocumentDetails = JSON.parse(localStorage.getItem('docDetails'));
-    const keys = Object.keys(storedPlaintDetails);
+    const caseId = localStorage.getItem('caseId');
+    const [open, setOpen] =useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
+    
 
-    const handleSubmit = () => {
-        props.handleNext(props.activeStep +1);
+    const data = { 
+        email,
+        caseId,
+        storedPlaintDetails,
+        storedPlaintiffDetails,
+        storedDefendantDetails,
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const res = await axios.post("http://localhost:64000/e-filing", data);
+        try{
+
+        if(res.status === 200){
+            alert("Your case has been submitted successfully");
+            localStorage.clear();
+            window.location.reload(true);
+               
+        }else{
+            alert("Something went wrong");
+        }
+    }catch(err){ 
+        console.log(err.message);
+    }
+        
     }
 
     return (
       <div className="preview-main">
 {/* Plaint Details */}
         <Typography variant="h3">Preview</Typography>
-        <div className="doc-details">
-            <Title title={"Plaint Details"} />
+        
+        <div className="docs-details">
+        <Title title={"Plaint Details"} />
           <div className="doc-main">
             <div className="doc-left">
                 <Item title="Cause Title Plaintiff" value={storedPlaintDetails.causeTitlePlaintiff} />
@@ -55,7 +87,7 @@ const Preview = (props) => {
             </div>
           </div>
         </div>
-        <div className="doc-details">
+        <div className="docs-details">
             <Title title={"Plaintiff Details"} />
           <div className="doc-main">
             <div className="doc-left">
@@ -81,7 +113,7 @@ const Preview = (props) => {
              </div>
           </div>
         </div>
-        <div className="doc-details">
+        <div className="docs-details">
             <Title title={"Defendant Details"} />
           <div className="doc-main">
             <div className="doc-left">
@@ -107,23 +139,16 @@ const Preview = (props) => {
              </div>
           </div>
         </div>
-        <div className="doc-details">
-            <Title title={"Document Details"} />
-          <div className="doc-main">
-            <div className="doc-left">
-                <Item title="Petetion Title" value={storedDocumentDetails.petitionTitle}/>
-                <Item title="Aadhar Title" value={storedDocumentDetails.aadharTitle}/>
-              
-            </div>
-            <div className="doc-right">
-                <Item title="Petetion File" value={storedDocumentDetails.petitionFileName}/>
-                <Item title="Aadhar File" value={storedDocumentDetails.aadharFileName}/>
-             </div>
-          </div>
-        </div>
+
         <div className="submit">
-            <button className="submit-button" onClick={handleSubmit}>Save and Next</button>
+            <button className="submit-button" onClick={handleOpen}>Save and Submit</button>
         </div>
+        <SpringModal 
+            handleOpen={handleOpen} 
+            handleClose={handleClose} 
+            open={open}
+            handleSubmit={handleSubmit}    
+        />
       </div>
     );
 }

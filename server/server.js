@@ -7,9 +7,13 @@ const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
+const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
 const efiling = require("./create-docs/clientEfiling");
+const casedetails = require("./fetch-data/sendCaseDetails");
+const bodyParser = require('body-parser');
 require("dotenv").config();
+
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -38,14 +42,19 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //routes
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/client", clientToken);
+app.use("/registrar", registrarToken);
 app.use('/register', registerClient);
 app.use('/e-filing', efiling);
-
+app.use('/casedetails',casedetails);
+app.use('/uploads', express.static('uploads'));
 
 app
   .listen(port, (res, req) => {
