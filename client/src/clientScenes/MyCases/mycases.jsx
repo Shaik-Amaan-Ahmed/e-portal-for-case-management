@@ -8,12 +8,15 @@ import { useState } from "react";
 import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
 import ShowItem from "../../Components/Modals/notifications-menu";
 import ErrorIcon from '@mui/icons-material/Error';
+import Spinner from "../../Components/Spinner";
 
 const CaseDetails = () => {
   const email = useContext(EmailContext);
   const [casedetails, setCaseDetails] = useState([]);
   const [notification, setNotification] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         "http://localhost:64000/casedetails/client-case-details?email=" + email
@@ -25,11 +28,14 @@ const CaseDetails = () => {
         console.log(err.message);
       });
   }, [email]);
+  
+
 
   return (
     <div className="main-case">
       <div className="title">
         <Header title="Case Details" />
+        
       </div>
       <div className="main-table">
       {casedetails.length > 0 ? (
@@ -60,9 +66,9 @@ const CaseDetails = () => {
       (<div className="no-records">
         <ErrorIcon className="error-icon"/>
         <Typography variant="h5" color="red" fontSize="large" fontWeight="600">
-          No Records Found
+          {loading && <Spinner />}
         </Typography>
-      </div>
+      </div>  
         )
     }
         

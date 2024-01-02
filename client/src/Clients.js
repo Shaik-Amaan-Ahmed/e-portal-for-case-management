@@ -49,7 +49,7 @@ const Client = () => {
                 width: "100%",
                }}>
                <Routes>
-                    <Route path="/" element={<ClientDashboard/>} />
+                    <Route path="/" element={<CaseDetails/>} />
                     <Route path="/e-filing" element = {<Efiling />} />
                 </Routes>
               </div> 
