@@ -87,7 +87,7 @@ const Efiling = () => {
                   fontWeight: "bold",
 
                 }}
-                
+                onClick={handleStep(index)}
               >
                 <Typography variant="h5" fontWeight={activeStep === index ? "bold" : "none" } color={activeStep === index ? "orange" : "inherit"}>{label}</Typography>
               </StepButton>

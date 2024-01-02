@@ -32,40 +32,47 @@ const Preview = (props) => {
     const storedPlaintDetails = JSON.parse(localStorage.getItem('plaintDetails'));
     const storedPlaintiffDetails = JSON.parse(localStorage.getItem('plaintiffDetails'));
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
-    const storedDocumentDetails = JSON.parse(localStorage.getItem('docDetails'));
+    const caseId = localStorage.getItem('caseId');
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const data = {
+    
+
+    const data = { 
         email,
+        caseId,
         storedPlaintDetails,
         storedPlaintiffDetails,
         storedDefendantDetails,
-        storedDocumentDetails
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const res = await axios.post("http://localhost:64000/e-filing", data);
+        try{
 
-        if(res.status === 200){ 
-            handleClose();
+        if(res.status === 200){
             alert("Your case has been submitted successfully");
             localStorage.clear();
-            window.location.reload();
+            window.location.reload(true);
+               
+        }else{
+            alert("Something went wrong");
         }
-        else{ 
-            alert("Something went wrong. Please try again later");
-        }
+    }catch(err){ 
+        console.log(err.message);
+    }
+        
     }
 
     return (
       <div className="preview-main">
 {/* Plaint Details */}
         <Typography variant="h3">Preview</Typography>
-        <div className="doc-details">
-            <Title title={"Plaint Details"} />
+        
+        <div className="docs-details">
+        <Title title={"Plaint Details"} />
           <div className="doc-main">
             <div className="doc-left">
                 <Item title="Cause Title Plaintiff" value={storedPlaintDetails.causeTitlePlaintiff} />
@@ -80,7 +87,7 @@ const Preview = (props) => {
             </div>
           </div>
         </div>
-        <div className="doc-details">
+        <div className="docs-details">
             <Title title={"Plaintiff Details"} />
           <div className="doc-main">
             <div className="doc-left">
@@ -106,7 +113,7 @@ const Preview = (props) => {
              </div>
           </div>
         </div>
-        <div className="doc-details">
+        <div className="docs-details">
             <Title title={"Defendant Details"} />
           <div className="doc-main">
             <div className="doc-left">
@@ -132,20 +139,7 @@ const Preview = (props) => {
              </div>
           </div>
         </div>
-        <div className="doc-details">
-            <Title title={"Document Details"} />
-          <div className="doc-main">
-            <div className="doc-left">
-                <Item title="Petetion Title" value={storedDocumentDetails.petitionTitle}/>
-                <Item title="Aadhar Title" value={storedDocumentDetails.aadharTitle}/>
-              
-            </div>
-            <div className="doc-right">
-                <Item title="Petetion File" value={storedDocumentDetails.petitionFileName}/>
-                <Item title="Aadhar File" value={storedDocumentDetails.aadharFileName}/>
-             </div>
-          </div>
-        </div>
+
         <div className="submit">
             <button className="submit-button" onClick={handleOpen}>Save and Submit</button>
         </div>

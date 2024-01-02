@@ -59,3 +59,15 @@ table td {
     align-items: center;
     color: inherit;
 }
+
+.no-records {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.error-icon {
+    display: flex;
+    color: red;
+    margin-right: 2px;
+}

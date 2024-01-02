@@ -1,164 +1,100 @@
-import React, { useState } from 'react';
-import "./uploadDocs.css";
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import "./uploadDocs.css"
+import { EmailContext } from '../../../hooks/emailContext';
 import { Typography } from '@mui/material';
-import { useEffect } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const UploadDocs = (props) => {
-
-    const [error, seterror] = useState("");//to store error message
-     //to store the url of the uploaded file
-    //to store selected petition and aadhar
-    const storedDocDetails = JSON.parse(localStorage.getItem('docDetails'));
-    const [titles, setTitles] = useState({
+    const [docDetails, setDocdetails] = useState({
+        petition: null,
         petitionTitle: '',
-        aadharTitle: '',
-    })
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const [selectedFile2, setSelectedFile2] = useState();
+        aadhar: null,
+        aadharTitle: ''
+    });
 
-    //handle upload
-    const handleFileChange = (event) =>{
-        setSelectedFiles(Array.from(event.target.files));
+    const initialId = localStorage.getItem('caseId') ? localStorage.getItem('caseId') : uuidv4();
 
+     const [caseId, setCaseId] = useState(initialId);
+
+    localStorage.setItem('caseId', caseId);
+
+    const [error, setError] = useState('');
+
+    const email = useContext(EmailContext);
+
+    const handleFileChange = (e) => {
+        const { name, files } = e.target;
+        setDocdetails(prevState => ({
+            ...prevState,
+            [name]: files[0]
+        }));
     }
 
-    const handleFileChange2 = (event) => {
-        setSelectedFile2(event.target.files[0]);
-      };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!docDetails.petition || !docDetails.aadhar) {
+            setError('Please upload all documents');
+            return;
+        }
     
-    //handle petition title
-    const petitionTitleHandler = (event) => { 
-        setTitles({...titles, petitionTitle: event.target.value});
-    }
+        // Check file sizes
+        if (docDetails.petition.size > 200 * 1024) {
+            setError('Petition size exceeds 200KB');
+            return;
+        }
 
-    //handle aadhar title
-    const aadharTitleHandler = (event) => { 
-        setTitles({...titles, aadharTitle: event.target.value});
-    }
+        if (docDetails.aadhar.size > 200 * 1024) { 
+            setError('Aadhar size exceeds 200KB');
+            return;
+        }
 
-    const handleUpload = async () => {
         const formData = new FormData();
-        selectedFiles.forEach((file, index) => {
-          formData.append(`file${index}`, file);
-        });
+        formData.append('petition', docDetails.petition);
+        formData.append('aadhar', docDetails.aadhar);
+        formData.append('email', email);
+        formData.append('caseId', caseId);
 
-        if(!titles.petitionTitle && !titles.aadharTitle){ 
-            seterror("Please enter petition & aadhar title");
-            return;
+        try {
+            await axios.post('http://localhost:64000/e-filing/upload-docs', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            props.handleNext(props.activeStep +1);
+
+        }catch (error) {
+            console.error('Error:', error);
         }
-
-        if(!titles.petitionTitle){ 
-            seterror("Please enter petition title");
-            return;
-        }
-
-        if(!titles.aadharTitle) { 
-            seterror("Please enter aadhar title");
-            return;
-        }
-
-       if(!selectedFiles[0]) { 
-            seterror("Please upload petition");
-            return;
-       }
-    
-        const fileDetails = selectedFiles.map(file => ({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            title: titles.petitionTitle,
-          }));
-
-          if(!selectedFile2) { 
-            seterror("Please upload aadhar");
-            return;
-          }
-
-          if (selectedFile2) {
-            fileDetails.push({
-                name: selectedFile2.name,
-                size: selectedFile2.size,
-                type: selectedFile2.type,
-                title: titles.aadharTitle,
-              });
-          }
-
-        localStorage.setItem('docDetails', JSON.stringify(fileDetails));
+        
     }
-
 
     return (
         <>
-        {error && <span className="error-message">{error}</span>}
-        <div className="main-doc">
-            <Typography variant='h4'>Upload Docs</Typography>
-            <div style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                flexDirection:"column",
-                margin: "10px",
-            }}>
-                <Typography style={{color: "orange"}} variant='h5'>*File size should be less than 200kb</Typography>
+        {error && <Typography variant="h4" style={{display:"flex", justifyContent:"center", marginBottom:"10px"}} color="red">{error}</Typography>}
+        <div className='doc-container'>
+            <label style={{fontSize:"large", fontWeight:"500", color:"orange"}}>Upload Documents</label>
+        <form onSubmit={handleSubmit}>
+        <div className='doc-upload-file'>
+            <label for="petition">Petition</label>
+            <input type="file" name="petition" onChange={handleFileChange} accept='.pdf' />
+        </div>
+        <div className='doc-upload-file'>
+            <label for="petition">Aadhar</label>
+            <input type="file" name="aadhar" onChange={handleFileChange} accept='.pdf'/>
+        </div>
+            </form>
+            <div className='buttons-div'>
+                <button className='submit-btn'>Cancel</button>
+                <button type="submit" className='submit-btn' onClick={handleSubmit}>Upload</button>
             </div>
-            <div style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                flexDirection:"column",
-                width:"100%",
-            }}>
-
-
-            <div className='upload-div'>
-                <div className='doc-input'>
-                <Typography style={{display:"flex",marginRight:"10px"}} variant='h5'>Petition</Typography>
-                    <input type="text" className='docs-title' placeholder='Petition Title' onChange={petitionTitleHandler} />
-                    <input type="file" id="petition-file"  onChange={handleFileChange} placeholder='Select Files' />
-                </div>
-                
-            </div>
-            <div className='upload-div'>
-                <div className='doc-input'>
-                <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Aadhar</Typography>
-                    <input type="text" className='docs-title' placeholder='Aadhar Title' onChange={aadharTitleHandler} />
-                    <input type="file" id="petition-file" onChange={handleFileChange2} placeholder='Select Files' />
-                    
-                </div>
-                
-            </div>
-            <button className='upload' onClick={handleUpload}>Upload</button>
-            {/* <div className='upload-div'>
-                <div className="doc-title">
-                    <Typography style={{display:"flex",marginRight:"20px"}} variant='h5'>Aadhar</Typography>
-                </div>
-                <div className='doc-input'>
-                    <input type="text" className='docs-title' placeholder='Title' onChange={aadharTitleHandler} value={uploadDocs.aadharTitle}/>
-                    <input type="file" id="aadhar-file" onChange={aadharSelectedHandler} placeholder='Select Files' style={{display: 'none'}} />
-                    <label htmlFor="aadhar-file" className="custom-file-upload">Browse</label>
-                </div>
-                <span style={{display:"flex",width:"100%"}}>{uploadDocs.aadharFileName}</span>
-            </div> */}
-            </div>
-            {/* <button onClick={handleSubmit} 
-                style={{
-                    backgroundColor: "orange",
-                    display: "flex",
-                    color: "white",
-                    border: "none",
-                    justifyContent: "center",
-                    borderRadius: "10px",
-                    padding: "10px",
-                    cursor: "pointer",
-                    marginTop: "20px",
-                    margin : "10px 10px 10px 10px",
-                    fontSize: "15px",
-                }}
-            >Submit</button> */}
             
         </div>
         </>
-    )
+
+    );
 }
 
 export default UploadDocs;
