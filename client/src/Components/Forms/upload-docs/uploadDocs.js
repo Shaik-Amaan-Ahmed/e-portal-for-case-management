@@ -90,21 +90,6 @@ const UploadDocs = (props) => {
                 <button className='submit-btn'>Cancel</button>
                 <button type="submit" className='submit-btn' onClick={handleSubmit}>Upload</button>
             </div>
-            <button onClick={handleSubmit} 
-                style={{
-                    backgroundColor: "orange",
-                    display: "flex",
-                    color: "white",
-                    border: "none",
-                    justifyContent: "center",
-                    borderRadius: "10px",
-                    padding: "10px",
-                    cursor: "pointer",
-                    marginTop: "20px",
-                    margin : "10px 10px 10px 10px",
-                    fontSize: "15px",
-                }}
-            >Submit</button>
             
         </div>
         </>
