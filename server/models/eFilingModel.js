@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const efiling = new Schema({ 
     email: {type : String, required: true},
+    caseId: {type: String, required: true},
+    status: {type: String},
+    nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
@@ -10,7 +13,7 @@ const efiling = new Schema({
         caseCategory: {type: String},
         caseSubCategory:{type: String},
         numberOfPlaintiff: {type: String},
-        numberOfRespondent: {type: String},
+        numberOfDefendants: {type: String},
     },
     plaintiffDetails: {
         plaintiffType: {type : String},
@@ -50,19 +53,17 @@ const efiling = new Schema({
         defendantPinCode: {type : String},
     },
     docDetails: {
-        petitionBase64: {
-            data : Buffer,
-            contentType: String,
-        },
-        petitionTitle: {type: String},
-        petitionFileName : {type: String},
-        aadharBase64: {
-            data : Buffer,
-            contentType: String,
-        },
-        aadharTitle: {type: String},
-        aadharFileName : {type: String},
-    },
+      petition: {  
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
+      aadhar: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      }
+    }
 })
 
 module.exports = mongoose.model('efiling', efiling);
