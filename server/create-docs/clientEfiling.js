@@ -37,11 +37,13 @@ router.post('/upload-docs', upload.fields([{ name: 'petition', maxCount: 1 }, { 
     
     const email = req.body.email;
     const caseId = req.body.caseId;
+    const status = 'Pending at court for approval'
 
     try{
     const file = new efiling({
         email: email,
         caseId: caseId,
+        status: status,
         docDetails:{
             petition : {
                 filename: req.files.petition[0].originalname,

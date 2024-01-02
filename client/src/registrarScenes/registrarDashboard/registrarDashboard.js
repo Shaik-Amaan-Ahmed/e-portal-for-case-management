@@ -2,8 +2,8 @@ import "./registrarDashboard.css";
 import Header from "../../Components/Header";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import ViewDetails from "../../Components/Modals/registrarViewDetails";
-import ViewDocuments from "../../Components/Modals/registrar-view-documents";
+import ViewDetails from "../../Components/Modals/registrar-view-detials/registrarViewDetails";
+import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
 
 const RegistrarDashboard = () => {
   const [data, setData] = useState([]);

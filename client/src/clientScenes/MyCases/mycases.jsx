@@ -6,7 +6,7 @@ import Header from "../../Components/Header";
 import axios from "axios";
 import { useState } from "react";
 import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
-import ShowItem from "../../Components/Modals/notifications-menu";
+import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu";
 import ErrorIcon from '@mui/icons-material/Error';
 
 const CaseDetails = () => {
