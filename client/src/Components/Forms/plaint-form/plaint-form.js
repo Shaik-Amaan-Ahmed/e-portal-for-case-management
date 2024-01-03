@@ -5,6 +5,7 @@ import "./plaint-form.css";
 
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
+  const caseCategory = ["one", "two", "three"];
   const [casee,setCasee] = useState({});
   const [earlierCourts, setEarlierCourts] = useState(false);
   const [option , setOption] = useState("");

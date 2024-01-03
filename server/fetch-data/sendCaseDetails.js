@@ -104,9 +104,12 @@ router.get('/registrar-view-documents', async (req, res) => {
 
 router.get('/client-case-category', async (req,res) =>{
     try {
-        const data = await caseCateg.find();
+        const data = await caseCateg.find({});
         if(data){
             res.status(200).send(data);
+        }
+        else{
+            res.status(400).json({message: "No data found"});
         }
     }
     catch (error){
