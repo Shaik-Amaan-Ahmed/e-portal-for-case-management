@@ -5,19 +5,34 @@ import "./plaint-form.css";
 
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
+  const [casee,setCasee] = useState({});
   const caseCategory = ["one", "two", "three"];
   const [earlierCourts, setEarlierCourts] = useState(false);
+  const [option , setOption] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
-  
+
+
 
   const email = useContext(EmailContext);
-
 
   const storedPlaintDetails = JSON.parse(
     localStorage.getItem("plaintDetails")
   ); //getting the stored data from the local storage
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:64000/casedetails/client-case-category")
+      .then((res) => {
+        setCasee(res.data[0].caseType);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }, []);
+
+  // console.log(casee["Labour Matters"]); // Log the caseType here
 
   const initialDetails = storedPlaintDetails ? storedPlaintDetails : { 
     causeTitlePlaintiff: "",
@@ -63,6 +78,27 @@ const PlaintForm = (props) => {
     setPlaintDetails(updatedDetails);
     localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
   };
+  const caseTypeOnChange = (sub, val) => {
+    
+    setOption(val);
+    if(casee[val].length === 1 && casee[val][0] === "-"){
+      const updatedDetails = {
+        ...plaintDetails,
+        ["caseCategory"]: "-",
+      };
+  
+      setPlaintDetails(updatedDetails);
+      localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+    }
+    const updatedDetails = {
+      ...plaintDetails,
+      [sub]: val,
+    };
+
+    setPlaintDetails(updatedDetails);
+    localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+  };
+
 
   return (
     <>
@@ -111,9 +147,10 @@ const PlaintForm = (props) => {
                 <select
                   className="input-field"
                   value={value("caseType")}
-                  onChange={(e) => onChange("caseType", e.target.value)}
+                  onChange={(e) => caseTypeOnChange("caseType", e.target.value)}
                 >
-                  {caseType.map((option, index) => (
+                  {value("caseType") === "" && <option value="none">Select Case Type</option>}
+                  {Object.keys(casee).map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
@@ -132,7 +169,8 @@ const PlaintForm = (props) => {
                   value={value("caseCategory")}
                   onChange={(e) => onChange("caseCategory", e.target.value)}
                 >
-                  {caseCategory.map((option, index) => (
+                {!option &&  <option value="none">Select Case Type</option>}
+                  {option && casee[option].map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
