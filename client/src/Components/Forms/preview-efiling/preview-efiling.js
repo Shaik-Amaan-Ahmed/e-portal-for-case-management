@@ -50,7 +50,7 @@ const Preview = (props) => {
         storedPlaintDetails,
         storedPlaintiffDetails,
         storedDefendantDetails,
-        status
+        status:status
     }
 
     const handleSubmit = async (event) => {
@@ -89,7 +89,7 @@ const Preview = (props) => {
             </div>
             <div className="doc-right">
                 <Item title="Number of Plaintiffs" value={storedPlaintDetails.numberOfPlaintiff}/>
-                <Item title="Number of Defendants" value={storedPlaintDetails.numberOfDefendant}/>
+                <Item title="Number of Defendants" value={storedPlaintDetails.numberOfDefendants}/>
             </div>
           </div>
         </div>

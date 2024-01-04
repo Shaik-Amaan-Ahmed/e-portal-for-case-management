@@ -22,6 +22,9 @@ const RegistrarDashboard = () => {
     setId(id);
     setViewDocOpen(!viewDocOpen);
   }
+  const handleOpenRejectModal = () => {
+    
+  }
 
   const handleViewDocClose = () => setViewDocOpen(false);
 
@@ -79,12 +82,13 @@ const RegistrarDashboard = () => {
                   <td>
                     <div className="approve-deny">
                       <button className="approve-btn">Approve</button>
-                      <button className="deny-btn">Reject</button>
+                      <button className="deny-btn" onClick={handleOpenRejectModal()}>Reject</button>
                     </div>
                   </td>
                 </tr>
               );
             })}
+
           </tbody>
         </table>
       </div>

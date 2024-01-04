@@ -15,6 +15,8 @@ router.post("/", async (req, res) => {
                 plaintDetails: data.storedPlaintDetails,
                 plaintiffDetails: data.storedPlaintiffDetails,
                 defendantDetails: data.storedDefendantDetails,
+                status: data.status,
+                caseRegisteredDate: data.formattedDate
             },
             { new: true } // return the updated document
         );
