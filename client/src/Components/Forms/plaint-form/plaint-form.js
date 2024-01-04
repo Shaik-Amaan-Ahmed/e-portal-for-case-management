@@ -4,13 +4,13 @@ import axios from "axios";
 import "./plaint-form.css";
 
 const PlaintForm = (props) => {
-  const caseType = ["civil", "criminal", "three"];
+  const caseType = ["one", "two", "three"]
   const caseCategory = ["one", "two", "three"];
   const [earlierCourts, setEarlierCourts] = useState(false);
   const [submit, setSubmit] = useState(false);
   
 
-  const email = useContext(EmailContext);
+
 
   const storedPlaintDetails = JSON.parse(
     localStorage.getItem("plaintDetails")

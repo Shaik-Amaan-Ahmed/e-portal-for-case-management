@@ -103,37 +103,7 @@ const Home = () => {
           justifyItems: "center",
         }}
       >
-
-
-        <Typography variant="h4" sx={{margin:'5px'}}>
-          Cause Title: {Data[0].cause_title}
-        </Typography>
-
-        <Typography variant="h5" sx={{margin:'5px'}}>
-          Prosecution: {Data[0].Prosecution}
-        </Typography>
-
-        <Typography variant="h5" sx={{margin:'5px'}}>
-          Defendant: {Data[0].Defendant}
-        </Typography>
-
-        <Typography variant="h5" sx={{margin:'5px'}}>
-          Case Status: {Data[0].Status}
-        </Typography>
-
-
-        <Typography variant="h5" sx={{margin:'5px'}}>
-          Petition-File :   
-          <Button variant="contained" sx={{backgroundColor:'orange'}} onClick={handleViewFile}>
-            View File
-          </Button>
-        </Typography>
-
       </Box>
-
-
-
-
     </Box>
   );
 };

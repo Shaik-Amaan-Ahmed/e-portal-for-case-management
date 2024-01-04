@@ -66,13 +66,12 @@ const CaseDetails = () => {
       (<div className="no-records">
         <ErrorIcon className="error-icon"/>
         <Typography variant="h5" color="red" fontSize="large" fontWeight="600">
-          {loading && <Spinner />}
+          No Result Found
         </Typography>
       </div>  
         )
     }
-        
-      </div>
+        </div>
       <div className="notifications">
         <IconButton
           onClick={() => {
