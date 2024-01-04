@@ -5,7 +5,6 @@ import "./plaint-form.css";
 
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
-  const caseCategory = ["one", "two", "three"];
   const [casee,setCasee] = useState({});
   const [earlierCourts, setEarlierCourts] = useState(false);
   const [option , setOption] = useState("");
@@ -154,35 +153,19 @@ const PlaintForm = (props) => {
             </div>
             <div className="inner-form-elements">
               <div className="title">
-                {/* Case Category */}
-                <span>Case Category</span>
-              </div>
-              <div className="input-element">
-                <select
-                  value={value("caseCategory")}
-                  className="input-field"
-                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
-                >
-                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
-                  {Object.keys(casee).map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="inner-form-elements">
-              <div className="title">
                 {/* Case SubCategory */}
                 <span>Case Sub-category</span>
               </div>
               <div className="input-element">
                 <select
                   className="input-field"
+                  value={value("caseCategory")}
+                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
                   value={value("caseSubCategory")}
                   onChange={(e) => onChange("caseSubCategory", e.target.value)}
                 >
+                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {Object.keys(casee).map((option, index) => (
                 {!option &&  <option value="none">Select Case SubCategory</option>}
                   {option && ["None", ...casee[option]].map((option, index) => (
                     <option key={index} value={option}>

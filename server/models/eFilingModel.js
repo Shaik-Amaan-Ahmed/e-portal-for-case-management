@@ -11,7 +11,6 @@ const efiling = new Schema({
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
-        caseType: {type: String},
         caseCategory: {type: String},
         caseSubCategory:{type: String},
         numberOfPlaintiff: {type: String},

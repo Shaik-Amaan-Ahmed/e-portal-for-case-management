@@ -42,7 +42,7 @@ const PlaintiffForm = (props) => {
     plaintiffDeadMinor: "NA",
     plaintiffDOB: "",
     plaintiffAge: "",
-    plaintiffGender: "male",
+    plaintiffGender: "",
     plaintiffEmail: "",
     plaintiffPhone: "",
     plaintiffAddress: "",
@@ -77,13 +77,23 @@ const PlaintiffForm = (props) => {
 
   //onChange event handler common for all the input fields
   const onChange = (sub, value) => {
-    const updatedDetails = {
-      ...plaintiffDetails,
-      [sub]: value,
-    };
+    if(sub==="plaintiffDeadMinor" && value==="-"){
+        const updatedDetails = {
+          ...plaintiffDetails,
+          ["plaintiffDeadMinor"]: '-',
+        };
+        setPlaintiffDetails(updatedDetails);
+        localStorage.setItem("plaintiffDetails", JSON.stringify(updatedDetails));
+    }
+    else{
+      const updatedDetails = {
+        ...plaintiffDetails,
+        [sub]: value,
+      };
 
-    setPlaintiffDetails(updatedDetails);
-    localStorage.setItem("plaintiffDetails", JSON.stringify(updatedDetails));
+      setPlaintiffDetails(updatedDetails);
+      localStorage.setItem("plaintiffDetails", JSON.stringify(updatedDetails));
+    }
   };
 
   return (
