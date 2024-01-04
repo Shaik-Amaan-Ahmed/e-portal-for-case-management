@@ -89,9 +89,7 @@ const RegistrarDashboard = () => {
         </table>
       </div>
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id}/>}
-    {open && id!==null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId}/>}
-
-      
+    {open && id!==null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId}/>}      
     </div>
   );
 };

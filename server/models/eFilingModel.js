@@ -63,6 +63,11 @@ const efiling = new Schema({
         contentType : {type : String},
         fileData: {type : Buffer}
       }
+    },
+    status: {type: String},
+    caseRegisteredDate:{
+      type: Date,
+      default:Date.now
     }
 })
 

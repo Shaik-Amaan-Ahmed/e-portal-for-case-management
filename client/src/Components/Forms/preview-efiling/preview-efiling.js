@@ -32,6 +32,10 @@ const Preview = (props) => {
     const storedPlaintDetails = JSON.parse(localStorage.getItem('plaintDetails'));
     const storedPlaintiffDetails = JSON.parse(localStorage.getItem('plaintiffDetails'));
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
+    const date = new Date();
+    const status = "Pending at court for approval";
+    const formattedDate = date.toLocaleDateString('en-GB');
+    
     const caseId = localStorage.getItem('caseId');
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
@@ -42,9 +46,11 @@ const Preview = (props) => {
     const data = { 
         email,
         caseId,
+        formattedDate,
         storedPlaintDetails,
         storedPlaintiffDetails,
         storedDefendantDetails,
+        status
     }
 
     const handleSubmit = async (event) => {
