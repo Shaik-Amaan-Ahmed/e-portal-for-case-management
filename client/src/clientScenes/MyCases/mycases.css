@@ -1,5 +1,73 @@
 .main-case {
     display: flex;
-    border: 0.1px solid grey;
+
     margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    flex-direction: column;
+
+}
+
+.title {
+    display: flex;
+
+}
+
+.main-table {
+    display: flex;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;    
+    border-bottom: 0.1px solid grey;
+    border-radius: 10px;
+
+}
+
+table th {  
+    border-bottom: 0.1px solid grey;
+    padding: 10px;
+    font-weight: 500;
+    font-size: large;
+    color: orange;
+}
+
+table td {
+    border-bottom: 0.1px solid grey;
+    padding: 15px;
+    font-size: medium;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+.notifications {
+    display: flex;
+    bottom: 20px;
+    right: 20px;
+    position: fixed;
+    border-radius: 50%;
+    border: 0.1px solid;
+    background: orange;
+    padding: 5px;
+}
+
+.noti-icon {
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    color: inherit;
+}
+
+.no-records {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.error-icon {
+    display: flex;
+    color: red;
+    margin-right: 2px;
 }

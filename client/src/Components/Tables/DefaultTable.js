@@ -222,7 +222,6 @@ const RegistrarTable = () => {
           slotProps={{
             toolbar: {
               showQuickFilter: true,
-              className: "my-toolbar",
             },
           }}
           getRowSpacing={params=>({

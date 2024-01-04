@@ -7,6 +7,7 @@ import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import {Grid } from "@mui/material";
 
+
 const RegisterForm = () => {
   const [data, setData] = useState({
     firstName: "",
