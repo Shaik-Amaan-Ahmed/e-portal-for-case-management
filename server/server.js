@@ -63,6 +63,7 @@ app.use('/case-category', sendCaseCategory);
 app.use("/registrar", registrarToken);
 
 
+
 app
   .listen(port, (res, req) => {
     console.log(`Server is running on port: ${port}`);
