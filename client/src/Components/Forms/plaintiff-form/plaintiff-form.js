@@ -58,7 +58,7 @@ const PlaintiffForm = (props) => {
 
   //to check whether all the details are filled or not
   const areDetailsFilled = () => { 
-    return Object.values(plaintiffDetails).every((value) => value !== "");
+    return Object.values(plaintiffDetails).every((value) => value !== "" && value !== "None");
   }
 
   const handleSubmitPlaintiffDetails = () => {
