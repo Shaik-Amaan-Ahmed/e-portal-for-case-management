@@ -30,6 +30,7 @@ const Title = ({title}) => {
 
 function ViewDetails(props) {
   const [viewData, setViewData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [show , setShow] = useState('plaintDetails');
   useEffect(() => {
     axios
@@ -68,14 +69,13 @@ function ViewDetails(props) {
                 <div className="docu-details">
                   <div className="doc-left">
                     <Item title="Cause Title" value={`${item.plaintDetails.causeTitlePlaintiff} VS ${item.plaintDetails.causeTitleDefendant}`}/>
-                    <Item title="Case Type" value={item.plaintDetails.caseType} />
                     <Item title="Cause Title Plaintiff" value={item.plaintDetails.causeTitlePlaintiff} />
                     <Item title="Case Category" value={item.plaintDetails.caseCategory} />
                     <Item title="Case SubCategory" value={item.plaintDetails.caseSubCategory} />
                   </div>
                   <div className="doc-right">
                     <Item title="Number of Plaintiffs" value={item.plaintDetails.numberOfPlaintiff} />
-                    <Item title="Number of Defendents" value={item.plaintDetails.numberOfDefandent} />
+                    <Item title="Number of Defendents" value={item.plaintDetails.numberOfDefendants} />
                   </div>
                 </div>
                 </>

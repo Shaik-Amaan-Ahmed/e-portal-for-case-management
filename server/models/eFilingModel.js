@@ -9,7 +9,6 @@ const efiling = new Schema({
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
-        caseType: {type: String},
         caseCategory: {type: String},
         caseSubCategory:{type: String},
         numberOfPlaintiff: {type: String},
@@ -63,11 +62,6 @@ const efiling = new Schema({
         contentType : {type : String},
         fileData: {type : Buffer}
       }
-    },
-    status: {type: String},
-    caseRegisteredDate:{
-      type: Date,
-      default:Date.now
     }
 })
 
