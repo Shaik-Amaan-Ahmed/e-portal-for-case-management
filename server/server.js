@@ -56,6 +56,7 @@ app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
 
+
 app
   .listen(port, (res, req) => {
     console.log(`Server is running on port: ${port}`);

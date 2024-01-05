@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
                 plaintDetails: data.storedPlaintDetails,
                 plaintiffDetails: data.storedPlaintiffDetails,
                 defendantDetails: data.storedDefendantDetails,
+                status: data.status
             },
             { new: true } // return the updated document
         );
@@ -37,13 +38,11 @@ router.post('/upload-docs', upload.fields([{ name: 'petition', maxCount: 1 }, { 
     
     const email = req.body.email;
     const caseId = req.body.caseId;
-    const status = 'Pending at court for approval'
 
     try{
     const file = new efiling({
         email: email,
         caseId: caseId,
-        status: status,
         docDetails:{
             petition : {
                 filename: req.files.petition[0].originalname,
@@ -65,6 +64,26 @@ router.post('/upload-docs', upload.fields([{ name: 'petition', maxCount: 1 }, { 
 }
 })
 
+router.post('/reject-case', async (req, res) => { 
+    const id = req.body.id;
+    const reasonforrejection = req.body.reasonforrejection;
+
+    try {
+        const data = await efiling.findOneAndUpdate(
+            { caseId: id }, // find a document with this id
+            {
+                status: "Rejected",
+                reasonforrejection: reasonforrejection
+            },
+            { new: true } // return the updated document
+        );
+        res.status(200).json({message: "success"});
+        }catch (error){ 
+            console.log(error.message);
+            res.status(500).json({message: error.message});
+        } 
+
+})
 
 
 module.exports = router;
