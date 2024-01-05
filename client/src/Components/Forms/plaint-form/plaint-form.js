@@ -153,12 +153,31 @@ const PlaintForm = (props) => {
             </div>
             <div className="inner-form-elements">
               <div className="title">
+                {/* Case Category */}
+                <span>Case Category</span>
+              </div>
+              <div className="input-element">
+                <select
+                  className="input-field"
+                  value={value("caseCategory")}
+                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
+                >
+                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {Object.keys(casee).map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="inner-form-elements">
+              <div className="title">
                 {/* Case SubCategory */}
                 <span>Case Sub-category</span>
               </div>
               <div className="input-element">
                 <select
-                  className="input-field"
                   value={value("caseCategory")}
                   onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
                   value={value("caseSubCategory")}
