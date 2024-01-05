@@ -78,7 +78,14 @@ function ViewDetails(props) {
                                 <Typography variant="h5" sx={{ fontWeight: "500" }}>{item.plaintDetails.caseCategory}</Typography>
                             </div>
                         </div>
-                    <Item title="Case SubCategory" value={item.plaintDetails.caseSubCategory} />
+                        <div className="item">
+                            <div className="item-title">
+                                <Typography variant="h5" sx={{ fontWeight: "bold", fontWeight: "500", display: "flex", justifyContent: "center" }}>Case Sub Category</Typography>
+                            </div>
+                            <div className="case-category">
+                                <Typography variant="h5" sx={{ fontWeight: "500" }}>{item.plaintDetails.caseSubCategory}</Typography>
+                            </div>
+                        </div>
                   </div>
                   <div className="doc-right">
                     <Item title="Number of Plaintiffs" value={item.plaintDetails.numberOfPlaintiff} />
