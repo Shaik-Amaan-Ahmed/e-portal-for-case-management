@@ -6,6 +6,7 @@ const efiling = new Schema({
     caseId: {type: String, required: true},
     status: {type: String},
     nextHearingDate: {type: Date},
+    caseRegisteredDate:{type:Date, default: Date.now()},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
