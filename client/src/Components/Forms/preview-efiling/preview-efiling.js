@@ -33,6 +33,7 @@ const Preview = (props) => {
     const storedPlaintiffDetails = JSON.parse(localStorage.getItem('plaintiffDetails'));
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
     const caseId = localStorage.getItem('caseId');
+    const status = "Pending at court for approval";
     const date = new Date();
     const formattedDate = date.toLocaleDateString('en-GB');
     const [open, setOpen] = useState(false);
@@ -44,6 +45,7 @@ const Preview = (props) => {
     const data = {
         email,
         caseId,
+        status:status,
         storedPlaintDetails,
         formattedDate,
         storedPlaintiffDetails,
