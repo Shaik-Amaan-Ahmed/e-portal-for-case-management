@@ -11,8 +11,8 @@ router.post('/judge', async (req, res) => {
     try {
         
         const user = await Judge.findOne({ username: username });
-        if(!user) return res.json({ message: "Username or password is wrong" });
-        if(user.password !== password) return res.json({ message: "Username or password is wrong" });
+        if(!user) return res.json({ message: "Username or password is incorrect" });
+        if(user.password !== password) return res.json({ message: "Username or password is incorrect" });
         else{
             const accessToken = jwt.sign({ username: username, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true });

@@ -26,7 +26,7 @@ function Judge() {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
-
+        
         navigate("/login");
       }
     });

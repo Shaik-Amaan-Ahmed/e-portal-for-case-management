@@ -1,14 +1,14 @@
-import { ColorModeContext, useMode } from "./themes";
+import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Topbar from "./Scenes/Global/Topbar";
+import Topbar from "../../Scenes/Global/Topbar";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import Sidebar from "./Scenes/Global/registrarSidebar";
-import SignIn from "./Scenes/Login/login";
+import Sidebar from "../../Scenes/Global/registrarSidebar";
+import SignIn from "../../Scenes/Login/login";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import axios from "axios";
-import EFilingTable from "./Scenes/dashboard/RegistrarDashboard";
+import EFilingTable from "../../Scenes/dashboard/RegistrarDashboard";
 
 function Registrar() {
   const [theme, colorMode] = useMode();
