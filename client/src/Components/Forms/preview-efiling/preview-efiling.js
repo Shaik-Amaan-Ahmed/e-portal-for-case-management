@@ -36,12 +36,13 @@ const Preview = (props) => {
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const status = "Pending at court for approval";
 
-    
 
     const data = { 
         email,
         caseId,
+        status:status,
         storedPlaintDetails,
         storedPlaintiffDetails,
         storedDefendantDetails,
