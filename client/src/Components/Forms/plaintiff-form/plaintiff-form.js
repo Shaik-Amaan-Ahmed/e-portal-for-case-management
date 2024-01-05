@@ -42,7 +42,7 @@ const PlaintiffForm = (props) => {
     plaintiffDeadMinor: "",
     plaintiffDOB: "",
     plaintiffAge: "",
-    plaintiffGender: "male",
+    plaintiffGender: "",
     plaintiffEmail: "",
     plaintiffPhone: "",
     plaintiffAddress: "",
@@ -77,13 +77,23 @@ const PlaintiffForm = (props) => {
 
   //onChange event handler common for all the input fields
   const onChange = (sub, value) => {
-    const updatedDetails = {
-      ...plaintiffDetails,
-      [sub]: value,
-    };
+    if(sub==="plaintiffDeadMinor" && value==="-"){
+        const updatedDetails = {
+          ...plaintiffDetails,
+          ["plaintiffDeadMinor"]: '-',
+        };
+        setPlaintiffDetails(updatedDetails);
+        localStorage.setItem("plaintiffDetails", JSON.stringify(updatedDetails));
+    }
+    else{
+      const updatedDetails = {
+        ...plaintiffDetails,
+        [sub]: value,
+      };
 
-    setPlaintiffDetails(updatedDetails);
-    localStorage.setItem("plaintiffDetails", JSON.stringify(updatedDetails));
+      setPlaintiffDetails(updatedDetails);
+      localStorage.setItem("plaintiffDetails", JSON.stringify(updatedDetails));
+    }
   };
 
   return (
@@ -176,6 +186,12 @@ const PlaintiffForm = (props) => {
                     onChange("plaintiffDeadMinor", e.target.value);
                   }}
                 >
+                  <option value="None" key={0}>
+                    None 
+                  </option>
+                  <option value="NA" key={0}>
+                    NA
+                  </option>
                   <option value="Dead" key={1}>
                     Dead
                   </option>
