@@ -1,0 +1,25 @@
+.inner-div {
+        display: "flex";
+        justify-items: "center";
+        margin-block: auto;
+        height: "100vh";
+        border: 1px solid;
+        padding: 20px;
+        width: 30%;
+        border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .inner-div {
+        display: "flex";
+        justify-items: "center";
+        margin-block: auto;
+        height: "100vh";
+        width:80%;
+        align-items: "center";
+        border: 0.1px solid;
+        justify-content: center;
+        padding: 10px;
+    }
+    
+}

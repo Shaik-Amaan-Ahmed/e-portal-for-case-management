@@ -29,10 +29,10 @@ export default function SignIn() {
     const url = "http://localhost:64000/login/" + role;
     const res = await axios.post(url, data);
 
-    if (res.data.status === "Success") {
+    if (res.data.message === "success") {
       navigate("/" + role);
     } else {
-      alert("Invalid Credentialsss");
+      alert(res.data.message);
       navigate("/login");
     }
   };

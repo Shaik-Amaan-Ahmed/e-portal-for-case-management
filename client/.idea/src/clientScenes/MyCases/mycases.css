@@ -1,0 +1,113 @@
+.main-case {
+    display: flex;
+
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    flex-direction: column;
+
+}
+
+.search-div{
+    display: flex;
+    justify-content: end;
+}
+
+.search-bar {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0.1px solid grey;
+    width: 20%;
+    height: 40px;
+    background: transparent;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.title {
+    display: flex;
+
+}
+
+.main-table {
+    display: flex;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;    
+    border-bottom: 0.1px solid grey;
+    border-radius: 10px;
+
+}
+
+table th {  
+    border-bottom: 0.1px solid grey;
+    padding: 10px;
+    font-weight: 500;
+    font-size: large;
+    color: orange;
+}
+
+table td {
+    border-bottom: 0.1px solid grey;
+    padding: 15px;
+    font-size: medium;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+.notifications {
+    display: flex;
+    bottom: 20px;
+    right: 20px;
+    position: fixed;
+    border-radius: 50%;
+    border: 0.1px solid;
+    background: orange;
+    padding: 5px;
+}
+
+.noti-icon {
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    color: inherit;
+}
+
+.no-records {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.error-icon {
+    display: flex;
+    color: red;
+    margin-right: 2px;
+}
+
+.pagination-client-table {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+
+}
+
+.pagination-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    border-radius: 5px;
+    height: 40px;
+    margin: 10px;
+    padding: 10px;
+    color: black;
+    font-weight: 500;
+    width: fit-content;
+    font-size: large;
+}

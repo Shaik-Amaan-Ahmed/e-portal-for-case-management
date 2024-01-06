@@ -1,14 +1,36 @@
-.main-content {
+.main-case {
     display: flex;
-    flex-direction: row;
-    border: 0.2px solid;
-    margin: 10px 10px 10px 10px;
+
+    margin: 10px;
     border-radius: 10px;
-    height: fit-content !important;
-    background-color: transparent; 
+    padding: 10px;
+    flex-direction: column;
+
 }
 
-.case-profile-img {
+.search-div{
+    display: flex;
+    justify-content: end;
+}
+
+.search-bar {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0.1px solid grey;
+    width: 20%;
+    height: 40px;
+    background: transparent;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.title {
+    display: flex;
+
+}
+
+.main-table {
     display: flex;
     justify-content: flex-end;
 }
@@ -78,26 +100,41 @@ table td {
     right: 20px;
     position: fixed;
     border-radius: 50%;
-    margin: 10px 10px 10px 10px;
+    align-items: center;
+    color: inherit;
+}
+
+.no-records {
     display: flex;
     justify-content: center;
+    width: 100%;
+}
+
+.error-icon {
+    display: flex;
+    color: red;
+    margin-right: 2px;
+}
+
+.pagination-client-table {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
 
 }
 
-.case-profile-details {
+.pagination-button {
     display: flex;
-    flex-direction: column;
-    width:100%;
-    border-radius: 10px;
     justify-content: center;
-    margin-top: 30px;
-}
-
-.inner-case-profile-details {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 10px 10px 10px;
-    border: 0.2px solid grey;
-    border-radius: 10px;
-    padding: 20px;
+    align-items: center;
+    background: orange;
+    border-radius: 5px;
+    height: 40px;
+    margin: 10px;
+    padding: 10px;
+    color: black;
+    font-weight: 500;
+    width: fit-content;
+    font-size: large;
 }
