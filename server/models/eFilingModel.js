@@ -5,6 +5,7 @@ const efiling = new Schema({
     email: {type : String, required: true},
     caseId: {type: String, required: true},
     status: {type: String},
+    registrationDate: {type: String},
     reasonforrejection: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {

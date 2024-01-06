@@ -88,7 +88,8 @@ const RegistrarDashboard = () => {
         <table className="registrar-table">
           <thead>
             <tr key="1">
-              <th>Registration Number</th>
+              <th>Regn. Number</th>
+              <th>Regn. Date</th>
               <th>Cause Title</th>
               <th>View Details</th>
               <th>Uploaded Documents</th>
@@ -100,6 +101,7 @@ const RegistrarDashboard = () => {
               return (
                 <tr key={item._id}>
                   <td>{item.caseId}</td>
+                  <td>{item.registrationDate}</td>
                   <td>
                     {item.plaintDetails.causeTitlePlaintiff} VS{" "}
                     {item.plaintDetails.causeTitleDefendant}

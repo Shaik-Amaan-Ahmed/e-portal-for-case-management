@@ -48,9 +48,9 @@ const CaseDetails = () => {
       <div className="title">
         <Header title="Case Details" />
       </div>
-      <div className="search-div">
+      {casedetails.length> 0 && (<div className="search-div">
         <input type="text" placeholder="Search" className="search-bar" onChange={(e) => setSearchInput(e.target.value)}/>
-      </div>
+      </div>)}
       <div className="main-table">
       
       {

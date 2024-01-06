@@ -63,7 +63,7 @@ function RegistrarDeny(props) {
             </div>
             <div className="deny-buttons">
               <button onClick={handleReject}>Reject</button>
-              <button>Cancel</button>
+              <button onClick={props.handleClose}>Cancel</button>
             </div>
           </div>
         </div>

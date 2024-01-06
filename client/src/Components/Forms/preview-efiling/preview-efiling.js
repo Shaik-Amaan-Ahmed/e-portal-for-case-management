@@ -1,9 +1,13 @@
 import { Typography } from "@mui/material";
 import "./preview-efiling.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SpringModal from "../../Modals/springModal";
 import axios from "axios";
 import { EmailContext } from "../../../hooks/emailContext";
+import UploadDocs from "../upload-docs/uploadDocs";
+import { v4 as uuidv4 } from "uuid";
+import {CircularProgress} from "@mui/material";
+
 
 const Item = ({ title, value }) => { 
     return (
@@ -32,34 +36,90 @@ const Preview = (props) => {
     const storedPlaintDetails = JSON.parse(localStorage.getItem('plaintDetails'));
     const storedPlaintiffDetails = JSON.parse(localStorage.getItem('plaintiffDetails'));
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
-    const caseId = localStorage.getItem('caseId');
+    const [registrationDate, setRegistrationDate] = useState(new Date());
+    const [formattedDate, setFormattedDate] = useState('');
+    const caseId = uuidv4();
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const status = "Pending at court for approval";
+    
+    useEffect(() => {
+        const day = String(registrationDate.getDate()).padStart(2, '0');
+        const month = String(registrationDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const year = registrationDate.getFullYear();
 
+        setFormattedDate(day + '-' + month + '-' + year);
+    }, [registrationDate]);
+
+
+    const [docDetails, setDocdetails] = useState({
+        petition: null,
+        aadhar: null,
+    });
 
     const data = { 
         email,
-        caseId,
+        caseId:caseId,
         status:status,
+        registrationDate:formattedDate,
         storedPlaintDetails,
         storedPlaintiffDetails,
         storedDefendantDetails,
     }
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const res = await axios.post("http://localhost:64000/e-filing", data);
+        const formData = new FormData();
+
+        if(!docDetails.petition || !docDetails.aadhar){
+            handleClose();
+            setError('Please upload all documents');
+            return;
+        }
+
+        // Check file sizes
+        if (docDetails.petition.size > 200 * 1024) { 
+            handleClose();
+            setError('Petition size exceeds 200KB');
+            return;
+        }
+
+        if (docDetails.aadhar.size > 200 * 1024) { 
+            handleClose();
+            setError('Aadhar size exceeds 200KB');
+            return;
+        }
+
+
+
+        formData.append('petition', docDetails.petition);
+        formData.append('aadhar', docDetails.aadhar);
+        formData.append('caseId', caseId);
+    
+
+        const res = await axios.post("http://localhost:64000/e-filing",data);
         try{
 
         if(res.status === 200){
-            alert("Your case has been submitted successfully");
-            localStorage.clear();
-            window.location.reload(true);
+            const uploadres = await axios.post('http://localhost:64000/e-filing/upload-docs', formData, { 
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+            if(uploadres.status === 200){
+                handleClose();
+                setLoading(true);
+                localStorage.clear();
+                alert("Case Created Successfully");
+                window.location.reload(); 
+            }else{
+                alert("Something went wrong");
+            }
                
-        }else{
-            alert("Something went wrong");
         }
     }catch(err){ 
         console.log(err.message);
@@ -71,7 +131,7 @@ const Preview = (props) => {
       <div className="preview-main">
 {/* Plaint Details */}
         <Typography variant="h3">Preview</Typography>
-        
+        {loading && <CircularProgress style={{color:"White"}}/>}
         <div className="docs-details">
         <Title title={"Plaint Details"} />
           <div className="doc-main">
@@ -140,6 +200,7 @@ const Preview = (props) => {
              </div>
           </div>
         </div>
+        <UploadDocs docDetails= {docDetails} setDocdetails = {setDocdetails} error= {error}/>
 
         <div className="submit">
             <button className="submit-button" onClick={handleOpen}>Save and Submit</button>

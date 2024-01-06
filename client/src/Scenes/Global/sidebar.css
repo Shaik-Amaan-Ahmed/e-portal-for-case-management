@@ -1,8 +1,8 @@
 
-.inner-items {
-    display: "flex";
-          flex-direction: "column";
-          justify-items: "center";
+.inner-item {
+        display: flex;
+          flex-direction: column;
+          height: 100vh;
 }
 
 li {

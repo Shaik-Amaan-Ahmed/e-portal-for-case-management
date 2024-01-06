@@ -36,7 +36,7 @@ const Topbar = () => {
       display="flex"
       backgroundColor="transparent"
       justifyContent="space-between"
-      borderBottom="1px solid grey"
+      borderBottom="0.11px solid grey"
     >
       {/* SEARCH BAR */}
       <Box display="flex" borderRadius="3px" align="center">
