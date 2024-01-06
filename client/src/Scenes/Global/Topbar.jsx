@@ -34,40 +34,23 @@ const Topbar = () => {
   return (
     <Box
       display="flex"
-      backgroundColor="transparent"
+      backgroundColor={theme.palette.background.paper}
       justifyContent="space-between"
       borderBottom="0.11px solid grey"
     >
       {/* SEARCH BAR */}
-      <Box display="flex" borderRadius="3px" align="center">
+      <Box display="flex" borderRadius="3px">
         <input
           style={{
-            width: "100%",
-            border: "0.1px solid grey",
-            height: "40px",
-            padding: "10px",
-            borderRadius: "10px",
-            margin: "10px 10px 10px 10px",
+            width: "17rem",
+            border: "solid",
+            borderRadius: 40,
+            height: 40,
             justifyContent: "center",
-            color: "inherit",
-            backgroundColor: "transparent",
-            textAlign: "center"
           }}
           placeholder="Search"
         />
-        <IconButton
-          type="button"
-          sx={{
-            display: "flex",
-            border: "solid",
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "auto"
-          }}
-        >
+        <IconButton type="button" sx={{ border: "solid" }}>
           <SearchIcon />
         </IconButton>
       </Box>

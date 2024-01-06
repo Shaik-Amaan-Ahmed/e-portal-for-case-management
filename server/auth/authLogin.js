@@ -19,7 +19,7 @@ router.post('/judge', async (req, res) => {
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true });
-            return res.json({ message: "success", role: role});
+            return res.json({ status: "Success", role: role});
         }
 
     }catch(err) {
@@ -29,18 +29,18 @@ router.post('/judge', async (req, res) => {
 });
 
 router.post('/registrar', async (req, res) => {
-    const username = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
     try {
         
         const user = await Registrar.findOne({ username: username });
-        if(!user) return res.json({ message: "No username found" });
+        if(!user) return res.json({ message: "Username or password is wrong" });
         if(user.password !== password) return res.json({ message: "Username or password is wrong" });
         else{
             const accessToken = jwt.sign({ username: username, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true });
-            return res.json({ message: "success",role: role});
+            return res.json({ status: "Success",role: role});
         }
 
     }catch(err) {
@@ -61,7 +61,7 @@ router.post('/client', async (req, res) => {
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true});
-            return res.json({ message: "success",role: role, email: email});
+            return res.json({ status: "Success",role: role, email: email});
         }
 
     }catch(err) {

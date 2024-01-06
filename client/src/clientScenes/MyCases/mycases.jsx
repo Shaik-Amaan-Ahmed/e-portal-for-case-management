@@ -1,13 +1,7 @@
-import { Icon, IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import "./mycases.css";
 import { EmailContext } from "../../hooks/emailContext";
-import { useContext, useEffect } from "react";
-import Header from "../../Components/Header";
-import axios from "axios";
-import { useState } from "react";
-import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
-import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu"
-import ErrorIcon from '@mui/icons-material/Error';
+import { useContext } from "react";
 
 const CaseDetails = () => {
   const email = useContext(EmailContext);
@@ -107,7 +101,6 @@ const CaseDetails = () => {
           <NotificationsOutlined className="noti-icon" />
         </IconButton>
       </div>
-      {notification ? <ShowItem email={email}/> : null}
     </div>
   );
 };

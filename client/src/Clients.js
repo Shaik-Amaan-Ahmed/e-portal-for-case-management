@@ -25,6 +25,7 @@ const Client = () => {
       if (res.data.message === "success" && res.data.role === "client") {
         setIsLoggedIn(true);
         setEmail(res.data.email);
+        window.history.pushState(null, "", "/client");
       } else {
         setIsLoggedIn(false);
         navigate("/login");

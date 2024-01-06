@@ -1,14 +1,14 @@
-.main-case {
+.main-content {
     display: flex;
-
-    margin: 10px;
+    flex-direction: row;
+    border: 0.2px solid;
+    margin: 10px 10px 10px 10px;
     border-radius: 10px;
-    padding: 10px;
-    flex-direction: column;
-
+    height: fit-content !important;
+    background-color: transparent; 
 }
 
-.search-div{
+.case-profile-img {
     display: flex;
     justify-content: flex-end;
 }
@@ -78,49 +78,26 @@ table td {
     right: 20px;
     position: fixed;
     border-radius: 50%;
-    border: 0.1px solid;
-    background: orange;
-    padding: 5px;
-}
-
-.noti-icon {
-    display: flex;
-    border-radius: 50%;
-    align-items: center;
-    color: inherit;
-}
-
-.no-records {
+    margin: 10px 10px 10px 10px;
     display: flex;
     justify-content: center;
-    width: 100%;
+
 }
 
-.error-icon {
+.case-profile-details {
     display: flex;
-    color: red;
-    margin-right: 2px;
-}
-
-.pagination-client-table {
-    display: flex;
-    width: 100%;
+    flex-direction: column;
+    width:100%;
+    border-radius: 10px;
     justify-content: center;
-    padding: 10px;
-
+    margin-top: 30px;
 }
 
-.pagination-button {
+.inner-case-profile-details {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: orange;
-    border-radius: 5px;
-    height: 40px;
-    margin: 10px;
-    padding: 10px;
-    color: black;
-    font-weight: 500;
-    width: fit-content;
-    font-size: large;
+    flex-direction: column;
+    margin: 10px 10px 10px 10px;
+    border: 0.2px solid grey;
+    border-radius: 10px;
+    padding: 20px;
 }

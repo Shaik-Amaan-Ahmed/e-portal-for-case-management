@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
   const isuser = 0;
   const user = await clientData.findOne({
     email: email,
+    phoneNumber: phoneNumber,
   });
   try {
     if (user) {
