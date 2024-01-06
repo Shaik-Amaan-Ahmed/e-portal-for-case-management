@@ -78,7 +78,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   icon={DashboardCustomizeOutlined}
                 />
                 <Item title="e-filing" to="/client/e-filing" />
-                <Item title="Calendar" to="/judge/calendar" />
               </div>
               <div className="items">
                 <Typography
