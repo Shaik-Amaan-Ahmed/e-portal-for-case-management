@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-45%, -50%);
     width: 75%;
-    height: fit-content;
+    max-height: 90%;
     backdrop-filter: blur(70px);
     border: 1px solid grey;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
@@ -67,18 +67,4 @@
     align-items: center;
     flex: 1;
     padding:10px;
-}
-
-.case-category{
-    display: flex;
-    flex: 1;
-    width: 100%;
-    justify-content: center;
-    height: 60px;
-    margin: auto;
-    border: 1px solid orange;
-    border-radius: 10px;
-    padding-top: 1rem;
-    padding-left: 7px ;
-    overflow: auto;
 }

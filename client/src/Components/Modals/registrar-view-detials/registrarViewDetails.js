@@ -30,7 +30,6 @@ const Title = ({title}) => {
 
 function ViewDetails(props) {
   const [viewData, setViewData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [show , setShow] = useState('plaintDetails');
   useEffect(() => {
     axios
@@ -143,4 +142,3 @@ function ViewDetails(props) {
 }
 
 export default ViewDetails;
-
