@@ -34,7 +34,7 @@ const Preview = (props) => {
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
     const caseId = localStorage.getItem('caseId');
     const status = "Pending at court for approval";
-    const date =  new Date();
+    const date = new Date();
     const formattedDate = date.toLocaleDateString('en-GB');
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -79,7 +79,7 @@ const Preview = (props) => {
             <div className="docs-details">
                 <Title title={"Plaint Details"} />
                 <div className="doc-main">
-                    <div className="doc-left" >
+                    <div className="doc-left">
                         <Item title="Cause Title Plaintiff" value={storedPlaintDetails.causeTitlePlaintiff} />
                         <Item title="Cause Title Defendant" value={storedPlaintDetails.causeTitleDefendant} />
                         <div className="item">

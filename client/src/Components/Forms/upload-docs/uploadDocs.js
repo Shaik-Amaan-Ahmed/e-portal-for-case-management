@@ -23,7 +23,7 @@ const UploadDocs = (props) => {
     const [error, setError] = useState('');
 
     const email = useContext(EmailContext);
-    
+
     const handleFileChange = (e) => {
         const { name, files } = e.target;
         setDocdetails(prevState => ({

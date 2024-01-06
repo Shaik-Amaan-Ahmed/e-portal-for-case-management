@@ -44,12 +44,12 @@ export default function JudgeItem(props) {
     <Paper
       sx={{
         p: 2,
+        width:'100%',
         zIndex:1,
         margin: 'auto',
         maxWidth: 500,
         flexGrow: 1,
         border:'2px solid',
-        width:'100%',
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
       }}
@@ -82,12 +82,13 @@ export default function JudgeItem(props) {
           "& .MuiPopover-paper": {
             maxHeight: "50vh", // Adjust this value as needed
             overflow: "auto",
+            width:"60vh",
             backgroundColor: "black",
+            background: "",
             borderRadius: "10px",
             backdropFilter: "blur(5px)",
             padding:'10px',
             WebkitFilter: "blur(0px)",
-            width:'60vw',
           },
         }}
       >

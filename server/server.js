@@ -32,8 +32,6 @@ mongoose
     console.log("Error: ", err.message);
   });
 
-
-
 app.use(cookieParser());
 //middlewares
 app.use(express.json());
@@ -57,6 +55,9 @@ app.use('/register', registerClient);
 app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
+app.use("/registrar", registrarToken);
+
+
 
 app
   .listen(port, (res, req) => {

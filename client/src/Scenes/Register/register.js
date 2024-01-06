@@ -1,6 +1,8 @@
 import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import "./register.css";
+import { Typography } from "@mui/material";
+import highcourt from "../../assets/highcourt.jpeg";
 import logohc from "../../assets/logohc.png";
 import RegisterForm from "../../Components/Forms/register-form";
 
@@ -15,7 +17,7 @@ const Register = () => {
         <div className="register">
           <div className="register-left">
             <div className="image-container">
-              <img src={logohc} alt="high-courtimage" className="high-court-image" />
+              <img src={logohc} className="high-court-image" />
             </div>
           </div>
           <div className="register-right">

@@ -9,7 +9,8 @@ import Client from "./Clients";
 import Register from "./Scenes/Register/register";
 import HomePage from "./Scenes/HomePage/HomePage";
 import Registrar from "./Registrars";
-import Profiles from "./Scenes/JudgeProfiles/Profiles";
+import Profiles from "./Scenes/JudgeProfiles/Profiles"
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -23,7 +24,7 @@ root.render(
         <Route path="/client/*" element={<Client/>} />
         <Route path="/registrar/*" element={<Registrar/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/profiles" element={<Profiles/>} /> 
+        <Route path="/profiles" element={<Profiles/>} />
       </Routes>
     </BrowserRouter>
     

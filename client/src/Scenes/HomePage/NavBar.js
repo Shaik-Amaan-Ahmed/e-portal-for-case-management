@@ -20,7 +20,6 @@ const NavBar = () => {
         alignItems: "center",
         height: "max-content",
         zIndex:1000
-
       }}
     >
       <div className="flex-1">
