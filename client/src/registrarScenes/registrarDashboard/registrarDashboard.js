@@ -127,7 +127,7 @@ const RegistrarDashboard = () => {
         {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
       </div>
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
-      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} />}
+      {/* {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} />} */}
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}
       {open && id !== null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId} />}
 

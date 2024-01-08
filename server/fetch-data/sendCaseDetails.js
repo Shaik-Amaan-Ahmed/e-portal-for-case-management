@@ -12,12 +12,6 @@ router.get("/client-case-details/", async (req, res) => {
     const search = req.query.search || '';
 
     try {
-<<<<<<< HEAD
-        const data = await efiling.find({email: email});
-        if(data.length > 0){
-            res.status(200).send(data);
-        } 
-=======
         const totalCount = await efiling.countDocuments({email: email});
         let data;
         if (search) {
@@ -42,7 +36,6 @@ router.get("/client-case-details/", async (req, res) => {
         }
 
 
->>>>>>> ee0e5dc3ffe657dea40784debc5e51fe7c1bd378
         else{
             res.status(400).json({message: "No data found for this email"});
         }
