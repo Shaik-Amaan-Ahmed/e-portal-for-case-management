@@ -23,6 +23,8 @@ export default function SignIn() {
 
   axios.defaults.withCredentials = true;
   const data = { email, password, role };
+  const [passwordType, setPasswordType] = useState("password");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
