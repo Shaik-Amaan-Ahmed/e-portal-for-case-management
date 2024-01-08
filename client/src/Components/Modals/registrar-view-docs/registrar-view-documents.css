@@ -38,6 +38,9 @@
     font-weight: 500;
     font-size: larger;
 }
+.which-doc.selected {
+    background-color:blue;
+}
 
 .pdf-container {
 

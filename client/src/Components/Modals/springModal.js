@@ -33,7 +33,7 @@ function SpringModal(props) {
           <ModalContent sx={style}>
             <div className='modal-title'>
             <Typography variant='h4' sx={{color: 'orange'}}>
-              Are you sure you want to submit?
+              Are you sure you want to {props.message}?
             </Typography>
             </div>
             <div className='modal-buttons'>

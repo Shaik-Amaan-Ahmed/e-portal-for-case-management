@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { EmailContext } from "../../../hooks/emailContext";
 import axios from "axios";
 import "./plaint-form.css";
+import { toast } from "react-toastify";
 
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
@@ -57,6 +58,7 @@ const PlaintForm = (props) => {
       setError("Please fill all the details");
     }else{
       setError(null);
+      toast.success("Plaint details submitted successfully");
       props.handleNext(props.activeStep);
       
     }

@@ -10,24 +10,37 @@ import Register from "./Scenes/Register/register";
 import HomePage from "./Scenes/HomePage/HomePage";
 import Registrar from "./Registrars";
 import Profiles from "./Scenes/JudgeProfiles/Profiles"
-
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    
+
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
-        <Route path="/judge/*" element={<Judge/>} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/judge/*" element={<Judge />} />
         <Route path="/login" element={<SignIn />} />
-        <Route path="/client/*" element={<Client/>} />
-        <Route path="/registrar/*" element={<Registrar/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/profiles" element={<Profiles/>} />
+        <Route path="/client/*" element={<Client />} />
+        <Route path="/registrar/*" element={<Registrar />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profiles" element={<Profiles />} />
       </Routes>
     </BrowserRouter>
-    
+    <ToastContainer
+      position="top-center"
+      autoClose={1000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover={false}
+      theme="dark"
+    />
+
   </React.StrictMode>
 );
 

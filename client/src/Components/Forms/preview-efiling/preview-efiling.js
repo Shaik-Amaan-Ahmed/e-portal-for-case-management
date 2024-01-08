@@ -4,7 +4,8 @@ import { useContext, useState } from "react";
 import SpringModal from "../../Modals/springModal";
 import axios from "axios";
 import { EmailContext } from "../../../hooks/emailContext";
-
+import { ToastContainer, toast } from 'react-toastify';
+import Spinner from "../../Spinner/Spinner";
 const Item = ({ title, value }) => {
     return (
         <div className="item">
@@ -39,6 +40,7 @@ const Preview = (props) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -51,23 +53,30 @@ const Preview = (props) => {
         storedPlaintiffDetails,
         storedDefendantDetails,
     }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const res = await axios.post("http://localhost:64000/e-filing", data);
-        try {
+        const requestPromise = axios.post('http://localhost:64000/e-filing', data);
 
-            if (res.status === 200) {
-                alert("Your case has been submitted successfully");
-                localStorage.clear();
-                window.location.reload(true);
-
-            } else {
-                alert("Something went wrong");
+        toast.promise(
+            requestPromise,
+            {
+                pending: 'Submitting your Case...',
+                success: 'Your Case has been submitted successfully',
+                error: 'Something went wrong',
             }
-        } catch (err) {
-            console.log(err.message);
+        );
+        
+        try {
+            const res = await requestPromise;
+            if (res.status === 200) {
+                localStorage.clear();
+                handleClose();
+            }
+        } catch (error) {
+            console.error(error);
         }
+        window.location.reload(true);
+
 
     }
 
@@ -166,7 +175,8 @@ const Preview = (props) => {
                 handleClose={handleClose}
                 open={open}
                 handleSubmit={handleSubmit}
-            />
+                message="submit"
+                />
         </div>
     );
 }

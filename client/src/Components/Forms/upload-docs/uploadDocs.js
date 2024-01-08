@@ -4,7 +4,7 @@ import "./uploadDocs.css"
 import { EmailContext } from '../../../hooks/emailContext';
 import { Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-
+import { toast } from 'react-toastify';
 
 const UploadDocs = (props) => {
     const [docDetails, setDocdetails] = useState({
@@ -16,7 +16,7 @@ const UploadDocs = (props) => {
 
     const initialId = localStorage.getItem('caseId') ? localStorage.getItem('caseId') : uuidv4();
 
-     const [caseId, setCaseId] = useState(initialId);
+    const [caseId, setCaseId] = useState(initialId);
 
     localStorage.setItem('caseId', caseId);
 
@@ -39,14 +39,14 @@ const UploadDocs = (props) => {
             setError('Please upload all documents');
             return;
         }
-    
+
         // Check file sizes
         if (docDetails.petition.size > 200 * 1024) {
             setError('Petition size exceeds 200KB');
             return;
         }
 
-        if (docDetails.aadhar.size > 200 * 1024) { 
+        if (docDetails.aadhar.size > 200 * 1024) {
             setError('Aadhar size exceeds 200KB');
             return;
         }
@@ -57,44 +57,52 @@ const UploadDocs = (props) => {
         formData.append('email', email);
         formData.append('caseId', caseId);
 
-        try {
-            await axios.post('http://localhost:64000/e-filing/upload-docs', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            props.handleNext(props.activeStep +1);
+        const uploadPromise = axios.post('http://localhost:64000/e-filing/upload-docs', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
 
-        }catch (error) {
+        toast.promise(
+            uploadPromise,
+            {
+                pending: 'Uploading your Files...',
+                success: 'Files uploaded successfully',
+                error: 'Error during file upload',
+            }
+        );
+
+        try {
+            await uploadPromise;
+            props.handleNext(props.activeStep + 1);
+        } catch (error) {
             console.error('Error:', error);
         }
-        
     }
+        return (
+            <>
+                {error && <Typography variant="h4" style={{ display: "flex", justifyContent: "center", marginBottom: "10px" }} color="red">{error}</Typography>}
+                <div className='doc-container'>
+                    <label style={{ fontSize: "large", fontWeight: "500", color: "orange" }}>Upload Documents</label>
+                    <form onSubmit={handleSubmit}>
+                        <div className='doc-upload-file'>
+                            <label for="petition">Petition</label>
+                            <input type="file" name="petition" onChange={handleFileChange} accept='.pdf' />
+                        </div>
+                        <div className='doc-upload-file'>
+                            <label for="petition">Aadhar</label>
+                            <input type="file" name="aadhar" onChange={handleFileChange} accept='.pdf' />
+                        </div>
+                    </form>
+                    <div className='buttons-div'>
+                        <button className='submit-btn'>Cancel</button>
+                        <button type="submit" className='submit-btn' onClick={handleSubmit}>Upload</button>
+                    </div>
 
-    return (
-        <>
-        {error && <Typography variant="h4" style={{display:"flex", justifyContent:"center", marginBottom:"10px"}} color="red">{error}</Typography>}
-        <div className='doc-container'>
-            <label style={{fontSize:"large", fontWeight:"500", color:"orange"}}>Upload Documents</label>
-        <form onSubmit={handleSubmit}>
-        <div className='doc-upload-file'>
-            <label for="petition">Petition</label>
-            <input type="file" name="petition" onChange={handleFileChange} accept='.pdf' />
-        </div>
-        <div className='doc-upload-file'>
-            <label for="petition">Aadhar</label>
-            <input type="file" name="aadhar" onChange={handleFileChange} accept='.pdf'/>
-        </div>
-            </form>
-            <div className='buttons-div'>
-                <button className='submit-btn'>Cancel</button>
-                <button type="submit" className='submit-btn' onClick={handleSubmit}>Upload</button>
-            </div>
-            
-        </div>
-        </>
+                </div>
+            </>
 
-    );
-}
+        );
+    }
 
 export default UploadDocs;
