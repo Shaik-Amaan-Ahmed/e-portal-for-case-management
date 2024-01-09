@@ -17,6 +17,7 @@ const CaseDetails = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [totalItems, setTotalItems] = useState(0);
   const [searchInput, setSearchInput] = useState("");
+  const [reloadkey, setReloadKey] = useState(0);
 
   useEffect(() => {
     axios

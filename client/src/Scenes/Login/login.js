@@ -102,7 +102,7 @@ export default function SignIn() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <br />
-              <div style={{ display: "flex" }}>
+              <div className="submit-enter">
                 <button
                   className="submit"
                   onClick={handleSubmit}
@@ -113,7 +113,9 @@ export default function SignIn() {
                 </button>
               </div>
               <div className="no-account-register">
-                <a href="/register">No account? Register</a>
+                <a href="/client-register">No account? Register</a>
+
+                <a href="/admin-register">Register Admin</a>
               </div>
             </div>
           </div>

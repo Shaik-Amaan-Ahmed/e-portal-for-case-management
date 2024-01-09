@@ -29,11 +29,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width:100%;
     margin: 10px 10px 10px 10px;
     border-radius: 10px;
     padding: 10px;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: 101%
+
 }
 
 table {
@@ -56,6 +59,8 @@ table td {
     text-align: center;
     font-weight: 400;
     border-bottom: 2px solid grey;
+    width: fit-content;
+    white-space: nowrap;
 }
 
 table tr:hover {
@@ -67,11 +72,12 @@ table tr:hover {
     border: none;
     border-radius: 5px;
     padding: 6px;
-    width: auto;
+    width: fit-content;
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
-    color: rgb(4, 4, 4)
+    color: rgb(4, 4, 4);
+    height: fit-content;
 }
 
 .approve-deny {

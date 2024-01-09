@@ -2,16 +2,30 @@ import { Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../themes";
 import Logo from "./logo3.jpg";
+import { useState,useEffect } from "react";
 
 const NavBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function to remove the event listener
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const paddingValue = windowWidth > 600 ? '8px' : '4px';
 
   return (
+
+
     <div
       style={{
-        padding: '8px',
+        padding: paddingValue,
         backgroundColor: "rgba(70, 130, 180, 1)",
         display: "flex",
         justifyContent: "space-between",
@@ -19,13 +33,13 @@ const NavBar = () => {
         width: "100%",
         alignItems: "center",
         height: "max-content",
-
+        
       }}
     >
       <div className="flex-1">
         <div className="flex">
           <ul>
-            <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
+            <li className="text-xl inline-flex p-2 sm:text-base sm:p-2 md:text-lg hover:bg-orange-700 rounded-lg">
               <a href="/causelist">Cause List</a>
             </li>
             <li className="text-xl inline-flex p-2 hover:bg-orange-700 rounded-lg">

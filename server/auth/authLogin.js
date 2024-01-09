@@ -4,17 +4,20 @@ const jwt = require("jsonwebtoken");
 const Judge = require("../models/judges")
 const Registrar = require("../models/registrars")
 const ClientData = require("../models/clientData")
+const bcrypt = require("bcrypt");
+
 router.post('/judge', async (req, res) => {
-    const username = req.body.email;
+    const email = req.body.email;
     const password = req.body.password;
     const role = req.body.role;
     try {
         
-        const user = await Judge.findOne({ username: username });
+        const user = await Judge.findOne({ email: email });
         if(!user) return res.json({ message: "Username or password is wrong" });
-        if(user.password !== password) return res.json({ message: "Username or password is wrong" });
+        const isMatch = bcrypt.compare(password, user.password);
+        if(!isMatch) return res.json({ message: "Password is wrong" });
         else{
-            const accessToken = jwt.sign({ username: username, role: role}, process.env.SECRET_KEY);
+            const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true });
             return res.json({ message: "success", role: role});
         }

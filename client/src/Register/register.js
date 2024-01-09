@@ -1,13 +1,13 @@
-import { ColorModeContext, useMode } from "../../themes";
+import { ColorModeContext, useMode } from "../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import "./register.css";
 import { Typography } from "@mui/material";
-import highcourt from "../../assets/highcourt.jpeg";
-import logohc from "../../assets/logohc.png";
-import RegisterForm from "../../Components/Forms/register-form";
+import highcourt from "../assets/highcourt.jpeg";
+import logohc from "../assets/logohc.png";
+import RegisterForm from "../Components/Forms/register-form"
 
 
-const Register = () => {
+const ClientRegister = () => {
   const [theme, colorMode] = useMode();
 
   return (
@@ -29,4 +29,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ClientRegister;

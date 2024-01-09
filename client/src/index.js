@@ -6,9 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./Scenes/Login/login";
 import Client from "./Clients";
-import Register from "./Scenes/Register/register";
+import ClientRegister from "./Register/register";
 import HomePage from "./Scenes/HomePage/HomePage";
 import Registrar from "./Registrars";
+import AdminRegister from "./Register/admin-register/admin-register";
+import SetPassword from "./Components/set-password/set-password";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -22,7 +24,9 @@ root.render(
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client/>} />
         <Route path="/registrar/*" element={<Registrar/>} />
-        <Route path="/register" element={<Register/>} />
+        <Route path="/client-register" element={<ClientRegister/>} />
+        <Route path="/admin-register" element={<AdminRegister/>} />
+        <Route path="/set-password" element={<SetPassword />} />
       </Routes>
     </BrowserRouter>
     

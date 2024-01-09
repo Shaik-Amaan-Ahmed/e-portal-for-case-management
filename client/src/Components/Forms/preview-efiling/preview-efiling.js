@@ -72,6 +72,8 @@ const Preview = (props) => {
 
 
     const handleSubmit = async (event) => {
+        handleClose();
+        setLoading(true);
         event.preventDefault();
         const formData = new FormData();
 
@@ -93,8 +95,6 @@ const Preview = (props) => {
             setError('Aadhar size exceeds 200KB');
             return;
         }
-
-
 
         formData.append('petition', docDetails.petition);
         formData.append('aadhar', docDetails.aadhar);
@@ -202,7 +202,7 @@ const Preview = (props) => {
         </div>
         <UploadDocs docDetails= {docDetails} setDocdetails = {setDocdetails} error= {error}/>
 
-        <div className="submit">
+        <div className="submit-div-preview">
             <button className="submit-button" onClick={handleOpen}>Save and Submit</button>
         </div>
         <SpringModal 

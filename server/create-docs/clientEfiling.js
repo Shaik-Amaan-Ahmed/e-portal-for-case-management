@@ -88,5 +88,24 @@ router.post('/reject-case', async (req, res) => {
 
 })
 
+router.post('/approve-case', async (req, res) => { 
+    const id = req.body.id;
+
+    try {
+        const data = await efiling.findOneAndUpdate(
+            { caseId: id }, // find a document with this id
+            {
+                status: "Approved",
+            },
+            { new: true } // return the updated document
+        );
+        res.status(200).json({message: "success"});
+        }catch (error){ 
+            console.log(error.message);
+            res.status(500).json({message: error.message});
+        } 
+
+})
+
 
 module.exports = router;
