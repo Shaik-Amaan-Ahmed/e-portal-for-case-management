@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Sidebar from "./Scenes/Global/judgeSidebar";
 import Calendar from "./Scenes/Calendar/calendar";
 import Causelist from "./Scenes/Causelist/causelist";
-import RegistrarTable from "./Components/Tables/DefaultTable";
+import RegistrarTable from "./Components/Tables/Regsitrar";
 import SignIn from "./Scenes/Login/login";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

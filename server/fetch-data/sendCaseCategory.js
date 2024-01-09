@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const CaseCategory = require("../models/casecategory");
+const CaseCategory = require("../models/caseCategory");
 const router = require("./sendCaseDetails");
 
 router.get("/", async (req, res) => { 

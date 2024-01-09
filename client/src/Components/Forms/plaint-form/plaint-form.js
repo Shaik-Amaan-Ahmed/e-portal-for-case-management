@@ -158,8 +158,8 @@ const PlaintForm = (props) => {
               </div>
               <div className="input-element">
                 <select
-                  className="input-field"
                   value={value("caseCategory")}
+                  className="input-field"
                   onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
                 >
                   {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
@@ -178,13 +178,10 @@ const PlaintForm = (props) => {
               </div>
               <div className="input-element">
                 <select
-                  value={value("caseCategory")}
-                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
+                  className="input-field"
                   value={value("caseSubCategory")}
                   onChange={(e) => onChange("caseSubCategory", e.target.value)}
                 >
-                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
-                  {Object.keys(casee).map((option, index) => (
                 {!option &&  <option value="none">Select Case SubCategory</option>}
                   {option && ["None", ...casee[option]].map((option, index) => (
                     <option key={index} value={option}>
