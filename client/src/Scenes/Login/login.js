@@ -10,7 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { Home} from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 import "./login.css";
 import { toast } from "react-toastify";
 
@@ -25,7 +25,6 @@ export default function SignIn() {
   axios.defaults.withCredentials = true;
   const data = { email, password, role };
   const [passwordType, setPasswordType] = useState("password");
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,24 +86,45 @@ export default function SignIn() {
                 className="username"
                 placeholder="Email"
                 onChange={(e) => setUsername(e.target.value)}
+                style={{ width: "100%" }}
               />
               <br />
-              <input
-                type="password"
-                value={password}
-                className="username"
-                required="true"
-                style={{
-                  padding: "10px",
-                  margin: "10px",
-                  display: "flex",
-                  width: "90%",
-                  borderRadius: "10px",
-                  border: "0.1px solid grey",
-                }}
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div style={{ position: 'relative', display: 'inline-block' }}>
+                <input
+                  type={passwordType}
+                  value={password}
+                  required="true"
+                  placeholder="Password"
+                  className="username"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  style={{paddingRight: "60px",width: "390px" }} // Add right padding to prevent text from being hidden by the button
+                />
+                {/* password show button */}
+                <button
+                  style={{
+                    position: 'absolute',
+                    right: '15px',
+                    top: '6px',
+                    width: "50px",
+                    height: "30px",
+                    borderRadius: "10px",
+                    backgroundColor: "transparent",
+                    cursor: "pointer"
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (passwordType === "password") {
+                      setPasswordType("text");
+                    } else {
+                      setPasswordType("password");
+                    }
+                  }}
+                >
+                  show
+                </button>
+              </div>
               <br />
               <div className="submit-enter">
                 <button
