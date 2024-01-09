@@ -4,10 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import ViewDetails from "../../Components/Modals/registrar-view-detials/registrarViewDetails";
 import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
-import Approve from "../../Components/Modals/registrar-approve/registrar-approve";
 import RegistrarDeny from "../../Components/Modals/registrar-deny/registrar-deny";
-import { CircularProgress } from "@mui/material";
-import { set } from "mongoose";
 
 const RegistrarDashboard = () => {
   const [data, setData] = useState([]);
@@ -21,8 +18,6 @@ const RegistrarDashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
-  const [reloadkey, setReloadKey] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   const handleOpen = (id) => {
     setId(id);
@@ -63,21 +58,16 @@ const RegistrarDashboard = () => {
   }
 
   useEffect(() => {
-    setData([]);
-    setLoading(true);
     axios
       .get("http://localhost:64000/casedetails/registrar-case-details?page=" + currentPage + "&limit=" + itemsPerPage)
       .then((res) => {
         setData(res.data.data);
         setTotalCount(res.data.totalCount);
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
       });
-  }, [currentPage, itemsPerPage,reloadkey]);
-
+  }, [currentPage, itemsPerPage]);
 
   function filterData(item) {
 
@@ -93,17 +83,15 @@ const RegistrarDashboard = () => {
       <div className="search-table">
         <input type="text" placeholder="Search" className="search-input" onChange={(e) => { setSearchInput(e.target.value) }} />
       </div>
-      {loading && (<div className="loading"><CircularProgress style={{color:"white"}}/><h1>Loading...</h1></div>)}
       <div className="registrar-main-inside">
         <table className="registrar-table">
           <thead>
             <tr key="1">
-              <th>Regn. Number</th>
-              <th>Regn. Date</th>
+              <th>Registration Number</th>
               <th>Cause Title</th>
               <th>View Details</th>
               <th>Uploaded Documents</th>
-              <th>Actions</th>  
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -111,13 +99,12 @@ const RegistrarDashboard = () => {
               return (
                 <tr key={item._id}>
                   <td>{item.caseId}</td>
-                  <td>{item.registrationDate}</td>
                   <td>
                     {item.plaintDetails.causeTitlePlaintiff} VS{" "}
                     {item.plaintDetails.causeTitleDefendant}
                   </td>
                   <td>
-                    <button className="view-btn" onClick={() => handleOpen(item.caseId)}>View Details</button>
+                    <button className="view-btn" onClick={() => handleOpen(item.caseId)} >View Details</button>
                   </td>
                   <td>
                     <button className="view-btn" onClick={() => handleViewDocOpen(item.caseId)}>View Documents</button>
@@ -139,7 +126,7 @@ const RegistrarDashboard = () => {
         {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
       </div>
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
-      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey}/>}
+      {/* {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} />} */}
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}
       {open && id !== null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId} />}
 

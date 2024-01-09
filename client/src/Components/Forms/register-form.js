@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import "../../Register/register.css";
+import "../../Scenes/Register/register.css";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

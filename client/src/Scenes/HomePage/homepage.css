@@ -5,12 +5,6 @@
     flex-direction: column;
 }
 
-@media (max-width: 600px) {
-    .main {
-        width: 30%;
-    }
-}
-
 li {
     font-size: 16px;
     font-weight: 600;

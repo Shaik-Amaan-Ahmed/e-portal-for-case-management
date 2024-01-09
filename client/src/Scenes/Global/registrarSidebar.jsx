@@ -44,7 +44,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         style={{
           display: "flex",
           borderRight: "0.5px solid",
-          height: "100vh",
+          height: "100%",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",
@@ -52,7 +52,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           overflowY: "auto",
         }}
       >
-        <div className="inner-item">
+        <div className="inner-items">
           <Typography
             variant="h3"
             style={{ textAlign: "center", marginTop: "20px" }}

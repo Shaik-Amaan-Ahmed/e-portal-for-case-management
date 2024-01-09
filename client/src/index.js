@@ -6,14 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./Scenes/Login/login";
 import Client from "./Clients";
-import ClientRegister from "./Register/register";
+import Register from "./Scenes/Register/register";
 import HomePage from "./Scenes/HomePage/HomePage";
 import Registrar from "./Registrars";
 import Profiles from "./Scenes/JudgeProfiles/Profiles"
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';import AdminRegister from "./Register/admin-register/admin-register";
-import SetPassword from "./Components/set-password/set-password";
-
+import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -26,10 +24,8 @@ root.render(
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client />} />
         <Route path="/registrar/*" element={<Registrar />} />
-        <Route path="/client-client-register" element={<ClientRegister/>} />
-        <Route path="/admin-register" element={<AdminRegister />} />
+        <Route path="/client-register" element={<Register />} />
         <Route path="/profiles" element={<Profiles />} />
-        <Route path="/set-password" element={<SetPassword />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer

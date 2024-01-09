@@ -2,30 +2,16 @@ import { Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../themes";
 import Logo from "./logo3.jpg";
-import { useState,useEffect } from "react";
 
 const NavBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup function to remove the event listener
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const paddingValue = windowWidth > 600 ? '8px' : '4px';
 
   return (
-
-
     <div
       style={{
-        padding: paddingValue,
+        padding: '8px',
         backgroundColor: "rgba(70, 130, 180, 1)",
         display: "flex",
         justifyContent: "space-between",
