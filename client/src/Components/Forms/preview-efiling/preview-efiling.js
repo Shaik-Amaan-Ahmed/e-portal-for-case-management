@@ -8,6 +8,7 @@ import UploadDocs from "../upload-docs/uploadDocs";
 import { v4 as uuidv4 } from "uuid";
 import { CircularProgress } from "@mui/material";
 import { set } from "mongoose";
+import { useEffect } from "react";
 
 const Item = ({ title, value }) => {
   return (

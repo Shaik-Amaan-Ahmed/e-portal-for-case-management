@@ -131,7 +131,6 @@ const PlaintForm = (props) => {
                   value={value("causeTitlePlaintiff")}
                   onChange={(e) => onChange("causeTitlePlaintiff", e.target.value) }
                 />
-                {errors.causeTitlePlaintiff && <span className="error-message">{errors.causeTitlePlaintiff}</span>}
               </div>
             </div>
             <div className="inner-form-elements">
@@ -167,7 +166,6 @@ const PlaintForm = (props) => {
                     </option>
                   ))}
                 </select>
-              {errors.caseCategory && <span className="error-message">{errors.caseCategory}</span>}
               </div>
             </div>
             <div className="inner-form-elements">
@@ -188,7 +186,6 @@ const PlaintForm = (props) => {
                     </option>
                   ))}
                 </select>
-              {errors.caseSubCategory && <span className="error-message">{errors.caseSubCategory}</span>} 
               </div>
             </div>
           </div>
@@ -214,7 +211,6 @@ const PlaintForm = (props) => {
                   value={value("numberOfPlaintiff")}
                   onChange={(e) => onChange("numberOfPlaintiff", e.target.value)}
                 />
-              {errors.numberOfPlaintiff && <span className="error-message">{errors.numberOfPlaintiff}</span>  }
               </div>
             </div>
             <div className="inner-form-elements">
@@ -231,7 +227,6 @@ const PlaintForm = (props) => {
                   value={value("numberOfDefendants")}
                   onChange={(e) => onChange("numberOfDefendants", e.target.value)}
                 />
-              {errors.numberOfDefendants && <span className="error-message">{errors.numberOfDefendants}</span>}
               </div>
             </div>
           </div>
