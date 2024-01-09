@@ -9,20 +9,21 @@ router.post("/", async (req, res) => {
     const data = req.body;
     
     try {
-        const updatedEfiling = await efiling.findOneAndUpdate(
-            { caseId: data.caseId }, // find a document with this email
-            {
-                plaintDetails: data.storedPlaintDetails,
-                plaintiffDetails: data.storedPlaintiffDetails,
-                defendantDetails: data.storedDefendantDetails,
-                status: data.status
-            },
-            { new: true } // return the updated document
-        );
+        const newEfiling = new efiling({
+            email: data.email,
+            caseId: data.caseId,
+            status: data.status,
+            registrationDate: data.registrationDate,
+            plaintDetails: data.storedPlaintDetails,
+            plaintiffDetails: data.storedPlaintiffDetails,
+            defendantDetails: data.storedDefendantDetails,
+        });
 
-        if (!updatedEfiling) {
+        if (!newEfiling) {
+
             return res.status(404).json({ message: 'No e-filing found with this email' });
         }
+        await newEfiling.save();
 
         res.status(200).json({ message: "success"});
     } catch(err) {
@@ -36,14 +37,13 @@ const upload = multer({storage: multer.memoryStorage()})
 
 router.post('/upload-docs', upload.fields([{ name: 'petition', maxCount: 1 }, { name: 'aadhar', maxCount: 1 }]) ,async (req, res) => {
     
-    const email = req.body.email;
+
     const caseId = req.body.caseId;
 
     try{
-    const file = new efiling({
-        email: email,
-        caseId: caseId,
-        docDetails:{
+    const file = await efiling.findOneAndUpdate(
+        {caseId: caseId},
+        {docDetails:{
             petition : {
                 filename: req.files.petition[0].originalname,
                 contentType: req.files.petition[0].mimetype,
@@ -54,8 +54,11 @@ router.post('/upload-docs', upload.fields([{ name: 'petition', maxCount: 1 }, { 
                 contentType: req.files.aadhar[0].mimetype,
                 fileData: req.files.aadhar[0].buffer
             }
-            }
-    })
+         }
+        },
+        {new: true}
+        
+    )
     await file.save()
     res.status(200).json({message: "Success"});
 }catch (error) {
@@ -74,6 +77,25 @@ router.post('/reject-case', async (req, res) => {
             {
                 status: "Rejected",
                 reasonforrejection: reasonforrejection
+            },
+            { new: true } // return the updated document
+        );
+        res.status(200).json({message: "success"});
+        }catch (error){ 
+            console.log(error.message);
+            res.status(500).json({message: error.message});
+        } 
+
+})
+
+router.post('/approve-case', async (req, res) => { 
+    const id = req.body.id;
+
+    try {
+        const data = await efiling.findOneAndUpdate(
+            { caseId: id }, // find a document with this id
+            {
+                status: "Approved",
             },
             { new: true } // return the updated document
         );

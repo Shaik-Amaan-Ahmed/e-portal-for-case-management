@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 const Schema  = mongoose.Schema;
 
 const Judge = mongoose.model("judges", new Schema({ 
-    username: String,
-    password: String
+    name: {type: String, required: true},
+    email: {type: String, required: true},
+    token: {type: String},
+    password: {type:String},
+    phone: {type: String, required: true},
+    casePreferences: [{type : String}]
     
 }));
 
