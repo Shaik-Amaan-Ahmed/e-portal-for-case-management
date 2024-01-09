@@ -10,8 +10,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { Home } from "@mui/icons-material";
+import { Home} from "@mui/icons-material";
 import "./login.css";
+import { toast } from "react-toastify";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 export default function SignIn() {
@@ -33,8 +34,9 @@ export default function SignIn() {
 
     if (res.data.message === "success") {
       navigate("/" + role);
+      toast.success("Login Successful");
     } else {
-      alert(res.data.message);
+      toast.error(res.data.message);
       navigate("/login");
     }
   };
