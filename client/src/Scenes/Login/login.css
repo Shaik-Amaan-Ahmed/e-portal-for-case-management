@@ -135,11 +135,18 @@
 }
 
 .no-account-register {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     margin-top: 10px;
     font-size: 15px;
     font-weight: 600;
     color: orange;
-}
+    text-decoration: none; /* Optional: Remove default underline */
+    transition: color 0.3s; /* Optional: Add a smooth transition for color change */
+  }
+  
+:hover {
+    color: white;
+  }
+
+  .submit-enter button{
+    transition: color 0.3s;
+  }
