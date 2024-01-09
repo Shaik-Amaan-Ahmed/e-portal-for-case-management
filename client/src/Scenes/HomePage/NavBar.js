@@ -26,7 +26,7 @@ const NavBar = () => {
         <div className="flex">
           <ul>
             <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <a href="/causelist">Cause List</a>
+              <a href="/client/e-filing">Efiling</a>
             </li>
             <li className="text-xl inline-flex p-2 hover:bg-orange-700 rounded-lg">
               <a href="/profiles">Profiles</a>

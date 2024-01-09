@@ -1,0 +1,145 @@
+.mains-div {
+    display: flex;
+    justify-items: center;
+    margin-block: auto;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.mains-div::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assets/highcourt.jpeg");
+    background-size: cover;
+    opacity: 0.2; /* Change this to the opacity you want */
+    z-index: -1;
+}
+
+
+
+.inner-div {
+    display: flex;
+    justify-items: center;
+    margin-block: auto;
+    height: fit-content;
+    padding: 20px;
+    width: 30%;
+    border-radius: 10px;
+
+}
+
+.switch-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    backdrop-filter: blur(60px);
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+}
+.switch-buttons::before {
+    content: "";
+    position: absolute;
+    top: -5px; /* Adjust these values to match your border size */
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 0.1px solid;
+    border-radius: 10px;
+    filter: blur(3px); /* Adjust this value to change the blur amount */
+    z-index: -1;
+    
+}
+
+.switch-buttons button {
+    display: flex;
+    background: orange;
+    border-radius: 5px;
+    border: 0.1px solid grey;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+}
+
+.switch-button {
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    border: 0.2px solid;
+    padding: 10px;
+}
+
+
+
+.inner-items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.username {
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    width: 90%;
+    border-radius: 10px;
+    border: 0.2px solid grey;
+    margin-top: auto;
+    background: transparent;
+    backdrop-filter: blur(60px);
+}
+
+.submit-enter {
+    display: flex;
+    width: 40%;
+}
+
+.submit {
+    width: 100%;
+    margin: auto;
+    height: 2rem;
+    border-radius: 10px;
+    background-color: rgba(253, 166, 2, 0.907);
+    align-items: center;
+    margin-top: 10px;
+    color: black;
+}
+
+@media (max-width: 600px) {
+    .inner-div {
+        display: flex;
+        justify-items: center;
+        margin-block: auto;
+        height: 100vh;
+        width: 80%;
+        align-items: center;
+        border: 0.1px solid;
+        justify-content: center;
+        padding: 10px;
+    }
+
+}
+
+.no-account-register {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: orange;
+}

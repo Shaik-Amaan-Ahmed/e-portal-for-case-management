@@ -86,6 +86,7 @@ function ViewDocuments(props) {
           <div className="pdf-pagination">
             <button onClick={prevPage} className={currentPage===1? "button-none": "button-prev"}>Previous Page</button>
             <button onClick={nextPage} className={currentPage===numPages-1 ?"button-none" :"button-next"}>Next Page</button>
+            <button className="button-close" onClick={props.handleClose}>Close</button>
           </div>
           
         </div>

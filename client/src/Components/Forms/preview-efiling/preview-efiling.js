@@ -6,6 +6,7 @@ import axios from "axios";
 import { EmailContext } from "../../../hooks/emailContext";
 import { ToastContainer, toast } from 'react-toastify';
 import Spinner from "../../Spinner/Spinner";
+import { useEffect } from "react";
 const Item = ({ title, value }) => {
     return (
         <div className="item">
@@ -35,12 +36,19 @@ const Preview = (props) => {
     const storedDefendantDetails = JSON.parse(localStorage.getItem('defendantDetails'));
     const caseId = localStorage.getItem('caseId');
     const status = "Pending at court for approval";
-    const date = new Date();
-    const formattedDate = date.toLocaleDateString('en-GB');
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [loading, setLoading] = useState(false);
+    const [registrationDate, setRegistrationDate] = useState(new Date());
+    const [formattedDate, setFormattedDate] = useState('');
+    useEffect(() => {
+        const day = String(registrationDate.getDate()).padStart(2, '0');
+        const month = String(registrationDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const year = registrationDate.getFullYear();
+
+        setFormattedDate(day + '-' + month + '-' + year);
+    }, [registrationDate]);
 
 
 

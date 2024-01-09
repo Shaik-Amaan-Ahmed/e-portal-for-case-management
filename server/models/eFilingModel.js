@@ -7,7 +7,7 @@ const efiling = new Schema({
     status: {type: String},
     reasonforrejection: {type: String},
     nextHearingDate: {type: Date},
-    caseRegisteredDate: {type: Date, default: Date.now()},
+    caseRegisteredDate: {type: String},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},

@@ -5,15 +5,9 @@ import "./plaint-form.css";
 import { toast } from "react-toastify";
 
 const PlaintForm = (props) => {
-  const caseType = ["civil", "criminal", "three"];
   const [casee,setCasee] = useState({});
-  const [earlierCourts, setEarlierCourts] = useState(false);
   const [option , setOption] = useState("");
-  const [response, setResponse] = useState("");
   const [error, setError] = useState("");
-  const [submit, setSubmit] = useState(false);
-
-
 
   const email = useContext(EmailContext);
 
@@ -40,27 +34,42 @@ const PlaintForm = (props) => {
     caseSubCategory: "",
     numberOfPlaintiff: "",
     numberOfDefendants: "",
-  }//
-
+  };
   
-
-  const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
-
-  //to check whether all the details are filled or not
+  const initialErrors = {
+    causeTitlePlaintiff: "",
+    causeTitleDefendant: "",
+    caseCategory: "",
+    caseSubCategory: "",
+    numberOfPlaintiff: "",
+    numberOfDefendants: "",
+  };
+  
+  const [plaintDetails, setPlaintDetails] = useState(initialDetails);
+  const [errors, setErrors] = useState(initialErrors);
+  
   const areDetailsFilled = () => {
-
-    return Object.values(plaintDetails).every(value => value !== "" && value !== "None");
+    let newErrors = {...initialErrors};
+  
+    Object.keys(plaintDetails).forEach(key => {
+      if (plaintDetails[key] === "" || plaintDetails[key] === "None") {
+        newErrors[key] = "Please fill this field";
+      }
+    });
+    setErrors(newErrors);
+    setTimeout(() => {
+      setErrors(initialErrors);
+    }, 2000);
+    
+  
+  
+    return !Object.values(newErrors).some(error => error !== "");
   };
 
   //submitting the plaint details to the database
   const submitPlaintDetails = () => {
-    if(!areDetailsFilled()){
-      setError("Please fill all the details");
-    }else{
-      setError(null);
-      toast.success("Plaint details submitted successfully");
+    if(areDetailsFilled()){
       props.handleNext(props.activeStep);
-      
     }
   };
 
@@ -136,6 +145,7 @@ const PlaintForm = (props) => {
                   value={value("causeTitlePlaintiff")}
                   onChange={(e) => onChange("causeTitlePlaintiff", e.target.value) }
                 />
+                {errors.causeTitlePlaintiff && <span className="error-message">{errors.causeTitlePlaintiff}</span>}
               </div>
             </div>
             <div className="inner-form-elements">
@@ -151,6 +161,7 @@ const PlaintForm = (props) => {
                   value={value("causeTitleDefendant")}
                   onChange={(e) => onChange("causeTitleDefendant", e.target.value)}
                 />
+              {errors.causeTitleDefendant && <span className="error-message">{errors.causeTitleDefendant}</span>}
               </div>
             </div>
             <div className="inner-form-elements">
@@ -170,6 +181,7 @@ const PlaintForm = (props) => {
                     </option>
                   ))}
                 </select>
+              {errors.caseCategory && <span className="error-message">{errors.caseCategory}</span>}
               </div>
             </div>
             <div className="inner-form-elements">
@@ -190,6 +202,7 @@ const PlaintForm = (props) => {
                     </option>
                   ))}
                 </select>
+              {errors.caseSubCategory && <span className="error-message">{errors.caseSubCategory}</span>} 
               </div>
             </div>
           </div>
@@ -215,6 +228,7 @@ const PlaintForm = (props) => {
                   value={value("numberOfPlaintiff")}
                   onChange={(e) => onChange("numberOfPlaintiff", e.target.value)}
                 />
+              {errors.numberOfPlaintiff && <span className="error-message">{errors.numberOfPlaintiff}</span>  }
               </div>
             </div>
             <div className="inner-form-elements">
@@ -231,6 +245,7 @@ const PlaintForm = (props) => {
                   value={value("numberOfDefendants")}
                   onChange={(e) => onChange("numberOfDefendants", e.target.value)}
                 />
+              {errors.numberOfDefendants && <span className="error-message">{errors.numberOfDefendants}</span>}
               </div>
             </div>
           </div>

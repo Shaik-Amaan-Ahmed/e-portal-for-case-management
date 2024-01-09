@@ -24,7 +24,7 @@ root.render(
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client />} />
         <Route path="/registrar/*" element={<Registrar />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/client-register" element={<Register />} />
         <Route path="/profiles" element={<Profiles />} />
       </Routes>
     </BrowserRouter>

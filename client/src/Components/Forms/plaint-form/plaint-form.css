@@ -1,6 +1,7 @@
 .main-div {
         display: flex;
         flex-direction: row;
+        height: auto;
         align-items: center;
         justify-content: center;
         border: 0.1px solid grey;
@@ -8,11 +9,8 @@
 }
 
 .error {
-    display: flex;
-    justify-content: center;
     color: red;
-    font-size: large;
-    margin: 10px 10px 10px 10px;
+    margin-top: 5px;
 }
 
 .left-main {
@@ -51,10 +49,10 @@
 
 .input-element {
     display: flex;
-    flex: 1;
+    flex-direction: column;
+    flex: 1;        
     width: 100%;
-    justify-content: flex-start;
-    height: 40px;
+    justify-content: flex-start;            
 }
 
 .input-field {
@@ -65,6 +63,7 @@
     color: inherit;
     border: 0.1px solid grey;
     padding: 10px;
+    flex: 1;
 
 }
 
@@ -105,4 +104,9 @@ option {
     border: 0.1px solid grey;
     padding: 10px;
     border-radius: 10px;
+}
+.error-message {
+    display: flex;
+    color: red;
+    margin-top: 5px;
 }
