@@ -36,7 +36,7 @@
     overflow: auto;
 }
 
-table {
+.registrar-table {
     width: 100%;
     border-bottom: 0.1px solid grey;
 }
@@ -50,12 +50,18 @@ table th {
     border-bottom: 1px solid grey;
 }
 
+.special-td {
+    white-space: nowrap;
+}
+
 table td {
     padding: 15px;
     font-size: large;
     text-align: center;
     font-weight: 400;
     border-bottom: 2px solid grey;
+    width: fit-content;
+
 }
 
 table tr:hover {
@@ -71,7 +77,9 @@ table tr:hover {
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
-    color: rgb(4, 4, 4)
+    color: rgb(4, 4, 4);
+    height: fit-content;
+    white-space: nowrap;
 }
 
 .approve-deny {

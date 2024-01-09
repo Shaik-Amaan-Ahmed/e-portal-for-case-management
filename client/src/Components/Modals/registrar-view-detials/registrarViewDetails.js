@@ -64,37 +64,20 @@ function ViewDetails(props) {
                   <button className="select-btn" onClick={() => { setShow('defendantDetails') }}>Defendant Details</button>
                 </div>
                 {show === 'plaintDetails' && (
-                  <>
-                    <Title title="Plaint Details" />
-                    <div className="docu-details">
-                      <div className="doc-left">
-                        <Item title="Cause Title" value={`${item.plaintDetails.causeTitlePlaintiff} VS ${item.plaintDetails.causeTitleDefendant}`} />
-                        <Item title="Cause Title Plaintiff" value={item.plaintDetails.causeTitlePlaintiff} />
-                        <div className="item">
-                          <div className="item-title">
-                            <Typography variant="h5" sx={{ fontWeight: "bold", fontWeight: "500", display: "flex", justifyContent: "center" }}>Case Category</Typography>
-                          </div>
-                          <div className="case-category">
-                            <Typography variant="h5" sx={{ fontWeight: "500" }}>{item.plaintDetails.caseCategory}</Typography>
-                          </div>
-                        </div>
-                        <div className="item">
-                          <div className="item-title">
-                            <Typography variant="h5" sx={{ fontWeight: "bold", fontWeight: "500", display: "flex", justifyContent: "center" }}>Case Sub Category</Typography>
-                          </div>
-                          <div className="case-category">
-                            <Typography variant="h5" sx={{ fontWeight: "500" }}>{item.plaintDetails.caseSubCategory}</Typography>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="doc-right">
-                        <Item title="Number of Plaintiffs" value={item.plaintDetails.numberOfPlaintiff} />
-                        <Item title="Number of Defendents" value={item.plaintDetails.numberOfDefendants} />
-                      </div>
-                    </div>
-                    <button onClick={props.handleClose} className="close-btn" >Close</button>
-
-                  </>
+                <>
+                <Title title="Plaint Details" />
+                <div className="docu-details">
+                  <div className="doc-left">
+                    <Item title="Cause Title" value={`${item.plaintDetails.causeTitlePlaintiff} VS ${item.plaintDetails.causeTitleDefendant}`}/>
+                    <Item title="Case Category" value={item.plaintDetails.caseCategory} />
+                    <Item title="Case SubCategory" value={item.plaintDetails.caseSubCategory} />
+                  </div>
+                  <div className="doc-right">
+                    <Item title="Number of Plaintiffs" value={item.plaintDetails.numberOfPlaintiff} />
+                    <Item title="Number of Defendants" value={item.plaintDetails.numberOfDefendants} />
+                  </div>
+                </div>
+                </>
                 )}
                 {show === 'plaintiffDetails' && (
                   <>

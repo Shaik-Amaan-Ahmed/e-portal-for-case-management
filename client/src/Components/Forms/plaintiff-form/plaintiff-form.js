@@ -39,7 +39,7 @@ const PlaintiffForm = (props) => {
     plaintiffName: "",
     plaintiffRelation: "",
     plaintiffParentSpouseName: "",
-    plaintiffDeadMinor: "",
+    plaintiffDeadMinor: "NA",
     plaintiffDOB: "",
     plaintiffAge: "",
     plaintiffGender: "",
@@ -186,10 +186,8 @@ const PlaintiffForm = (props) => {
                     onChange("plaintiffDeadMinor", e.target.value);
                   }}
                 >
-                  <option value="None" key={0}>
-                    None 
-                  </option>
-                  <option value="NA" key={0}>
+                  <option value="" key={0} >None</option>
+                  <option value="NA" key={2}>
                     NA
                   </option>
                   <option value="Dead" key={1}>
@@ -198,6 +196,7 @@ const PlaintiffForm = (props) => {
                   <option value="Minor" key={2}>
                     Minor
                   </option>
+                  
                 </select>
               </div>
             </div>

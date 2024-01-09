@@ -187,18 +187,16 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
                       onChange("defendantDeadMinor", e.target.value);
                     }}
                   >
-                <option value="None" key={0}>
-                  None
-                </option>
-                <option value="NA" key={0}>
-                  NA
-                </option>
-                <option value="Dead" key={1}>
-                  Dead
-                </option>
-                <option value="Minor" key={2}>
-                  Minor
-                </option>
+                <option key={0} value="">--Select--</option>
+                    <option value="NA" key={1}>
+                      NA
+                    </option>
+                <option value="Dead" key={2}>
+                      Dead
+                    </option>
+                <option value="Minor" key={3}>
+                      Minor
+                    </option>
               </select>
             </div>
           </div>

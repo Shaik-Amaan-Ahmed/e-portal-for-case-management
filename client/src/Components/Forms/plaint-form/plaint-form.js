@@ -5,9 +5,15 @@ import "./plaint-form.css";
 import { toast } from "react-toastify";
 
 const PlaintForm = (props) => {
+  const caseType = ["civil", "criminal", "three"];
   const [casee,setCasee] = useState({});
+  const [earlierCourts, setEarlierCourts] = useState(false);
   const [option , setOption] = useState("");
+  const [response, setResponse] = useState("");
   const [error, setError] = useState("");
+  const [submit, setSubmit] = useState(false);
+
+
 
   const email = useContext(EmailContext);
 
@@ -17,9 +23,9 @@ const PlaintForm = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:64000/casedetails/client-case-category")
+      .get("http://localhost:64000/case-category")
       .then((res) => {
-        setCasee(res.data[0].caseType);
+        setCasee(res.data.data[0].caseType);
       })
       .catch((err) => {
         console.log(err)
@@ -34,36 +40,16 @@ const PlaintForm = (props) => {
     caseSubCategory: "",
     numberOfPlaintiff: "",
     numberOfDefendants: "",
-  };
+  }//
+
   
-  const initialErrors = {
-    causeTitlePlaintiff: "",
-    causeTitleDefendant: "",
-    caseCategory: "",
-    caseSubCategory: "",
-    numberOfPlaintiff: "",
-    numberOfDefendants: "",
-  };
-  
-  const [plaintDetails, setPlaintDetails] = useState(initialDetails);
-  const [errors, setErrors] = useState(initialErrors);
-  
+
+  const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
+
+  //to check whether all the details are filled or not
   const areDetailsFilled = () => {
-    let newErrors = {...initialErrors};
-  
-    Object.keys(plaintDetails).forEach(key => {
-      if (plaintDetails[key] === "" || plaintDetails[key] === "None") {
-        newErrors[key] = "Please fill this field";
-      }
-    });
-    setErrors(newErrors);
-    setTimeout(() => {
-      setErrors(initialErrors);
-    }, 2000);
-    
-  
-  
-    return !Object.values(newErrors).some(error => error !== "");
+
+    return Object.values(plaintDetails).every(value => value !== "" && value !== "None");
   };
 
   //submitting the plaint details to the database
@@ -161,7 +147,6 @@ const PlaintForm = (props) => {
                   value={value("causeTitleDefendant")}
                   onChange={(e) => onChange("causeTitleDefendant", e.target.value)}
                 />
-              {errors.causeTitleDefendant && <span className="error-message">{errors.causeTitleDefendant}</span>}
               </div>
             </div>
             <div className="inner-form-elements">
@@ -172,6 +157,7 @@ const PlaintForm = (props) => {
               <div className="input-element">
                 <select
                   value={value("caseCategory")}
+                  className="input-field"
                   onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
                 >
                   {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
