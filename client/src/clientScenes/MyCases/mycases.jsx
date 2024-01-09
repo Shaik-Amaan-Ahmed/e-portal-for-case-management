@@ -56,25 +56,25 @@ const CaseDetails = () => {
       
       {
       casedetails.length > 0 ? (
-        <table>
+        <table className="client-table">
         <tr>
           <th>Registration No </th>
           <th>Cause Title</th>
-          <th>Case Type</th>
+          <th>Case Category</th>
           <th>Case Status</th>
           <th>Next Hearing Date</th>
         </tr>
         <tbody>
           {[...casedetails].reverse().map((item) => (
             <tr key={item._id}>
-              <td>{item._id}</td>
-              <td>
+              <td className="case-id">{item.caseId}</td>
+              <td className="case-id">
                 {item.plaintDetails.causeTitlePlaintiff} VS{" "}
                 {item.plaintDetails.causeTitleDefendant}
               </td>
-              <td>{item.plaintDetails.caseType}</td>
+              <td>{item.plaintDetails.caseCategory}</td>
               <td style={{
-                color: item.status === "Rejected" ? "red" : "lightblue"
+                  color: item.status === "Rejected" ? "red" : (item.status === "Approved" ? "#32cd32" : "#318CE7"),whiteSpace:"nowrap"
               }}>{item.status}</td>
               <td>{item.plaintDetails.nextHearingDate}</td>
             </tr>

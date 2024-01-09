@@ -68,13 +68,12 @@ function ViewDetails(props) {
                 <div className="docu-details">
                   <div className="doc-left">
                     <Item title="Cause Title" value={`${item.plaintDetails.causeTitlePlaintiff} VS ${item.plaintDetails.causeTitleDefendant}`}/>
-                    <Item title="Case Type" value={item.plaintDetails.caseType} />
                     <Item title="Case Category" value={item.plaintDetails.caseCategory} />
                     <Item title="Case SubCategory" value={item.plaintDetails.caseSubCategory} />
                   </div>
                   <div className="doc-right">
                     <Item title="Number of Plaintiffs" value={item.plaintDetails.numberOfPlaintiff} />
-                    <Item title="Number of Defendents" value={item.plaintDetails.numberOfDefandent} />
+                    <Item title="Number of Defendants" value={item.plaintDetails.numberOfDefendants} />
                   </div>
                 </div>
                 </>

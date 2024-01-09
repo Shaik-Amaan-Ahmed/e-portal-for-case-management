@@ -5,36 +5,50 @@ import "./plaint-form.css";
 
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
-  const caseCategory = ["one", "two", "three"];
+  const [casee,setCasee] = useState({});
   const [earlierCourts, setEarlierCourts] = useState(false);
+  const [option , setOption] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
-  
+
+
 
   const email = useContext(EmailContext);
-
 
   const storedPlaintDetails = JSON.parse(
     localStorage.getItem("plaintDetails")
   ); //getting the stored data from the local storage
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:64000/case-category")
+      .then((res) => {
+        setCasee(res.data.data[0].caseType);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }, []);
+
+
   const initialDetails = storedPlaintDetails ? storedPlaintDetails : { 
     causeTitlePlaintiff: "",
     causeTitleDefendant: "",
-    caseType: "",
     caseCategory: "",
     caseSubCategory: "",
     numberOfPlaintiff: "",
-    numberOfDefendant: "",
+    numberOfDefendants: "",
   }//
+
+  
 
   const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
 
   //to check whether all the details are filled or not
   const areDetailsFilled = () => {
 
-    return Object.values(plaintDetails).every(value => value !== "");
+    return Object.values(plaintDetails).every(value => value !== "" && value !== "None");
   };
 
   //submitting the plaint details to the database
@@ -63,6 +77,41 @@ const PlaintForm = (props) => {
     setPlaintDetails(updatedDetails);
     localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
   };
+  const caseTypeOnChange = (sub, val) => {
+    if(option !== ""){
+      setOption(val);
+      const updatedDetails = {
+        ...plaintDetails,
+        ["caseSubCategory"]: "None",
+        [sub]: val,
+      };
+
+      setPlaintDetails(updatedDetails);
+      localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+    }
+    else{
+      setOption(val);
+      if(casee[val].length === 1 && casee[val][0] === "-"){
+        const updatedDetails = {
+          ...plaintDetails,
+          ["caseSubCategory"]: "-",
+          [sub]: val,
+        };
+        setPlaintDetails(updatedDetails);
+        localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+      }
+      else{
+        const updatedDetails = {
+          ...plaintDetails,
+          ["caseSubCategory"]: "None",
+          [sub]: val,
+        };
+        setPlaintDetails(updatedDetails);
+        localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+      }
+  }
+  };
+
 
   return (
     <>
@@ -104,35 +153,17 @@ const PlaintForm = (props) => {
             </div>
             <div className="inner-form-elements">
               <div className="title">
-                {/* Case Type */}
-                <span>Case Type</span>
-              </div>
-              <div className="input-element">
-                <select
-                  className="input-field"
-                  value={value("caseType")}
-                  onChange={(e) => onChange("caseType", e.target.value)}
-                >
-                  {caseType.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="inner-form-elements">
-              <div className="title">
                 {/* Case Category */}
                 <span>Case Category</span>
               </div>
               <div className="input-element">
                 <select
-                  className="input-field"
                   value={value("caseCategory")}
-                  onChange={(e) => onChange("caseCategory", e.target.value)}
+                  className="input-field"
+                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
                 >
-                  {caseCategory.map((option, index) => (
+                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {Object.keys(casee).map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
@@ -142,8 +173,8 @@ const PlaintForm = (props) => {
             </div>
             <div className="inner-form-elements">
               <div className="title">
-                {/* Case Sub-category */}
-                <span variant="h5">Case Sub-category</span>
+                {/* Case SubCategory */}
+                <span>Case Sub-category</span>
               </div>
               <div className="input-element">
                 <select
@@ -151,8 +182,11 @@ const PlaintForm = (props) => {
                   value={value("caseSubCategory")}
                   onChange={(e) => onChange("caseSubCategory", e.target.value)}
                 >
-                  {caseCategory.map((option, index) => (
-                    <option key={index}>{option}</option>
+                {!option &&  <option value="none">Select Case SubCategory</option>}
+                  {option && ["None", ...casee[option]].map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -193,8 +227,8 @@ const PlaintForm = (props) => {
                   min={0}
                   className="input-field"
                   placeholder="No. of Defendants"
-                  value={value("numberOfDefendant")}
-                  onChange={(e) => onChange("numberOfDefendant", e.target.value)}
+                  value={value("numberOfDefendants")}
+                  onChange={(e) => onChange("numberOfDefendants", e.target.value)}
                 />
               </div>
             </div>

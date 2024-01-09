@@ -110,7 +110,7 @@ const RegistrarDashboard = () => {
             {data.filter(item => filterData(item)).map((item) => {
               return (
                 <tr key={item._id}>
-                  <td>{item.caseId}</td>
+                  <td className="special-td">{item.caseId}</td>
                   <td>{item.registrationDate}</td>
                   <td>
                     {item.plaintDetails.causeTitlePlaintiff} VS{" "}

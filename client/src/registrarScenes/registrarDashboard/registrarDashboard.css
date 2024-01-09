@@ -39,7 +39,7 @@
 
 }
 
-table {
+.registrar-table {
     width: 100%;
     border-bottom: 0.1px solid grey;
 }
@@ -53,6 +53,10 @@ table th {
     border-bottom: 1px solid grey;
 }
 
+.special-td {
+    white-space: nowrap;
+}
+
 table td {
     padding: 15px;
     font-size: large;
@@ -60,7 +64,7 @@ table td {
     font-weight: 400;
     border-bottom: 2px solid grey;
     width: fit-content;
-    white-space: nowrap;
+
 }
 
 table tr:hover {
@@ -78,6 +82,7 @@ table tr:hover {
     font-weight: 500;
     color: rgb(4, 4, 4);
     height: fit-content;
+    white-space: nowrap;
 }
 
 .approve-deny {
