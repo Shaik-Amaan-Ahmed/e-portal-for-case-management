@@ -112,10 +112,10 @@ export default function SignIn() {
                   Login
                 </button>
               </div>
-              <div className="no-account-register">
-                <a href="/client-register">No account? Register</a>
-
-                <a href="/admin-register">Register Admin</a>
+              <div style={{margin:'2rem'}}>
+                <a className="no-account-register" href="/first-page">No account? Register</a>
+                <span style={{ margin: '0 10px' }}> | </span>
+                <a className="no-account-register" href="/second-page">Register Admin</a>
               </div>
             </div>
           </div>
