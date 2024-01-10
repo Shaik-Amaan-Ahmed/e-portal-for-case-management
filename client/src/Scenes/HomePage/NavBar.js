@@ -47,12 +47,12 @@ const NavBar = () => {
           <Typography variant="h3" style={{ marginLeft: "10px" }}>
             <span style={{ fontWeight: "bold", justifyContent:"center", alignItems:"center", display:"flex" }}>
               <a style={{ display: "flex", justifyContent: "center" , width:"100%"}} href="/">
-                HIGH COURT OF
+                E-Portal for
               </a>
             </span>
             <span style={{ fontWeight: "bold" }}>
               <a style={{ display: "flex", justifyContent: "center" }} href="/">
-                TELANGANA
+                 Case-Management
               </a>
             </span>
           </Typography>
@@ -61,11 +61,7 @@ const NavBar = () => {
       <div className="flex-1">
         <div className=" flex justify-end">
           <ul className="mr-4">
-            <li className="text-xl inline-flex p-2 mx-5 hover:bg-orange-700 rounded-lg">
-              <a href="/register">
-                Register
-              </a>
-            </li>
+
             <li className="text-xl inline-flex p-2 mx-5 bg-orange-700 rounded-lg">
               <a href="/login" className="">
                 Login
