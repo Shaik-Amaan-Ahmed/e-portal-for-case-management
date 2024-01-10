@@ -10,7 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { Home } from "@mui/icons-material";
+import { Home} from "@mui/icons-material";
 import "./login.css";
 import { toast } from "react-toastify";
 
@@ -24,6 +24,8 @@ export default function SignIn() {
 
   axios.defaults.withCredentials = true;
   const data = { email, password, role };
+  const [passwordType, setPasswordType] = useState("password");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -115,9 +117,9 @@ export default function SignIn() {
                 </button>
               </div>
               <div className="no-account-register">
-                <a href="/client-register">No account? Register</a>
-
-                <a href="/admin-register">Register Admin</a>
+                {role==='client' && <a href="/client-register">No account? Register here</a>}
+                {role==='registrar' && <a href="/registrar-register">No account? Register here</a>}
+                {role==='judge' && <a href="/judge-register">No account? Register here</a>}
               </div>
             </div>
           </div>

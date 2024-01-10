@@ -12,7 +12,6 @@ import { SecurityOutlined } from "@mui/icons-material/SecurityOutlined";
 import Header from "../Header";
 import { useMemo, useState } from "react";
 import { Maximize } from "@mui/icons-material";
-import UserActions from "../useractions";
 import SignIn from "../../Scenes/Login/login";
 
 const RegistrarTable = () => {
@@ -156,9 +155,7 @@ const RegistrarTable = () => {
           </Typography>
         );
       },
-      renderCell: (params) => {
-        <UserActions {...{params, rowId, setRowId}}/>
-      },
+
     },
   ]
   ,[rowId]
@@ -222,6 +219,7 @@ const RegistrarTable = () => {
           slotProps={{
             toolbar: {
               showQuickFilter: true,
+              className: "my-toolbar",
             },
           }}
           getRowSpacing={params=>({
