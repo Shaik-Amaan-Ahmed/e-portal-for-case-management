@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import "./registrar-deny.css";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 function RegistrarDeny(props) {
   const [remarks, setRemarks] = useState("");
@@ -22,14 +21,13 @@ function RegistrarDeny(props) {
         const res = await axios.post("http://localhost:64000/e-filing/reject-case", {id: props.id, reasonforrejection: remarks});
         try{
             if(res.status === 200){
-                toast.success("Case rejected successfully");
+                alert("Case rejected successfully");
                 props.handleClose();
-                // window.location.reload(true);
+                window.location.reload(true);
             }
         }catch (error){ 
             console.log(error.message);
         }
-        window.location.reload(true);
     }
 
   return (
@@ -65,7 +63,7 @@ function RegistrarDeny(props) {
             </div>
             <div className="deny-buttons">
               <button onClick={handleReject}>Reject</button>
-              <button onClick={()=>props.handleClose()}>Cancel</button>
+              <button onClick={props.handleClose}>Cancel</button>
             </div>
           </div>
         </div>

@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import { EmailContext } from "../../../hooks/emailContext";
 import axios from "axios";
 import "./plaint-form.css";
-import { toast } from "react-toastify";
 
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
@@ -54,8 +53,12 @@ const PlaintForm = (props) => {
 
   //submitting the plaint details to the database
   const submitPlaintDetails = () => {
-    if(areDetailsFilled()){
+    if(!areDetailsFilled()){
+      setError("Please fill all the details");
+    }else{
+      setError(null);
       props.handleNext(props.activeStep);
+      
     }
   };
 

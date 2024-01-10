@@ -53,7 +53,7 @@ router.get('/registrar-case-details', async (req, res) => {
         const limit = Number(req.query.limit) || 2;
         const skip = (page - 1) * limit;
         const totalCount = await efiling.countDocuments({status: "Pending at court for approval"});
-        const data = await efiling.find({status: "Pending at court for approval"}).select(['plaintDetails','caseId']).skip(skip).limit(limit);
+        const data = await efiling.find({status: "Pending at court for approval"}).select(['plaintDetails','caseId','registrationDate']).skip(skip).limit(limit).sort({registrationDate: -1});
         if(data.length > 0){
             res.status(200).json({data:data, totalCount: String(totalCount)});
         }

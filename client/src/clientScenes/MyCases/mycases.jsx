@@ -17,6 +17,7 @@ const CaseDetails = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [totalItems, setTotalItems] = useState(0);
   const [searchInput, setSearchInput] = useState("");
+  const [reloadkey, setReloadKey] = useState(0);
 
   useEffect(() => {
     axios
@@ -48,9 +49,9 @@ const CaseDetails = () => {
       <div className="title">
         <Header title="Case Details" />
       </div>
-      <div className="search-div">
+      {casedetails.length> 0 && (<div className="search-div">
         <input type="text" placeholder="Search" className="search-bar" onChange={(e) => setSearchInput(e.target.value)}/>
-      </div>
+      </div>)}
       <div className="main-table">
       
       {
@@ -106,7 +107,6 @@ const CaseDetails = () => {
           <NotificationsOutlined className="noti-icon" />
         </IconButton>
       </div>
-      {notification ? <ShowItem email={email}/> : null}
     </div>
   );
 };

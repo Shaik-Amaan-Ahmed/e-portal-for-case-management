@@ -38,9 +38,6 @@
     font-weight: 500;
     font-size: larger;
 }
-.which-doc.selected {
-    background-color:blue;
-}
 
 .pdf-container {
 
@@ -95,17 +92,4 @@
     font-weight: 500;
     font-size: larger;
 }
-.button-close{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: orange;
-    padding: 10px;
-    height: 40px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    color: black;
-    font-weight: 500;
-    font-size: larger;
-}
+

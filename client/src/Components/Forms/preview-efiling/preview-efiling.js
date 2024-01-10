@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import "./preview-efiling.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SpringModal from "../../Modals/springModal";
 import axios from "axios";
 import { EmailContext } from "../../../hooks/emailContext";
@@ -8,8 +8,7 @@ import UploadDocs from "../upload-docs/uploadDocs";
 import { v4 as uuidv4 } from "uuid";
 import { CircularProgress } from "@mui/material";
 import { set } from "mongoose";
-import { useEffect } from "react";
-
+import { toast } from "react-toastify";
 const Item = ({ title, value }) => {
   return (
     <div className="item">
@@ -87,6 +86,7 @@ const Preview = (props) => {
   };
 
   const handleSubmit = async (event) => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
     setLoading1(true);
     handleClose();
     event.preventDefault();
@@ -133,7 +133,7 @@ const Preview = (props) => {
         window.location.reload();
       } else {
         setLoading1(false);
-        alert("Something went wrong");
+        toast.error("Something went wrong");
       }
     } catch (err) {
       console.log(err.message);
@@ -144,8 +144,8 @@ const Preview = (props) => {
     <div className="preview-main">
       {/* Plaint Details */}
       <Typography variant="h3">Preview</Typography>
-      {loading1 && <CircularProgress style={{ color: "White" }} />}
       <div className="docs-details">
+      {loading1 && <CircularProgress style={{ color: "White" }} />}
         <Title title={"Plaint Details"} />
         <div className="doc-main">
           <div className="doc-left">
