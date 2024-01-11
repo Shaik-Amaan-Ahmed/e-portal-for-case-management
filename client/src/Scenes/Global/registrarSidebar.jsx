@@ -43,12 +43,12 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         className="main"
         style={{
           display: "flex",
-          borderRight: "0.5px solid",
           height: "100vh",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: "#12233916",
+          borderRight: "0.1px solid #80808070",
           overflowY: "auto",
         }}
       >
@@ -75,6 +75,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                 <Item
                   title="Dashboard"
                   to="/registrar"
+                  icon={DashboardCustomizeOutlined}
+                />
+                <Item
+                  title="Allocation"
+                  to="/registrar/allocation-of-judge"
                   icon={DashboardCustomizeOutlined}
                 />
                 </div>

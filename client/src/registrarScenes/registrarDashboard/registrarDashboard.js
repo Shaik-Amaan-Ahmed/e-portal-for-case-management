@@ -7,7 +7,7 @@ import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar
 import Approve from "../../Components/Modals/registrar-approve/registrar-approve";
 import RegistrarDeny from "../../Components/Modals/registrar-deny/registrar-deny";
 import { CircularProgress } from "@mui/material";
-import { set } from "mongoose";
+
 
 const RegistrarDashboard = () => {
   const [data, setData] = useState([]);
@@ -27,8 +27,8 @@ const RegistrarDashboard = () => {
   const handleOpen = (id) => {
     setId(id);
     setOpen(true);
-
   }
+
   const handleClose = () => setOpen(false);
 
   const handleViewDocOpen = (id) => {
@@ -57,6 +57,7 @@ const RegistrarDashboard = () => {
   }
 
   const prevPage = () => {
+    
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }

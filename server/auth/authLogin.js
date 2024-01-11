@@ -14,7 +14,7 @@ router.post('/judge', async (req, res) => {
         
         const user = await Judge.findOne({ email: email });
         if(!user) return res.json({ message: "Username or password is wrong" });
-        const isMatch = bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) return res.json({ message: "Password is wrong" });
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);

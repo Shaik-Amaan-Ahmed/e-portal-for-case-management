@@ -81,12 +81,13 @@ router.post("/reject-case", async (req, res) => {
 
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
-
+  const caseSensitivity = req.body.caseSensitivity;
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Approved",
+        caseSensitivity: caseSensitivity,
       },
       { new: true } // return the updated document
     );

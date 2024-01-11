@@ -5,8 +5,11 @@ const efiling = new Schema({
     email: {type : String, required: true},
     caseId: {type: String, required: true},
     status: {type: String},
+    caseSensitivity: {type: String},
     registrationDate: {type: String},
     reasonforrejection: {type: String},
+    judgeAssigned: {type: String},
+    courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},

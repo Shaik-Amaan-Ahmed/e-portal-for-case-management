@@ -7,8 +7,9 @@ const Judge = mongoose.model("judges", new Schema({
     token: {type: String},
     password: {type:String},
     phone: {type: String, required: true},
-    casePreferences: [{type : String}]
-    
+    casePreferences: [{type : String}],
+    cases: [{type:String}],
+    availability: {type:Boolean,default:true},
 }));
 
 module.exports = Judge;
