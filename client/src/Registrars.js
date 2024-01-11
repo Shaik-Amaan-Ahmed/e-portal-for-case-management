@@ -8,6 +8,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import RegistrarSidebar from "./Scenes/Global/registrarSidebar";
 import RegistrarDashboard from "./registrarScenes/registrarDashboard/registrarDashboard"
+import AllocateCases from "./registrarScenes/registrar-allocate-cases/registrar-allocate-cases";
 
 function Registrar() {
   const [theme, colorMode] = useMode();
@@ -42,6 +43,7 @@ function Registrar() {
               <Topbar/>
               <Routes>
                 <Route path="/" element={<RegistrarDashboard />} />
+                <Route path="/allocation-of-judge" element={<AllocateCases />} />
               </Routes>
             </div>
           </main>
