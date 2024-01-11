@@ -137,9 +137,9 @@ export default function SignIn() {
                 </button>
               </div>
               <div className="no-account-register">
-                <a href="/client-register">No account? Register</a>
-
-                <a href="/admin-register">Register Admin</a>
+                {role==='client' && <a href="/client-register">No account? Register here</a>}
+                {role==='registrar' && <a href="/registrar-register">No account? Register here</a>}
+                {role==='judge' && <a href="/judge-register">No account? Register here</a>}
               </div>
             </div>
           </div>

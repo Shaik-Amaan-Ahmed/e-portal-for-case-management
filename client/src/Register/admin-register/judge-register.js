@@ -1,14 +1,14 @@
-import { ColorModeContext, useMode } from "../themes";
+import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider, Typography } from "@mui/material";
-
+import JudgeRegisterForm from "../../Components/Forms/register-forms/judge-register-form";
 import { useState } from "react";
-import "./admin-register/admin-register.css";
-import RegisterForm from "../Components/Forms/register-form";
-
-
-const ClientRegister = () => {
+import "./admin-register.css";
+const JudgeRegister = () => {
   const [theme, colorMode] = useMode();
   const [role, setRole] = useState("Judge");
+  const [showComponent, setShowComponent] = useState(true);
+  const [isJudgeActive, setIsJudgeActive] = useState(true);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -18,12 +18,12 @@ const ClientRegister = () => {
             <div className="admin-choose-role">
         
                 <Typography variant="h3">
-                  Client
+                  Judge
                 </Typography>
           
             </div>
             <div className={`admin-register-form`}>
-              <RegisterForm />
+              {role === "Judge" && <JudgeRegisterForm />}
             </div>
           </div>
         </div>
@@ -32,4 +32,4 @@ const ClientRegister = () => {
   );
 };
 
-export default ClientRegister;
+export default JudgeRegister;
