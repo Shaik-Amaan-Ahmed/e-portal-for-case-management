@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import "./registrarViewDetails.css";
 
 
@@ -33,12 +33,14 @@ function ViewDetails(props) {
   const [loading, setLoading] = useState(false);
   const [show , setShow] = useState('plaintDetails');
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         "http://localhost:64000/casedetails/registrar-view-details?id=" + props.id
       )
       .then((res) => {
         setViewData(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -55,6 +57,7 @@ function ViewDetails(props) {
         aria-describedby="keep-mounted-modal-description"
       >
         <div className="modal-box">
+          {loading && (<><CircularProgress style={{color:"white"}}/></>)}
           {viewData.map((item) => {
             return (
               <div className="details-main">
@@ -143,4 +146,3 @@ function ViewDetails(props) {
 }
 
 export default ViewDetails;
-

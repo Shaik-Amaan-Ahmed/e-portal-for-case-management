@@ -7,20 +7,30 @@ import "./registrar-approve.css";
 import { Snackbar, Alert, CircularProgress } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { set } from "mongoose";
 import { green } from "@mui/material/colors";
 
 function Approve(props) {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
+  const options = ["High", "Medium", "Low"]
+  const [error, setError] = useState("");
+  const [value, setValue] = useState("");
 
   const handleApprove = async () => {
+
+    if(value === ""){ 
+      setTimeout(() => { 
+        setError("");
+      },3000);
+      setError("Please select the case sensitivity level");
+      return;
+    }
+
     setLoading(true);
     const res = await axios.post(
       "http://localhost:64000/e-filing/approve-case",
-      { id: props.id }
+      { id: props.id, caseSensitivity: value}
     );
     if (res.status === 200) {
       setTimeout(() => { 
@@ -46,8 +56,32 @@ function Approve(props) {
       >
         <div className="approve-container">
           {loading && (<CircularProgress style={{color:"white"}}/>)}
+          {error && (<h1 style={{color:"red",marginBottom:"10px", fontSize:"large"}}>{error}</h1>)}
           {message && (<h1 style={{color:"green",marginBottom:"10px"}}>{message}</h1>)}
           <Typography variant="h5">Approve this case?</Typography>
+          <br></br>
+          <div>
+            <Typography variant="h5" style={{color:"orange",margin:"20px"}}>
+              Once you approve this case, it will be pending for allocation of judge.
+            </Typography>
+          </div>
+          <div>
+            <Typography variant="h5">Select the case senitivity level:</Typography>
+            <div className="radio-btn">
+            {
+              options.map((option,index) => { 
+                return (
+                  <>
+                  
+                    <input type="radio"  name="sensitivity" value={option} onChange={(e)=> setValue(e.target.value)}/>
+                    <label key={index} style={{fontSize:"larger",fontWeight:"500"}}>{option}</label>  
+                    </>
+                )
+              })
+              
+            }
+            </div>
+          </div>
           <div className="approve-btn-container">
             <Button
               variant="contained"
