@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const efiling = require("../models/eFilingModel");
 const caseCateg = require("../models/caseCategory")
+const judges = require("../models/judges");
 
 router.get("/client-case-details/", async (req, res) => { 
     const email = req.query.email;
@@ -67,6 +68,21 @@ router.get('/registrar-case-details', async (req, res) => {
     }
 });
 
+router.get('/registrar-allocation-of-cases', async (req, res) => {
+    try {
+        const data = await efiling.find({status: "Approved"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
+        if(data.length > 0){
+            res.status(200).json({data:data});
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+    }catch(error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+});
+
 router.get('/registrar-view-details', async (req, res) => { 
     const id = req.query.id;
     try {
@@ -97,6 +113,40 @@ router.get('/registrar-view-documents', async (req, res) => {
             res.status(400).json({message: "No data found"});
         }
     }catch (error){ 
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.get('/registrar-view-petition', async (req, res) => {
+    const id=req.query.id;
+    try{
+        const data = await efiling.findOne({caseId: id}).select('docDetails');
+        if(data){
+            const petitionBase64 = Buffer.from(data.docDetails.petition.fileData).toString('base64');
+            res.status(200).json({petition: petitionBase64, petitionName: data.docDetails.petition.filename});
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+    }catch (error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.get('/registrar-view-judges', async (req, res) => {
+    const caseCategory = req.query.caseCategory;
+    try{
+        // const data = await judges.find({availability: true, casePreferences: {$in : [caseCategory]}}).select(['name','cases']);
+        const data = await judges.find({availability: true}).select(['name','cases']);
+        if(data){
+            res.status(200).json({data:data});
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+    }catch (error){
         console.log(error.message);
         res.status(500).json({message: error.message});
     }

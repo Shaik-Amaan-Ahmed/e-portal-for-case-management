@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const efiling = require("../models/eFilingModel");
+const judges = require("../models/judges");
 const multer = require("multer");
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -95,6 +96,34 @@ router.post("/approve-case", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/registrar-assign-judge", async (req, res) => {
+  const id=req.body.id;
+  const judgeName=req.body.judgeName;
+  try {
+    const data = await efiling.findOneAndUpdate(
+      {caseId: id}, // find a document with this id
+      {
+        judgeAssigned: judgeName,
+        status: "Pending for hearing"
+      },
+      {new: true} // return the updated document
+    );
+
+    const judgeData = await judges.findOneAndUpdate(
+      {name: judgeName}, // find a document with this name
+      {
+        $push: {cases: id}
+      },
+      {new: true} // return the updated document
+    );
+
+    res.status(200).json({message: "success"});
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({message: error.message});
   }
 });
 
