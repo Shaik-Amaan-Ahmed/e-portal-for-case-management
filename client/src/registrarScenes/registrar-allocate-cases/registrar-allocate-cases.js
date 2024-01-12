@@ -77,7 +77,7 @@ const AllocateCases = () => {
                                     <button className="view-btn" onClick={() => handleViewDocOpen(item.caseId)}>View Petition</button>
                                 </td>
                                 <td>
-                                    <button className="view-btn" onClick={() => handleAssignOpen(item.caseId, item.caseCategory)}>Assign</button>
+                                    <button className="view-btn" onClick={() => handleAssignOpen(item.caseId, item.plaintDetails.caseCategory)}>Assign</button>
                                 </td>
                             </tr>
                         )

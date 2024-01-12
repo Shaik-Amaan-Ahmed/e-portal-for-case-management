@@ -4,8 +4,7 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CircularProgress, Typography } from "@mui/material";
-import "./registrarViewDetails.css";
-
+import "../registrar-view-detials/registrarViewDetails.css";
 
 const Item = ({ title, value }) => { 
   return (

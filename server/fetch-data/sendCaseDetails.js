@@ -138,8 +138,8 @@ router.get('/registrar-view-petition', async (req, res) => {
 router.get('/registrar-view-judges', async (req, res) => {
     const caseCategory = req.query.caseCategory;
     try{
-        // const data = await judges.find({availability: true, casePreferences: {$in : [caseCategory]}}).select(['name','cases']);
-        const data = await judges.find({availability: true}).select(['name','cases']);
+        const data = await judges.find({availability: true, casePreferences: {$in : [caseCategory]}}).select(['name','cases']);
+        // const data = await judges.find({availability: true}).select(['name','cases']);
         if(data){
             res.status(200).json({data:data});
         }
