@@ -48,13 +48,9 @@ router.post("/", async (req, res) => {
           res.status(500).send("Error " + err);
         } else {
           await newClient.save();
-          res.status(200).json({ message: "User registered" });
+          res.status(200).send("If the email you provided is valid, a set password mail will be sent to that email-address");
         }
-          try {
-            res.status(200).send("If the email you provided is valid, a set password mail will be sent to that email-address");
-          } catch (error) {
-            console.log(error.message);
-          }
+          
       });
     } else {
       res.status(400).json({ message: "User already exists" });        

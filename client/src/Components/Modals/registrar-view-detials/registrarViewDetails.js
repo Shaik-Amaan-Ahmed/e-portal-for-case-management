@@ -56,7 +56,7 @@ function ViewDetails(props) {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <div className="modal-box">
+        <div className="modal-boxs">
           {loading && (<><CircularProgress style={{color:"white"}}/></>)}
           {viewData.map((item) => {
             return (
