@@ -43,7 +43,7 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
     defendantDeadMinor: "",
     defendantDOB: "",
     defendantAge: "",
-    defendantGender: "male",
+    defendantGender: "",
     defendantEmail: "",
     defendantPhone: "",
     defendantAddress: "",
@@ -58,7 +58,7 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 
     //to check whether all the details are filled or not
     const areDetailsFilled = () => { 
-      return Object.values(defendantDetails).every((value) => value !== "");
+      return Object.values(defendantDetails).every((value) => value !== "" && value !== "None");
     }
   
     //handle onclick of the submit button
@@ -78,16 +78,24 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
   
     //onChange event handler common for all the input fields
     const onChange = (sub, value) => {
-      const updatedDetails = {
-        ...defendantDetails,
-        [sub]: value,
-      };
-  
-      setDefendantDetails(updatedDetails);
-      localStorage.setItem("defendantDetails", JSON.stringify(updatedDetails));
+      if(sub==="defendantDeadMinor" && value==="-"){
+        const updatedDetails = {
+          ...defendantDetails,
+          ["defendantDeadMinor"]: "-",
+        };
+        setDefendantDetails(updatedDetails);
+        localStorage.setItem("defendantDetails", JSON.stringify(updatedDetails));
+      }
+      else{
+        const updatedDetails = {
+          ...defendantDetails,
+          [sub]: value,
+        };
+    
+        setDefendantDetails(updatedDetails);
+        localStorage.setItem("defendantDetails", JSON.stringify(updatedDetails));
+      }
     };
-  
-  
 
   return (
     <>

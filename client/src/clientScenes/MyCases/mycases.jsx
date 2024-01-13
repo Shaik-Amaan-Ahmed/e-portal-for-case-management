@@ -6,7 +6,7 @@ import Header from "../../Components/Header";
 import axios from "axios";
 import { useState } from "react";
 import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
-import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu";
+import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu"
 import ErrorIcon from '@mui/icons-material/Error';
 
 const CaseDetails = () => {
@@ -18,6 +18,13 @@ const CaseDetails = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [reloadkey, setReloadKey] = useState(0);
+  
+  const statusColors = {
+    "Rejected" : "red",
+    "Pending for hearing": "orange",
+    "Approved" : "#32cd32",
+    "Pending at court for approval" : "#318CE7"
+  }
 
   useEffect(() => {
     axios
@@ -74,7 +81,7 @@ const CaseDetails = () => {
               </td>
               <td>{item.plaintDetails.caseCategory}</td>
               <td style={{
-                  color: item.status === "Rejected" ? "red" : (item.status === "Approved" ? "#32cd32" : "#318CE7"),whiteSpace:"nowrap"
+                  color: statusColors[item.status],whiteSpace:"nowrap"
               }}>{item.status}</td>
               <td>{item.plaintDetails.nextHearingDate}</td>
             </tr>
@@ -107,7 +114,6 @@ const CaseDetails = () => {
           <NotificationsOutlined className="noti-icon" />
         </IconButton>
       </div>
-      {notification ? <ShowItem email={email}/> : null}
     </div>
   );
 };

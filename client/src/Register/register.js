@@ -1,27 +1,30 @@
 import { ColorModeContext, useMode } from "../themes";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import "./register.css";
-import { Typography } from "@mui/material";
-import highcourt from "../assets/highcourt.jpeg";
-import logohc from "../assets/logohc.png";
-import RegisterForm from "../Components/Forms/register-form"
+import { CssBaseline, ThemeProvider, Typography } from "@mui/material";
+
+import { useState } from "react";
+import "./admin-register/admin-register.css";
+import RegisterForm from "../Components/Forms/register-form";
 
 
 const ClientRegister = () => {
   const [theme, colorMode] = useMode();
-
+  const [role, setRole] = useState("Judge");
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="register">
-          <div className="register-left">
-            <div className="image-container">
-              <img src={logohc} className="high-court-image" />
+        <div className="admin-register-main">
+          <div className="admin-register-main-primary">
+            <div className="admin-choose-role">
+        
+                <Typography variant="h3">
+                  Client
+                </Typography>
+          
             </div>
-          </div>
-          <div className="register-right">
-            <RegisterForm />
+            <div className={`admin-register-form`}>
+              <RegisterForm />
+            </div>
           </div>
         </div>
       </ThemeProvider>

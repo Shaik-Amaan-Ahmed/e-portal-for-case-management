@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     from: process.env.MAIL_USERNAME,
     to: email,
     subject: "Set Password",
-    html: "<h1>Set Password</h1><p>Click <a href='http://localhost:3000/set-password?token=" + token + "'>here</a> to set password</p>",
+    html: "<h1>Set Password for Judge</h1><p>Click <a href='http://localhost:3000/set-password-judge?token=" + token + "'>here</a> to set password</p>",
   };
 
 
@@ -63,7 +63,7 @@ else{
 }
 })
 
-router.post("/set-password", async (req, res) => { 
+router.post("/set-password-judge", async (req, res) => { 
   const token = req.query.token;
   const { password } = req.body;
   const judge = await Judge.findOne({ token });
