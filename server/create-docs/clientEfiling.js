@@ -4,6 +4,8 @@ const router = express.Router();
 const efiling = require("../models/eFilingModel");
 const judges = require("../models/judges");
 const multer = require("multer");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const upload = multer({ storage: multer.memoryStorage() });
 router.post(
@@ -29,6 +31,8 @@ router.post(
     try {
       const data = JSON.parse(req.body.details);
       const caseId = regId;
+      const email = data.email;
+     
       const newEfiling = new efiling({
         caseId: caseId,
         email: data.email,
@@ -51,9 +55,39 @@ router.post(
         },
       });
       await newEfiling.save();
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          type: "OAuth2",
+          user: process.env.MAIL_USERNAME,
+          pass: process.env.MAIL_PASSWORD,
+          clientId: process.env.OAUTH_CLIENTID,
+          clientSecret: process.env.OAUTH_CLIENT_SECRET,
+          refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+        },
+      });
+    
+      let mailOptions = {
+        from: process.env.MAIL_USERNAME,
+        to: email,
+        subject: "Registration Number",
+        html:"<h1>Your Case has been registered successfully</h1> <p>Your case with case ID: <strong>" + caseId + "</strong><br>You can use this case id for future purposes...</p>",
+      }
+    
+  
+      transporter.sendMail(mailOptions, async (err, data) => {
+        if (err) {
+          console.log(err.message);
+          res.status(500).send("Error " + err);
+        } else {
+          console.log("Email sent successfully");
+        }
+      });
       res.status(200).json({ message: "Success" });
+      
     } catch (error) {
       console.error("Error:", error);
+
       res.status(500).json({ message: "fail" });
     }
   }
