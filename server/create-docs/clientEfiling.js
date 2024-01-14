@@ -32,6 +32,29 @@ router.post(
       const data = JSON.parse(req.body.details);
       const caseId = regId;
       const email = data.email;
+     
+      const newEfiling = new efiling({
+        caseId: caseId,
+        email: data.email,
+        status: data.status,
+        registrationDate: data.registrationDate,
+        plaintDetails: data.storedPlaintDetails,
+        plaintiffDetails: data.storedPlaintiffDetails,
+        defendantDetails: data.storedDefendantDetails,
+        docDetails: {
+          petition: {
+            filename: req.files.petition[0].originalname,
+            contentType: req.files.petition[0].mimetype,
+            fileData: req.files.petition[0].buffer,
+          },
+          aadhar: {
+            filename: req.files.aadhar[0].originalname,
+            contentType: req.files.aadhar[0].mimetype,
+            fileData: req.files.aadhar[0].buffer,
+          },
+        },
+      });
+      await newEfiling.save();
       let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -60,31 +83,11 @@ router.post(
           console.log("Email sent successfully");
         }
       });
-      const newEfiling = new efiling({
-        caseId: caseId,
-        email: data.email,
-        status: data.status,
-        registrationDate: data.registrationDate,
-        plaintDetails: data.storedPlaintDetails,
-        plaintiffDetails: data.storedPlaintiffDetails,
-        defendantDetails: data.storedDefendantDetails,
-        docDetails: {
-          petition: {
-            filename: req.files.petition[0].originalname,
-            contentType: req.files.petition[0].mimetype,
-            fileData: req.files.petition[0].buffer,
-          },
-          aadhar: {
-            filename: req.files.aadhar[0].originalname,
-            contentType: req.files.aadhar[0].mimetype,
-            fileData: req.files.aadhar[0].buffer,
-          },
-        },
-      });
-      await newEfiling.save();
       res.status(200).json({ message: "Success" });
+      
     } catch (error) {
       console.error("Error:", error);
+
       res.status(500).json({ message: "fail" });
     }
   }
