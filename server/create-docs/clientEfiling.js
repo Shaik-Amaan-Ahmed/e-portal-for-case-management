@@ -32,6 +32,8 @@ router.post(
     try {
       const data = JSON.parse(req.body.details);
       const caseId = regId;
+      const email = data.email;
+     
       const newEfiling = new efiling({
         caseId: caseId,
         email: data.email,
@@ -87,6 +89,7 @@ router.post(
       }
     } catch (error) {
       console.error("Error:", error);
+
       res.status(500).json({ message: "fail" });
     }
   }
