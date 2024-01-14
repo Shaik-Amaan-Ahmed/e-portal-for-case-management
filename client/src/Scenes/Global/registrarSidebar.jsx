@@ -77,6 +77,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   to="/registrar"
                   icon={DashboardCustomizeOutlined}
                 />
+                 <Item
+                  title="Allocation"
+                  to="/registrar/allocation-of-judge"
+                  icon={DashboardCustomizeOutlined}
+                />
                 </div>
               </div>
           </div>

@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const Judge = require("../models/judges");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
-const Registrar = require("../models/registrars");
 
 router.post("/", async (req, res) => {
-  const { name,email, phone} = req.body;
+  const { name,email, phone, casePreferences } = req.body;
 
-  const registrar = await Registrar.findOne({ email, name, phone });
-  if (registrar) {
+  const judge = await Judge.findOne({ email, name, phone });
+  if (judge) {
 
   let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     from: process.env.MAIL_USERNAME,
     to: email,
     subject: "Set Password",
-    html: "<h1>Set Password for Registar</h1><p>Click <a href='http://localhost:3000/set-password-registrar?token=" + token + "'>here</a> to set password</p>",
+    html: "<h1>Set Password for Judge</h1><p>Click <a href='http://localhost:3000/set-password-judge?token=" + token + "'>here</a> to set password</p>",
   };
 
 
@@ -44,9 +44,10 @@ router.post("/", async (req, res) => {
     }
       try {
 
-        const registar = await Registrar.findOneAndUpdate(
-          { email },//find the registrar with this email
-          { token  //update the token and casePreferences
+        const judge = await Judge.findOneAndUpdate(
+          { email },//find the judge with this email
+          { token ,
+            casePreferences //update the token and casePreferences
           },
           { new: true } //return the updated document
         );
@@ -58,24 +59,24 @@ router.post("/", async (req, res) => {
 
 }
 else{
-  res.status(400).send("Registar not found"); //if registar not found
+  res.status(400).send("Judge not found"); //if judge not found
 }
 })
 
-router.post("/set-password-registrar", async (req, res) => { 
+router.post("/set-password-judge", async (req, res) => { 
   const token = req.query.token;
   const { password } = req.body;
-  const registrar = await Registrar.findOne({ token });
-  if(registrar) {
+  const judge = await Judge.findOne({ token });
+  if(judge) {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const registar = await Registrar.findOneAndUpdate(
+      const judge = await Judge.findOneAndUpdate(
         { token },
         { password :hashedPassword },
         { new: true }
       );
-      registrar.token = null;
-      await registrar.save();
+      judge.token = null;
+      await judge.save();
       res.status(200).send("Password set successfully");
     } catch (error) {
       console.log(error.message);

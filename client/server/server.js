@@ -14,7 +14,6 @@ const registerRegistrar = require("./create-docs/registrarRegister");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
 const sendCaseCategory = require("./fetch-data/sendCaseCategory");
-const sendRegistrationNumber = require("./create-docs/sendRegistrationNumber");
 const bodyParser = require('body-parser');
 require("dotenv").config();
 
@@ -62,6 +61,7 @@ app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
+
 
 
 

@@ -11,6 +11,7 @@ const efiling = new Schema({
     judgeAssigned: {type: String},
     courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
+    caseRegisteredDate: {type: Date, default: Date.now()},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},

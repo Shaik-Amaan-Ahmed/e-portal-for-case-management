@@ -44,6 +44,7 @@ const Title = ({ title }) => {
   );
 };
 
+
 const Preview = (props) => {
   const email = useContext(EmailContext);
   const storedPlaintDetails = JSON.parse(localStorage.getItem("plaintDetails"));
@@ -130,6 +131,7 @@ const Preview = (props) => {
         localStorage.clear();
         setLoading1(false);
         alert("Case Created Successfully");
+
         window.location.reload();
       } else {
         setLoading1(false);
