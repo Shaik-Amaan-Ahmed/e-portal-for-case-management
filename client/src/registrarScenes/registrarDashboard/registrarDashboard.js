@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import ViewDetails from "../../Components/Modals/registrar-view-detials/registrarViewDetails";
 import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
-import Approve from "../../Components/Modals/registrar-approve-deny/registrar-approve";
+import Approve from "../../Components/Modals/registrar-approve/registrar-approve";
 import RegistrarDeny from "../../Components/Modals/registrar-deny/registrar-deny";
 
 const RegistrarDashboard = () => {
@@ -127,7 +127,7 @@ const RegistrarDashboard = () => {
         {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
       </div>
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
-      {/* {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} />} */}
+      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} />} 
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}
       {open && id !== null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId} />}
 

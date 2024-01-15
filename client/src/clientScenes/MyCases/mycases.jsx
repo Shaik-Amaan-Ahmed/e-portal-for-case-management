@@ -42,6 +42,11 @@ const CaseDetails = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+  const statusColor = {
+    "Rejected" : "red",
+    "Approved" : "green",
+    "Pending at court for approval" : "lightblue"
+  }
 
   return (
     <div className="main-case">
@@ -73,7 +78,7 @@ const CaseDetails = () => {
               </td>
               <td>{item.plaintDetails.caseType}</td>
               <td style={{
-                color: item.status === "Rejected" ? "red" : "lightblue"
+                color: statusColor[item.status] || "lightblue"
               }}>{item.status}</td>
               <td>{item.plaintDetails.nextHearingDate}</td>
             </tr>
