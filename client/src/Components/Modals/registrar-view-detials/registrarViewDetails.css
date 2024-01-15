@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-45%, -50%);
     width: 75%;
-    max-height: 90%;
+    height: fit-content;
     backdrop-filter: blur(70px);
     border: 1px solid grey;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);

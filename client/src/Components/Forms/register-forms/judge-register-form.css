@@ -1,0 +1,46 @@
+.judge-register-form-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    padding: 10px;
+}
+
+.judge-input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.judge-register-input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    background: transparent;
+    backdrop-filter: blur(60px);
+    border: 0.1px solid rgba(128, 128, 128, 0.753);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+
+}
+
+.judge-register-submit {
+    width: 40%;
+    padding: 10px;
+    background: orange;
+    border: 0.1px solid rgba(128, 128, 128, 0.271);
+    border-radius: 5px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    display: flex;
+    color: black;
+}

@@ -43,25 +43,25 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         className="main"
         style={{
           display: "flex",
-          borderRight: "0.5px solid",
+          borderRight: "0.1px solid #80808070",
           height: "100%",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: "#12233916",
           overflowY: "auto",
         }}
       >
-        <div className="inner-items">
+        <div className="inner-item">
           <Typography
             variant="h3"
             style={{ textAlign: "center", marginTop: "20px" }}
           >
             Admin
           </Typography>
-          <div className="menu-items" style={{ marginTop:"30px"}}>
+          <div style={{ marginTop:"30px"}}>
             <div
-              className="inner-menu-items"
+              className="inner-menu-item"
               style={{ display: "flex", flexDirection: "column" }}
             >
               <div className="items">

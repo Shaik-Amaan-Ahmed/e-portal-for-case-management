@@ -1,8 +1,8 @@
 
-.inner-items {
-    display: "flex";
-          flex-direction: "column";
-          justify-items: "center";
+.inner-item {
+        display: flex;
+          flex-direction: column;
+          height: 100vh;
 }
 
 li {
@@ -26,4 +26,8 @@ li {
     border-bottom: 0.1px solid grey;
     border-bottom-width: 1%;
     margin-top: 10px;
+}
+
+.new {
+    color: rgba(128, 128, 128, 0.439);
 }

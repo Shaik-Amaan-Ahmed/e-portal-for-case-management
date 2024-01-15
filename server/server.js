@@ -9,8 +9,11 @@ const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
+const registerJudge = require("./create-docs/judgeRegister");
+const registerRegistrar = require("./create-docs/registrarRegister");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
+const sendCaseCategory = require("./fetch-data/sendCaseCategory");
 const bodyParser = require('body-parser');
 require("dotenv").config();
 
@@ -51,11 +54,14 @@ app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/client", clientToken);
 app.use("/registrar", registrarToken);
-app.use('/register', registerClient);
+app.use('/client-register', registerClient);
+app.use('/judge-register',registerJudge);
+app.use('/registrar-register',registerRegistrar)
 app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
-app.use("/registrar", registrarToken);
+app.use('/case-category', sendCaseCategory);
+
 
 
 

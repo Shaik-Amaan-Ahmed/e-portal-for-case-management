@@ -6,7 +6,7 @@ import Header from "../../Components/Header";
 import axios from "axios";
 import { useState } from "react";
 import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
-import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu";
+import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu"
 import ErrorIcon from '@mui/icons-material/Error';
 
 const CaseDetails = () => {
@@ -17,6 +17,14 @@ const CaseDetails = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [totalItems, setTotalItems] = useState(0);
   const [searchInput, setSearchInput] = useState("");
+  const [reloadkey, setReloadKey] = useState(0);
+  
+  const statusColors = {
+    "Rejected" : "red",
+    "Pending for hearing": "orange",
+    "Approved" : "#32cd32",
+    "Pending at court for approval" : "#318CE7"
+  }
 
   useEffect(() => {
     axios
@@ -53,32 +61,32 @@ const CaseDetails = () => {
       <div className="title">
         <Header title="Case Details" />
       </div>
-      <div className="search-div">
+      {casedetails.length> 0 && (<div className="search-div">
         <input type="text" placeholder="Search" className="search-bar" onChange={(e) => setSearchInput(e.target.value)}/>
-      </div>
+      </div>)}
       <div className="main-table">
       
       {
       casedetails.length > 0 ? (
-        <table>
+        <table className="client-table">
         <tr>
           <th>Registration No </th>
           <th>Cause Title</th>
-          <th>Case Type</th>
+          <th>Case Category</th>
           <th>Case Status</th>
           <th>Next Hearing Date</th>
         </tr>
         <tbody>
           {[...casedetails].reverse().map((item) => (
             <tr key={item._id}>
-              <td>{item._id}</td>
-              <td>
+              <td className="case-id">{item.caseId}</td>
+              <td className="case-id">
                 {item.plaintDetails.causeTitlePlaintiff} VS{" "}
                 {item.plaintDetails.causeTitleDefendant}
               </td>
-              <td>{item.plaintDetails.caseType}</td>
+              <td>{item.plaintDetails.caseCategory}</td>
               <td style={{
-                color: statusColor[item.status] || "lightblue"
+                  color: statusColors[item.status],whiteSpace:"nowrap"
               }}>{item.status}</td>
               <td>{item.plaintDetails.nextHearingDate}</td>
             </tr>
@@ -111,7 +119,6 @@ const CaseDetails = () => {
           <NotificationsOutlined className="noti-icon" />
         </IconButton>
       </div>
-      {notification ? <ShowItem email={email}/> : null}
     </div>
   );
 };

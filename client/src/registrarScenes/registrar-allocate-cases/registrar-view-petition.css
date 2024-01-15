@@ -1,0 +1,95 @@
+.document-box {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 100%;
+    border: 0.01px solid rgb(77, 76, 76);
+    max-width: 100%;
+    border-radius: 10px;
+    backdrop-filter: blur(40px);
+    box-shadow: 24;
+    padding: 4px;
+    justify-content: center;
+}
+
+.select-which-doc {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: center;
+    height: fit-content;
+    align-items: center;
+}
+
+.which-doc {
+    display: flex;
+    align-items: center;
+    background-color: orange;
+    padding: 10px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-weight: 500;
+    font-size: larger;
+}
+
+.pdf-container {
+
+    display: block;
+    height: 100%;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    margin: auto;
+    max-width: 90%;
+}
+
+.pdf-pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.button-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    padding: 10px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-weight: 500;
+    font-size: larger;
+}
+
+.button-none {
+    display: none;
+}
+
+.button-prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    padding: 10px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-weight: 500;
+    font-size: larger;
+}
+
