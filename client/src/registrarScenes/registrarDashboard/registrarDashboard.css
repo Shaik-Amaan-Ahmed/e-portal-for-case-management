@@ -121,6 +121,7 @@ table tr:hover {
     display: flex;
     width: 100%;
     justify-content: space-around;
+    
 }
 
 .pagination-registrar button {

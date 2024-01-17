@@ -51,6 +51,10 @@ const CaseDetails = () => {
     }
   };
 
+  const handleNotifications = () => { 
+    setNotification(!notification);
+  }
+
   return (
     <div className="main-case">
       <div className="title">
@@ -66,6 +70,7 @@ const CaseDetails = () => {
         <table className="client-table">
         <tr>
           <th>Registration No </th>
+          <th>Regn Date</th>
           <th>Cause Title</th>
           <th>Case Category</th>
           <th>Case Status</th>
@@ -75,6 +80,7 @@ const CaseDetails = () => {
           {[...casedetails].reverse().map((item) => (
             <tr key={item._id}>
               <td className="case-id">{item.caseId}</td>
+              <td>{item.registrationDate}</td>
               <td className="case-id">
                 {item.plaintDetails.causeTitlePlaintiff} VS{" "}
                 {item.plaintDetails.causeTitleDefendant}
@@ -114,6 +120,7 @@ const CaseDetails = () => {
           <NotificationsOutlined className="noti-icon" />
         </IconButton>
       </div>
+      {notification && <ShowItem email={email} open={notification} handleClose={handleNotifications}/>}
     </div>
   );
 };

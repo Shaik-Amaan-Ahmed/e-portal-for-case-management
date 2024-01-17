@@ -51,12 +51,10 @@ const Sidebar = () => {
       className="main"
       style={{
         display: "flex",
-        borderRight: "0.5px solid",
         height: "100vh",
         position: "fixed",
         width: "20vh",
         flexDirection: "column",
-        backgroundColor: theme.palette.background.paper,
       }}
     >
       <div className="inner-items">

@@ -142,7 +142,11 @@ const Preview = (props) => {
     <div className="preview-main">
       {/* Plaint Details */}
       <Typography variant="h3">Preview</Typography>
-      {loading1 && <CircularProgress style={{ color: "White" }} />}
+      {loading1 && 
+      <div className="loading-container">
+        <CircularProgress style={{ color: "White" }} />
+      </div>
+    }
       <div className="docs-details">
         <Title title={"Plaint Details"} />
         <div className="doc-main">

@@ -34,7 +34,7 @@ const toggleVisibility = () => {
           <CssBaseline />
       <NavBar/>
       <div style={{paddingTop:'110px'}}>
-        <Typography variant='h1' fontWeight='bold' sx={{textAlign:'center'}}>
+        <Typography variant='h1' fontWeight='500' sx={{textAlign:'center'}}>
             Judges
         </Typography>
         <div className='flex mx-auto p-8'>

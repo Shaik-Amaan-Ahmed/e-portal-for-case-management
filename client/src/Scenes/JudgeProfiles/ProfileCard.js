@@ -43,13 +43,15 @@ export default function JudgeItem(props) {
       <CssBaseline />
     <Paper
       sx={{
-        p: 2,
+        padding:"30px",
         width:'100%',
         zIndex:1,
         margin: 'auto',
         maxWidth: 500,
         flexGrow: 1,
-        border:'2px solid',
+        border:'0.1px solid grey',
+        borderRadius:'10px',
+
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
       }}
@@ -82,24 +84,27 @@ export default function JudgeItem(props) {
           "& .MuiPopover-paper": {
             maxHeight: "50vh", // Adjust this value as needed
             overflow: "auto",
-            width:"60vh",
+            width:"fitContent",
             backgroundColor: "black",
-            background: "",
+            background: "transparent",
             borderRadius: "10px",
-            backdropFilter: "blur(5px)",
-            padding:'10px',
+            backdropFilter: "blur(60px)",
+            padding:'30px',
             WebkitFilter: "blur(0px)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           },
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between"}}>
-          <Typography fontWeight="bold">
+          <Typography >
             {popoverContent}
           </Typography>
         </div>
-        <Typography>
-          <Typography variant='h5'>
-            {name}:
+        <Typography style={{fontWeight:"500",fontSize:"18px"}}>
+          <Typography variant='h3' fontWeight="500" color="orange" style={{display:"flex",justifyContent:"center",margin:"10px"}}>
+            {name}
           </Typography>
           {description}
           </Typography>

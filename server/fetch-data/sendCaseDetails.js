@@ -5,6 +5,7 @@ const efiling = require("../models/eFilingModel");
 const caseCateg = require("../models/caseCategory")
 const judges = require("../models/judges");
 
+
 router.get("/client-case-details/", async (req, res) => { 
     const email = req.query.email;
     const page = Number(req.query.page) || 1;
@@ -19,9 +20,10 @@ router.get("/client-case-details/", async (req, res) => {
             data = await efiling.find({ 
                 email: email, 
                 $or: [
+                {'caseId': new RegExp(search, 'i')},
                 {'plaintDetails.causeTitlePlaintiff': new RegExp(search, 'i')},
                 {'status': new RegExp(search, 'i')},
-                {'plaintDetails.caseType': new RegExp(search, 'i')}
+                {'plaintDetails.caseCategory': new RegExp(search, 'i')}
                 ]
             
             })
@@ -30,7 +32,7 @@ router.get("/client-case-details/", async (req, res) => {
         } 
 
         else {
-            data = await efiling.find({ email: email }).select(['plaintDetails','caseId','status']).skip(skip).limit(limit);
+            data = await efiling.find({ email: email }).select(['plaintDetails','caseId','status','registrationDate']).skip(skip).limit(limit);
         }
         if(data.length > 0){
             res.status(200).json({data:data, totalCount: totalCount});
@@ -49,12 +51,31 @@ router.get("/client-case-details/", async (req, res) => {
 });
 
 router.get('/registrar-case-details', async (req, res) => { 
-    try {
+
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 2;
         const skip = (page - 1) * limit;
-        const totalCount = await efiling.countDocuments({status: "Pending at court for approval"});
-        const data = await efiling.find({status: "Pending at court for approval"}).select(['plaintDetails','caseId','registrationDate']).skip(skip).limit(limit).sort({registrationDate: -1});
+        const search = req.query.search || '';
+
+        try{
+        let data;
+
+        const totalCount = await efiling.countDocuments({status:"Pending for approval by court"});
+
+        if(search){ 
+            data = await efiling.find({status:"Pending for approval by court", 
+            $or: [
+                {'caseId': new RegExp(search, 'i')},
+                {'plaintDetails.causeTitlePlaintiff': new RegExp(search, 'i')},
+                {'plaintDetails.causeTitleDefendant': new RegExp(search, 'i')},
+                {'registrationDate': new RegExp(search, 'i')}
+                ]
+            }).select(['plaintDetails','caseId','registrationDate']).skip(skip).limit(limit);
+        }
+        
+        else{
+            data = await efiling.find({status: "Pending for approval by court"}).select(['plaintDetails','caseId','registrationDate']).skip(skip).limit(limit);
+        }
         if(data.length > 0){
             res.status(200).json({data:data, totalCount: String(totalCount)});
         }
@@ -70,7 +91,7 @@ router.get('/registrar-case-details', async (req, res) => {
 
 router.get('/registrar-allocation-of-cases', async (req, res) => {
     try {
-        const data = await efiling.find({status: "Approved"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
+        const data = await efiling.find({caseSensitivity:"High"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
         if(data.length > 0){
             res.status(200).json({data:data});
         }
@@ -150,6 +171,27 @@ router.get('/registrar-view-judges', async (req, res) => {
         console.log(error.message);
         res.status(500).json({message: error.message});
     }
+})
+
+router.get('/judge-case-details', async (req, res) => { 
+    const email = req.query.email;
+
+    try{
+        const judge = await judges.findOne({email: email});
+        if(judge){
+            const data = await efiling.find({caseId: {$in: judge.cases},status:"Pending for review by judge"}).select(['plaintDetails','caseId','status','registrationDate','caseSensitivity']);
+            if(data.length> 0){
+                res.status(200).json({data:data});
+            }
+            else{
+                res.status(400).json({message: "No data found"});
+            }
+        }
+    }catch(error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+
 })
 
 router.get('/client-case-category', async (req,res) =>{

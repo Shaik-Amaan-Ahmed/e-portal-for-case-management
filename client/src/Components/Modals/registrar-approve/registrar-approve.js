@@ -26,8 +26,9 @@ function Approve(props) {
       setError("Please select the case sensitivity level");
       return;
     }
-
+  try{
     setLoading(true);
+
     const res = await axios.post(
       "http://localhost:64000/e-filing/approve-case",
       { id: props.id, caseSensitivity: value}
@@ -42,7 +43,15 @@ function Approve(props) {
       setLoading(false);
       
     }
-  };
+    
+  }catch(err){ 
+    setTimeout(() => { 
+      setError("");
+    },3000);
+    setMessage(err.response.data.message)
+    setLoading(false);
+  }
+}
 
   return (
     <div>
@@ -107,5 +116,6 @@ function Approve(props) {
     </div>
   );
 }
+
 
 export default Approve;

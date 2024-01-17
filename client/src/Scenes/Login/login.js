@@ -89,17 +89,16 @@ export default function SignIn() {
                 style={{ width: "100%" }}
               />
               <br />
-              <div style={{ position: 'relative', display: 'inline-block' }}>
+              <div style={{ position: 'relative', display: 'inline-block',width:"100%",alignItems:"center", margin:"20px" }}>
                 <input
                   type={passwordType}
                   value={password}
                   required="true"
                   placeholder="Password"
-                  className="username"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
-                  style={{paddingRight: "60px",width: "390px" }} // Add right padding to prevent text from being hidden by the button
+                  style={{width: "100%", display:"flex",height:"40px",background:"transparent",backdropFilter:"blur(60px)",border:"0.1px solid grey", borderRadius:"10px",padding:"20px"}} // Add right padding to prevent text from being hidden by the button
                 />
                 {/* password show button */}
                 <button
