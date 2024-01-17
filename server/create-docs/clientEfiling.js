@@ -116,7 +116,6 @@ router.post("/reject-case", async (req, res) => {
   }
 });
 
-let currentJudgeIndex = 0;
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const caseSensitivity = req.body.caseSensitivity;
