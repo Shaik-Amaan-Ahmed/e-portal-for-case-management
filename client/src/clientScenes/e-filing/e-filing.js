@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
 import PlaintiffForm from "../../Components/Forms/plaintiff-form/plaintiff-form";
 import RespondantForm from "../../Components/Forms/defendant-form/defendant-form";
-import EarilerCourts from "../../Components/Forms/earlier-courts/earlier-courts";
 import UploadDocs from "../../Components/Forms/upload-docs/uploadDocs";
 import Preview from "../../Components/Forms/preview-efiling/preview-efiling.js";
 
@@ -17,7 +16,6 @@ const steps = [
   "Enter plaint details",
   "Plaintiff details",
   "Defendant details",
-  "Eariler courts",
   "Preview",
   "Payment",
 ];
@@ -110,8 +108,7 @@ const Efiling = () => {
               {activeStep === 0 && (<PlaintForm activeStep={activeStep} handleNext={handleNext}/>)}
               {activeStep === 1 && (<PlaintiffForm activeStep={activeStep} handleNext={handleNext}/>)}
               {activeStep === 2 && (<RespondantForm activeStep={activeStep} handleNext={handleNext}/>)}
-              {activeStep === 3 && (<EarilerCourts activeStep = {activeStep} handleNext = {handleNext}/>)}
-              {activeStep === 4 && (<Preview activeStep = {activeStep} handleNext = {handleNext}/>)}
+              {activeStep === 3 && (<Preview activeStep = {activeStep} handleNext = {handleNext}/>)}
 
               
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
