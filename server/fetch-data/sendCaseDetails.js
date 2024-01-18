@@ -17,7 +17,7 @@ router.get("/client-case-details/", async (req, res) => {
         const totalCount = await efiling.countDocuments({email: email});
         let data;
         if (search) {
-            data = await efiling.find({ 
+            data = await efiling.find({
                 email: email, 
                 $or: [
                 {'caseId': new RegExp(search, 'i')},
