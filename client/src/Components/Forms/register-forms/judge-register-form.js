@@ -58,6 +58,7 @@ const JudgeRegisterForm = () => {
        setMessage("Email sent successfully")
       }
     } catch (error) {
+      
       console.log(error.message);
     }finally {
       setIsLoading(false);

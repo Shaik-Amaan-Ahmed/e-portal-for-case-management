@@ -4,7 +4,8 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CircularProgress, Typography } from "@mui/material";
-import "../registrar-view-detials/registrarViewDetails.css";
+import "./registrarViewDetails.css";
+
 
 const Item = ({ title, value }) => { 
   return (
@@ -55,7 +56,7 @@ function ViewDetails(props) {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <div className="modal-box">
+        <div className="modal-boxs">
           {loading && (<><CircularProgress style={{color:"white"}}/></>)}
           {viewData.map((item) => {
             return (

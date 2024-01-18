@@ -50,11 +50,11 @@ function ViewAssign(props) {
                 aria-labelledby="keep-mounted-modal-title"
                 aria-describedby="keep-mounted-modal-description"
             >
-                <div className="modalb">
+                <div className="assign-judge-container">
                     <div className="header">
                         <Typography variant="h3" >Assign the Judge below</Typography>
                     </div>
-                    <div className="select-area">
+                    <div>
                         <select 
                             value={selectedJudge}
                             onChange={((e) => {setSelectedJudge(e.target.value)})}
@@ -65,7 +65,7 @@ function ViewAssign(props) {
                             ))}
                         </select>
                     </div>
-                    <div className="footer">
+                    <div className="assign-btn">
                         <button className="footer-btn" onClick={() => {handleAssign()}}>Assign</button>
                     </div>
                 </div>

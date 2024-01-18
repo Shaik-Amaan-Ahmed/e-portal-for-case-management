@@ -48,9 +48,7 @@ export default function HomePage() {
               </button>
             )}
 
-            <NoticeBoard />
-            <NoticeBoard />
-            <NoticeBoard />
+            
             <Footer />
           </div>
         </ThemeProvider>

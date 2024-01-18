@@ -1,11 +1,11 @@
 import * as React from "react";
 import Modal from "@mui/material/Modal";
-import "./registrar-view-petition.css";
+import "./registrar-view-documents.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { Document, Page } from "react-pdf";
-import Header from "../../Components/Header";
+import Header from "../../Header";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 function ViewPetition(props) {
   const [data, setData] = useState([]);

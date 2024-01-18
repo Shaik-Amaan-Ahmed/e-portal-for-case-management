@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const efiling = new Schema({ 
+const approved = new Schema({ 
     email: {type : String, required: true},
     caseId: {type: String, required: true},
     status: {type: String},
@@ -82,4 +82,4 @@ const efiling = new Schema({
     }
 })
 
-module.exports = mongoose.model('efiling', efiling);
+module.exports = mongoose.model('approvedcases', approved);

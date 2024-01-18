@@ -2,8 +2,8 @@ import axios from "axios";
 import Header from "../../Components/Header";
 import "./registrar-allocate-cases.css";
 import { useState, useEffect } from "react";
-import ViewPetition from "./registrar-view-petition";
-import ViewAssign from "./registrar-assign-judge";
+import ViewPetition from "../../Components/Modals/registrar-view-docs/registrar-view-petition";
+import ViewAssign from "../../Components/Modals/registrar-assign-judge/registrar-assign-judge";
 
 const AllocateCases = () => {
     const [data, setData] = useState([]); 

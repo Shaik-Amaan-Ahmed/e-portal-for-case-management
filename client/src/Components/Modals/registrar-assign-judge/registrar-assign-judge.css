@@ -1,4 +1,4 @@
-.modalb {
+.assign-judge-container {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,7 @@
     box-shadow: 24;
     padding: 4px;
     justify-content: center;
+    align-items: center;
 }
 
 .header {
@@ -27,29 +28,16 @@
     align-items: center;
 }
 
-.select-area {
-    margin-top: 1%;
-    margin-bottom: 0.5%;
+.assign-btn {
+    margin-top: auto;
+    margin-bottom: 20px;
+    background-color: orange;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
-    padding: 10%;
+    padding: 10px;
     justify-content: center;
     height: fit-content;
     align-items: center;
-}
-
-.footer-btn {
-    width: fit-content;
-    padding: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: orange;
-    border-radius: 0.5rem;
-}
-
-.footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 30%;
 }

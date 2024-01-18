@@ -63,8 +63,6 @@ app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
 
 
-
-
 app
   .listen(port, (res, req) => {
     console.log(`Server is running on port: ${port}`);
