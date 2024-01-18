@@ -10,7 +10,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme);
     const navigate = useNavigate();
-  
+
     return (
       <div
         style={{
@@ -21,11 +21,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           marginBottom: "2px",
         }}
       >
-        <a onClick={() => navigate(to)} style={{ cursor: "pointer" }}>
+        <a onClick={() => {
+          setSelected(title)
+          navigate(to)
+          }} style={{ cursor: "pointer" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex" }}></div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="h6">{title}</Typography>
+              <Typography variant="h5" style={{fontWeight:"500" ,color: selected===title? "orange" : "inherit"}}>{title}</Typography>
             </div>
           </div>
         </a>
@@ -43,12 +46,12 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         className="main"
         style={{
           display: "flex",
-          borderRight: "0.5px solid",
           height: "100vh",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: "#12233916",
+          // borderRight: "0.1px solid #80808070",
           overflowY: "auto",
         }}
       >
@@ -65,22 +68,20 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
               style={{ display: "flex", flexDirection: "column" }}
             >
               <div className="items">
-                <Typography
-                  variant="h7"
-                  color={colors.black[100]}
-                  marginLeft="20px"
-                >
-                  Info
-                </Typography>
+                
                 <Item
                   title="Dashboard"
                   to="/registrar"
                   icon={DashboardCustomizeOutlined}
+                  selected={selected}
+                  setSelected={setSelected}
                 />
-                 <Item
+                <Item
                   title="Allocation"
                   to="/registrar/allocation-of-judge"
                   icon={DashboardCustomizeOutlined}
+                  selected={selected}
+                  setSelected={setSelected}
                 />
                 </div>
               </div>

@@ -1,4 +1,4 @@
-.modal-box {
+.assign-judge-container {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,7 @@
     box-shadow: 24;
     padding: 4px;
     justify-content: center;
+    align-items: center;
 }
 
 .header {
@@ -27,15 +28,16 @@
     align-items: center;
 }
 
-.footer {
+.assign-btn {
     margin-top: auto;
     margin-bottom: 20px;
     background-color: orange;
-    border-radius: 0.5rem;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
     padding: 10px;
     justify-content: center;
     height: fit-content;
     align-items: center;
+    width: 30%;
 }

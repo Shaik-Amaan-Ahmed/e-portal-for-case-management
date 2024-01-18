@@ -7,8 +7,7 @@ import { EmailContext } from "../../../hooks/emailContext";
 import UploadDocs from "../upload-docs/uploadDocs";
 import { v4 as uuidv4 } from "uuid";
 import { CircularProgress } from "@mui/material";
-import { set } from "mongoose";
-import { toast } from "react-toastify";
+
 const Item = ({ title, value }) => {
   return (
     <div className="item">
@@ -43,7 +42,6 @@ const Title = ({ title }) => {
     </div>
   );
 };
-
 
 const Preview = (props) => {
   const email = useContext(EmailContext);
@@ -87,7 +85,6 @@ const Preview = (props) => {
   };
 
   const handleSubmit = async (event) => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
     setLoading1(true);
     handleClose();
     event.preventDefault();
@@ -131,11 +128,10 @@ const Preview = (props) => {
         localStorage.clear();
         setLoading1(false);
         alert("Case Created Successfully");
-
         window.location.reload();
       } else {
         setLoading1(false);
-        toast.error("Something went wrong");
+        alert("Something went wrong");
       }
     } catch (err) {
       console.log(err.message);
@@ -146,8 +142,12 @@ const Preview = (props) => {
     <div className="preview-main">
       {/* Plaint Details */}
       <Typography variant="h3">Preview</Typography>
+      {loading1 && 
+      <div className="loading-container">
+        <CircularProgress style={{ color: "White" }} />
+      </div>
+    }
       <div className="docs-details">
-      {loading1 && <CircularProgress style={{ color: "White" }} />}
         <Title title={"Plaint Details"} />
         <div className="doc-main">
           <div className="doc-left">

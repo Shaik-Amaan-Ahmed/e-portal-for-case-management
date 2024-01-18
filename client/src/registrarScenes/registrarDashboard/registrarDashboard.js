@@ -2,12 +2,12 @@ import "./registrarDashboard.css";
 import Header from "../../Components/Header";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import ViewDetails from "../../Components/Modals/registrar-view-detials/registrarViewDetails";
+import ViewDetails from "../../Components/Modals/registrar-view-details/registrarViewDetails";
 import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
 import Approve from "../../Components/Modals/registrar-approve/registrar-approve";
 import RegistrarDeny from "../../Components/Modals/registrar-deny/registrar-deny";
 import { CircularProgress } from "@mui/material";
-import { set } from "mongoose";
+
 
 const RegistrarDashboard = () => {
   const [data, setData] = useState([]);
@@ -27,8 +27,8 @@ const RegistrarDashboard = () => {
   const handleOpen = (id) => {
     setId(id);
     setOpen(true);
-
   }
+
   const handleClose = () => setOpen(false);
 
   const handleViewDocOpen = (id) => {
@@ -57,6 +57,7 @@ const RegistrarDashboard = () => {
   }
 
   const prevPage = () => {
+    
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
@@ -66,7 +67,7 @@ const RegistrarDashboard = () => {
     setData([]);
     setLoading(true);
     axios
-      .get("http://localhost:64000/casedetails/registrar-case-details?page=" + currentPage + "&limit=" + itemsPerPage)
+      .get("http://localhost:64000/casedetails/registrar-case-details?page=" + currentPage + "&limit=" + itemsPerPage + "&search=" + searchinput)
       .then((res) => {
         setData(res.data.data);
         setTotalCount(res.data.totalCount);
@@ -76,16 +77,8 @@ const RegistrarDashboard = () => {
         console.log(err);
         setLoading(false);
       });
-  }, [currentPage, itemsPerPage,reloadkey]);
+  }, [currentPage, itemsPerPage,reloadkey, searchinput]);
 
-
-  function filterData(item) {
-
-    if (searchinput === '' || !item || !item.plaintDetails) return true;
-    else {
-      return item.plaintDetails.causeTitlePlaintiff.toLowerCase().includes(searchinput.toLowerCase()) || item.plaintDetails.causeTitleDefendant.toLowerCase().includes(searchinput.toLowerCase());
-    }
-  }
 
   return (
     <div className="registrar-dash-main">
@@ -94,6 +87,10 @@ const RegistrarDashboard = () => {
         <input type="text" placeholder="Search" className="search-input" onChange={(e) => { setSearchInput(e.target.value) }} />
       </div>
       {loading && (<div className="loading"><CircularProgress style={{color:"white"}}/><h1>Loading...</h1></div>)}
+      <div className="pagination-registrar">
+        {currentPage > 1 && <button onClick={prevPage}>Previous</button>}
+        {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
+      </div>
       <div className="registrar-main-inside">
         <table className="registrar-table">
           <thead>
@@ -107,7 +104,7 @@ const RegistrarDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {data.filter(item => filterData(item)).map((item) => {
+            {data.map((item) => {
               return (
                 <tr key={item._id}>
                   <td className="special-td">{item.caseId}</td>
@@ -124,7 +121,7 @@ const RegistrarDashboard = () => {
                   </td>
                   <td>
                     <div className="approve-deny">
-                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId)}>Approve</button>
+                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId)}>Assign</button>
                       <button className="deny-btn" onClick={() => handleDenyOpen(item.caseId)}>Reject</button>
                     </div>
                   </td>
@@ -134,10 +131,7 @@ const RegistrarDashboard = () => {
           </tbody>
         </table>
       </div>
-      <div className="pagination-registrar">
-        {currentPage > 1 && <button onClick={prevPage}>Previous</button>}
-        {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
-      </div>
+
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
       {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey}/>}
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}

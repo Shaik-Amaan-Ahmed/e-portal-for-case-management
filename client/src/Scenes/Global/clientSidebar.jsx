@@ -43,12 +43,12 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         className="main"
         style={{
           display: "flex",
-          borderRight: "0.5px solid",
+          borderRight: "0.1px solid #80808070",
           height: "100%",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: "#12233916",
           overflowY: "auto",
         }}
       >
@@ -78,6 +78,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   icon={DashboardCustomizeOutlined}
                 />
                 <Item title="e-filing" to="/client/e-filing" />
+                <Item title="Calendar" to="/judge/calendar" />
               </div>
               <div className="items">
                 <Typography
