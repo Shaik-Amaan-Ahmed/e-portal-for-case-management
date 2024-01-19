@@ -11,6 +11,7 @@ const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
 const registerJudge = require("./create-docs/judgeRegister");
 const registerRegistrar = require("./create-docs/registrarRegister");
+const contactUs = require("./create-docs/contact");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
 const sendCaseCategory = require("./fetch-data/sendCaseCategory");
@@ -61,6 +62,7 @@ app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
+app.use('/contact-us', contactUs);
 
 
 app

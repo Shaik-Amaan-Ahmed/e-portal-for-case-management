@@ -74,6 +74,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   to="/judge"
                   icon={DashboardCustomizeOutlined}
                   selected={selected}
+
                   setSelected={setSelected}
                 />
                 <Item
