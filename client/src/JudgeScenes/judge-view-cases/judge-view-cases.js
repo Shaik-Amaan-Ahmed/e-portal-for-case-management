@@ -9,7 +9,9 @@ import { EmailContext } from "../../hooks/emailContext";
 import ViewDetails from "../../Components/Modals/registrar-view-details/registrarViewDetails";
 import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
 import JudgeApprove from "../../Components/Modals/judge-approve/judge-approve";
+
 import { CircularProgress } from "@mui/material";
+import JudgeDeny from "../../Components/Modals/judge-deny/judge-deny";
 
 
 const JudgeViewCases = () => {
@@ -23,6 +25,7 @@ const JudgeViewCases = () => {
   const [approveOpen , setApproveOpen] = useState(false);
   const [reloadkey, setReloadKey] = useState(0);
   const [loading , setLoading] = useState(false);
+  const [rejectOpen, setRejectOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -66,7 +69,11 @@ const JudgeViewCases = () => {
   }
 
   const handleApproveClose = () => setApproveOpen(false);
-
+  const handleRejectOpen = (id) => {
+    setId(id);
+    setRejectOpen(!rejectOpen);
+  }
+  const handleRejectClose = () => setRejectOpen(false);
 
   return (
     <div className="judge-cases-main">
@@ -145,7 +152,7 @@ const JudgeViewCases = () => {
                     <td>
                       <div className="approve-deny">
                         <button className="approve-btn" onClick={()=> handleApproveOpen(item.caseId)}>Approve</button>
-                        <button className="deny-btn">Dismiss</button>
+                        <button className="deny-btn" onClick={()=>handleRejectOpen(item.caseId)}>Dismiss</button>
                       </div>
                     </td>
                   </tr>
@@ -173,6 +180,7 @@ const JudgeViewCases = () => {
         />
       )}
       {approveOpen && <JudgeApprove open={approveOpen} handleClose={handleApproveClose} id={id}  setReloadKey={setReloadKey}/>}
+      {rejectOpen && <JudgeDeny open={rejectOpen} handleClose={handleRejectClose} id={id}  setReloadKey={setReloadKey}/>}
     </div>
   );
 };

@@ -60,7 +60,7 @@ const Preview = (props) => {
   const handleClose = () => setOpen(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const status = "Pending at court for approval";
+  const status = "Pending for approval by court";
 
   useEffect(() => {
     const day = String(registrationDate.getDate()).padStart(2, "0");
