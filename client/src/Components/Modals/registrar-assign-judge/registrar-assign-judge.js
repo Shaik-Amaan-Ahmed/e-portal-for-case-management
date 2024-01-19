@@ -7,7 +7,7 @@ import "./registrar-assign-judge.css";
 
 function ViewAssign(props) {
     const [data, setData] = useState([]);
-    const [selectedJudge, setSelectedJudge] = useState("");
+    const [selectedJudges, setSelectedJudges] = useState([]);
     useEffect(() => {
     axios
         .get(
@@ -28,10 +28,10 @@ function ViewAssign(props) {
     }, [props.caseCategory]);
 
     const handleAssign = async () => {
-        // console.log(selectedJudge);
+        console.log(selectedJudges);
         const res = await axios.post(
             "http://localhost:64000/e-filing/registrar-assign-judge",
-            { id: props.id, judgeName: selectedJudge }
+            { id: props.id, judgeNames: setSelectedJudges }
         );
         if (res.status === 200) {
             setTimeout(() => {
@@ -52,16 +52,20 @@ function ViewAssign(props) {
             >
                 <div className="assign-judge-container">
                     <div className="header">
-                        <Typography variant="h3" >Assign the Judge below</Typography>
+                        <Typography variant="h3" >Assign the Judges below</Typography>
                     </div>
                     <div>
                         <select 
-                            value={selectedJudge}
-                            onChange={((e) => {setSelectedJudge(e.target.value)})}
+                            value={selectedJudges}
+                            onChange={(e) => {
+                                const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+                                console.log(selectedOptions);
+                                setSelectedJudges(selectedOptions);
+                            }}
+                            multiple={true}
                         >
-                            <option value="" disabled selected>Select Judge</option>
                             {data.map((item) => (
-                                <option value={item.name}>{item.name} - {item.cases.length}</option>
+                                <option className="select-option" value={item.name}>{item.name} - {item.cases.length}</option>
                             ))}
                         </select>
                     </div>
