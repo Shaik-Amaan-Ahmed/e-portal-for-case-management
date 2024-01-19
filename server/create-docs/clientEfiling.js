@@ -240,7 +240,48 @@ router.post("/judge-approve", async (req, res) => {
     console.log(error.message);
     res.status(500).json({ message: error.message });
   }
-})
+});
+
+router.post("/registrar-assign-judge", async (req, res) => {
+  const id = req.body.id;
+  const judgeName = req.body.judgeName;
+
+  try {
+    const data = await efiling.findOneAndUpdate(
+      { caseId: id }, // find a document with this id
+      {
+        status: "Approved by judge and pending for summons",
+        judgeAssigned: judgeName,
+      },
+      { new: true } // return the updated document
+    );
+    if(data) {
+      const judgeData = await judges.findOneAndUpdate(
+        { name: judgeName }, // find a document with this name
+        {
+          $push: { cases: id },
+        },
+        { new: true } // return the updated document
+      );
+
+      const newApprovedCase = new approvedcases(data.toObject());
+      await newApprovedCase.save();
+      if(newApprovedCase){ 
+        res.status(200).json({ message: "success" });
+      }
+      else{
+        res.status(400).json({ message: "fail-new" });
+      }
+      
+    }
+    else{
+      res.status(400).json({ message: "fail" });
+    }
+
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 
 module.exports = router;
