@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import PlaintForm from "../../Components/Forms/plaint-form/plaint-form";
 import PlaintiffForm from "../../Components/Forms/plaintiff-form/plaintiff-form";
 import RespondantForm from "../../Components/Forms/defendant-form/defendant-form";
-import UploadDocs from "../../Components/Forms/upload-docs/uploadDocs";
 import Preview from "../../Components/Forms/preview-efiling/preview-efiling.js";
 
 const steps = [
@@ -58,13 +57,6 @@ const Efiling = () => {
 
   const handleStep = (step) => () => {
     setActiveStep(step);
-  };
-
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
   };
 
   const handleReset = () => {
