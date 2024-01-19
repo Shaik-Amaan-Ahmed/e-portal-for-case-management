@@ -141,6 +141,8 @@ router.post("/approve-case", async (req, res) => {
       const judgeName = judge[0].name;
       console.log(judgeName);
 
+      
+
       try {
         const data = await efiling.findOneAndUpdate(
           { caseId: id }, // find a document with this id
@@ -160,7 +162,7 @@ router.post("/approve-case", async (req, res) => {
           { new: true } // return the updated document
         );
 
-        res.status(200).json({ message: "success" });
+        res.status(200).json({ message: "success" , judgeName: judgeName});
       } catch (error) {
         console.log(error.message);
       }

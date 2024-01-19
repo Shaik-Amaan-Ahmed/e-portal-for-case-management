@@ -34,12 +34,15 @@ function Approve(props) {
       { id: props.id, caseSensitivity: value}
     );
     if (res.status === 200) {
+      
       setTimeout(() => { 
         setMessage("");
         props.handleClose();
         props.setReloadKey(prevkey=> prevkey + 1 );
       },1500)
-      setMessage("Case approved successfully");
+      // const response = await axios.get("http://localhost:64000/e-filing/approve-case", { params: { id: props.id } });
+
+      setMessage("Case assigned to" + res.data.judgeName);
       setLoading(false);
       
     }
