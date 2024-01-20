@@ -4,10 +4,13 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "./registrar-assign-judge.css";
+import { CircularProgress } from "@mui/material";
 
 function ViewAssign(props) {
     const [data, setData] = useState([]);
     const [selectedJudges, setSelectedJudges] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
     useEffect(() => {
     axios
         .get(
@@ -30,16 +33,24 @@ function ViewAssign(props) {
     const handleAssign = async () => {
         const judges=selectedJudges.join(",");
         console.log(judges);
-        const res = await axios.post(
-            "http://localhost:64000/e-filing/registrar-assign-judge",
-            { id: props.id, judgeNames: judges}
-        );
-        if (res.status === 200) {
-            alert("Judges Assigned Successfully")
-            setTimeout(() => {
-                props.handleClose();
-                window.location.reload();
-            }, 1500)
+        try {
+            setLoading(true);
+            const res = await axios.post(
+                "http://localhost:64000/e-filing/registrar-assign-judge",
+                { id: props.id, judgeNames: judges}
+            );
+            if (res.status === 200) {
+                setTimeout(() => {
+                    setMessage("");
+                    props.handleClose();
+                    window.location.reload();
+                }, 1500)
+                setMessage("Judges Assigned Successfully")
+                setLoading(false);
+            }
+        } catch (err) {
+            setMessage(err.response.data.message)
+            setLoading(false);
         }
     }
 
@@ -54,6 +65,8 @@ function ViewAssign(props) {
             >
                 <div className="assign-judge-container">
                     <div className="header">
+                        {loading && (<CircularProgress style={{color:"white"}}/>)}
+                        {message && (<h1 style={{color:"green",marginBottom:"10px"}}>{message}</h1>)}
                         <Typography variant="h3" >Assign the Judges below</Typography>
                     </div>
                     <div>
