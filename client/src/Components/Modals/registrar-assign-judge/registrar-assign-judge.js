@@ -28,12 +28,14 @@ function ViewAssign(props) {
     }, [props.caseCategory]);
 
     const handleAssign = async () => {
-        console.log(selectedJudges);
+        const judges=selectedJudges.join(",");
+        console.log(judges);
         const res = await axios.post(
             "http://localhost:64000/e-filing/registrar-assign-judge",
-            { id: props.id, judgeNames: setSelectedJudges }
+            { id: props.id, judgeNames: judges}
         );
         if (res.status === 200) {
+            alert("Judges Assigned Successfully")
             setTimeout(() => {
                 props.handleClose();
                 window.location.reload();
@@ -55,19 +57,25 @@ function ViewAssign(props) {
                         <Typography variant="h3" >Assign the Judges below</Typography>
                     </div>
                     <div>
-                        <select 
-                            value={selectedJudges}
-                            onChange={(e) => {
-                                const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-                                console.log(selectedOptions);
-                                setSelectedJudges(selectedOptions);
-                            }}
-                            multiple={true}
-                        >
-                            {data.map((item) => (
-                                <option className="select-option" value={item.name}>{item.name} - {item.cases.length}</option>
-                            ))}
-                        </select>
+                        
+                        {data.map((item) => (
+                            <div key={item.name}>
+                                <input 
+                                    type="checkbox" 
+                                    value={item.name} 
+                                    checked={selectedJudges.includes(item.name)}
+                                    onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setSelectedJudges(prev => [...prev, e.target.value]);
+                                        } else {
+                                            setSelectedJudges(prev => prev.filter(judge => judge !== e.target.value));
+                                        }
+                                    }}
+                                />
+                                <label>{item.name} - {item.cases.length}</label>
+                            </div>
+                        ))}
+                       
                     </div>
                     <div className="assign-btn">
                         <button className="footer-btn" onClick={() => {handleAssign()}}>Assign</button>

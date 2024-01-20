@@ -244,20 +244,21 @@ router.post("/judge-approve", async (req, res) => {
 
 router.post("/registrar-assign-judge", async (req, res) => {
   const id = req.body.id;
-  const judgeName = req.body.judgeName;
+  const judgeNames = req.body.judgeNames;
 
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Approved by judge and pending for summons",
-        judgeAssigned: judgeName,
+        judgeAssigned: judgeNames,
       },
       { new: true } // return the updated document
     );
     if(data) {
-      const judgeData = await judges.findOneAndUpdate(
-        { name: judgeName }, // find a document with this name
+      const judgeNamesArray = judgeNames.split(",");
+      const judgeData = await judges.updateMany(
+        { name: {$in: judgeNamesArray} }, // find documents with these names
         {
           $push: { cases: id },
         },
