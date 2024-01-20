@@ -5,13 +5,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./registrar-assign-judge.css";
 import { CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 function ViewAssign(props) {
     const [data, setData] = useState([]);
     const [selectedJudges, setSelectedJudges] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-  
     useEffect(() => {
     axios
         .get(
