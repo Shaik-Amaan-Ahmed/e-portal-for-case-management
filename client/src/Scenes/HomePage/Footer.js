@@ -4,12 +4,16 @@ export default function Footer() {
   return (
     <footer
       className="bg-orange-700 text-center lg:text-left">
-      <div className="p-4 text-center text-neutral-700 dark:text-neutral-200">
+      <div className="p-4 text-center text-neutral-700 dark:text-neutral-200 flex-direction-column">
         © 2023 Copyright:
         <a
           className="text-neutral-800 dark:text-neutral-400"
           href="/"
         > PS Group 71</a>
+        <br />
+        <a
+        className='text-neutral-800 dark:text-neutral-400'
+        href='/contact-us'>Contact Us</a>
       </div>
     </footer>
   );

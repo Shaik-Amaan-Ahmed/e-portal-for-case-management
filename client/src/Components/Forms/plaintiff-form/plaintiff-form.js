@@ -18,6 +18,7 @@ export const Item = ({ type, placeholder, name, value, onChange }) => {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          required
         />
       </div>
     </div>

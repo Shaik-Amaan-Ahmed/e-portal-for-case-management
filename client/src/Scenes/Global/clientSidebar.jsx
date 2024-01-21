@@ -10,7 +10,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme);
     const navigate = useNavigate();
-  
+
     return (
       <div
         style={{
@@ -21,11 +21,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           marginBottom: "2px",
         }}
       >
-        <a onClick={() => navigate(to)} style={{ cursor: "pointer" }}>
+        <a onClick={() => {
+          setSelected(title)
+          navigate(to)
+          }} style={{ cursor: "pointer" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex" }}></div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="h6">{title}</Typography>
+              <Typography variant="h5" style={{fontWeight:"500" ,color: selected===title? "orange" : "inherit"}}>{title}</Typography>
             </div>
           </div>
         </a>
@@ -33,7 +36,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     );
   };
   
-  const ClientSidebar = () => {
+  const RegistrarSidebar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [selected, setSelected] = useState("Dashboard");
@@ -43,12 +46,12 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         className="main"
         style={{
           display: "flex",
-          borderRight: "0.1px solid #80808070",
-          height: "100%",
+          height: "100vh",
           position: "fixed",
           width: "20vh",
           flexDirection: "column",
           backgroundColor: "#12233916",
+          borderRight: "2px solid #80808070",
           overflowY: "auto",
         }}
       >
@@ -59,79 +62,34 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           >
             Admin
           </Typography>
-          <div style={{ marginTop:"30px"}}>
+          <div className="menu-items" style={{ marginTop:"30px"}}>
             <div
-              className="inner-menu-item"
+              className="inner-menu-items"
               style={{ display: "flex", flexDirection: "column" }}
             >
               <div className="items">
-                <Typography
-                  variant="h7"
-                  color={colors.black[100]}
-                  marginLeft="20px"
-                >
-                  Info
-                </Typography>
+                
                 <Item
-                  title="Case Details"
+                  title="Cases"
                   to="/client"
                   icon={DashboardCustomizeOutlined}
+                  selected={selected}
+
+                  setSelected={setSelected}
                 />
-                <Item title="e-filing" to="/client/e-filing" />
-                <Item title="Calendar" to="/judge/calendar" />
+                <Item
+                  title="E-filing"
+                  to="/client/e-filing"
+                  icon={DashboardCustomizeOutlined}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+   
+                </div>
               </div>
-              <div className="items">
-                <Typography
-                  variant="h7"
-                  color={colors.black[100]}
-                  marginLeft="20px"
-                >
-                  TBD
-                </Typography>
-                <Item title="TBD" to="/client" icon={DashboardCustomizeOutlined} />
-                <Item title="TBD" to="/client/" />
-                <Item title="TBD" to="/client/" />
-              </div>
-              <div className="items">
-                <Typography
-                  variant="h7"
-                  color={colors.black[100]}
-                  marginLeft="20px"
-                >
-                  TBD
-                </Typography>
-                <Item title="TBD" to="/client" icon={DashboardCustomizeOutlined} />
-                <Item title="TBD" to="/client/" />
-                <Item title="TBD" to="/client/" />
-              </div>
-              <div className="items">
-                <Typography
-                  variant="h7"
-                  color={colors.black[100]}
-                  marginLeft="20px"
-                >
-                  TBD
-                </Typography>
-                <Item title="TBD" to="/client" icon={DashboardCustomizeOutlined} />
-                <Item title="TBD" to="/client/" />
-                <Item title="TBD" to="/client/" />
-              </div>
-              <div className="items">
-                <Typography
-                  variant="h7"
-                  color={colors.black[100]}
-                  marginLeft="20px"
-                >
-                  TBD
-                </Typography>
-                <Item title="TBD" to="/client" icon={DashboardCustomizeOutlined} />
-                <Item title="TBD" to="/client/" />
-                <Item title="TBD" to="/client/" />
-              </div> 
-            </div>
           </div>
         </div>
       </div>
     );
   };
-export default ClientSidebar;
+export default RegistrarSidebar;

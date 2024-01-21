@@ -43,7 +43,6 @@ export default function SignIn() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div>
           <IconButton onClick={() => navigate("/")}>
             <Home />
             <label
@@ -55,7 +54,6 @@ export default function SignIn() {
               Home
             </label>
           </IconButton>
-        </div>
         <div className="mains-div">
           <div className="inner-div">
             <div className="inner-items">
@@ -94,6 +92,7 @@ export default function SignIn() {
                   type={passwordType}
                   value={password}
                   required="true"
+                  className="password"
                   placeholder="Password"
                   onChange={(e) => {
                     setPassword(e.target.value);

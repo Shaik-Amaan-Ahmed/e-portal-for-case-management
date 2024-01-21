@@ -18,7 +18,7 @@ const Item = (props) => (
       type="text"
       placeholder={props.placeholder}
       className="judge-register-input"
-      value={props.value}
+      value={props.value}h
       onChange={(e) => props.setJudgeDetails({ ...props.judgeDetails , [props.toChange] : e.target.value })}
     />
   </div>

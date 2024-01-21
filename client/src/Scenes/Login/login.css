@@ -1,3 +1,4 @@
+
 .mains-div {
     display: flex;
     justify-items: center;
@@ -101,6 +102,15 @@
     margin-top: auto;
     background: transparent;
     backdrop-filter: blur(60px);
+}
+.username::placeholder {
+    color: white;
+    opacity: 1;
+}
+.password::placeholder{
+    color: white;
+    opacity: 1;
+
 }
 
 .submit-enter {

@@ -1,5 +1,6 @@
 import { Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, rgbToHex, useTheme } from "@mui/material";
 import { useContext,React } from "react";
+import './topbar.css';
 import { ColorModeContext, tokens } from "../../themes";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -58,6 +59,7 @@ const Topbar = () => {
         {/* SEARCH BAR */}
         <Box display="flex" borderRadius="3px" align="center">
           <input
+          className="searchbar"
             style={{
               width: "100%",
               border: "0.1px solid grey",
@@ -68,7 +70,7 @@ const Topbar = () => {
               justifyContent: "center",
               color: "inherit",
               backgroundColor: "transparent",
-              textAlign: "center"
+              textAlign: "white",
             }}
             placeholder="Search"
           />
