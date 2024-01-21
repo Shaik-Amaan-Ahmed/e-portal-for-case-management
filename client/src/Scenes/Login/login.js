@@ -32,7 +32,7 @@ export default function SignIn() {
     const res = await axios.post(url, data);
 
     if (res.data.message === "success") {
-      navigate("/" + role);
+      navigate("/" + role,{state: {name:res.data.name}});
       toast.success("Login Successful");
     } else {
       toast.error(res.data.message);

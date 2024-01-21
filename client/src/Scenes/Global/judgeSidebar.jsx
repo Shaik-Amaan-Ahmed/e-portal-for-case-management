@@ -1,9 +1,10 @@
+import { useLocation } from "react-router-dom";
 import { Typography } from "@mui/material";
 import "./sidebar.css";
 import { tokens } from "../../themes";
 import { useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import MyImage from "../../assets/user.png";
 import DashboardCustomizeOutlined from "@mui/icons-material/DashboardCustomizeOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -35,8 +36,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       </div>
     );
   };
-  
   const RegistrarSidebar = () => {
+  const [name, setName] = useState("");
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.name) {
+    setName(location.state.name);
+    }
+  }, [location]);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [selected, setSelected] = useState("Dashboard");
@@ -60,7 +67,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             variant="h3"
             style={{ textAlign: "center", marginTop: "20px" }}
           >
-            Admin
+            {name}
           </Typography>
           <div className="menu-items" style={{ marginTop:"30px"}}>
             <div
@@ -74,6 +81,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   to="/judge"
                   icon={DashboardCustomizeOutlined}
                   selected={selected}
+
                   setSelected={setSelected}
                 />
                 <Item
