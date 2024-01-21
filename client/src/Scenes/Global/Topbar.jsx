@@ -13,10 +13,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SpringModal from "../../Components/Modals/springModal";
+import { useLocation } from "react-router-dom";
 import { Logout, Settings } from "@mui/icons-material";
+
 const Topbar = () => {
+  const [name, setName] = useState('');
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.name) {
+      setName(location.state.name);
+      console.log(name);
+    }
+  }, [location]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -26,7 +36,7 @@ const Topbar = () => {
   const handleClose = () => setOpen(false);
 
   function handleLogout() {
-    handleClose();
+    handleClose();        
     axios
       .get("http://localhost:64000/logout")
       .then((res) => {
@@ -109,7 +119,7 @@ const Topbar = () => {
             aria-haspopup="true"
             aria-expanded={Open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>L</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{name[0]}</Avatar>
           </IconButton>
         </Tooltip>
         </Box>
@@ -153,14 +163,14 @@ const Topbar = () => {
 
         <Divider />
        
-        <MenuItem onClick={handleOpen}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
           <LogoutIcon/>
           </ListItemIcon>
           Logout
         </MenuItem>
       </Menu>
-      <Box>
+      {/* <Box>
         <SpringModal
           handleOpen={handleOpen}
           handleClose={handleClose}
@@ -168,7 +178,7 @@ const Topbar = () => {
           handleSubmit={handleLogout}
           message="logout"
         />
-      </Box>
+      </Box> */}
     </>
 
   );
