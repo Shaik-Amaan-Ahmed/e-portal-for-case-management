@@ -79,6 +79,7 @@ export default function SignIn() {
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>
                 <button onClick={() => setRole("defendant")}>Defendant</button>
+                <button onClick={() => setRole("defendant")}>Defendant</button>
               </div>
               <div
                 className="roles"

@@ -50,6 +50,23 @@ router.get("/client-case-details/", async (req, res) => {
   }
 });
 
+router.get('/registrar-view-petition-summons', async (req, res) => {
+    const id=req.query.id;
+    try{
+        const data = await approvedcases.findOne({caseId: id}).select('docDetails');
+        if(data){
+            const petitionBase64 = Buffer.from(data.docDetails.petition.fileData).toString('base64');
+            res.status(200).json({petition: petitionBase64, petitionName: data.docDetails.petition.filename});
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+    }catch (error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+})
+
 //registrar dashboard details
 router.get("/registrar-case-details", async (req, res) => {
   const page = Number(req.query.page) || 1;
@@ -377,6 +394,57 @@ router.get("/send-docs", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 
+})
+
+router.get('/client-case-category', async (req,res) =>{
+    try {
+        const data = await caseCateg.find({});
+        if(data){
+            res.status(200).send(data);
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+    }
+    catch (error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.get('/send-summons', async (req, res) => { 
+    try{
+    const data = await approvedcases.find({status:"Approved by judge and pending for summons"}).select(['caseId','registrationDate','status','plaintDetails','judgeAssigned']);
+    if(data){
+        res.status(200).json({data:data});
+    }
+    else{
+        res.status(400).json({message: "No data found"});
+    }
+}catch(error){ 
+    console.log(error.message);
+    res.status(500).json({message: error.message});
+
+}
+})
+
+
+router.get('/send-summons-details', async (req, res) => { 
+    const id = req.query.id;
+    try {
+        const data = await approvedcases.findOne({caseId: id}).select(['defendantDetails','docDetails.petition']);
+        if(data){
+            res.status(200).json({data:data});
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+
+    }catch(error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    
+    }
 })
 
 router.get("/client-case-category", async (req, res) => {

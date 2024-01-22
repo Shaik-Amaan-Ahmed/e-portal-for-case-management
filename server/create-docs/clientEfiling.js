@@ -69,7 +69,6 @@ router.post(
         }
     } catch (error) {
       console.error("Error:", error);
-
       res.status(500).json({ message: "fail" });
     }
   }catch(error){
