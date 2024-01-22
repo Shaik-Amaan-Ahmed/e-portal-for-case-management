@@ -12,7 +12,7 @@ export default function Slider() {
             backgroundPosition: 'center',
             borderRadius: '20px',
             margin: 'auto',
-            height: '73vh',
+            height: '75vh',
             width: '98vw',
             backgroundColor: 'rgb(0,0,0,0.5)'
             }}>
