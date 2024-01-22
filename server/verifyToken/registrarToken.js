@@ -18,8 +18,10 @@ const verifyUser = (req, res, next) => {
     }
   };
 
-router.get("/", verifyUser, (req, res) => {
-    res.json({ message: "success", role: req.role });
+  router.get("/", verifyUser, async (req, res) => {
+    const email = req.email;
+    const Name = await Registrar.findOne({ email: email }).select("name");
+    res.json({ message: "success", role: req.role , email: req.email,name:Name });
   });
 
 module.exports = router;

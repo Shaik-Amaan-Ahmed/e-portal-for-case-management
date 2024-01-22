@@ -5,47 +5,24 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
-  rgbToHex,
   useTheme,
 } from "@mui/material";
-import { useContext, React } from "react";
-import { ColorModeContext, tokens } from "../../themes";
-import InputBase from "@mui/material/InputBase";
+import { useContext, React,useState } from "react";
+import { ColorModeContext} from "../../themes";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import SpringModal from "../../Components/Modals/springModal";
-import { Logout, Settings } from "@mui/icons-material";
 
-import { useLocation } from "react-router-dom";
 const Topbar = () => {
-  const [name, setName] = useState("");
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.name) {
-    setName(location.state.name);
-    }
-  }, [location]);
-  
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContext);
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const name = useContext(EmailContext).name.toUpperCase();
 
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
   function handleLogout() {
-    handleClose();        
     axios
       .get("http://localhost:64000/logout")
       .then((res) => {
@@ -64,7 +41,7 @@ const Topbar = () => {
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
-  }
+  };
 
   return (
     <>
@@ -86,11 +63,10 @@ const Topbar = () => {
               justifyContent: "center",
               color: "inherit",
               backgroundColor: "transparent",
-              textAlign: "center"
+              textAlign: "center",
             }}
             placeholder="Search"
           />
-          
           <IconButton
             type="button"
             sx={{
@@ -101,14 +77,12 @@ const Topbar = () => {
               height: "40px",
               justifyContent: "center",
               alignItems: "center",
-              margin: "auto"
+              margin: "auto",
             }}
           >
             <SearchIcon />
           </IconButton>
         </Box>
-        
-
         {/* ICONS */}
         <Box display="flex">
           <IconButton sx={{ ml: 8 }} onClick={colorMode.toggleColorMode}>
@@ -176,15 +150,6 @@ const Topbar = () => {
           Logout
         </MenuItem>
       </Menu>
-      {/* <Box>
-        <SpringModal
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-          open={open}
-          handleSubmit={handleLogout}
-          message="logout"
-        />
-      </Box> */}
     </>
   );
 };

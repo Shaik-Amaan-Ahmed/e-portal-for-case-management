@@ -1,15 +1,11 @@
 import * as React from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { IconButton, useTheme } from "@mui/material";
-import { tokens } from "../../themes";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import { Home } from "@mui/icons-material";
 import "./login.css";
 import { toast } from "react-toastify";
@@ -32,7 +28,7 @@ export default function SignIn() {
     const res = await axios.post(url, data);
 
     if (res.data.message === "success") {
-      navigate("/" + role,{state: {name:res.data.name}});
+      navigate("/" + role);
       toast.success("Login Successful");
     } else {
       toast.error(res.data.message);

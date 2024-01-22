@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
 import { ColorModeContext, useMode } from "./themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import ClientSidebar from "./Scenes/Global/clientSidebar";
@@ -19,12 +18,14 @@ const Client = () => {
   const [theme, colorMode] = useMode();
   const [email, setEmail] = useState("");
 
+  const [name,setName]=useState("");
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios.get("http://localhost:64000/client").then((res) => {
       if (res.data.message === "success" && res.data.role === "client") {
         setIsLoggedIn(true);
         setEmail(res.data.email);
+        setName(res.data.name.firstName);
       } else {
         setIsLoggedIn(false);
         navigate("/login");
@@ -34,7 +35,7 @@ const Client = () => {
 
 
   return (
-    <EmailContext.Provider value={email}>
+    <EmailContext.Provider value={{email,name}}>
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
