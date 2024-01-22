@@ -1,0 +1,20 @@
+.summons-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.summons-inside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.summons-table {
+    display: table;
+    width: 100%;
+}

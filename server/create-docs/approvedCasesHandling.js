@@ -1,0 +1,79 @@
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
+const sendSummonViaMail = require("../mail-helper/summon-mail");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
+const approvedCases = require("../models/approvedCases");
+const eFilingModel = require("../models/eFilingModel");
+const defendantDetails = require("../models/defendantDetails");
+
+router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { name: 'petition', maxCount: 1 }]) ,async (req, res) => { 
+    const summon = req.files.summon[0].buffer;
+    const summonFileName = req.files.summon[0].originalname;
+    const petition = req.files.petition[0].buffer;
+    const petitionFileName = req.files.petition[0].originalname;
+    const defendantEmail = req.body.defendantEmail;
+    const caseId = req.body.caseId;
+
+    try {
+        function generatePassword() {
+            let password = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          
+            for (let i = 0; i < 6; i++) {
+              password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+          
+            return password;
+          }
+
+          const password = generatePassword();
+    
+        const defandantCredentials = new defendantDetails({ 
+            caseId:caseId,
+            password: password
+        });
+
+        const sendEmailPromise = sendSummonViaMail(defendantEmail, "Summoning to Appear in Court", "<h1>You have been summoned to court. Your case id is " + caseId + "</h1></br><h2>Your username is the case id and your password is "+password+ "</h2>", [
+            {
+                filename: summonFileName,
+                content: summon
+            },
+            {
+                filename: petitionFileName,
+                content: petition
+            }
+        ],res)
+
+    // Start the update processes
+    const updatePromise1 = eFilingModel.findOneAndUpdate(
+        {caseId: caseId},
+        {status: "Summonned the defendant and pending for return statement"},
+        {new:true}
+    );
+    const updatePromise2 = approvedCases.findOneAndUpdate(
+        {caseId: caseId},
+        {status: "Summonned the defendant and pending for return statement"},
+        {new:true}
+    );
+
+    const updatePromise3 = defandantCredentials.save();
+    const [suc, data1, data2,data3] = await Promise.all([sendEmailPromise, updatePromise1, updatePromise2, updatePromise3]);
+
+        if(suc) {
+            
+            res.status(200).json({message: "Summon sent successfully"});
+        }
+        else{
+            res.status(500).json({message: "Summon not sent"});
+        }
+
+    }catch(error) {
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+
+})
+
+module.exports = router;

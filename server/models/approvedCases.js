@@ -11,7 +11,6 @@ const approved = new Schema({
     judgeAssigned: {type: String},
     courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
-    caseRegisteredDate: {type: Date, default: Date.now()},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
@@ -68,7 +67,12 @@ const approved = new Schema({
         filename: {type: String},
         contentType : {type : String},
         fileData: {type : Buffer}
-      }
+      },
+      summons: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
     },
     notifications: {
       judgements: {

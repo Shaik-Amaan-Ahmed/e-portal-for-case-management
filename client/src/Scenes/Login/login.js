@@ -63,6 +63,7 @@ export default function SignIn() {
                 <button onClick={() => setRole("judge")}>Judge</button>
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>
+                <button onClick={() => setRole("defendant")}>Defendant</button>
               </div>
               <div
                 className="roles"
@@ -84,7 +85,7 @@ export default function SignIn() {
                 value={email}
                 required="true"
                 className="username"
-                placeholder="Email"
+                placeholder={role==="defendant"?"Case ID":"Email"}
                 onChange={(e) => setUsername(e.target.value)}
                 style={{ width: "100%" }}
               />
