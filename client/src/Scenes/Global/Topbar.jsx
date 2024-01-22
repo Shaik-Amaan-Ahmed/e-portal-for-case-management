@@ -13,9 +13,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SpringModal from "../../Components/Modals/springModal";
 import { Logout, Settings } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -24,6 +25,7 @@ const Topbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const initial = useLocation().state.name[0];
 
   function handleLogout() {
     handleClose();
@@ -109,7 +111,7 @@ const Topbar = () => {
             aria-haspopup="true"
             aria-expanded={Open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>H</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
           </IconButton>
         </Tooltip>
         </Box>
@@ -151,7 +153,7 @@ const Topbar = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar /> {initial}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>

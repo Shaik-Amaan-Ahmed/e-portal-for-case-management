@@ -14,7 +14,8 @@ export default function Slider() {
             margin: 'auto',
             height: '80vh',
             width: '98vw',
-            backgroundColor: 'rgb(0,0,0,0.5)'
+            backgroundColor: 'rgb(0,0,0,0.5)',
+            overflow: 'hidden',
             }}>
         <NoticeBoard/>
         </Box>

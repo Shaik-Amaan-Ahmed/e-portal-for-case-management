@@ -18,6 +18,7 @@ function Approve(props) {
   const [value, setValue] = useState("");
 
   const handleApprove = async () => {
+    // const
 
     if(value === ""){ 
       setTimeout(() => { 
@@ -40,7 +41,6 @@ function Approve(props) {
         props.handleClose();
         props.setReloadKey(prevkey=> prevkey + 1 );
       },1500)
-      // const response = await axios.get("http://localhost:64000/e-filing/approve-case", { params: { id: props.id } });
 
       setMessage("Case assigned to" + res.data.judgeName);
       setLoading(false);
@@ -70,11 +70,11 @@ function Approve(props) {
           {loading && (<CircularProgress style={{color:"white"}}/>)}
           {error && (<h1 style={{color:"red",marginBottom:"10px", fontSize:"large"}}>{error}</h1>)}
           {message && (<h1 style={{color:"green",marginBottom:"10px"}}>{message}</h1>)}
-          <Typography variant="h5">Approve this case?</Typography>
+          <Typography variant="h5">Do you want to assign this case bearing Case ID: {}?</Typography>
           <br></br>
           <div>
             <Typography variant="h5" style={{color:"orange",margin:"20px"}}>
-              Once you approve this case, it will be pending for allocation of judge.
+              Once you assign this case to a judge, it will be pending for review by the judge.
             </Typography>
           </div>
           <div>

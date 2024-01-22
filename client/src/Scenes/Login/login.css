@@ -1,11 +1,15 @@
+body{
+    overflow: hidden;
+}
 .mains-div {
     display: flex;
     justify-items: center;
     margin-block: auto;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     align-items: center;
     justify-content: center;
+    overflow-y: hidden;
     
 }
 
@@ -20,6 +24,7 @@
     background-size: cover;
     opacity: 0.2; /* Change this to the opacity you want */
     z-index: -1;
+    overflow: hidden;
 }
 
 
