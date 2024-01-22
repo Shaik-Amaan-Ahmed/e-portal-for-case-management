@@ -6,6 +6,7 @@ const approvedcases = require("../models/approvedCases");
 const judges = require("../models/judges");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
+const rejectedcases = require("../models/rejectedCases");
 require("dotenv").config();
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -78,8 +79,18 @@ router.post("/reject-case", async (req, res) => {
       },
       { new: true } // return the updated document
     );
-
-    res.status(200).json({ message: "success" });
+    if (data) {
+      const newRejectedCase = new rejectedcases(data.toObject());
+      await newRejectedCase.save();
+      if(newRejectedCase){ 
+        res.status(200).json({ message: "success" });
+      }
+      else{
+        res.status(400).json({ message: "fail-new" });
+      }
+    } else {
+      res.status(400).json({ message: "fail" });
+    }
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
@@ -201,6 +212,49 @@ router.post("/judge-approve", async (req, res) => {
     console.log(error.message);
     res.status(500).json({ message: error.message });
   }
-})
+});
+
+router.post("/registrar-assign-judge", async (req, res) => {
+  const id = req.body.id;
+  const judgeNames = req.body.judgeNames;
+
+  try {
+    const data = await efiling.findOneAndUpdate(
+      { caseId: id }, // find a document with this id
+      {
+        status: "Approved by judge and pending for summons",
+        judgeAssigned: judgeNames,
+      },
+      { new: true } // return the updated document
+    );
+    if(data) {
+      const judgeNamesArray = judgeNames.split(",");
+      const judgeData = await judges.updateMany(
+        { name: {$in: judgeNamesArray} }, // find documents with these names
+        {
+          $push: { cases: id },
+        },
+        { new: true } // return the updated document
+      );
+
+      const newApprovedCase = new approvedcases(data.toObject());
+      await newApprovedCase.save();
+      if(newApprovedCase){ 
+        res.status(200).json({ message: "success" });
+      }
+      else{
+        res.status(400).json({ message: "fail-new" });
+      }
+      
+    }
+    else{
+      res.status(400).json({ message: "fail" });
+    }
+
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 
 module.exports = router;

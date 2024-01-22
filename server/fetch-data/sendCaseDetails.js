@@ -17,7 +17,7 @@ router.get("/client-case-details/", async (req, res) => {
         const totalCount = await efiling.countDocuments({email: email});
         let data;
         if (search) {
-            data = await efiling.find({ 
+            data = await efiling.find({
                 email: email, 
                 $or: [
                 {'caseId': new RegExp(search, 'i')},
@@ -91,7 +91,7 @@ router.get('/registrar-case-details', async (req, res) => {
 
 router.get('/registrar-allocation-of-cases', async (req, res) => {
     try {
-        const data = await efiling.find({caseSensitivity:"High"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
+        const data = await efiling.find({caseSensitivity:"High", status:"Pending for review by judge"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
         if(data.length > 0){
             res.status(200).json({data:data});
         }
