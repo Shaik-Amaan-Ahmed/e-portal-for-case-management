@@ -32,7 +32,7 @@ export default function SignIn() {
     const res = await axios.post(url, data);
 
     if (res.data.message === "success") {
-      navigate("/" + role);
+      navigate("/" + role,{state: {name:res.data.name}});
       toast.success("Login Successful");
     } else {
       toast.error(res.data.message);
@@ -43,6 +43,7 @@ export default function SignIn() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <div>
           <IconButton onClick={() => navigate("/")}>
             <Home />
             <label
@@ -54,6 +55,7 @@ export default function SignIn() {
               Home
             </label>
           </IconButton>
+        </div>
         <div className="mains-div">
           <div className="inner-div">
             <div className="inner-items">
@@ -61,6 +63,7 @@ export default function SignIn() {
                 <button onClick={() => setRole("judge")}>Judge</button>
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>
+                <button onClick={() => setRole("defendant")}>Defendant</button>
               </div>
               <div
                 className="roles"
@@ -82,7 +85,7 @@ export default function SignIn() {
                 value={email}
                 required="true"
                 className="username"
-                placeholder="Email"
+                placeholder={role==="defendant"?"Case ID":"Email"}
                 onChange={(e) => setUsername(e.target.value)}
                 style={{ width: "100%" }}
               />
@@ -92,7 +95,6 @@ export default function SignIn() {
                   type={passwordType}
                   value={password}
                   required="true"
-                  className="password"
                   placeholder="Password"
                   onChange={(e) => {
                     setPassword(e.target.value);

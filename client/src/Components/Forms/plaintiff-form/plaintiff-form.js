@@ -18,7 +18,6 @@ export const Item = ({ type, placeholder, name, value, onChange }) => {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          required
         />
       </div>
     </div>
@@ -187,7 +186,7 @@ const PlaintiffForm = (props) => {
                     onChange("plaintiffDeadMinor", e.target.value);
                   }}
                 >
-                  <option value="" key={0} >None</option>
+                  <option key={0} value="">--Select--</option>
                   <option value="NA" key={2}>
                     NA
                   </option>

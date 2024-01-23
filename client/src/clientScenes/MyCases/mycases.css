@@ -24,11 +24,6 @@
     font-size: larger;
     font-weight: 500;
 }
-.search-bar::placeholder{
-    color: inherit;
-    opacity: 0.7;
-
-}
 
 .title {
     display: flex;

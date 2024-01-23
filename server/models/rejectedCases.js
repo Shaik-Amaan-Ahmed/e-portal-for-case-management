@@ -9,6 +9,8 @@ const rejected = new Schema({
     registrationDate: {type: String},
     reasonforrejection: {type: String},
     judgeAssigned: {type: String},
+    courtRoomAssigned: {type: String},
+    nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},

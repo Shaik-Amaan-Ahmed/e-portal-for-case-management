@@ -3,7 +3,6 @@ import './feedback-form.css'
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { set } from "mongoose";
 export default function FeedbackForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState(""); 
@@ -91,7 +90,7 @@ export default function FeedbackForm() {
                 'backdrop-filter': 'blur(60px)',
                 border: '0.1px solid rgba(128, 128, 128, 0.753)',
                 'border-radius': '5px',
-                'height': '200px',
+                'height': '250px',
 
               }}></textarea>
               <br />

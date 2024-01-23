@@ -11,10 +11,11 @@ const registrarToken = require("./verifyToken/registrarToken");
 const registerClient = require("./create-docs/clientRegister");
 const registerJudge = require("./create-docs/judgeRegister");
 const registerRegistrar = require("./create-docs/registrarRegister");
-const contactUs = require("./create-docs/contact");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
 const sendCaseCategory = require("./fetch-data/sendCaseCategory");
+const contactUs = require("./create-docs/contact");
+const approvedcaseshandler = require("./create-docs/approvedCasesHandling");
 const bodyParser = require('body-parser');
 require("dotenv").config();
 
@@ -46,8 +47,8 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 //routes
 app.use("/login", login);
@@ -63,7 +64,7 @@ app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
 app.use('/contact-us', contactUs);
-
+app.use('/approve-cases', approvedcaseshandler);
 
 app
   .listen(port, (res, req) => {
