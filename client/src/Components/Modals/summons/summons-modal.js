@@ -125,7 +125,7 @@ function SummonModal(props) {
     formData.append('summon', summonBlob, 'summon.pdf');
     const petitionBlob = base64ToBlob(petition, 'application/pdf');
     formData.append('petition', petitionBlob, 'petition.pdf');
-    formData.append('defendantEmail', "gajawadah88@gmail.com");
+    formData.append('defendantEmail', "lohitvk18@gmail.com");
     formData.append('caseId', props.caseId);
   
     axios.post("http://localhost:64000/approve-cases/send-summons", formData, {

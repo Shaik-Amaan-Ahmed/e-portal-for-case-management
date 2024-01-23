@@ -31,7 +31,7 @@ const JudgeViewCases = () => {
     setLoading(true);
     axios
       .get(
-        "http://localhost:64000/casedetails/judge-case-details?email=" + email
+        "http://localhost:64000/casedetails/judge-review-case-details?email=" + email
       )
       .then((res) => {
         if (res.status === 200) {

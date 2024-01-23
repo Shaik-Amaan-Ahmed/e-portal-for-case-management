@@ -23,7 +23,7 @@ const RegistrarDashboard = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [reloadkey, setReloadKey] = useState(0);
   const [loading, setLoading] = useState(false);
-
+  const [status, setStatus] = useState("");
   const handleOpen = (id) => {
     setId(id);
     setOpen(true);
@@ -38,8 +38,9 @@ const RegistrarDashboard = () => {
 
   const handleViewDocClose = () => setViewDocOpen(false);
 
-  const handleApproveOpen = (id) => {
+  const handleApproveOpen = (id,status) => {
     setId(id);
+    setStatus(status)
     setApproveOpen(!approveOpen);
   }
 
@@ -121,7 +122,7 @@ const RegistrarDashboard = () => {
                   </td>
                   <td>
                     <div className="approve-deny">
-                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId)}>Assign</button>
+                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId,item.status)}>Assign</button>
                       <button className="deny-btn" onClick={() => handleDenyOpen(item.caseId)}>Reject</button>
                     </div>
                   </td>

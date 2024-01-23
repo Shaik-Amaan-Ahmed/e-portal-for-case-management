@@ -19,7 +19,7 @@ import RegistrarPassword from "./Components/set-password/registrar-set-password"
 import RegistrarRegister from "./Register/admin-register/registrar-register";
 import ClientPassword from "./Components/set-password/client-set-password";
 import FeedbackForm from "./Components/Forms/feedback-form/feedback-form";
-
+import Defendant from "./Defendants";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -32,6 +32,8 @@ root.render(
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client/>} />
         <Route path="/registrar/*" element={<Registrar/>} />
+        <Route path="/defendant/*" element={<Defendant/>} />
+
         <Route path="/client-register" element={<ClientRegister/>} />
         <Route path="/judge-register" element={<JudgeRegister/>} />
         <Route path="/registrar-register" element={<RegistrarRegister/>}/>
