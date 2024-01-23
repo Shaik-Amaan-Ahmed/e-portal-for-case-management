@@ -16,6 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import { EmailContext } from "../../hooks/emailContext";
 
 const Topbar = () => {
   const name = useContext(EmailContext).name.toUpperCase();

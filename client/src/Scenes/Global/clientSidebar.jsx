@@ -34,6 +34,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 const ClientSidebar = () => {
   const name = useContext(EmailContext).name.toUpperCase();
+  const theme = useTheme();
+  const colors = tokens(theme);
 
   return (
     <div

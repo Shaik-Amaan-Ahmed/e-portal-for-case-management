@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-
+const Registrar = require("../models/registrars")
 const verifyUser = (req, res, next) => {
     const token = req.cookies.accessToken;
     if (!token) {
