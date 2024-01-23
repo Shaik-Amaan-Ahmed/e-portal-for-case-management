@@ -14,7 +14,7 @@ const Judge = mongoose.model("judges", new Schema({
     }],
     schedule: {
         monday: {
-            cases: [{type:String, }],
+            cases: [{type:String,}],
         },
         tuesday: {type: String},
         wednesday: {type: String},

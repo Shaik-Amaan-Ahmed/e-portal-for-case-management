@@ -115,7 +115,7 @@ router.post("/approve-case", async (req, res) => {
       const data = await efiling.findOneAndUpdate(
         { caseId: id }, // find a document with this id
         {
-          status: "Pending for review by judge",
+          status: "Pending for allocation of judge",
           caseSensitivity: caseSensitivity,
         },
         { new: true } // return the updated document
@@ -239,7 +239,7 @@ router.post("/registrar-assign-judge", async (req, res) => {
       const judgeData = await judges.updateMany(
         { name: {$in: judgeNamesArray} }, // find documents with these names
         {
-          $push: { cases: id },
+          $push: { cases: { caseId: id, status: "Approved by judge and pending for summons" } },
         },
         { new: true } // return the updated document
       );

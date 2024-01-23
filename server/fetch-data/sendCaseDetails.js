@@ -54,8 +54,7 @@ router.get("/client-case-details/", async (req, res) => {
 });
 
 
-
-
+//registrar dashboard details
 router.get('/registrar-case-details', async (req, res) => { 
 
         const page = Number(req.query.page) || 1;
@@ -76,11 +75,11 @@ router.get('/registrar-case-details', async (req, res) => {
                 {'plaintDetails.causeTitleDefendant': new RegExp(search, 'i')},
                 {'registrationDate': new RegExp(search, 'i')}
                 ]
-            }).select(['plaintDetails','caseId','registrationDate']).skip(skip).limit(limit);
+            }).select(['plaintDetails','caseId','registrationDate','status']).skip(skip).limit(limit);
         }
         
         else{
-            data = await efiling.find({status: "Pending for approval by court"}).select(['plaintDetails','caseId','registrationDate']).skip(skip).limit(limit);
+            data = await efiling.find({status: "Pending for approval by court"}).select(['plaintDetails','caseId','registrationDate','status']).skip(skip).limit(limit);
         }
         if(data.length > 0){
             res.status(200).json({data:data, totalCount: String(totalCount)});
@@ -95,9 +94,10 @@ router.get('/registrar-case-details', async (req, res) => {
     }
 });
 
+//registrar allocation of cases
 router.get('/registrar-allocation-of-cases', async (req, res) => {
     try {
-        const data = await efiling.find({caseSensitivity:"High", status:"Pending for review by judge"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
+        const data = await efiling.find({caseSensitivity:"High",status:"Pending for allocation of judge"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
         if(data.length > 0){
             res.status(200).json({data:data});
         }
@@ -110,6 +110,7 @@ router.get('/registrar-allocation-of-cases', async (req, res) => {
     }
 });
 
+//registrar view details
 router.get('/registrar-view-details', async (req, res) => { 
     const id = req.query.id;
     try {
@@ -126,6 +127,7 @@ router.get('/registrar-view-details', async (req, res) => {
     }
 })
 
+//registrar view documents
 router.get('/registrar-view-documents', async (req, res) => { 
     const id = req.query.id;
     try {
@@ -145,6 +147,7 @@ router.get('/registrar-view-documents', async (req, res) => {
     }
 })
 
+//registrar view petition for pending cases from e-filings collection
 router.get('/registrar-view-petition', async (req, res) => {
     const id=req.query.id;
     try{
@@ -161,6 +164,8 @@ router.get('/registrar-view-petition', async (req, res) => {
         res.status(500).json({message: error.message});
     }
 })
+
+//registrar view petition in summons page from approved cases collection
 router.get('/registrar-view-petition-summons', async (req, res) => {
     const id=req.query.id;
     try{
@@ -177,6 +182,8 @@ router.get('/registrar-view-petition-summons', async (req, res) => {
         res.status(500).json({message: error.message});
     }
 })
+
+//registrar list of judges available for allocation high cases
 router.get('/registrar-view-judges', async (req, res) => {
     const caseCategory = req.query.caseCategory;
     try{
@@ -193,6 +200,7 @@ router.get('/registrar-view-judges', async (req, res) => {
         res.status(500).json({message: error.message});
     }
 })
+
 //judge case details
 router.get('/judge-review-case-details', async (req, res) => { 
     const email = req.query.email;
@@ -216,23 +224,6 @@ router.get('/judge-review-case-details', async (req, res) => {
 
 })
 
-
-
-router.get('/client-case-category', async (req,res) =>{
-    try {
-        const data = await caseCateg.find({});
-        if(data){
-            res.status(200).send(data);
-        }
-        else{
-            res.status(400).json({message: "No data found"});
-        }
-    }
-    catch (error){
-        console.log(error.message);
-        res.status(500).json({message: error.message});
-    }
-})
 //registrar case details from approved cases pending for summons
 router.get('/send-summons', async (req, res) => { 
     try{
@@ -249,6 +240,7 @@ router.get('/send-summons', async (req, res) => {
 
 }
 })
+
 //details to be filled in summon and showing petition in summons modal
 router.get('/send-summons-details', async (req, res) => { 
     const id = req.query.id;
@@ -267,6 +259,7 @@ router.get('/send-summons-details', async (req, res) => {
     
     }
 })
+
 router.get('/defendant-case-details', async (req, res) => { 
     const caseId = req.query.caseId;
     try {
@@ -282,5 +275,24 @@ router.get('/defendant-case-details', async (req, res) => {
         res.status(500).json({message: error.message});
     }
 })
+
+
+router.get('/client-case-category', async (req,res) =>{
+    try {
+        const data = await caseCateg.find({});
+        if(data){
+            res.status(200).send(data);
+        }
+        else{
+            res.status(400).json({message: "No data found"});
+        }
+    }
+    catch (error){
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+})
+
+
 
 module.exports = router;
