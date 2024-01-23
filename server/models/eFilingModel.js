@@ -67,7 +67,12 @@ const efiling = new Schema({
         filename: {type: String},
         contentType : {type : String},
         fileData: {type : Buffer}
-      }
+      },
+      summon: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
     },
     notifications: {
       judgements: {

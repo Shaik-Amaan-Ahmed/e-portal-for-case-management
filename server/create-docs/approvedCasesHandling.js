@@ -7,6 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const approvedCases = require("../models/approvedCases");
 const eFilingModel = require("../models/eFilingModel");
 const defendantDetails = require("../models/defendantDetails");
+const judges = require("../models/judges");
 
 router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { name: 'petition', maxCount: 1 }]) ,async (req, res) => { 
     const summon = req.files.summon[0].buffer;
@@ -46,15 +47,18 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             }
         ],res)
 
+
+
+
     // Start the update processes
-    const updatePromise1 = eFilingModel.findOneAndUpdate(
+    const updatePromise1 = await eFilingModel.findOneAndUpdate(
         {caseId: caseId},
-        {status: "Summonned the defendant and pending for return statement"},
+        {status: "Summoned the defendant and pending for written statement"},
         {new:true}
     );
     const updatePromise2 = approvedCases.findOneAndUpdate(
         {caseId: caseId},
-        {status: "Summonned the defendant and pending for return statement",
+        {status: "Summoned the defendant and pending for written statement",
         summons: {
             filename: summonFileName,
             contentType: req.files.summon[0].mimetype,
@@ -64,8 +68,23 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
         {new:true}
     );
 
+    const updatePromise4 = judges.findOneAndUpdate( 
+        {name: updatePromise1.judgeAssigned},
+        {
+          $set: {
+            "cases.$[elem].status": "Summoned the defendant and pending for written statement"
+          }
+        },
+        {
+          arrayFilters: [
+            { "elem.caseId": caseId }
+          ]
+        },
+        {new:true}
+    )
+
     const updatePromise3 = defandantCredentials.save();
-    const [suc, data1, data2,data3] = await Promise.all([sendEmailPromise, updatePromise1, updatePromise2, updatePromise3]);
+    const [suc, data1, data2,data3] = await Promise.all([sendEmailPromise, updatePromise2, updatePromise3,updatePromise4]);
 
         if(suc) {
             
@@ -103,7 +122,37 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
         },
             {new:true}
         )
+        const approvedCase1 = await eFilingModel.findOneAndUpdate(
+            {caseId: caseId},
+            {
+             status: "Defendant has submitted the written statement and pending for review by judge",
+             $set: {
+                "docDetails.writtenStatement": {
+                    filename: writtenStatementFileName,
+                    contentType: req.files.writtenStatement[0].mimetype,
+                    fileData: writtenStatement
+                },
+                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
+            }
+        },
+            {new:true}
+        )
         res.status(200).json({message: "Written statement submitted successfully"});
+        
+        const judgeStatusUpdate = await judges.findOneAndUpdate( 
+            {name: approvedCase.judgeAssigned},
+            {
+              $set: {
+                "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
+              }
+            },
+            {
+              arrayFilters: [
+                { "elem.caseId": caseId }
+              ]
+            },
+            {new:true}
+        )
 
     }catch(error) { 
         console.log(error.message);

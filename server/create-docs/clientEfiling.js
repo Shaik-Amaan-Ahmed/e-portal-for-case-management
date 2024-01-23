@@ -193,9 +193,25 @@ router.post("/judge-approve", async (req, res) => {
       },
       { new: true } // return the updated document
     );
+    const judgeStatusUpdate = await judges.findOneAndUpdate( 
+      {name: data.judgeAssigned},
+      {
+        $set: {
+          "cases.$[elem].status": "Approved by judge and pending for summons"
+        }
+      },
+      {
+        arrayFilters: [
+          { "elem.caseId": id }
+        ]
+      },
+      {new:true}
+
+    )
     if(data) {
       const newApprovedCase = new approvedcases(data.toObject());
       await newApprovedCase.save();
+
       if(newApprovedCase){ 
         res.status(200).json({ message: "success" });
       }
