@@ -54,7 +54,13 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
     );
     const updatePromise2 = approvedCases.findOneAndUpdate(
         {caseId: caseId},
-        {status: "Summonned the defendant and pending for return statement"},
+        {status: "Summonned the defendant and pending for return statement",
+        summons: {
+            filename: summonFileName,
+            contentType: req.files.summon[0].mimetype,
+            fileData: summon
+        }
+    },
         {new:true}
     );
 
@@ -74,6 +80,38 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
         res.status(500).json({message: error.message});
     }
 
+})
+
+router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatement', maxCount: 1 }]) ,async (req, res) => { 
+    const writtenStatement = req.files.writtenStatement[0].buffer;
+    const writtenStatementFileName = req.files.writtenStatement[0].originalname;
+    const caseId = req.body.caseId;
+    
+    try {
+        const approvedCase = await approvedCases.findOneAndUpdate(
+            {caseId: caseId},
+            {
+             status: "Defendant has submitted the written statement and pending for review by judge",
+             $set: {
+                "docDetails.writtenStatement": {
+                    filename: writtenStatementFileName,
+                    contentType: req.files.writtenStatement[0].mimetype,
+                    fileData: writtenStatement
+                },
+                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
+            }
+        },
+            {new:true}
+        )
+        res.status(200).json({message: "Written statement submitted successfully"});
+
+    }catch(error) { 
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+
+    
+ 
 })
 
 module.exports = router;

@@ -8,7 +8,11 @@ const Judge = mongoose.model("judges", new Schema({
     password: {type:String},
     phone: {type: String, required: true},
     casePreferences: [{type : String}],
-    cases: [{type:String}],
+    cases: [{
+        caseId: {type: String},
+        status: {type: String},
+    }],
+
     schedule: {
         monday: {
             cases: [{type:String, }],

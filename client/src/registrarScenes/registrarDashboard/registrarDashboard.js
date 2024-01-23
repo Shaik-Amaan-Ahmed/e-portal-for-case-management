@@ -7,6 +7,7 @@ import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar
 import Approve from "../../Components/Modals/registrar-approve/registrar-approve";
 import RegistrarDeny from "../../Components/Modals/registrar-deny/registrar-deny";
 import { CircularProgress } from "@mui/material";
+import { set } from "mongoose";
 
 
 const RegistrarDashboard = () => {
@@ -23,6 +24,7 @@ const RegistrarDashboard = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [reloadkey, setReloadKey] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleOpen = (id) => {
     setId(id);
@@ -38,14 +40,16 @@ const RegistrarDashboard = () => {
 
   const handleViewDocClose = () => setViewDocOpen(false);
 
-  const handleApproveOpen = (id) => {
-    setId(id);
-    setApproveOpen(!approveOpen);
-  }
 
   const handleDenyOpen = (id) => {
     setId(id);
     setDenyOpen(!denyOpen);
+  }
+
+  const handleApproveOpen = (id,status) => {
+    setId(id);
+    setStatus(status);
+    setApproveOpen(!approveOpen);
   }
 
   const handleApproveClose = () => setApproveOpen(false);
@@ -121,7 +125,7 @@ const RegistrarDashboard = () => {
                   </td>
                   <td>
                     <div className="approve-deny">
-                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId)}>Assign</button>
+                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId,item.status)}>Assign</button>
                       <button className="deny-btn" onClick={() => handleDenyOpen(item.caseId)}>Reject</button>
                     </div>
                   </td>
@@ -133,7 +137,7 @@ const RegistrarDashboard = () => {
       </div>
 
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
-      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey}/>}
+      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey} status={status}/>}
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}
       {open && id !== null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId} />}
 

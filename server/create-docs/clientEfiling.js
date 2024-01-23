@@ -56,7 +56,13 @@ router.post(
       });
       await newEfiling.save();
       try {
-        sendEmail(data.email, "Case Registration", "<h1>Your case has been registered successfully. Your case id is" + caseId+"</h1>");
+        const suc = await sendEmail(data.email, "Case Registration", "<h1>Your case has been registered successfully. Your case id is" + caseId+"</h1>");
+        if(suc){
+          res.status(200).json({ message: "Email Sent Succesfully" });
+        }
+        else{
+          res.status(400).json({ message: "fail" });
+        }
     } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ message: "fail" });
@@ -92,6 +98,7 @@ let currentJudgeIndex = 0;
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const caseSensitivity = req.body.caseSensitivity;
+  const status = req.body.status;
 
   if(caseSensitivity === "High"){ 
     try{
@@ -158,7 +165,10 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: id },
+            $push: { cases: {
+              caseId: id,
+              status: "Pending for review by judge",
+            } },
           },
           { new: true } // return the updated document
         );

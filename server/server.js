@@ -8,6 +8,7 @@ const logout = require("./auth/authLogout");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const registrarToken = require("./verifyToken/registrarToken");
+const defendantToken = require("./verifyToken/defendantToken")
 const registerClient = require("./create-docs/clientRegister");
 const registerJudge = require("./create-docs/judgeRegister");
 const registerRegistrar = require("./create-docs/registrarRegister");
@@ -55,6 +56,7 @@ app.use("/logout", logout);
 app.use("/judge", judgeToken);
 app.use("/client", clientToken);
 app.use("/registrar", registrarToken);
+app.use('/defendant', defendantToken)
 app.use('/client-register', registerClient);
 app.use('/judge-register',registerJudge);
 app.use('/registrar-register',registerRegistrar)

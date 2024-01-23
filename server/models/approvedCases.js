@@ -73,6 +73,12 @@ const approved = new Schema({
         contentType : {type : String},
         fileData: {type : Buffer}
       },
+      writtenStatement: { 
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      }
+
     },
     notifications: {
       judgements: {
