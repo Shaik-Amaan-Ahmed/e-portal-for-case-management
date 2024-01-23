@@ -91,7 +91,7 @@ export default function FeedbackForm() {
                 'backdrop-filter': 'blur(60px)',
                 border: '0.1px solid rgba(128, 128, 128, 0.753)',
                 'border-radius': '5px',
-                'height': '250px',
+                'height': '200px',
 
               }}></textarea>
               <br />
