@@ -117,7 +117,6 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
             }
         },
             {new:true}
@@ -132,7 +131,6 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
             }
         },
             {new:true}

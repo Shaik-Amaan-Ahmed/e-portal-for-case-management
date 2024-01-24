@@ -38,7 +38,7 @@ const toggleVisibility = () => {
             Judges
         </Typography>
         <div className='flex mx-auto p-8'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full'>
                 {
                     judgeProfile.map((judge) => (
                         <JudgeItem name={judge.name} description ={judge.description} imageUrl = {judge.imgUrl} key={judge.id} judge={judge} />
