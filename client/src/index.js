@@ -56,6 +56,18 @@ root.render(
       pauseOnHover={false}
       theme="dark"
     />
+    <ToastContainer
+      position="top-center"
+      autoClose={1000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover={false}
+      theme="dark"
+    />
     
   </React.StrictMode>
 );

@@ -1,0 +1,51 @@
+.doc-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid grey;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+}
+
+.doc-upload-file {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.submit-btn {
+    display: flex;
+    background: orange;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+}
+
+
+.custom-file-upload:hover {
+    background-color: rgb(255, 202, 103);
+}
+
+.upload {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    justify-self: center;
+    margin-right: 3%;
+}

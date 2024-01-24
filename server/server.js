@@ -9,8 +9,10 @@ const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const defendantToken = require("./verifyToken/defendantToken")
 const registrarToken = require("./verifyToken/registrarToken");
+const defendantToken = require("./verifyToken/defendantToken")
 const registerClient = require("./create-docs/clientRegister");
 const registerJudge = require("./create-docs/judgeRegister");
+const registerRegistrar = require("./create-docs/registrarRegister");
 const registerRegistrar = require("./create-docs/registrarRegister");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
@@ -50,6 +52,7 @@ app.use(
 );
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 //routes
 app.use("/login", login);
@@ -59,7 +62,10 @@ app.use("/client", clientToken);
 app.use("/registrar", registrarToken);
 app.use('/defendant', defendantToken)
 app.use('/client-register', registerClient);
+app.use('/defendant', defendantToken)
+app.use('/client-register', registerClient);
 app.use('/judge-register',registerJudge);
+app.use('/registrar-register',registerRegistrar)
 app.use('/registrar-register',registerRegistrar)
 app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);

@@ -49,6 +49,12 @@ const RegistrarDashboard = () => {
     setDenyOpen(!denyOpen);
   }
 
+  const handleApproveOpen = (id,status) => {
+    setId(id);
+    setStatus(status);
+    setApproveOpen(!approveOpen);
+  }
+
   const handleApproveClose = () => setApproveOpen(false);
   const handleDenyClose = () => setDenyOpen(false);
 
@@ -134,7 +140,7 @@ const RegistrarDashboard = () => {
       </div>
 
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
-      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey}/>}
+      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey} status={status}/>}
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}
       {open && id !== null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId} />}
 

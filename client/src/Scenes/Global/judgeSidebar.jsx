@@ -8,9 +8,9 @@ import { useState, useEffect } from "react";
 import MyImage from "../../assets/user.png";
 import DashboardCustomizeOutlined from "@mui/icons-material/DashboardCustomizeOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme);
-  const navigate = useNavigate();
+    const theme = useTheme();
+    const colors = tokens(theme);
+    const navigate = useNavigate();
 
   return (
     <div

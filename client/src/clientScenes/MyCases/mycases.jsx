@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined";
 import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu"
+import ShowItem from "../../Components/Modals/notification-menu-client/notifications-menu"
 import ErrorIcon from '@mui/icons-material/Error';
 
 const CaseDetails = () => {
@@ -78,7 +79,7 @@ const CaseDetails = () => {
           <th>Next Hearing Date</th>
         </tr>
         <tbody>
-          {[...casedetails].reverse().map((item) => (
+          {[...casedetails].map((item) => (
             <tr key={item._id}>
               <td className="case-id">{item.caseId}</td>
               <td>{item.registrationDate}</td>

@@ -22,22 +22,22 @@ const transporter = nodemailer.createTransport({
       subject: subject,
       html: html,
     };
-  try{
-    let info = await transporter.sendMail(mailOptions, async (err, data) => { 
+  return new Promise((resolve,reject) => { 
+    transporter.sendMail(mailOptions, async (err, data) => { 
         if (err) {
             console.log(err.message);
-            res.status(500).send("Error " + err);
+
+            reject(false);
           } else {
-            res.status(200).json({ message: "Success" });
             console.log("Email sent successfully");
+            resolve(true);
           }
-          console.log("Message sent: %s", info.messageId);
     });
-}catch(error){ 
+  }).catch(error => {
     console.log(error.message);
     res.status(500).json({ message: error.message });
-}
+}) 
     
   }
   
-  module.exports = sendEmail;
+module.exports = sendEmail;

@@ -1,0 +1,156 @@
+:root {
+    --form-width: 100px;
+}
+
+.register {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    border-radius: 20px;
+    margin: 10px 10px 10px 10px;
+}
+
+.register-left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    border-right: 0.1px solid;
+}
+
+
+.register-right {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .register {
+        flex-direction: column;
+
+    }
+
+    .register-left {
+        display: flex;
+        border-right: none;
+
+    }
+    .register-right {
+        flex: 1;
+        height: auto;
+        border-right: none;
+
+    }
+}
+
+
+
+.image-container {
+    display: flex;
+    margin: 10px 10px 10px 10px;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+}
+
+@media (max-width: 600px) {
+    .image-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.high-court-image {
+    width: 80%;
+    height: 50%;
+
+}
+
+.register-container {
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        width: 70%;
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 10px;
+}
+
+@media (max-width: 600px) {
+    .register-container {
+        display: flex;
+        padding: 5px;
+        width: 100%;
+        border: 1px solid grey;
+        border-radius: 10px;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+
+    width: 90%;
+    padding: 20px;
+    justify-self: center;
+    margin: 10px 10px 10px 10px;
+}
+
+
+
+.inner-register-elements {
+    display: flex;
+    flex-direction: column;
+}
+
+.first-name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.register-input {
+    height: 5vh;
+    border: 0.1px solid grey;
+    border-radius: 5px;
+    justify-content: center;
+    background-color: transparent;
+    padding: 10px;
+}
+.password-field {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+
+  }
+  
+  .password-field .register-input {
+ /* adjust as needed */
+    width: 100%;
+  }
+  
+  .password-field button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto; /* vertically center the button */
+  }
+
+/* .register-input:focus {
+    border: 0.11px solid wheat;
+} */
