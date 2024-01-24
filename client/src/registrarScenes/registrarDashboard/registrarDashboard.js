@@ -38,11 +38,6 @@ const RegistrarDashboard = () => {
 
   const handleViewDocClose = () => setViewDocOpen(false);
 
-  const handleApproveOpen = (id,status) => {
-    setId(id);
-    setStatus(status)
-    setApproveOpen(!approveOpen);
-  }
 
   const handleDenyOpen = (id) => {
     setId(id);

@@ -11,8 +11,8 @@ const DefendantCaseView = () => {
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [writtenStatement, setWrittenStatement] = useState(null);
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
+    console.log(caseId);
     axios
       .get(
         "http://localhost:64000/casedetails/defendant-case-details?caseId=" +

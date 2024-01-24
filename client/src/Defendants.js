@@ -29,6 +29,7 @@ function Defendant() {
       if (res.data.message === "success" && res.data.role === "defendant") {
         setIsLoggedIn(true);
         setCaseId(res.data.caseId);
+        console.log(res.data.caseId);
       } else {
         setIsLoggedIn(false);
 

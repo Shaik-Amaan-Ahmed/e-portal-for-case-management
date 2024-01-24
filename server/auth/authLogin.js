@@ -5,7 +5,6 @@ const Judge = require("../models/judges")
 const Registrar = require("../models/registrars")
 const ClientData = require("../models/clientData")
 const Defendant = require("../models/defendantDetails")
-const Defendant = require("../models/defendantDetails")
 const bcrypt = require("bcrypt");
 
 router.post('/judge', async (req, res) => {
@@ -62,8 +61,6 @@ router.post('/client', async (req, res) => {
         if(!user) return res.json({ message: "Username or password is required" });
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) return res.json({ message: "Username or password is wrong" });
-        const isMatch = await bcrypt.compare(password, user.password);
-        if(!isMatch) return res.json({ message: "Username or password is wrong" });
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true});
@@ -89,7 +86,7 @@ router.post('/defendant', async (req, res) => {
         else{
             const accessToken = jwt.sign({ caseId: caseId, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true});
-            return res.json({ message: "success",role: role});
+            return res.json({ message: "success",role: role,caseId: caseId});
         }
 
     }catch(err) {

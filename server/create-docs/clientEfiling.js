@@ -5,9 +5,6 @@ const efiling = require("../models/eFilingModel");
 const approvedcases = require("../models/approvedCases");
 const judges = require("../models/judges");
 const nodemailer = require("nodemailer");
-const approvedcases = require("../models/approvedCases");
-const judges = require("../models/judges");
-const nodemailer = require("nodemailer");
 const multer = require("multer");
 const rejectedcases = require("../models/rejectedCases");
 const sendEmail = require("../mail-helper/notification-mail");
@@ -73,9 +70,6 @@ router.post(
       console.error("Error:", error);
       res.status(500).json({ message: "fail" });
     }
-  }catch(error){
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
   }catch(error){
     console.log(error.message);
     res.status(500).json({ message: error.message });
@@ -210,7 +204,6 @@ router.post("/judge-approve", async (req, res) => {
       { caseId: id }, // find a document with this id
       {
         status: "Approved by judge and pending for summons",
-        status: "Approved by judge and pending for summons",
       },
       { new: true } // return the updated document
     );
@@ -227,24 +220,7 @@ router.post("/judge-approve", async (req, res) => {
     }
     else{
       res.status(400).json({ message: "fail" });
-    }
-    
-  }catch(error){
-    if(data) {
-      const newApprovedCase = new approvedcases(data.toObject());
-      await newApprovedCase.save();
-      if(newApprovedCase){ 
-        res.status(200).json({ message: "success" });
-      }
-      else{
-        res.status(400).json({ message: "fail-new" });
-      }
-      
-    }
-    else{
-      res.status(400).json({ message: "fail" });
-    }
-    
+    }   
   }catch(error){
     console.log(error.message);
     res.status(500).json({ message: error.message });
