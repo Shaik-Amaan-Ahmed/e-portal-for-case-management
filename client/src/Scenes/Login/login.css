@@ -143,3 +143,15 @@
     font-weight: 600;
     color: orange;
 }
+
+.username::placeholder {
+    color: inherit;
+    font-weight: 600;
+    opacity: 0.5;
+}
+
+.password-box::placeholder {
+    color: inherit;
+    font-weight: 600;
+    opacity: 0.5;
+}

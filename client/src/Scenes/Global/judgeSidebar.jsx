@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import "./sidebar.css";
 import { tokens } from "../../themes";
 import { useTheme } from "@mui/material";
@@ -22,9 +22,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         marginBottom: "2px",
       }}
     >
-      <a onClick={() => {
+      <Link onClick={() => {
         setSelected(title)
-        navigate(to)
+        to= {to}
       }} style={{ cursor: "pointer" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}></div>
@@ -32,7 +32,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             <Typography variant="h5" style={{ fontWeight: "500", color: selected === title ? "orange" : "inherit" }}>{title}</Typography>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };
