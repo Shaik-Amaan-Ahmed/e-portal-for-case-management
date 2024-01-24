@@ -13,7 +13,7 @@ const verifyUser = (req, res, next) => {
           res.json({ message: "You are not authorised" });
         } else {
           req.role = data.role;
-          req.email = data.email;
+          req.caseId = data.caseId;
           next();
         }
       });
