@@ -97,7 +97,7 @@ router.get('/registrar-case-details', async (req, res) => {
 //registrar allocation of cases
 router.get('/registrar-allocation-of-cases', async (req, res) => {
     try {
-        const data = await efiling.find({caseSensitivity:"High"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
+        const data = await efiling.find({caseSensitivity:"High",status:"Pending for allocation of judge"}).select(['plaintDetails.caseCategory','plaintDetails.caseSubCategory','caseId','caseSensitivity']);
         if(data.length > 0){
             res.status(200).json({data:data});
         }

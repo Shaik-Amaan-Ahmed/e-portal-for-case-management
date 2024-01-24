@@ -43,9 +43,9 @@ function ViewAssign(props) {
                 setTimeout(() => {
                     setMessage("");
                     props.handleClose();
-                    window.location.reload();
                 }, 1500)
                 setMessage("Judges Assigned Successfully")
+                window.location.reload();
                 setLoading(false);
             }
         } catch (err) {
