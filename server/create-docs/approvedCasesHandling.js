@@ -116,7 +116,7 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
+
             }
         },
             {new:true}
@@ -131,26 +131,28 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
+
             }
         },
             {new:true}
         )
         res.status(200).json({message: "Written statement submitted successfully"});
         
-        const judgeStatusUpdate = await judges.findOneAndUpdate( 
-            {name: approvedCase.judgeAssigned},
-            {
-              $set: {
-                "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
-              }
-            },
-            {
-              arrayFilters: [
-                { "elem.caseId": caseId }
-              ]
-            },
-            {new:true}
+        const judgeNames = approvedCase.judgeAssigned.split(",");
+        const updatePromise4 = await judges.updateMany( 
+        {name: { $in: judgeNames }},
+        {
+          $set: {
+            "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
+          }
+        },
+        {
+          arrayFilters: [
+            {"elem.caseId": caseId}
+        ]
+    
+        },
+        {new:true}
         )
 
     }catch(error) { 

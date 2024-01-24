@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import "../summons/summons-modal.css"
 import { IconButton } from '@mui/material';
 import { CloseRounded } from '@mui/icons-material';
@@ -12,7 +12,11 @@ import { CloseRounded } from '@mui/icons-material';
 function ViewDocs(props) {
 
     const [message, setMessage] = useState(''); 
+    const [loading, setLoading] = useState(false);
 
+    useEffect(() => { 
+      
+    })
 
   return (
     <div>

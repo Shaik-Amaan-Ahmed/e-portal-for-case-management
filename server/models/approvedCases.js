@@ -9,6 +9,8 @@ const approved = new Schema({
     registrationDate: {type: String},
     reasonforrejection: {type: String},
     judgeAssigned: {type: String},
+    judgeAssignedDate: {type: Date},
+    summonIssuedDate: {type: String},
     courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {

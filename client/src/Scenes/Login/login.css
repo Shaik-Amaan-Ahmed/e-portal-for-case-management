@@ -1,4 +1,4 @@
-.mains-div {
+.mains-divs {
     display: flex;
     justify-items: center;
     margin-block: auto;
@@ -9,7 +9,7 @@
     
 }
 
-.mains-div::before {
+.mains-divs::before {
     content: "";
     position: absolute;
     top: 0;

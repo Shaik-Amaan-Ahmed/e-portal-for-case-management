@@ -1,4 +1,4 @@
-.main-div::before {
+.faq-div::before {
     content: "";
     position: absolute;
     top: 0;
@@ -14,7 +14,11 @@
     background-attachment: fixed;
     min-height: 100vh;
 }
-.main-div {
+.faq-div {
     position: relative;
     min-height: 100vh; /* Add this line */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
