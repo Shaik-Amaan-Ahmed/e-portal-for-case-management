@@ -17,13 +17,14 @@ import { toast } from "react-toastify";
 // TODO remove, this demo shouldn't need to reset the theme.
 export default function SignIn() {
   const [theme, colorMode] = useMode();
-  const [email, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [caseId, setCaseId] = useState("");
   const [role, setRole] = useState("judge");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
-  const data = { email, password, role };
+  const data = role === "defendant" ?{caseId, password, role}:{ email, password, role };
   const [passwordType, setPasswordType] = useState("password");
 
   const handleSubmit = async (e) => {
@@ -32,7 +33,7 @@ export default function SignIn() {
     const res = await axios.post(url, data);
 
     if (res.data.message === "success") {
-      navigate("/" + role,{state: {name:res.data.name}});
+      navigate("/" + role);
       toast.success("Login Successful");
     } else {
       toast.error(res.data.message);
@@ -82,11 +83,11 @@ export default function SignIn() {
               <input
                 name="remember"
                 type="text"
-                value={email}
+                value={role==="defendant"?caseId:email}
                 required="true"
                 className="username"
                 placeholder={role==="defendant"?"Case ID":"Email"}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={role==="defendant"?(e)=>setCaseId(e.target.value):(e) => {setEmail(e.target.value);}}
                 style={{ width: "100%" }}
               />
               <br />
