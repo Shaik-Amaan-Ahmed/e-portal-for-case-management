@@ -86,7 +86,7 @@ router.post('/defendant', async (req, res) => {
         else{
             const accessToken = jwt.sign({ caseId: caseId, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true});
-            return res.json({ message: "success",role: role,caseId: caseId});
+            return res.json({ message: "success",role: role,caseId:caseId});
         }
 
     }catch(err) {
