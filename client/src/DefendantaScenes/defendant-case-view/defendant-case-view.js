@@ -4,7 +4,6 @@ import "./defendant-case-view.css";
 import Header from "../../Components/Header";
 import { CaseIdContext } from "../../hooks/caseIdContext";
 import { Button, CircularProgress } from "@mui/material";
-import { set } from "mongoose";
 
 const DefendantCaseView = () => {
   const caseId = useContext(CaseIdContext);
@@ -12,7 +11,6 @@ const DefendantCaseView = () => {
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [writtenStatement, setWrittenStatement] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [reloadkey, setReloadKey] = useState(0);
 
   useEffect(() => {
     console.log(caseId);
@@ -27,7 +25,7 @@ const DefendantCaseView = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [caseId, reloadkey]);
+  }, [caseId]);
 
   const handleUpload = () => {
     const formData = new FormData();
@@ -50,9 +48,7 @@ const DefendantCaseView = () => {
       .then((res) => {
         if (res.status === 200) {
           setLoading(false);
-          setReloadKey(reloadkey + 1);
           alert("Written Statement submitted successfully");
-          
         }
       }).catch((err) => { 
         console.log(err.message);
@@ -76,7 +72,7 @@ const DefendantCaseView = () => {
           </thead>
           <tbody>
             {caseDetails.length === 0 ? (
-              <CircularProgress style={{color:"white"}}/>
+              <CircularProgress />
             ) : (
               caseDetails.map((item, index) => {
                 return (
@@ -89,8 +85,7 @@ const DefendantCaseView = () => {
                     <td>{item.registrationDate}</td>
                     <td>{item.status}</td>
                     <td>
-                      {item.status.includes("pending for written statement") ? (
-                        <input
+                      <input
                         type="file"
                         style={{ whiteSpace: "nowrap" }}
                         onChange={(e) => {
@@ -102,11 +97,7 @@ const DefendantCaseView = () => {
                           }
                         }}
                       />
-                      ):null}
-
                       {isFileSelected ? (
-                        <>
-                        { loading && <CircularProgress style={{color:"white"}}/> }
                         <Button
                           variant="contained"
                           color="success"
@@ -115,12 +106,10 @@ const DefendantCaseView = () => {
                             borderRadius: "5px",
                             marginTop: "5%",
                           }}
-                          disabled={loading}
                           onClick={handleUpload}
                         >
                           Upload
                         </Button>
-                        </>
                       ) : null}
                     </td>
                   </tr>
