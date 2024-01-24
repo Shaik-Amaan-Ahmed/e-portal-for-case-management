@@ -1,0 +1,137 @@
+.registrar-dash-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 99%;
+    margin: 10px 10px 10px 10px;
+
+}
+
+.search-table {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.search-input {
+    display: flex;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background: transparent;
+    text-align: left;
+}
+
+.registrar-main-inside {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: 101%
+
+}
+
+.registrar-table {
+    width: 100%;
+    border-bottom: 0.1px solid grey;
+}
+
+table th {
+
+    padding: 10px;
+    font-size: large;
+    text-align: center;
+    color: orange;
+    border-bottom: 1px solid grey;
+}
+
+.special-td {
+    white-space: nowrap;
+}
+
+table td {
+    padding: 15px;
+    font-size: large;
+    text-align: center;
+    font-weight: 400;
+    border-bottom: 2px solid grey;
+    width: fit-content;
+
+}
+
+table tr:hover {
+    background-color: rgba(128, 128, 128, 0.382);
+}
+
+.view-btn {
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
+    width: fit-content;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(4, 4, 4);
+    height: fit-content;
+    white-space: nowrap;
+}
+
+.approve-deny {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.approve-btn {
+    background-color: rgba(0, 255, 0, 0.519);
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
+    width: auto;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 2px;
+}
+
+.deny-btn {
+    background-color: rgba(255, 0, 0, 0.835);
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
+    width: auto;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 2px;
+}
+
+.pagination-registrar {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.pagination-registrar button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: black;
+    font-size: larger;
+    font-weight: 500;
+}
