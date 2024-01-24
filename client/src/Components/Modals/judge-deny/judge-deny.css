@@ -59,10 +59,8 @@
     font-size: 17px;
 }
 .deny-textarea::placeholder{
-    color: inherit;
-    font-weight: 500;
+    color:inherit;
     opacity: 0.6;
-
 }
 
 .deny-buttons {

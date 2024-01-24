@@ -2,7 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import { EmailContext } from "../../../hooks/emailContext";
 import axios from "axios";
 import "./plaint-form.css";
-
+import { ColorModeContext } from "../../../themes";
+import { Typography } from "@mui/material";
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
   const [casee,setCasee] = useState({});
@@ -124,7 +125,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Cause titile plaintiff */}
-                <span variant="h5">Cause titile plaintiff</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Cause titile plaintiff</Typography>
               </div>
               <div className="input-element">
                 <input

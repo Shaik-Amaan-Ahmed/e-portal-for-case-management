@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const approved = new Schema({ 
+const rejected = new Schema({ 
     email: {type : String, required: true},
     caseId: {type: String, required: true},
     status: {type: String},
@@ -67,16 +67,6 @@ const approved = new Schema({
         filename: {type: String},
         contentType : {type : String},
         fileData: {type : Buffer}
-      },
-      summons: {
-        filename: {type: String},
-        contentType : {type : String},
-        fileData: {type : Buffer}
-      },
-      writtenStatement: { 
-        filename: {type: String},
-        contentType : {type : String},
-        fileData: {type : Buffer}
       }
     },
     notifications: {
@@ -92,4 +82,4 @@ const approved = new Schema({
     }
 })
 
-module.exports = mongoose.model('approvedcases', approved);
+module.exports = mongoose.model('rejectedcases', rejected);

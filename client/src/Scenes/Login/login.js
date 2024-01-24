@@ -97,11 +97,12 @@ export default function SignIn() {
                   type={passwordType}
                   value={password}
                   required="true"
+                  className="password-box"
                   placeholder="Password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
-                  style={{width: "100%", display:"flex",height:"40px",background:"transparent",backdropFilter:"blur(60px)",border:"0.1px solid grey", borderRadius:"10px",padding:"20px"}} // Add right padding to prevent text from being hidden by the button
+                  style={{width: "100%", display:"flex",height:"40px",background:"transparent",backdropFilter:"blur(60px)",border:"0.1px solid grey", borderRadius:"10px",padding:"10px"}} // Add right padding to prevent text from being hidden by the button
                 />
                 {/* password show button */}
                 <button

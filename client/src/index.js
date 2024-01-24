@@ -18,8 +18,9 @@ import JudgeRegister from "./Register/admin-register/judge-register";
 import RegistrarPassword from "./Components/set-password/registrar-set-password";
 import RegistrarRegister from "./Register/admin-register/registrar-register";
 import ClientPassword from "./Components/set-password/client-set-password";
+import FeedbackForm from "./Components/Forms/feedback-form/feedback-form";
 import Defendant from "./Defendants";
-
+import FAQ from "./Scenes/FAQ/Faq";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -40,8 +41,23 @@ root.render(
         <Route path="/set-password-registrar" element={<RegistrarPassword/>} />
         <Route path="/set-password-client" element={<ClientPassword/>} />
         <Route path="/profiles" element={<Profiles/>} />
+        <Route path="/contact-us" element={<FeedbackForm/>} />
+        <Route path="/faq" element={<FAQ/>} />
+
       </Routes>
     </BrowserRouter>
+    <ToastContainer
+      position="top-center"
+      autoClose={1000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover={false}
+      theme="dark"
+    />
     <ToastContainer
       position="top-center"
       autoClose={1000}

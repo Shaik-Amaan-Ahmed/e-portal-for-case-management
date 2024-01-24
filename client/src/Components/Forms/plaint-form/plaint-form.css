@@ -14,7 +14,11 @@
     font-size: large;
     margin: 10px 10px 10px 10px;
 }
-
+.input-field::placeholder{
+    color: inherit;
+    font-weight: 500;
+    opacity: 0.6;
+}
 .left-main {
     display: flex;
           flex-direction: column;

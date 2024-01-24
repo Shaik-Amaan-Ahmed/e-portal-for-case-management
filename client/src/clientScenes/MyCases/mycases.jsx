@@ -23,7 +23,8 @@ const CaseDetails = () => {
     "Rejected" : "red",
     "Pending for hearing": "orange",
     "Approved" : "#32cd32",
-    "Pending at court for approval" : "#318CE7"
+    "Pending at court for approval" : "#318CE7",
+    "Approved by judge and pending for summons" : "#32CD32"
   }
 
   useEffect(() => {

@@ -39,6 +39,8 @@ function ViewDocs(props) {
           >
             <CloseRounded />
           </IconButton>
+
+          
         </div>  
       </Modal>
     </div>

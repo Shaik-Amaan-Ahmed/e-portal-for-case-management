@@ -47,9 +47,6 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             }
         ],res)
 
-
-
-
     // Start the update processes
     const updatePromise1 = await eFilingModel.findOneAndUpdate(
         {caseId: caseId},
@@ -67,21 +64,23 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
     },
         {new:true}
     );
+    const judgeNames = updatePromise1.judgeAssigned.split(",");
+    const updatePromise4 = judges.updateMany( 
+    {name: { $in: judgeNames }},
+    {
+      $set: {
+        "cases.$[elem].status": "Summoned the defendant and pending for written statement"
+      }
+    },
+    {
+      arrayFilters: [
+        {"elem.caseId": caseId}
+    ]
 
-    const updatePromise4 = judges.findOneAndUpdate( 
-        {name: updatePromise1.judgeAssigned},
-        {
-          $set: {
-            "cases.$[elem].status": "Summoned the defendant and pending for written statement"
-          }
-        },
-        {
-          arrayFilters: [
-            { "elem.caseId": caseId }
-          ]
-        },
-        {new:true}
+    },
+    {new:true}
     )
+
 
     const updatePromise3 = defandantCredentials.save();
     const [suc, data1, data2,data3] = await Promise.all([sendEmailPromise, updatePromise2, updatePromise3,updatePromise4]);

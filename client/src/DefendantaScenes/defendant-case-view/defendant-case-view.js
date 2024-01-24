@@ -15,6 +15,7 @@ const DefendantCaseView = () => {
   const [reloadkey, setReloadKey] = useState(0);
 
   useEffect(() => {
+    console.log(caseId);
     axios
       .get(
         "http://localhost:64000/casedetails/defendant-case-details?caseId=" +
