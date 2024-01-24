@@ -6,6 +6,7 @@ const approvedcases = require("../models/approvedCases");
 const judges = require("../models/judges");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
+const sendEmail = require("../mail-helper/notification-mail");
 require("dotenv").config();
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -32,8 +33,6 @@ router.post(
     try {
       const data = JSON.parse(req.body.details);
       const caseId = regId;
-      const email = data.email;
-     
       const newEfiling = new efiling({
         caseId: caseId,
         email: data.email,
@@ -57,43 +56,22 @@ router.post(
       });
       await newEfiling.save();
       try {
-        let transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            type: "OAuth2",
-            user: process.env.MAIL_USERNAME,
-            pass: process.env.MAIL_PASSWORD,
-            clientId: process.env.OAUTH_CLIENTID,
-            clientSecret: process.env.OAUTH_CLIENT_SECRET,
-            refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-          },
-        });
-        let mailOptions = {
-          from: process.env.MAIL_USERNAME,
-          to: data.email,
-          subject: "Case Registration",
-          html:
-            "<h1>Case successfully registered with caseId: " + caseId + "</h1>",
-        };
-        transporter.sendMail(mailOptions, async (err, data) => {
-          if (err) {
-            console.log(err.message);
-            res.status(500).send("Error " + err);
-          } else {
-            res.status(200).json({ message: "Success" });
-            console.log("Email sent successfully");
-          }
-        });
-      } catch (error) {
-        console.log(error.message);
-      }
+        const suc = await sendEmail(data.email, "Case Registration", "<h1>Your case has been registered successfully. Your case id is" + caseId+"</h1>");
+        if(suc){
+          res.status(200).json({ message: "Email Sent Succesfully" });
+        }
+        else{
+          res.status(400).json({ message: "fail" });
+        }
     } catch (error) {
       console.error("Error:", error);
-
       res.status(500).json({ message: "fail" });
     }
+  }catch(error){
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
   }
-);
+})
 
 router.post("/reject-case", async (req, res) => {
   const id = req.body.id;
@@ -116,9 +94,11 @@ router.post("/reject-case", async (req, res) => {
   }
 });
 
+let currentJudgeIndex = 0;
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const caseSensitivity = req.body.caseSensitivity;
+  const status = req.body.status;
 
   if(caseSensitivity === "High"){ 
     try{
@@ -185,7 +165,10 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: id },
+            $push: { cases: {
+              caseId: id,
+              status: "Pending for review by judge",
+            } },
           },
           { new: true } // return the updated document
         );
@@ -210,9 +193,25 @@ router.post("/judge-approve", async (req, res) => {
       },
       { new: true } // return the updated document
     );
+    const judgeStatusUpdate = await judges.findOneAndUpdate( 
+      {name: data.judgeAssigned},
+      {
+        $set: {
+          "cases.$[elem].status": "Approved by judge and pending for summons"
+        }
+      },
+      {
+        arrayFilters: [
+          { "elem.caseId": id }
+        ]
+      },
+      {new:true}
+
+    )
     if(data) {
       const newApprovedCase = new approvedcases(data.toObject());
       await newApprovedCase.save();
+
       if(newApprovedCase){ 
         res.status(200).json({ message: "success" });
       }

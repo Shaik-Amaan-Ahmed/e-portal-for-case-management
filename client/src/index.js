@@ -18,7 +18,7 @@ import JudgeRegister from "./Register/admin-register/judge-register";
 import RegistrarPassword from "./Components/set-password/registrar-set-password";
 import RegistrarRegister from "./Register/admin-register/registrar-register";
 import ClientPassword from "./Components/set-password/client-set-password";
-import FAQ from "./Scenes/FAQ/FAQ"
+import Defendant from "./Defendants";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -32,6 +32,7 @@ root.render(
         <Route path="/login" element={<SignIn />} />
         <Route path="/client/*" element={<Client/>} />
         <Route path="/registrar/*" element={<Registrar/>} />
+        <Route path="/defendant/*" element={<Defendant/>} />
         <Route path="/client-register" element={<ClientRegister/>} />
         <Route path="/judge-register" element={<JudgeRegister/>} />
         <Route path="/registrar-register" element={<RegistrarRegister/>}/>
@@ -39,7 +40,6 @@ root.render(
         <Route path="/set-password-registrar" element={<RegistrarPassword/>} />
         <Route path="/set-password-client" element={<ClientPassword/>} />
         <Route path="/profiles" element={<Profiles/>} />
-        <Route path="/faq" element={<FAQ/>} />
       </Routes>
     </BrowserRouter>
     <ToastContainer

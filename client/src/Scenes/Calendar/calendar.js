@@ -116,6 +116,8 @@ const resources = [
   },
 ];
 
+
+
 function Calendar() {
   const [open, setOpen] = useState(false);
   const [anchorPosition, setAnchorPosition] = useState({
@@ -141,11 +143,13 @@ function Calendar() {
   const handleClose = () => {
     setOpen(null);
   };
+
+
   return (
     <Box>
       
-      <Header title="Calendar" subtitle="View Calendar" />
-    <Box sx={{marginTop:"10px", padding:"20px", border:"1px solid", borderRadius:"20px", backdropFilter:"transparent"}}>
+      {/* <Header title="Calendar" subtitle="View Calendar" />
+    <Box sx={{marginTop:"10px", padding:"20px", border:"1px solid", borderRadius:"20px"}}>
     <FullCalendar
         dayMaxEventRows={true}
         selectable={true}
@@ -220,8 +224,9 @@ function Calendar() {
         <Typography variant="h5">{description}</Typography>
         <Typography variant="h5">{description}</Typography>
         <Typography variant="h5">{description}</Typography>
-      </Popover>
+      </Popover> */}
     </Box>
+    
   );
 }
 export default Calendar;

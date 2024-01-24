@@ -23,8 +23,7 @@ const CaseDetails = () => {
     "Rejected" : "red",
     "Pending for hearing": "orange",
     "Approved" : "#32cd32",
-    "Pending at court for approval" : "#318CE7",
-    "Approved by judge and pending for summons" : "#32CD32"
+    "Pending at court for approval" : "#318CE7"
   }
 
   useEffect(() => {
@@ -78,7 +77,7 @@ const CaseDetails = () => {
           <th>Next Hearing Date</th>
         </tr>
         <tbody>
-          {[...casedetails].reverse().map((item) => (
+          {[...casedetails].map((item) => (
             <tr key={item._id}>
               <td className="case-id">{item.caseId}</td>
               <td>{item.registrationDate}</td>

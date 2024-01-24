@@ -8,6 +8,7 @@ import { ArrowUpwardRounded } from "@mui/icons-material";
 import Footer from "./Footer";
 import { ColorModeContext, useMode } from "../../themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [theme, colorMode] = useMode();
@@ -27,8 +28,7 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
   return (
-    
-    <div id="main-container">
+    <>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -53,6 +53,6 @@ export default function HomePage() {
           </div>
         </ThemeProvider>
       </ColorModeContext.Provider>
-    </div>
+    </>
   );
 }
