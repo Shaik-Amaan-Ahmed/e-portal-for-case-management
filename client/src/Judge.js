@@ -13,6 +13,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import Home from "./Scenes/dashboard/dashboard";
 import { EmailContext } from "./hooks/emailContext";
+import OnGoingCases from "./JudgeScenes/judge-ongoing-cases/judge-ongoing-cases";
 
 function Judge() {
   const [theme, colorMode] = useMode();
@@ -52,7 +53,7 @@ function Judge() {
                 
                 <Route path="/" element={<Home />} />
                 <Route path="/judge-cases" element={<JudgeViewCases />} />
-                <Route path="/Causelist" element={<Causelist />} />
+                <Route path="/ongoing-cases" element={<OnGoingCases />} />
                 <Route path="/Calendar" element={<Calendar />} />
               </Routes>
             </div>

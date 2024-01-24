@@ -92,6 +92,13 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   setSelected={setSelected}
                 />
                 <Item
+                  title="Active Cases"
+                  to="/judge/ongoing-cases"
+                  icon={DashboardCustomizeOutlined}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <Item
                   title="Calendar"
                   to="/judge/calendar"
                   icon={DashboardCustomizeOutlined}

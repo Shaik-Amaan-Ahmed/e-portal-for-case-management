@@ -83,7 +83,7 @@ const CaseDetails = () => {
           <th>Next Hearing Date</th>
         </tr>
         <tbody>
-          {[...casedetails].reverse().map((item) => (
+          {[...casedetails].map((item) => (
             <tr key={item._id}>
               <td className="case-id">{item.caseId}</td>
               <td>{item.registrationDate}</td>

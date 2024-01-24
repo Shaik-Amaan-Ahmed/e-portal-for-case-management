@@ -89,6 +89,12 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   selected={selected}
                   setSelected={setSelected}
                 />
+                <Item
+                  title="Send Summons"
+                  to="/registrar/send-summons"
+                  selected={selected}
+                  setSelected={setSelected}
+                />
                 </div>
               </div>
           </div>

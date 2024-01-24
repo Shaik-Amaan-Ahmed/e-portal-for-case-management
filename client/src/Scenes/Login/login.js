@@ -17,13 +17,14 @@ import { toast } from "react-toastify";
 // TODO remove, this demo shouldn't need to reset the theme.
 export default function SignIn() {
   const [theme, colorMode] = useMode();
-  const [email, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [caseId, setCaseId] = useState("");
   const [role, setRole] = useState("judge");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
-  const data = { email, password, role };
+  const data = role === "defendant" ?{caseId, password, role}:{ email, password, role };
   const [passwordType, setPasswordType] = useState("password");
 
   const handleSubmit = async (e) => {
@@ -39,6 +40,7 @@ export default function SignIn() {
       navigate("/login");
     }
   };
+  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -63,6 +65,7 @@ export default function SignIn() {
                 <button onClick={() => setRole("judge")}>Judge</button>
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>
+                <button onClick={() => setRole("defendant")}>Defendant</button>
               </div>
               <div
                 className="roles"
@@ -81,11 +84,11 @@ export default function SignIn() {
               <input
                 name="remember"
                 type="text"
-                value={email}
+                value={role==="defendant"?caseId:email}
                 required="true"
                 className="username"
-                placeholder="Email"
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder={role==="defendant"?"Case ID":"Email"}
+                onChange={role==="defendant"?(e)=>setCaseId(e.target.value):(e) => {setEmail(e.target.value);}}
                 style={{ width: "100%" }}
               />
               <br />
