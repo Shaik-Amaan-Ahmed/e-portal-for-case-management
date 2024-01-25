@@ -57,7 +57,7 @@ export default function SignIn() {
             </label>
           </IconButton>
         </div>
-        <div className="mains-div">
+        <div className="mains-divs">
           <div className="inner-div">
             <div className="inner-items">
               <div className="switch-buttons">

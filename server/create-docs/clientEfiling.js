@@ -76,16 +76,17 @@ router.post(
   }
 })
 
-router.post("/reject-case", async (req, res) => {
+router.post("/judge-reject-case", async (req, res) => {
   const id = req.body.id;
   const reasonforrejection = req.body.reasonforrejection;
-
+  const rejectedDate = req.body.rejectedDate;
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Rejected",
         reasonforrejection: reasonforrejection,
+        rejectedDate: rejectedDate,
       },
       { new: true } // return the updated document
     );
@@ -93,11 +94,42 @@ router.post("/reject-case", async (req, res) => {
       const newRejectedCase = new rejectedcases(data.toObject());
       await newRejectedCase.save();
       const judge = await judges.findOneAndUpdate(
-        { cases: id }, // find a judge with this case id
-        { $pull: { cases: id } }, // remove the case id from the cases array
+        { "cases.caseId":id} , // find a judge with this case id
+        { $pull: { cases:{caseId:id} } }, // remove the case id from the cases array
         { new: true } // return the updated document
       );
       if(newRejectedCase && judge){ 
+        res.status(200).json({ message: "success" });
+      }
+      else{
+        res.status(400).json({ message: "fail-new" });
+      }
+    } else {
+      res.status(400).json({ message: "fail" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+router.post("/registrar-reject-case", async (req, res) => {
+  const id = req.body.id;
+  const reasonforrejection = req.body.reasonforrejection;
+  const rejectedDate = req.body.rejectedDate;
+  try {
+    const data = await efiling.findOneAndUpdate(
+      { caseId: id }, // find a document with this id
+      {
+        status: "Rejected",
+        reasonforrejection: reasonforrejection,
+        rejectedDate: rejectedDate,
+      },
+      { new: true } // return the updated document
+    );
+    if (data) {
+      const newRejectedCase = new rejectedcases(data.toObject());
+      await newRejectedCase.save();
+      if(newRejectedCase){ 
         res.status(200).json({ message: "success" });
       }
       else{
@@ -116,6 +148,12 @@ let currentJudgeIndex = 0;
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const caseSensitivity = req.body.caseSensitivity;
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+  const year = date.getFullYear();
+  const registrarApprovedDate = day + "-" + month + "-" + year;
+  // const registrarApprovedDate = req.body.registrarApprovedDate;
 
   if(caseSensitivity === "High"){ 
     try{
@@ -124,6 +162,7 @@ router.post("/approve-case", async (req, res) => {
         {
           status: "Pending for allocation of judge",
           caseSensitivity: caseSensitivity,
+          registrarApprovedDate: registrarApprovedDate
         },
         { new: true } // return the updated document
       );
@@ -167,7 +206,6 @@ router.post("/approve-case", async (req, res) => {
     } else {
       const judgeName = judge[0].name;
       console.log(judgeName);
-
       try {
         const data = await efiling.findOneAndUpdate(
           { caseId: id }, // find a document with this id
@@ -175,6 +213,7 @@ router.post("/approve-case", async (req, res) => {
             status: "Pending for review by judge",
             caseSensitivity: caseSensitivity,
             judgeAssigned: judgeName,
+            registrarApprovedDate:registrarApprovedDate
           },
           { new: true } // return the updated document
         );
@@ -182,7 +221,7 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: id },
+            $push: { cases: { caseId: id, status: "Pending for review by judge" } },
           },
           { new: true } // return the updated document
         );
@@ -199,12 +238,19 @@ router.post("/approve-case", async (req, res) => {
 
 router.post("/judge-approve", async (req, res) => { 
   const id = req.query.id;
+  const judgeApprovedDate = req.body.judgeApprovedDate;
   try{
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Approved by judge and pending for summons",
+        judgeApprovedDate: judgeApprovedDate,
       },
+      { new: true } // return the updated document
+    );
+    const judge = await judges.findOneAndUpdate(
+      { "cases.caseId": id }, // find a judge with this case id
+      { $set: { "cases.$.status": "Approved by judge and pending for summons" } }, // update the status of the matching case
       { new: true } // return the updated document
     );
     if(data) {
@@ -230,13 +276,16 @@ router.post("/judge-approve", async (req, res) => {
 router.post("/registrar-assign-judge", async (req, res) => {
   const id = req.body.id;
   const judgeNames = req.body.judgeNames;
-
+  const judgeAssignedDate = req.body.judgeAssignedDate;
+  const judgeApprovedDate= req.body.judgeApprovedDate;
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Approved by judge and pending for summons",
         judgeAssigned: judgeNames,
+        judgeAssignedDate:judgeAssignedDate,
+        judgeApprovedDate:judgeApprovedDate
       },
       { new: true } // return the updated document
     );

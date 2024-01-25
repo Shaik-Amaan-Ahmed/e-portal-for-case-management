@@ -6,17 +6,25 @@ import Typography from "@mui/material/Typography";
 import "./registrar-approve.css";
 import { Snackbar, Alert, CircularProgress } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { green } from "@mui/material/colors";
 
 function Approve(props) {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
+  const registrarApprovedDate = new Date();
   const options = ["High", "Medium", "Low"]
   const [error, setError] = useState("");
   const [value, setValue] = useState("");
+  useEffect(() => {
+    const day = String(registrarApprovedDate.getDate()).padStart(2, "0");
+    const month = String(registrarApprovedDate.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = registrarApprovedDate.getFullYear();
 
+    setFormattedDate(day + "-" + month + "-" + year);
+  }, [registrarApprovedDate]);
   const handleApprove = async () => {
 
     if(value === ""){ 
@@ -31,7 +39,7 @@ function Approve(props) {
 
     const res = await axios.post(
       "http://localhost:64000/e-filing/approve-case",
-      { id: props.id, caseSensitivity: value,status:props.status}
+      { id: props.id, caseSensitivity: value,status:props.status, registrarApprovedDate: formattedDate}
     );
     if (res.status === 200) {
       setTimeout(() => { 

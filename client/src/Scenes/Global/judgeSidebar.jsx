@@ -22,9 +22,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         marginBottom: "2px",
       }}
     >
-      <Link onClick={() => {
+      <a onClick={() => {
         setSelected(title)
-        to= {to}
+        navigate(to)
       }} style={{ cursor: "pointer" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}></div>
@@ -32,7 +32,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             <Typography variant="h5" style={{ fontWeight: "500", color: selected === title ? "orange" : "inherit" }}>{title}</Typography>
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   );
 };

@@ -16,7 +16,6 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
     const petitionFileName = req.files.petition[0].originalname;
     const defendantEmail = req.body.defendantEmail;
     const caseId = req.body.caseId;
-
     try {
         function generatePassword() {
             let password = '';
@@ -51,9 +50,15 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
 
 
     // Start the update processes
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+    const summonedDate = day + "-" + month + "-" + year;
     const updatePromise1 = await eFilingModel.findOneAndUpdate(
         {caseId: caseId},
-        {status: "Summoned the defendant and pending for written statement"},
+        {status: "Summoned the defendant and pending for written statement",
+        summonedDate: summonedDate},
         {new:true}
     );
     const updatePromise2 = approvedCases.findOneAndUpdate(
@@ -63,7 +68,8 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             filename: summonFileName,
             contentType: req.files.summon[0].mimetype,
             fileData: summon
-        }
+        },
+        summonedDate: summonedDate
     },
         {new:true}
     );
@@ -106,7 +112,11 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
     const writtenStatement = req.files.writtenStatement[0].buffer;
     const writtenStatementFileName = req.files.writtenStatement[0].originalname;
     const caseId = req.body.caseId;
-    
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+    const writtenStatementSubmittedDate = day + "-" + month + "-" + year;
     try {
         const approvedCase = await approvedCases.findOneAndUpdate(
             {caseId: caseId},
@@ -118,8 +128,8 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
-            }
+            },
+            writtenStatementSubmittedDate: writtenStatementSubmittedDate
         },
             {new:true}
         )
@@ -133,8 +143,9 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
-            }
+                
+            },
+            writtenStatementSubmittedDate:writtenStatementSubmittedDate
         },
             {new:true}
         )

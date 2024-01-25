@@ -40,7 +40,7 @@ export default function FAQ() {
         );
     }
     return (
-        <div className='main-div'>
+        <div className='faq-div1'>
             <div style={{ display: 'flex', flexDirection: 'column', }} >
                 <h1 className="display-4 mb-4" style={{ fontSize: '64px', marginBottom: '20px', textAlign: 'center' }}>
                     <QuestionAnswerIcon style={{ fontSize: 67, marginRight: '20px' }} />

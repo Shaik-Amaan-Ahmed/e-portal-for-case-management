@@ -10,10 +10,20 @@ import { useState } from 'react';
 function JudgeApprove(props) {
 
     const [message, setMessage] = useState(''); 
-
+    const [formattedDate, setFormattedDate] = useState("");
+    const judgeApprovedDate = new Date();
+    React.useEffect(() => { 
+        const day = String(judgeApprovedDate.getDate()).padStart(2, "0");
+        const month = String(judgeApprovedDate.getMonth() + 1).padStart(2, "0"); // January is 0!
+        const year = judgeApprovedDate.getFullYear();
+        setFormattedDate(day + "-" + month + "-" + year);
+    },[judgeApprovedDate]);
    const handleApprove = async () => {
 
-    const res = await axios.post('http://localhost:64000/e-filing/judge-approve?id=' + props.id);
+    const res = await axios.post('http://localhost:64000/e-filing/judge-approve', 
+    { judgeApprovedDate: formattedDate }, // request body
+    { params: { id: props.id } } // query parameters
+  );
     if(res.status === 200){
       setTimeout(() => {
         setMessage('');
