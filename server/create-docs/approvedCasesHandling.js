@@ -46,9 +46,6 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             }
         ],res)
 
-
-
-
     // Start the update processes
     const date = new Date();
     const day = String(date.getDate()).padStart(2, "0");
@@ -89,6 +86,7 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
     },
     {new:true}
     )
+
 
     const updatePromise3 = defandantCredentials.save();
     const [suc, data1, data2,data3] = await Promise.all([sendEmailPromise, updatePromise2, updatePromise3,updatePromise4]);
@@ -151,19 +149,21 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
         )
         res.status(200).json({message: "Written statement submitted successfully"});
         
-        const judgeStatusUpdate = await judges.findOneAndUpdate( 
-            {name: approvedCase.judgeAssigned},
-            {
-              $set: {
-                "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
-              }
-            },
-            {
-              arrayFilters: [
-                { "elem.caseId": caseId }
-              ]
-            },
-            {new:true}
+        const judgeNames = approvedCase.judgeAssigned.split(",");
+        const updatePromise4 = await judges.updateMany( 
+        {name: { $in: judgeNames }},
+        {
+          $set: {
+            "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
+          }
+        },
+        {
+          arrayFilters: [
+            {"elem.caseId": caseId}
+        ]
+    
+        },
+        {new:true}
         )
 
     }catch(error) { 

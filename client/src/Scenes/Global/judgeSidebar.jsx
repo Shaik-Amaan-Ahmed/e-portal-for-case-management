@@ -29,7 +29,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}></div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h5" style={{ fontWeight: "500", color: selected === title ? "orange" : "inherit" }}>{title}</Typography>
+            <Typography variant="h5" style={{ fontWeight: "500", color: selected === title ? "orange" : "white" }}>{title}</Typography>
           </div>
         </div>
       </a>

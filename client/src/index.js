@@ -34,7 +34,6 @@ root.render(
         <Route path="/client/*" element={<Client/>} />
         <Route path="/registrar/*" element={<Registrar/>} />
         <Route path="/defendant/*" element={<Defendant/>} />
-
         <Route path="/client-register" element={<ClientRegister/>} />
         <Route path="/judge-register" element={<JudgeRegister/>} />
         <Route path="/registrar-register" element={<RegistrarRegister/>}/>

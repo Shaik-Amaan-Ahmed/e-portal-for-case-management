@@ -222,6 +222,7 @@ router.post("/approve-case", async (req, res) => {
           { name: judgeName }, // find a document with this name
           {
             $push: { cases: { caseId: id, status: "Pending for review by judge" } },
+            $push: { cases: { caseId: id, status: "Pending for review by judge" } },
           },
           { new: true } // return the updated document
         );
@@ -256,6 +257,7 @@ router.post("/judge-approve", async (req, res) => {
     if(data) {
       const newApprovedCase = new approvedcases(data.toObject());
       await newApprovedCase.save();
+
       if(newApprovedCase){ 
         res.status(200).json({ message: "success" });
       }
