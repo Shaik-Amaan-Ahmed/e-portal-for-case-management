@@ -9,7 +9,6 @@ import { EmailContext } from "../../hooks/emailContext";
 import ViewDetails from "../../Components/Modals/registrar-view-details/registrarViewDetails";
 import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
 import JudgeApprove from "../../Components/Modals/judge-approve/judge-approve";
-
 import { CircularProgress } from "@mui/material";
 import JudgeDeny from "../../Components/Modals/judge-deny/judge-deny";
 

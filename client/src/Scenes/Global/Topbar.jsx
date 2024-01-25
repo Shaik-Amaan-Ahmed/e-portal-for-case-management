@@ -88,6 +88,7 @@ const Topbar = () => {
               backgroundColor: "transparent",
               textAlign: "center"
             }}
+            className="search-bar"
             placeholder="Search"
           />
           

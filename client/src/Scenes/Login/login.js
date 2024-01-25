@@ -26,6 +26,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 export default function SignIn() {
   const [theme, colorMode] = useMode();
   const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [caseId, setCaseId] = useState("");
   const [role, setRole] = useState("judge");
@@ -47,7 +48,7 @@ export default function SignIn() {
     const res = await axios.post(url, data);
 
     if (res.data.message === "success") {
-      navigate("/" + role,{state: {name:res.data.name}});
+      navigate("/" + role);
       toast.success("Login Successful");
     } else {
       toast.error(res.data.message);
@@ -70,7 +71,7 @@ export default function SignIn() {
               Home
             </label>
           </IconButton>
-       
+        </div>
         <div className="mains-divs">
           <div className="inner-div">
             <div className="inner-items">
