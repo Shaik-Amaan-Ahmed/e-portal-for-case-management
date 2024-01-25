@@ -48,14 +48,11 @@ const Topbar = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   function handleChangePassword() {
-    console.log(email);
+    // console.log(email);
     try {
       const res = axios.post("http://localhost:64000/change-password", {email: email});
-      if (res.status === 200){
-        alert("email sent Successfully");
-      }
-      if (res.status === 400){
-        alert("email not sent try again");
+      if (res.status === 200) {
+        handleClose();
       }
     }
     catch (err) {
@@ -209,6 +206,7 @@ const Topbar = () => {
           open={open}
           handleSubmit={handleChangePassword}
           message="Change Password?"
+          notif="Password Changed Successfully"
         />
       </Box>
     </>
