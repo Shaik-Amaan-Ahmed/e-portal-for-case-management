@@ -43,7 +43,6 @@ const Topbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const initial = useLocation().state.name[0];
 
   function handleLogout() {
     handleClose();        
