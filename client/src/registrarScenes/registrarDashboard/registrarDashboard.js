@@ -7,7 +7,6 @@ import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar
 import Approve from "../../Components/Modals/registrar-approve/registrar-approve";
 import RegistrarDeny from "../../Components/Modals/registrar-deny/registrar-deny";
 import { CircularProgress } from "@mui/material";
-import { set } from "mongoose";
 
 
 const RegistrarDashboard = () => {
@@ -25,7 +24,6 @@ const RegistrarDashboard = () => {
   const [reloadkey, setReloadKey] = useState(0);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
-
   const handleOpen = (id) => {
     setId(id);
     setOpen(true);

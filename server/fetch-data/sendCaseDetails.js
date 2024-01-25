@@ -359,6 +359,26 @@ router.get("/defendant-case-details", async (req, res) => {
   }
 });
 
+router.get("/send-docs", async (req, res) => { 
+  const caseId = req.query.caseId;
+  const fileName = req.query.fileName;
+
+  try {
+    const data = await approvedcases.findOne({ caseId: caseId }).select("docDetails."+fileName);
+    if(data) {
+      const fileBase64 = Buffer.from(data.docDetails[fileName].fileData).toString('base64');
+      res.status(200).json({file:fileBase64,fileName:data.docDetails[fileName].filename});
+    }
+    else{
+      res.status(400).json({ message: "No data found" });
+    }
+  }catch(error){
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+
+})
+
 router.get("/client-case-category", async (req, res) => {
   try {
     const data = await caseCateg.find({});

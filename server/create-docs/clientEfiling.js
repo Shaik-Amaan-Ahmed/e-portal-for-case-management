@@ -6,6 +6,7 @@ const approvedcases = require("../models/approvedCases");
 const judges = require("../models/judges");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
+const rejectedcases = require("../models/rejectedCases");
 const sendEmail = require("../mail-helper/notification-mail");
 require("dotenv").config();
 
@@ -92,7 +93,12 @@ router.post("/reject-case", async (req, res) => {
     if (data) {
       const newRejectedCase = new rejectedcases(data.toObject());
       await newRejectedCase.save();
-      if(newRejectedCase){ 
+      const judge = await judges.findOneAndUpdate(
+        { cases: id }, // find a judge with this case id
+        { $pull: { cases: id } }, // remove the case id from the cases array
+        { new: true } // return the updated document
+      );
+      if(newRejectedCase && judge){ 
         res.status(200).json({ message: "success" });
       }
       else{
@@ -110,14 +116,13 @@ router.post("/reject-case", async (req, res) => {
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const caseSensitivity = req.body.caseSensitivity;
-  const status = req.body.status;
 
   if(caseSensitivity === "High"){ 
     try{
       const data = await efiling.findOneAndUpdate(
         { caseId: id }, // find a document with this id
         {
-          status: "Pending for review by judge",
+          status: "Pending for allocation of judge",
           caseSensitivity: caseSensitivity,
         },
         { new: true } // return the updated document
@@ -179,10 +184,7 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: {
-              caseId: id,
-              status: "Pending for review by judge",
-            } },
+            $push: { cases: { caseId: id, status: "Pending for review by judge" } },
           },
           { new: true } // return the updated document
         );
@@ -236,8 +238,7 @@ router.post("/judge-approve", async (req, res) => {
     }
     else{
       res.status(400).json({ message: "fail" });
-    }
-    
+    }   
   }catch(error){
     console.log(error.message);
     res.status(500).json({ message: error.message });
@@ -262,7 +263,7 @@ router.post("/registrar-assign-judge", async (req, res) => {
       const judgeData = await judges.updateMany(
         { name: {$in: judgeNamesArray} }, // find documents with these names
         {
-          $push: { cases: id },
+          $push: { cases: { caseId: id, status: "Approved by judge and pending for summons" } },
         },
         { new: true } // return the updated document
       );

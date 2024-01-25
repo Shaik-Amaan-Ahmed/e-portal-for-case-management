@@ -1,7 +1,4 @@
-body{
-    overflow: hidden;
-}
-.mains-div {
+.mains-divs {
     display: flex;
     justify-items: center;
     margin-block: auto;
@@ -13,7 +10,7 @@ body{
     
 }
 
-.mains-div::before {
+.mains-divs::before {
     content: "";
     position: absolute;
     top: 0;
@@ -147,4 +144,16 @@ body{
     font-size: 15px;
     font-weight: 600;
     color: orange;
+}
+
+.username::placeholder {
+    color: inherit;
+    font-weight: 600;
+    opacity: 0.5;
+}
+
+.password-box::placeholder {
+    color: inherit;
+    font-weight: 600;
+    opacity: 0.5;
 }

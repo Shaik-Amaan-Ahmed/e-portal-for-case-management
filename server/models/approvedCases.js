@@ -9,6 +9,8 @@ const approved = new Schema({
     registrationDate: {type: String},
     reasonforrejection: {type: String},
     judgeAssigned: {type: String},
+    judgeAssignedDate: {type: Date},
+    summonIssuedDate: {type: String},
     courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {
@@ -78,7 +80,6 @@ const approved = new Schema({
         contentType : {type : String},
         fileData: {type : Buffer}
       }
-
     },
     notifications: {
       judgements: {

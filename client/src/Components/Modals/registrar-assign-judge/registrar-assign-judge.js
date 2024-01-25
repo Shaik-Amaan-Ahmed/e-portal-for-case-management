@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./registrar-assign-judge.css";
 import { CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 function ViewAssign(props) {
     const [data, setData] = useState([]);
@@ -43,9 +44,9 @@ function ViewAssign(props) {
                 setTimeout(() => {
                     setMessage("");
                     props.handleClose();
-                    window.location.reload();
                 }, 1500)
                 setMessage("Judges Assigned Successfully")
+                window.location.reload();
                 setLoading(false);
             }
         } catch (err) {

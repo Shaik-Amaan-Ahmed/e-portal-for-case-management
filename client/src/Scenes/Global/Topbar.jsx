@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SpringModal from "../../Components/Modals/springModal";
 import { Logout, Settings } from "@mui/icons-material";
-
+import "./Topbar.css";
 import { useLocation } from "react-router-dom";
 const Topbar = () => {
   const [name, setName] = useState("");
@@ -88,6 +88,7 @@ const Topbar = () => {
               backgroundColor: "transparent",
               textAlign: "center"
             }}
+            className="search-bar"
             placeholder="Search"
           />
           
