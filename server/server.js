@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const login = require("./auth/authLogin");
 const logout = require("./auth/authLogout");
+const changePassword = require("./create-docs/changePassword");
 const judgeToken = require("./verifyToken/judgeToken");
 const clientToken = require("./verifyToken/clientToken");
 const defendantToken = require("./verifyToken/defendantToken")
@@ -18,6 +19,7 @@ const sendCaseCategory = require("./fetch-data/sendCaseCategory");
 const contactUs = require("./create-docs/contact");
 const approvedcaseshandler = require("./create-docs/approvedCasesHandling");
 const bodyParser = require('body-parser');
+// require('events').EventEmitter.defaultMaxListeners = 20;
 require("dotenv").config();
 
 
@@ -70,6 +72,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
 app.use('/contact-us', contactUs);
 app.use('/approve-cases', approvedcaseshandler);
+app.use("/change-password", changePassword);
 
 app
   .listen(port, (res, req) => {

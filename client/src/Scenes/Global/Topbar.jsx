@@ -1,6 +1,7 @@
 import {
   Box,
   Divider,
+  Icon,
   IconButton,
   ListItemIcon,
   Menu,
@@ -8,6 +9,7 @@ import {
   rgbToHex,
   useTheme,
 } from "@mui/material";
+import {EmailContext} from "../../hooks/emailContext";
 import { useContext, React } from "react";
 import { ColorModeContext, tokens } from "../../themes";
 import InputBase from "@mui/material/InputBase";
@@ -20,6 +22,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { PasswordRounded } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -36,6 +39,7 @@ const Topbar = () => {
     }
   }, [location]);
   
+  const email = useContext(EmailContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -43,6 +47,21 @@ const Topbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  function handleChangePassword() {
+    console.log(email);
+    try {
+      const res = axios.post("http://localhost:64000/change-password", {email: email});
+      if (res.status === 200){
+        alert("email sent Successfully");
+      }
+      if (res.status === 400){
+        alert("email not sent try again");
+      }
+    }
+    catch (err) {
+      console.log(err.message);
+    }
+  }
 
   function handleLogout() {
     handleClose();        
@@ -169,6 +188,12 @@ const Topbar = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Divider />
+        <MenuItem onClick={handleOpen}>
+          <ListItemIcon>
+            <PasswordRounded />
+          </ListItemIcon>
+          Change Password
+        </MenuItem>
 
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
@@ -177,15 +202,15 @@ const Topbar = () => {
           Logout
         </MenuItem>
       </Menu>
-      {/* <Box>
+      <Box>
         <SpringModal
           handleOpen={handleOpen}
           handleClose={handleClose}
           open={open}
-          handleSubmit={handleLogout}
-          message="logout"
+          handleSubmit={handleChangePassword}
+          message="Change Password?"
         />
-      </Box> */}
+      </Box>
     </>
   );
 };
