@@ -8,15 +8,23 @@ import { useState,useEffect } from 'react';
 import "../summons/summons-modal.css"
 import { IconButton } from '@mui/material';
 import { CloseRounded } from '@mui/icons-material';
+import {CircularProgress} from '@mui/material';
 
 function ViewDocs(props) {
 
     const [message, setMessage] = useState(''); 
     const [loading, setLoading] = useState(false);
+    const [doc, setDoc] = useState([]);
 
     useEffect(() => { 
-      
-    })
+      setLoading(true);
+      axios.get("http://localhost:64000/casedetails/send-docs?caseId="+props.caseId+"&fileName=writtenStatement").then((res) => { 
+        setDoc(res.data);
+        setLoading(false);
+      }).catch((err) => {
+        console.log(err);
+      })  
+    },[])
 
   return (
     <div>
@@ -33,7 +41,7 @@ function ViewDocs(props) {
             style={{
               position: "absolute",
               right: "1%",
-              top: "2%",
+              top: "1%",
               color: "white",
               background:"red",
               borderRadius:"50%",
@@ -43,8 +51,12 @@ function ViewDocs(props) {
           >
             <CloseRounded />
           </IconButton>
-
+          {loading ? (<CircularProgress  style={{color:"white"}}/>)  :
+          <div style={{width:"100%", height:"90%"}}>
+            <iframe src={`data:application/pdf;base64,${doc.file}`} width="100%" height="100%"/>
+          </div>
           
+}
         </div>  
       </Modal>
     </div>

@@ -182,7 +182,7 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: id },
+            $push: { cases: { caseId: id, status: "Pending for review by judge" } },
           },
           { new: true } // return the updated document
         );
