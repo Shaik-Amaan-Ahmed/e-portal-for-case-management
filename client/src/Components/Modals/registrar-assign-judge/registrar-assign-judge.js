@@ -5,7 +5,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./registrar-assign-judge.css";
 import { CircularProgress } from "@mui/material";
-import { CircularProgress } from "@mui/material";
 
 function ViewAssign(props) {
     const [data, setData] = useState([]);
