@@ -21,6 +21,7 @@ import ClientPassword from "./Components/set-password/client-set-password";
 import FeedbackForm from "./Components/Forms/feedback-form/feedback-form";
 import Defendant from "./Defendants";
 import FAQ from "./Scenes/FAQ/Faq";
+import ClientChangePassword from "./Components/set-password/client-change-password";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -43,6 +44,7 @@ root.render(
         <Route path="/profiles" element={<Profiles/>} />
         <Route path="/contact-us" element={<FeedbackForm/>} />
         <Route path="/faq" element={<FAQ/>} />
+        <Route path="/client-change-password" element={<ClientChangePassword/>} />
 
       </Routes>
     </BrowserRouter>
