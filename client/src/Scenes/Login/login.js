@@ -2,7 +2,7 @@ import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { ColorModeContext, useMode } from "../../themes";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, TextField, ThemeProvider } from "@mui/material";
 import { IconButton, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
 import { useState } from "react";
@@ -13,8 +13,16 @@ import { useEffect } from "react";
 import { Home } from "@mui/icons-material";
 import "./login.css";
 import { toast } from "react-toastify";
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { Link } from 'react-router-dom';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 export default function SignIn() {
   const [theme, colorMode] = useMode();
   const [email, setEmail] = useState("");
@@ -26,7 +34,13 @@ export default function SignIn() {
   axios.defaults.withCredentials = true;
   const data = role === "defendant" ?{caseId, password, role}:{ email, password, role };
   const [passwordType, setPasswordType] = useState("password");
+  const [showPassword, setShowPassword] =useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = "http://localhost:64000/login/" + role;
@@ -45,7 +59,6 @@ export default function SignIn() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div>
           <IconButton onClick={() => navigate("/")}>
             <Home />
             <label
@@ -57,12 +70,12 @@ export default function SignIn() {
               Home
             </label>
           </IconButton>
-        </div>
+       
         <div className="mains-divs">
           <div className="inner-div">
             <div className="inner-items">
               <div className="switch-buttons">
-                <button onClick={() => setRole("judge")}>Judge</button>
+                <button onClick={() => {setRole("judge");}}>Judge</button>
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>
                 <button onClick={() => setRole("defendant")}>Defendant</button>
@@ -73,27 +86,33 @@ export default function SignIn() {
               >
                 <Typography
                   variant="h3"
-                  sx={{ fontWeight: "500", fontSize: "xl", marginTop: "20px" }}
+                  sx={{ fontWeight: "500", fontSize: "xl", marginTop: "20px",marginBottom:"20px" }}
                   justifySelf="center"
                 >
                   {" "}
                   {role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()}
                 </Typography>
               </div>
-
-              <input
-                name="remember"
-                type="text"
+              <TextField
                 value={role==="defendant"?caseId:email}
-                required="true"
-                className="username"
-                placeholder={role==="defendant"?"Case ID":"Email"}
+                label={role==="defendant"?"Case ID":"Email"}
                 onChange={role==="defendant"?(e)=>setCaseId(e.target.value):(e) => {setEmail(e.target.value);}}
-                style={{ width: "100%" }}
+                sx={{width:"100%",  marginBottom: '10px',
+                backdropFilter: 'blur(60px)',
+                '& .MuiOutlinedInput-root': {
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'rgb(201, 198, 193)',
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  '&.Mui-focused': {
+                    color: 'white', // change as needed
+                  },
+                },
+              }}
               />
               <br />
-              <div style={{ position: 'relative', display: 'inline-block',width:"100%",alignItems:"center", margin:"20px" }}>
-                <input
+                {/* <input
                   type={passwordType}
                   value={password}
                   required="true"
@@ -104,7 +123,7 @@ export default function SignIn() {
                   }}
                   style={{width: "100%", display:"flex",height:"40px",background:"transparent",backdropFilter:"blur(60px)",border:"0.1px solid grey", borderRadius:"10px",padding:"10px"}} // Add right padding to prevent text from being hidden by the button
                 />
-                {/* password show button */}
+               
                 <button
                   style={{
                     position: 'absolute',
@@ -126,8 +145,42 @@ export default function SignIn() {
                   }}
                 >
                   show
-                </button>
-              </div>
+                </button> */}
+                 <FormControl sx={{ m: 1, width: '100%', backdropFilter:'blur(60px)','& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        }, }} variant="outlined">
+                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+                  </FormControl>
+
+        
               <br />
               <div className="submit-enter">
                 <button
@@ -140,9 +193,9 @@ export default function SignIn() {
                 </button>
               </div>
               <div className="no-account-register">
-                {role==='client' && <a href="/client-register">No account? Register here</a>}
-                {role==='registrar' && <a href="/registrar-register">No account? Register here</a>}
-                {role==='judge' && <a href="/judge-register">No account? Register here</a>}
+                {role==='client' && <Link to="/client-register">No account? Register here</Link>}
+                {role==='registrar' && <Link to="/registrar-register">No account? Register here</Link>}
+                {role==='judge' && <Link to="/judge-register">No account? Register here</Link>}
               </div>
             </div>
           </div>

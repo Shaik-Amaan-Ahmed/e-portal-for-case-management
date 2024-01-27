@@ -30,6 +30,11 @@
     font-weight: 500;
 
 }
+.judge-register-input::placeholder {
+    color: white;
+    font-weight: 500;
+    opacity: 0.6;
+}
 
 .judge-register-submit {
     width: 40%;

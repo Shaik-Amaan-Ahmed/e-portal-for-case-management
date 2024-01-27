@@ -22,7 +22,11 @@
     font-weight: 500;
 
 }
-
+.registrar-register-input::placeholder {
+    color: white;
+    font-weight: 500;
+    opacity: 0.6;
+}
 .registrar-input {
     width: 100%;
     padding: 10px;

@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "../plaintiff-form/plaintiff-form.css";
+import { Typography } from "@mui/material";
 
 export const Item = ({type, placeholder, name,value,onChange}) => {
   return (
     <div className="inner-form-elements">
       <div className="title">
-        <span variant="h5" style={{fontWeight:"bold"}}>{name}</span>
+      <Typography variant="h5" style={{ fontWeight: "500"}}>
+          {name}
+        </Typography>
       </div>
       <div className="input-element">
         <input
@@ -109,9 +112,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
           <div className="inner-form-elements">
             <div className="title">
               {/* defendant No. */}
-                  <span variant="h5" style={{ fontWeight: "bold" }}>
-                    defendant No.
-                  </span>
+              <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Defendant No.
+        </Typography>
             </div>
             <div className="input-element">
               <select
@@ -143,9 +146,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 {/* Relation */}
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5" style={{ fontWeight: "bold" }}>
-                    Relation
-                  </span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Relation
+        </Typography>
             </div>
             <div className="input-element">
               <select
@@ -177,7 +180,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 {/* Is Dead/Minor */}
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{ fontWeight: "bold" }}>Is Dead/Minor</span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Is Dead/Minor
+        </Typography>
             </div>
             <div className="input-element">
               <select
@@ -213,7 +218,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 {/* Age */}
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{ fontWeight: "bold" }}>Age</span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Age
+        </Typography>
             </div>
             <div className="input-element">
               <input
@@ -231,7 +238,9 @@ value={value("defendantAge")}
 {/* Gender */}
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{ fontWeight: "bold" }}>Gender</span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Gender
+        </Typography>
             </div>
             <div className="input-element">
               <select

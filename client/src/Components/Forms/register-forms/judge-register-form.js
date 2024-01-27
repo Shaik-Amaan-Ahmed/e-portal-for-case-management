@@ -9,20 +9,37 @@ import {
   FormControl
 } from "@mui/material";
 import axios from "axios";
+
 import {CircularProgress} from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 
-const Item = (props) => (
+const Item = (props) => {
+return (
   <div className="judge-input">
-    <input
-      type="text"
-      placeholder={props.placeholder}
-      className="judge-register-input"
-      value={props.value}
+    <TextField 
+      id="outlined-basic" 
+      label={props.placeholder} 
+      variant="outlined" 
+      value={props.value} 
       onChange={(e) => props.setJudgeDetails({ ...props.judgeDetails , [props.toChange] : e.target.value })}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
     />
   </div>
 );
+  };
 
 const JudgeRegisterForm = () => {
   const [caseCategories, setCaseCategories] = useState({});
@@ -84,8 +101,17 @@ const JudgeRegisterForm = () => {
         onChange={(e) => setSelectedOptions(e.target.value)}
         input={<OutlinedInput label="Multiple Select" />}
         sx={{
-          background:"transparent",
-          color: "white",
+          '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+              borderColor: 'rgb(201, 198, 193)',
+            },
+          },
+          '& .MuiInputLabel-root': {
+            '&.Mui-focused': {
+              color: 'white', // change as needed
+            },
+          },
+          
         }}
       >
         {Object.keys(caseCategories).map((name) => (

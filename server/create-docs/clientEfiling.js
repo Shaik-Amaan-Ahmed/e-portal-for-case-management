@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 const multer = require("multer");
 const rejectedcases = require("../models/rejectedCases");
 const sendEmail = require("../mail-helper/notification-mail");
+const GenerateDate = require("../DateGenerator/DateGenerator");
 require("dotenv").config();
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -79,7 +80,7 @@ router.post(
 router.post("/judge-reject-case", async (req, res) => {
   const id = req.body.id;
   const reasonforrejection = req.body.reasonforrejection;
-  const rejectedDate = req.body.rejectedDate;
+  const rejectedDate = GenerateDate();
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
@@ -115,7 +116,7 @@ router.post("/judge-reject-case", async (req, res) => {
 router.post("/registrar-reject-case", async (req, res) => {
   const id = req.body.id;
   const reasonforrejection = req.body.reasonforrejection;
-  const rejectedDate = req.body.rejectedDate;
+  const rejectedDate = GenerateDate();
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
@@ -148,12 +149,8 @@ let currentJudgeIndex = 0;
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const caseSensitivity = req.body.caseSensitivity;
-  const date = new Date();
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
-  const year = date.getFullYear();
-  const registrarApprovedDate = day + "-" + month + "-" + year;
-  // const registrarApprovedDate = req.body.registrarApprovedDate;
+
+  const registrarApprovedDate = GenerateDate();
 
   if(caseSensitivity === "High"){ 
     try{
@@ -239,7 +236,7 @@ router.post("/approve-case", async (req, res) => {
 
 router.post("/judge-approve", async (req, res) => { 
   const id = req.query.id;
-  const judgeApprovedDate = req.body.judgeApprovedDate;
+  const judgeApprovedDate = GenerateDate();
   try{
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
@@ -278,8 +275,8 @@ router.post("/judge-approve", async (req, res) => {
 router.post("/registrar-assign-judge", async (req, res) => {
   const id = req.body.id;
   const judgeNames = req.body.judgeNames;
-  const judgeAssignedDate = req.body.judgeAssignedDate;
-  const judgeApprovedDate= req.body.judgeApprovedDate;
+  const judgeAssignedDate = GenerateDate();
+  const judgeApprovedDate= GenerateDate();
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id

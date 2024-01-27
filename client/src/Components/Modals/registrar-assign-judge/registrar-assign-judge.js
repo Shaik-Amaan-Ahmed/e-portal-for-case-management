@@ -11,7 +11,6 @@ function ViewAssign(props) {
     const [selectedJudges, setSelectedJudges] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-    const [formattedDate, setFormattedDate] = useState("");
   
     useEffect(() => {
     axios
@@ -31,13 +30,7 @@ function ViewAssign(props) {
             console.log(err);
         });
     }, [props.caseCategory]);
-    useEffect(() => {
-        const judgeAssignedDate = new Date();
-        const day = String(judgeAssignedDate.getDate()).padStart(2, "0");
-        const month = String(judgeAssignedDate.getMonth() + 1).padStart(2, "0"); // January is 0!
-        const year = judgeAssignedDate.getFullYear();
-        setFormattedDate(day + "-" + month + "-" + year);
-    }, []);
+
     const handleAssign = async () => {
         const judges=selectedJudges.join(",");
         console.log(judges);
@@ -45,7 +38,7 @@ function ViewAssign(props) {
             setLoading(true);
             const res = await axios.post(
                 "http://localhost:64000/e-filing/registrar-assign-judge",
-                { id: props.id, judgeNames: judges, judgeAssignedDate:formattedDate, judgeApprovedDate:formattedDate },
+                { id: props.id, judgeNames: judges},
             );
             if (res.status === 200) {
                 setTimeout(() => {

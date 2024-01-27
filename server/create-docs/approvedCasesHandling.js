@@ -8,7 +8,7 @@ const approvedCases = require("../models/approvedCases");
 const eFilingModel = require("../models/eFilingModel");
 const defendantDetails = require("../models/defendantDetails");
 const judges = require("../models/judges");
-
+const GenerateDate = require("../DateGenerator/DateGenerator");
 router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { name: 'petition', maxCount: 1 }]) ,async (req, res) => { 
     const summon = req.files.summon[0].buffer;
     const summonFileName = req.files.summon[0].originalname;
@@ -47,11 +47,7 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
         ],res)
 
     // Start the update processes
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
-    const year = date.getFullYear();
-    const summonedDate = day + "-" + month + "-" + year;
+    const summonedDate = GenerateDate();
     const updatePromise1 = await eFilingModel.findOneAndUpdate(
         {caseId: caseId},
         {status: "Summoned the defendant and pending for written statement",
@@ -110,11 +106,8 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
     const writtenStatement = req.files.writtenStatement[0].buffer;
     const writtenStatementFileName = req.files.writtenStatement[0].originalname;
     const caseId = req.body.caseId;
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
-    const year = date.getFullYear();
-    const writtenStatementSubmittedDate = day + "-" + month + "-" + year;
+   
+    const writtenStatementSubmittedDate = GenerateDate() ;
     try {
         const approvedCase = await approvedCases.findOneAndUpdate(
             {caseId: caseId},

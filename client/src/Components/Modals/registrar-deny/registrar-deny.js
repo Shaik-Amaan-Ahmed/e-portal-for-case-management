@@ -8,16 +8,7 @@ import axios from "axios";
 function RegistrarDeny(props) {
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
-  
-  const [formattedDate, setFormattedDate] = useState("");
-  const rejectedDate = new Date();
-  useEffect(() => {
-    const day = String(rejectedDate.getDate()).padStart(2, "0");
-    const month = String(rejectedDate.getMonth() + 1).padStart(2, "0"); // January is 0!
-    const year = rejectedDate.getFullYear();
 
-    setFormattedDate(day + "-" + month + "-" + year);
-  }, [rejectedDate]);
     const handleReject = async () => { 
 
         if(remarks === ""){ 
@@ -27,7 +18,7 @@ function RegistrarDeny(props) {
             setError("Please enter the remarks");
             return;
         }
-        const res = await axios.post("http://localhost:64000/e-filing/registrar-reject-case", {id: props.id, reasonforrejection: remarks, rejectedDate: formattedDate});
+        const res = await axios.post("http://localhost:64000/e-filing/registrar-reject-case", {id: props.id, reasonforrejection: remarks});
         try{
             if(res.status === 200){
                 alert("Case rejected successfully");
