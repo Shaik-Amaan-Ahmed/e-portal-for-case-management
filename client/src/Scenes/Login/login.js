@@ -26,7 +26,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 export default function SignIn() {
   const [theme, colorMode] = useMode();
   const [email, setEmail] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [caseId, setCaseId] = useState("");
   const [role, setRole] = useState("judge");
@@ -71,7 +70,7 @@ export default function SignIn() {
               Home
             </label>
           </IconButton>
-        </div>
+       
         <div className="mains-divs">
           <div className="inner-div">
             <div className="inner-items">
@@ -79,7 +78,6 @@ export default function SignIn() {
                 <button onClick={() => {setRole("judge");}}>Judge</button>
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>
-                <button onClick={() => setRole("defendant")}>Defendant</button>
                 <button onClick={() => setRole("defendant")}>Defendant</button>
               </div>
               <div

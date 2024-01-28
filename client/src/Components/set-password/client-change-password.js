@@ -25,7 +25,7 @@ const ClientChangePassword = () => {
                     window.location.href = "http://localhost:3000/login";
                     // navigate("/login");
                 },3000);
-                setError("Password set successfully");
+                setError("Password changed successfully");
                 
             }
         } else { 

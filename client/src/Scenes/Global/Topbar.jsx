@@ -206,7 +206,7 @@ const Topbar = () => {
           open={open}
           handleSubmit={handleChangePassword}
           message="Change Password?"
-          notif="Password Changed Successfully"
+          notif="Mail for changing password sent Successfully"
         />
       </Box>
     </>

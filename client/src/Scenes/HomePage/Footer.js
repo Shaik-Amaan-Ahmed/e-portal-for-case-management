@@ -6,7 +6,6 @@ export default function Footer() {
     <footer
       className="bg-orange-700 text-center lg:text-left">
       <div className="p-4 text-center text-neutral-700 dark:text-neutral-200 flex-direction-column">
-      <div className="p-4 text-center text-neutral-700 dark:text-neutral-200 flex-direction-column">
         © 2023 Copyright:
         <Link
           className="text-neutral-800 dark:text-neutral-400"

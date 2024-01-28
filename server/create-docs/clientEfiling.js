@@ -67,13 +67,6 @@ router.post(
         else{
           res.status(400).json({ message: "fail" });
         }
-        const suc = await sendEmail(data.email, "Case Registration", "<h1>Your case has been registered successfully. Your case id is" + caseId+"</h1>");
-        if(suc){
-          res.status(200).json({ message: "Email Sent Succesfully" });
-        }
-        else{
-          res.status(400).json({ message: "fail" });
-        }
     } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ message: "fail" });

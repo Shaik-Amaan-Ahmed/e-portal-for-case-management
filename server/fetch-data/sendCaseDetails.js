@@ -13,13 +13,6 @@ router.get("/client-case-details/", async (req, res) => {
   const limit = Number(req.query.limit) || 5;
   const skip = (page - 1) * limit;
   const search = req.query.search || "";
-//client dashboard details
-router.get("/client-case-details/", async (req, res) => {
-  const email = req.query.email;
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 5;
-  const skip = (page - 1) * limit;
-  const search = req.query.search || "";
 
   try {
     const totalCount = await efiling.countDocuments({ email: email });
