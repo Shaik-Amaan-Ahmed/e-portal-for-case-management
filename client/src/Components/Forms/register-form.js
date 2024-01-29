@@ -4,29 +4,72 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
-
-
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/en-gb';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 const Item = (props) => (
   <div className="judge-input">
-    <input
-      type="text"
-      placeholder={props.placeholder}
-      className="judge-register-input"
-      value={props.value}
+  <TextField 
+      id="outlined-basic" 
+      label={props.placeholder} 
+      variant="outlined" 
+      value={props.value} 
       onChange={(e) => props.setData({ ...props.data , [props.toChange] : e.target.value })}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
     />
   </div>
 );
 const DateItem = (props) => ( 
+  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-GB">
   <div className="judge-input">
-    <input
+    {/* <input
       type="date"
       placeholder={props.placeholder}
       className="judge-register-input"
       value={props.value}
       onChange={(e) => props.setData({ ...props.data , [props.toChange] : e.target.value })}
+    /> */}
+    <DatePicker
+      label={props.placeholder}
+      value={props.value}
+      format="DD-MM-YYYY "
+      slotProps={{
+        textField: {
+          error: false, // if you want to force error state
+        },
+      }}
+      onChange={(e) => props.setData({ ...props.data , [props.toChange] : e })}
+      renderInput={(params) => <TextField {...params} />}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
     />
   </div>
+  </LocalizationProvider>
 );
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +82,7 @@ const RegisterForm = () => {
     dateOfBirth: "",
   });
   const handleRegisterSubmit = async (e) => {
-    const reversedDateOfBirth = data.dateOfBirth.split('-').reverse().join('-');
-    setData({ ...data, dateOfBirth: reversedDateOfBirth });
+    setData({ ...data, dateOfBirth: data.dateOfBirth });
     setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:64000/client-register", data);
@@ -64,7 +106,7 @@ const RegisterForm = () => {
     {message && <Typography variant="h6" color="orange" fontWeight="500" style={{marginBottom:"10px"}}> {message} </Typography>} 
     <Item placeholder="First Name" value={data.firstName} toChange="firstName" data={data} setData={setData}/>
     <Item placeholder="Last Name" value={data.lastName} toChange="lastName" data={data} setData={setData}/>
-    <DateItem placeholder="Date of Birth(dd-mm-yyyy)" value={data.dateOfBirth} toChange="dateOfBirth"  data={data} setData={setData}/>
+    <DateItem placeholder="Date of Birth" value={data.dateOfBirth} toChange="dateOfBirth"  data={data} setData={setData}   />
     <Item placeholder="Email" value={data.email} toChange="email"  data={data} setData={setData}/>
     <Item placeholder="Phone" value={data.phone} toChange="phone"  data={data} setData={setData}/>
     <div className="registrar-input">

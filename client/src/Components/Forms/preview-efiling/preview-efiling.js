@@ -84,10 +84,10 @@ const Preview = (props) => {
     storedDefendantDetails: storedDefendantDetails,
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     setLoading1(true);
     handleClose();
-    event.preventDefault();
+
     const formData = new FormData();
 
     if (!docDetails.petition || !docDetails.aadhar) {

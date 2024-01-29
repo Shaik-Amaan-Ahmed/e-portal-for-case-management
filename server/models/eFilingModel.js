@@ -8,7 +8,13 @@ const efiling = new Schema({
     caseSensitivity: {type: String},
     registrationDate: {type: String},
     reasonforrejection: {type: String},
+    rejectedDate: {type: String},
+    registrarApprovedDate: {type: String},
     judgeAssigned: {type: String},
+    judgeAssignedDate: {type: String},
+    judgeApprovedDate: {type: String},
+    summonedDate:{type: String},
+    writtenStatementSubmittedDate: {type: String},
     courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {
@@ -69,6 +75,11 @@ const efiling = new Schema({
         fileData: {type : Buffer}
       },
       summon: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
+      writtenStatement: {
         filename: {type: String},
         contentType : {type : String},
         fileData: {type : Buffer}

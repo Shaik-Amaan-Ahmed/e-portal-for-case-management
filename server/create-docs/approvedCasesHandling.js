@@ -8,7 +8,7 @@ const approvedCases = require("../models/approvedCases");
 const eFilingModel = require("../models/eFilingModel");
 const defendantDetails = require("../models/defendantDetails");
 const judges = require("../models/judges");
-
+const GenerateDate = require("../DateGenerator/DateGenerator");
 router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { name: 'petition', maxCount: 1 }]) ,async (req, res) => { 
     const summon = req.files.summon[0].buffer;
     const summonFileName = req.files.summon[0].originalname;
@@ -16,7 +16,6 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
     const petitionFileName = req.files.petition[0].originalname;
     const defendantEmail = req.body.defendantEmail;
     const caseId = req.body.caseId;
-
     try {
         function generatePassword() {
             let password = '';
@@ -47,13 +46,12 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             }
         ],res)
 
-
-
-
     // Start the update processes
+    const summonedDate = GenerateDate();
     const updatePromise1 = await eFilingModel.findOneAndUpdate(
         {caseId: caseId},
-        {status: "Summoned the defendant and pending for written statement"},
+        {status: "Summoned the defendant and pending for written statement",
+        summonedDate: summonedDate},
         {new:true}
     );
     const updatePromise2 = approvedCases.findOneAndUpdate(
@@ -63,25 +61,28 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             filename: summonFileName,
             contentType: req.files.summon[0].mimetype,
             fileData: summon
-        }
+        },
+        summonedDate: summonedDate
     },
         {new:true}
     );
+    const judgeNames = updatePromise1.judgeAssigned.split(",");
+    const updatePromise4 = judges.updateMany( 
+    {name: { $in: judgeNames }},
+    {
+      $set: {
+        "cases.$[elem].status": "Summoned the defendant and pending for written statement"
+      }
+    },
+    {
+      arrayFilters: [
+        {"elem.caseId": caseId}
+    ]
 
-    const updatePromise4 = judges.findOneAndUpdate( 
-        {name: updatePromise1.judgeAssigned},
-        {
-          $set: {
-            "cases.$[elem].status": "Summoned the defendant and pending for written statement"
-          }
-        },
-        {
-          arrayFilters: [
-            { "elem.caseId": caseId }
-          ]
-        },
-        {new:true}
+    },
+    {new:true}
     )
+
 
     const updatePromise3 = defandantCredentials.save();
     const [suc, data1, data2,data3] = await Promise.all([sendEmailPromise, updatePromise2, updatePromise3,updatePromise4]);
@@ -105,7 +106,8 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
     const writtenStatement = req.files.writtenStatement[0].buffer;
     const writtenStatementFileName = req.files.writtenStatement[0].originalname;
     const caseId = req.body.caseId;
-    
+   
+    const writtenStatementSubmittedDate = GenerateDate() ;
     try {
         const approvedCase = await approvedCases.findOneAndUpdate(
             {caseId: caseId},
@@ -117,8 +119,8 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
-            }
+            },
+            writtenStatementSubmittedDate: writtenStatementSubmittedDate
         },
             {new:true}
         )
@@ -132,26 +134,29 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-                "docDetails.status": "Defendant has submitted the written statement and pending for review by judge"
-            }
+                
+            },
+            writtenStatementSubmittedDate:writtenStatementSubmittedDate
         },
             {new:true}
         )
         res.status(200).json({message: "Written statement submitted successfully"});
         
-        const judgeStatusUpdate = await judges.findOneAndUpdate( 
-            {name: approvedCase.judgeAssigned},
-            {
-              $set: {
-                "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
-              }
-            },
-            {
-              arrayFilters: [
-                { "elem.caseId": caseId }
-              ]
-            },
-            {new:true}
+        const judgeNames = approvedCase.judgeAssigned.split(",");
+        const updatePromise4 = await judges.updateMany( 
+        {name: { $in: judgeNames }},
+        {
+          $set: {
+            "cases.$[elem].status": "Defendant has submitted the written statement and pending for review by judge"
+          }
+        },
+        {
+          arrayFilters: [
+            {"elem.caseId": caseId}
+        ]
+    
+        },
+        {new:true}
         )
 
     }catch(error) { 

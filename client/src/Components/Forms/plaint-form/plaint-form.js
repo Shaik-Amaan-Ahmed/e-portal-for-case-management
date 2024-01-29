@@ -2,7 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import { EmailContext } from "../../../hooks/emailContext";
 import axios from "axios";
 import "./plaint-form.css";
-
+import { ColorModeContext } from "../../../themes";
+import { Typography } from "@mui/material";
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
   const [casee,setCasee] = useState({});
@@ -11,7 +12,7 @@ const PlaintForm = (props) => {
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
-
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
 
   const email = useContext(EmailContext);
@@ -53,6 +54,7 @@ const PlaintForm = (props) => {
 
   //submitting the plaint details to the database
   const submitPlaintDetails = () => {
+    setIsSubmitted(true);
     if(!areDetailsFilled()){
       setError("Please fill all the details");
     }else{
@@ -124,12 +126,12 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Cause titile plaintiff */}
-                <span variant="h5">Cause titile plaintiff</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Cause titile plaintiff</Typography>
               </div>
               <div className="input-element">
                 <input
                   type="text"
-                  className="input-field"
+                  className={`input-field ${isSubmitted && !value("inputFieldName") ? 'input-field-error' : ''}`}
                   placeholder="Cause title plaintiff"
                   value={value("causeTitlePlaintiff")}
                   onChange={(e) => onChange("causeTitlePlaintiff", e.target.value) }
@@ -139,8 +141,8 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Cause titile Defendant */}
-                <span variant="h5">Cause titile Defendant</span>
-              </div>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Cause Title Defendant  </Typography>    
+                          </div>
               <div className="input-element">
                 <input
                   type="text"
@@ -154,8 +156,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Case Category */}
-                <span>Case Category</span>
-              </div>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Case Category</Typography>              </div>
               <div className="input-element">
                 <select
                   value={value("caseCategory")}
@@ -174,7 +175,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Case SubCategory */}
-                <span>Case Sub-category</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Case SubCategory</Typography>
               </div>
               <div className="input-element">
                 <select
@@ -203,7 +204,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Number of Plaintiffs */}
-                <span>Number of Plaintiffs</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Number of Plaintiffs</Typography>
               </div>
               <div className="input-element">
                 <input
@@ -219,7 +220,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Number of Defendants */}
-                <span variant="h5">Number of Defendants</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Number of Defendants</Typography>
               </div>
               <div className="input-element">
                 <input

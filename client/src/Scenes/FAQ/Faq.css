@@ -1,11 +1,11 @@
-.main-div::before {
+.faq-div1::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;       
-    background-image: url("/home/pranay/Desktop/e-portal-for-case-management-harshitFInal/client/src/assets/highcourt.jpeg");
+    background-image: url("../../assets/highcourt.jpeg");
     background-size: cover;
     background-position: center;
     opacity: 0.3    ; /* Change this to the opacity you want */
@@ -14,7 +14,11 @@
     background-attachment: fixed;
     min-height: 100vh;
 }
-.main-div {
+.faq-div1 {
     position: relative;
     min-height: 100vh; /* Add this line */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

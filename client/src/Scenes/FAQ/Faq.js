@@ -5,10 +5,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
-import './FAQ.css'
+import './Faq.css'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
-export default function AccordionUsage() {
+export default function FAQ() {
     function MyAccordion({ Ques, Ans }) {
         const [expanded, setExpanded] = React.useState(false);
 
@@ -40,7 +40,7 @@ export default function AccordionUsage() {
         );
     }
     return (
-        <div className='main-div'>
+        <div className='faq-div1'>
             <div style={{ display: 'flex', flexDirection: 'column', }} >
                 <h1 className="display-4 mb-4" style={{ fontSize: '64px', marginBottom: '20px', textAlign: 'center' }}>
                     <QuestionAnswerIcon style={{ fontSize: 67, marginRight: '20px' }} />

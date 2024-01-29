@@ -9,7 +9,13 @@ const approved = new Schema({
     registrationDate: {type: String},
     reasonforrejection: {type: String},
     judgeAssigned: {type: String},
+    judgeAssignedDate: {type: String},
+    summonIssuedDate: {type: String},
     courtRoomAssigned: {type: String},
+    judgeApprovedDate: {type: String},
+    registrarApprovedDate: {type: String},
+    summonedDate:{type: String},
+    writtenStatementSubmittedDate: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
@@ -77,8 +83,12 @@ const approved = new Schema({
         filename: {type: String},
         contentType : {type : String},
         fileData: {type : Buffer}
-      }
-
+      },
+      summons: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
     },
     notifications: {
       judgements: {
