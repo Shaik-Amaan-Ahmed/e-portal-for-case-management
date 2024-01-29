@@ -160,4 +160,4 @@ const ModalContent = styled('div')(
   `,
 );
 
-export default SpringModal;
+export default SpringModal;

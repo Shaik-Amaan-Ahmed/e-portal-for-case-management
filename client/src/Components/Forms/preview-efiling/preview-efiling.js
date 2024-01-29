@@ -87,7 +87,7 @@ const Preview = (props) => {
   const handleSubmit = async (event) => {
     setLoading1(true);
     handleClose();
-    event.preventDefault();
+    // event.preventDefault();
     const formData = new FormData();
 
     if (!docDetails.petition || !docDetails.aadhar) {
@@ -343,7 +343,7 @@ const Preview = (props) => {
         handleOpen={handleOpen}
         handleClose={handleClose}
         open={open}
-        handleSubmit={handleSubmit}
+        handleSubmit={(e) => handleSubmit(e)}
       />
     </div>
   );
