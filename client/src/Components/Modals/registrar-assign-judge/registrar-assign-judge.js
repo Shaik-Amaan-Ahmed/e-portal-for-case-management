@@ -43,6 +43,7 @@ function ViewAssign(props) {
                 setTimeout(() => {
                     setMessage("");
                     props.handleClose();
+                    props.setReloadKey(prevkey=> prevkey + 1 );
                 }, 1500)
                 setMessage("Judges Assigned Successfully")
                 window.location.reload();

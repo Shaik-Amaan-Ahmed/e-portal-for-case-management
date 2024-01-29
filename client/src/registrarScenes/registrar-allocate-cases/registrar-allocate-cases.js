@@ -4,6 +4,8 @@ import "./registrar-allocate-cases.css";
 import { useState, useEffect } from "react";
 import ViewPetition from "../../Components/Modals/registrar-view-docs/registrar-view-petition";
 import ViewAssign from "../../Components/Modals/registrar-assign-judge/registrar-assign-judge";
+import { CircularProgress } from "@mui/material";
+import { set } from "mongoose";
 
 const AllocateCases = () => {
     const [data, setData] = useState([]); 
@@ -12,7 +14,11 @@ const AllocateCases = () => {
     const [category,setCategory] = useState("");
     const [viewDocOpen, setViewDocOpen] = useState(false);
     const [assignOpen, setAssignOpen] = useState(false);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [totalCount, setTotalCount] = useState(0);
+    const [reloadkey, setReloadKey] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const handleViewDocOpen = (id) => {
         setId(id);
@@ -26,32 +32,44 @@ const AllocateCases = () => {
       
     }
 
+    const nextPage = () => {
+        setCurrentPage(currentPage + 1);
+      }
+    
+      const prevPage = () => {
+        
+        if (currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+        }
+      }
+
     useEffect(() => {
         setData([]);
+        setLoading(true);
         axios
-            .get("http://localhost:64000/casedetails/registrar-allocation-of-cases")
+            .get("http://localhost:64000/casedetails/registrar-allocation-of-cases?page=" + currentPage + "&limit=" + itemsPerPage + "&search=" + searchinput)
             .then((res) => {
                 setData(res.data.data);
+                setTotalCount(res.data.totalCount);
+                setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
+                setLoading(false);
             })
-    }, []);
+    }, [currentPage, itemsPerPage,reloadkey, searchinput]);
 
-    function filterData(data) {
-        if (searchinput === '' || !data || !data.plaintDetails) return true;
-        return (
-            data.plaintDetails.caseCategory.toLowerCase().includes(searchinput.toLowerCase()) ||
-            data.plaintDetails.caseSubCategory.toLowerCase().includes(searchinput.toLowerCase()) ||
-            data.caseSensitivity.toLowerCase().includes(searchinput.toLowerCase())
-        )
-    }
 
     return (
         <div className="registrar-dash-main">
             <Header title="Allocate Cases" />
             <div className="search-table">
                 <input type="text" placeholder="Search" className="search-input" onChange={(e) => (setSearchInput(e.target.value))} />
+            </div>
+            {loading && (<div className="loading"><CircularProgress style={{color:"white"}}/><h1>Loading...</h1></div>)}
+            <div className="pagination-registrar">
+                {currentPage > 1 && <button onClick={prevPage}>Previous</button>}
+                {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
             </div>
             <div className="registrar-main-inside">
                 <table className="registrar-table">
@@ -66,7 +84,7 @@ const AllocateCases = () => {
                         </tr>
                     </thead>
                     <tbody>
-                     {data.filter(item => filterData(item)).map((item) => {
+                     {data.map((item) => {
                         return (
                             <tr key={item._id}>
                                 <td className="special-td">{item.caseId}</td>
@@ -86,7 +104,7 @@ const AllocateCases = () => {
                 </table>
             </div>
             {viewDocOpen && <ViewPetition open={viewDocOpen} handleClose={handleViewDocOpen} id={id} />}
-            {assignOpen && <ViewAssign open={assignOpen} handleClose={handleAssignOpen} id={id} caseCategory={category} />}
+            {assignOpen && <ViewAssign open={assignOpen} handleClose={handleAssignOpen} id={id} caseCategory={category} reloadkey={reloadkey} setReloadKey={setReloadKey} />}
         </div>
     )
 }
