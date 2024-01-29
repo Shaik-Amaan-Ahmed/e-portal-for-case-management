@@ -124,6 +124,7 @@ const Preview = (props) => {
         }
       );
       if (uploadres.status === 200) {
+        console.log(uploadres.data);
         handleClose();
         localStorage.clear();
         setLoading1(false);
@@ -134,6 +135,7 @@ const Preview = (props) => {
         alert("Something went wrong");
       }
     } catch (err) {
+      console.log("Email not sent");
       console.log(err.message);
     }
   };
