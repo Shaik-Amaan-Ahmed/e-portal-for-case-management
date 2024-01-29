@@ -136,11 +136,12 @@ function SummonModal(props) {
       if(res.status === 200) { 
         alert("Summon sent successfully");
         props.handleClose();
-        props.setReloadKey((prev) => prev + 1);
+        props.setReloadKey(prevkey=> prevkey + 1);
         setLoading(false);
       }
       if(res.status === 400) { 
         alert("Summon not sent");
+        setLoading(false);
       }
     })
 

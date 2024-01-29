@@ -350,18 +350,46 @@ router.get("/judge-active-case-details", async (req, res) => {
 
 //registrar case details from approved cases pending for summons
 router.get("/send-summons", async (req, res) => {
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 2;
+  const skip = (page - 1) * limit;
+  const search = req.query.search || "";
+
   try {
-    const data = await approvedcases
-      .find({ status: "Approved by judge and pending for summons" })
-      .select([
-        "caseId",
-        "registrationDate",
-        "status",
-        "plaintDetails",
-        "judgeAssigned",
-      ]);
-    if (data) {
-      res.status(200).json({ data: data });
+    let data;
+    const totalCount = await approvedcases.countDocuments({
+      status: "Approved by judge and pending for summons"});
+    if (search){
+      data = await approvedcases
+        .find({status: "Approved by judge and pending for summons",
+              $or: [
+                { caseId: new RegExp(search, "i") },
+                { "judgeAssigned": new RegExp(search, "i") },
+                { registrationDate: new RegExp(search, "i") },
+              ]
+        })
+        .select([
+          "caseId",
+          "registrationDate",
+          "judgeAssigned",
+          "status"
+        ])
+        .skip(skip)
+        .limit(limit);
+    } else {
+      data = await approvedcases
+        .find({ status: "Approved by judge and pending for summons" })
+        .select([
+          "caseId",
+          "registrationDate",
+          "judgeAssigned",
+          "status"
+        ])
+        .skip(skip)
+        .limit(limit);
+    }
+    if (data.length > 0) {
+      res.status(200).json({ data: data, totalCount: String(totalCount)});
     } else {
       res.status(400).json({ message: "No data found" });
     }

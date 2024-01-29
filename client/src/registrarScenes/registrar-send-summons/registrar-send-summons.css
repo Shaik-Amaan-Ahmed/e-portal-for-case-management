@@ -18,3 +18,29 @@
     display: table;
     width: 100%;
 }
+
+.search-table {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.pagination-registrar {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    
+}
+
+.pagination-registrar button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: black;
+    font-size: larger;
+    font-weight: 500;
+}
