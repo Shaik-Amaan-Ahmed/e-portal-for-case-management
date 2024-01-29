@@ -22,9 +22,13 @@ const CaseDetails = () => {
   const statusColors = {
     "Rejected" : "red",
     "Pending for hearing": "orange",
-    "Approved" : "#32cd32",
+    "Pending for approval by court": "orange",
     "Pending at court for approval" : "#318CE7",
-    "Approved by judge and pending for summons" : "#32CD32"
+    "Pending for allocation of judge" : "#32cd32",
+    'Pending for review by judge' : "pink",
+    "Approved by judge and pending for summons" : "#32CD32",
+    "Defendant has submitted the written statement and pending for review by judge": "#83f28f",
+    "Summoned the defendant and pending for written statement": "#008631"
   }
 
   useEffect(() => {

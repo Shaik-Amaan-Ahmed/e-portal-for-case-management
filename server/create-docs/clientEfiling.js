@@ -130,12 +130,7 @@ router.post("/registrar-reject-case", async (req, res) => {
     if (data) {
       const newRejectedCase = new rejectedcases(data.toObject());
       await newRejectedCase.save();
-      const judge = await judges.findOneAndUpdate(
-        { cases: id }, // find a judge with this case id
-        { $pull: { cases: id } }, // remove the case id from the cases array
-        { new: true } // return the updated document
-      );
-      if(newRejectedCase && judge){ 
+      if(newRejectedCase){ 
         res.status(200).json({ message: "success" });
       }
       else{
