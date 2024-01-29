@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import './Faq.css'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import { Link } from "react-router-dom";
 
 export default function FAQ() {
     function MyAccordion({ Ques, Ans }) {
@@ -67,14 +68,21 @@ export default function FAQ() {
                 Ans={<div>If you are the defendant to a case filed against you and your case password and ID is received to you via your email.<br />
                 </div>}/>
                 <h1 style={{ fontSize: '32px', marginBottom: '7px' }}>E-filing Queries:</h1>
-                <MyAccordion Ques="1" />
-                <MyAccordion Ques="2" />
-                <MyAccordion Ques="3" />
+                <MyAccordion Ques="How to file a case through our websit?"
+                Ans={<div>Create a client account and in the side bar open E-filing option to file your case.<br />
+                </div>} />
+                <MyAccordion Ques="What personal documents are essential for filing a case?" 
+                Ans={<div>The petitioner need to submit atleast one valid perosnal document.<br />
+                </div>}/>
+                <MyAccordion Ques="Where can I get the acknowledgement after filing my form?"
+                Ans={<div>You will get a successful pop up right after you subit your filing and also receive an acknowledgement email to the registered client ID. <br />
+                </div>} />
                 <h1 style={{ fontSize: '32px', marginBottom: '7px' }}>Other Queries:</h1>
-                <MyAccordion Ques="1" />
-                <MyAccordion Ques="2" />
-                <MyAccordion Ques="3" />
-                <MyAccordion Ques="4" />
+                <MyAccordion Ques="How do I contact us for any queries?"
+                Ans={<div>You can contact us on <Link to="/contact-us" style={{textDecoration:'underline'}}>Contact US </Link> page.<br />
+                </div>} />
+                <MyAccordion Ques="Where can I see the list of judges in the court?" />
+                <MyAccordion Ques="How do I get the latest updates and notification about the court?" />
             </div>
         </div>
     );

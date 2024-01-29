@@ -14,10 +14,14 @@ export default function Footer() {
         <br />
         <Link
         className='text-neutral-800 dark:text-neutral-400'
-        to='/contact-us'>Contact Us</Link>
+        to='/contact-us'
+        style={{ textDecoration: 'underline'  }}
+        >Contact Us</Link>
         <Link
         className='text-neutral-800 dark:text-neutral-400'
-        to='/faq'>FAQ</Link>
+        to='/faq'
+        style={{ textDecoration: 'underline', marginLeft: '10px'  }} 
+        >FAQ</Link>
       </div>
     </footer>
   );
