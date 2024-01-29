@@ -22,10 +22,13 @@ const CaseDetails = () => {
   const statusColors = {
     "Rejected" : "red",
     "Pending for hearing": "orange",
+    "Pending for approval by court": "orange",
     "Approved" : "#32cd32",
     "Pending at court for approval" : "#318CE7",
+    "Pending for allocation of judge" : "#318CE7",
+    'Pending for review by judge' : "pink",
     "Approved by judge and pending for summons" : "#32CD32"
-  }
+  }
 
   useEffect(() => {
     axios

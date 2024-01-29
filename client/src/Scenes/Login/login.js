@@ -29,6 +29,9 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [caseId, setCaseId] = useState("");
   const [role, setRole] = useState("judge");
+  const [emailError, setEmailError] = useState(false);
+const [caseIdError, setCaseIdError] = useState(false);
+const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
@@ -37,21 +40,48 @@ export default function SignIn() {
   const [showPassword, setShowPassword] =useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+  const validateForm = () => {
+    let isValid = true;
+  
+    if (role === 'defendant' && !caseId) {
+      setCaseIdError(true);
+      isValid = false;
+    } else {
+      setCaseIdError(false);
+    }
+  
+    if (role !== 'defendant' && !email) {
+      setEmailError(true);
+      isValid = false;
+    } else {
+      setEmailError(false);
+    }
+  
+    if (!password) {
+      setPasswordError(true);
+      isValid = false;
+    } else {
+      setPasswordError(false);
+    }
+  
+    return isValid;
+  };
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const url = "http://localhost:64000/login/" + role;
-    const res = await axios.post(url, data);
-
-    if (res.data.message === "success") {
-      navigate("/" + role);
-      toast.success("Login Successful");
-    } else {
-      toast.error(res.data.message);
-      navigate("/login");
+    if (validateForm()) {
+      e.preventDefault();
+      const url = "http://localhost:64000/login/" + role;
+      const res = await axios.post(url, data);
+  
+      if (res.data.message === "success") {
+        navigate("/" + role);
+        toast.success("Login Successful");
+      } else {
+        toast.error(res.data.message);
+        navigate("/login");
+      }
     }
   };
   
@@ -97,6 +127,8 @@ export default function SignIn() {
                 value={role==="defendant"?caseId:email}
                 label={role==="defendant"?"Case ID":"Email"}
                 onChange={role==="defendant"?(e)=>setCaseId(e.target.value):(e) => {setEmail(e.target.value);}}
+                error={role==="defendant"?caseIdError:emailError}
+                helperText={role==="defendant" && caseIdError ? "Please enter your case ID" : emailError ? "Please enter your email" : ""}
                 sx={{width:"100%",  marginBottom: '10px',
                 backdropFilter: 'blur(60px)',
                 '& .MuiOutlinedInput-root': {
@@ -112,40 +144,7 @@ export default function SignIn() {
               }}
               />
               <br />
-                {/* <input
-                  type={passwordType}
-                  value={password}
-                  required="true"
-                  className="password-box"
-                  placeholder="Password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  style={{width: "100%", display:"flex",height:"40px",background:"transparent",backdropFilter:"blur(60px)",border:"0.1px solid grey", borderRadius:"10px",padding:"10px"}} // Add right padding to prevent text from being hidden by the button
-                />
-               
-                <button
-                  style={{
-                    position: 'absolute',
-                    right: '15px',
-                    top: '6px',
-                    width: "50px",
-                    height: "30px",
-                    borderRadius: "10px",
-                    backgroundColor: "transparent",
-                    cursor: "pointer"
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (passwordType === "password") {
-                      setPasswordType("text");
-                    } else {
-                      setPasswordType("password");
-                    }
-                  }}
-                >
-                  show
-                </button> */}
+              
                  <FormControl sx={{ m: 1, width: '100%', backdropFilter:'blur(60px)','& .MuiOutlinedInput-root': {
           '&.Mui-focused fieldset': {
             borderColor: 'rgb(201, 198, 193)',
@@ -177,6 +176,8 @@ export default function SignIn() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            error={passwordError}
+            helperText={passwordError ? "Please enter your password" : ""}
           />
                   </FormControl>
 
