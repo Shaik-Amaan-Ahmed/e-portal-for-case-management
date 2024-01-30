@@ -46,11 +46,11 @@ const Topbar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  function handleChangePassword() {
+  const   handleClose = () => setOpen(false);
+  async function handleChangePassword() {
     // console.log(email);
     try {
-      const res = axios.post("http://localhost:64000/change-password", {email: email});
+      const res = await axios.post("http://localhost:64000/change-password", {email: email});
       if (res.status === 200) {
         handleClose();
       }
@@ -68,8 +68,7 @@ const Topbar = () => {
         if (res.status === 200) {
           window.location.reload(true);
         }
-      })
-      .catch((err) => {
+      })      .catch((err) => {
         console.log(err.message);
       });
   }
@@ -107,7 +106,6 @@ const Topbar = () => {
             className="search-bar"
             placeholder="Search"
           />
-          
           <IconButton
             type="button"
             sx={{
@@ -203,8 +201,8 @@ const Topbar = () => {
         <SpringModal
           handleOpen={handleOpen}
           handleClose={handleClose}
-          open={open}
           handleSubmit={handleChangePassword}
+          open={open}
           message="Change Password?"
           notif="Mail for changing password sent Successfully"
         />
