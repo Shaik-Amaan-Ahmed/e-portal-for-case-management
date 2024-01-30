@@ -77,17 +77,16 @@ router.post(
   }
 })
 
-router.post("/judge-reject-case", async (req, res) => {
+router.post("/reject-case", async (req, res) => {
   const id = req.body.id;
   const reasonforrejection = req.body.reasonforrejection;
-  const rejectedDate = GenerateDate();
+
   try {
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Rejected",
         reasonforrejection: reasonforrejection,
-        rejectedDate: rejectedDate,
       },
       { new: true } // return the updated document
     );
@@ -95,42 +94,11 @@ router.post("/judge-reject-case", async (req, res) => {
       const newRejectedCase = new rejectedcases(data.toObject());
       await newRejectedCase.save();
       const judge = await judges.findOneAndUpdate(
-        { "cases.caseId":id} , // find a judge with this case id
-        { $pull: { cases:{caseId:id} } }, // remove the case id from the cases array
+        { cases: id }, // find a judge with this case id
+        { $pull: { cases: id } }, // remove the case id from the cases array
         { new: true } // return the updated document
       );
       if(newRejectedCase && judge){ 
-        res.status(200).json({ message: "success" });
-      }
-      else{
-        res.status(400).json({ message: "fail-new" });
-      }
-    } else {
-      res.status(400).json({ message: "fail" });
-    }
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
-  }
-});
-router.post("/registrar-reject-case", async (req, res) => {
-  const id = req.body.id;
-  const reasonforrejection = req.body.reasonforrejection;
-  const rejectedDate = GenerateDate();
-  try {
-    const data = await efiling.findOneAndUpdate(
-      { caseId: id }, // find a document with this id
-      {
-        status: "Rejected",
-        reasonforrejection: reasonforrejection,
-        rejectedDate: rejectedDate,
-      },
-      { new: true } // return the updated document
-    );
-    if (data) {
-      const newRejectedCase = new rejectedcases(data.toObject());
-      await newRejectedCase.save();
-      if(newRejectedCase){ 
         res.status(200).json({ message: "success" });
       }
       else{
@@ -236,21 +204,29 @@ router.post("/approve-case", async (req, res) => {
 
 router.post("/judge-approve", async (req, res) => { 
   const id = req.query.id;
-  const judgeApprovedDate = GenerateDate();
   try{
     const data = await efiling.findOneAndUpdate(
       { caseId: id }, // find a document with this id
       {
         status: "Approved by judge and pending for summons",
-        judgeApprovedDate: judgeApprovedDate,
       },
       { new: true } // return the updated document
     );
-    const judge = await judges.findOneAndUpdate(
-      { "cases.caseId": id }, // find a judge with this case id
-      { $set: { "cases.$.status": "Approved by judge and pending for summons" } }, // update the status of the matching case
-      { new: true } // return the updated document
-    );
+    const judgeStatusUpdate = await judges.findOneAndUpdate( 
+      {name: data.judgeAssigned},
+      {
+        $set: {
+          "cases.$[elem].status": "Approved by judge and pending for summons"
+        }
+      },
+      {
+        arrayFilters: [
+          { "elem.caseId": id }
+        ]
+      },
+      {new:true}
+
+    )
     if(data) {
       const newApprovedCase = new approvedcases(data.toObject());
       await newApprovedCase.save();
