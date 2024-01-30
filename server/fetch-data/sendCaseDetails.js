@@ -285,24 +285,52 @@ router.get("/registrar-view-judges", async (req, res) => {
 //judge case details
 router.get("/judge-review-case-details", async (req, res) => {
   const email = req.query.email;
-
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 2;
+  const skip = (page - 1) * limit;
+  const search = req.query.search || "";
   try {
     const judge = await judges.findOne({ email: email });
     if (judge) {
+      let data;
+      const totalCount = judge.cases.filter(caseObj => caseObj.status === "Pending for review by judge").length;
       const caseIds = judge.cases
         .filter((caseid) => caseid.status === "Pending for review by judge")
         .map((caseObj) => caseObj.caseId);
-      const data = await efiling
-        .find({ caseId: { $in: caseIds } })
-        .select([
-          "plaintDetails",
-          "caseId",
-          "status",
-          "registrationDate",
-          "caseSensitivity",
-        ]);
+      if(search){
+        data = await efiling
+          .find({ caseId: { $in: caseIds },
+                 $or: [
+                  { caseId: new RegExp(search, "i") },
+                  { plaintDetails: new RegExp(search, "i") },
+                  { registrationDate: new RegExp(search, "i") },
+                  { status: new RegExp(search, "i") },
+                  { caseSensitivity: new RegExp(search, "i")}
+                 ]})
+          .select([
+            "plaintDetails",
+            "caseId",
+            "status",
+            "registrationDate",
+            "caseSensitivity",
+          ])
+          .skip(skip)
+          .limit(limit);
+      } else {
+          data = await efiling
+            .find({ caseId: { $in: caseIds } })
+            .select([
+              "plaintDetails",
+              "caseId",
+              "status",
+              "registrationDate",
+              "caseSensitivity",
+            ])
+            .skip(skip)
+            .limit(limit);
+        }
       if (data.length > 0) {
-        res.status(200).json({ data: data });
+        res.status(200).json({ data: data, totalCount: String(totalCount) });
       } else {
         res.status(400).json({ message: "No data found" });
       }
