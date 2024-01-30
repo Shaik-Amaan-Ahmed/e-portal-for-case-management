@@ -23,6 +23,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { set } from "mongoose";
 export default function SignIn() {
   const [theme, colorMode] = useMode();
   const [email, setEmail] = useState("");
@@ -32,6 +33,9 @@ export default function SignIn() {
   const [emailError, setEmailError] = useState(false);
 const [caseIdError, setCaseIdError] = useState(false);
 const [passwordError, setPasswordError] = useState(false);
+const [emailErrorMsg, setEmailErrorMsg] = useState("");
+const [caseIdErrorMsg, setCaseIdErrorMsg] = useState("");
+const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
@@ -45,23 +49,33 @@ const [passwordError, setPasswordError] = useState(false);
   
     if (role === 'defendant' && !caseId) {
       setCaseIdError(true);
+      setCaseIdErrorMsg("Case Id is required");
       isValid = false;
     } else {
       setCaseIdError(false);
+      setCaseIdErrorMsg("");
     }
   
     if (role !== 'defendant' && !email) {
       setEmailError(true);
+      setEmailErrorMsg("Email is required");
       isValid = false;
-    } else {
+    }else if(role !== 'defendant' && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(email)){
+      setEmailError(true);
+      setEmailErrorMsg("Invalid Email");
+      isValid = false;
+    }else {
       setEmailError(false);
+      setEmailErrorMsg("");
     }
   
     if (!password) {
       setPasswordError(true);
+      setPasswordErrorMsg("Password is required");
       isValid = false;
     } else {
       setPasswordError(false);
+      setPasswordErrorMsg("");
     }
   
     return isValid;
@@ -128,7 +142,7 @@ const [passwordError, setPasswordError] = useState(false);
                 label={role==="defendant"?"Case ID":"Email"}
                 onChange={role==="defendant"?(e)=>setCaseId(e.target.value):(e) => {setEmail(e.target.value);}}
                 error={role==="defendant"?caseIdError:emailError}
-                helperText={role==="defendant" && caseIdError ? "Please enter your case ID" : emailError ? "Please enter your email" : ""}
+                helperText={role==="defendant"?caseIdError?caseIdErrorMsg:"":emailError?emailErrorMsg:""}
                 sx={{width:"100%",  marginBottom: '10px',
                 backdropFilter: 'blur(60px)',
                 '& .MuiOutlinedInput-root': {
@@ -159,6 +173,8 @@ const [passwordError, setPasswordError] = useState(false);
           <OutlinedInput
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
+            error={passwordError}
+            helperText={passwordError ? passwordErrorMsg : ""}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -176,8 +192,7 @@ const [passwordError, setPasswordError] = useState(false);
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            error={passwordError}
-            helperText={passwordError ? "Please enter your password" : ""}
+            
           />
                   </FormControl>
 
