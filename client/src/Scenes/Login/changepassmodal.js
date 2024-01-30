@@ -8,12 +8,27 @@ import { tokens } from '../../themes';
 import { Typography, colors } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import "../../Components/Modals/springModal.css";
+import axios from 'axios';
 import { useState } from 'react';
 function Changepassmodal(props) {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [email, setEmail] = useState("");
+    async function handleChangePassword() {
+        console.log(email);
+        try {
+          const res = await axios.post("http://localhost:64000/change-password", { email: email });
+          if (res.status === 200) {
+            alert("Email sent successfully")
+            props.handleClose();
+          }
+        }
+        catch (err) {
+          console.log(err.message);
+        }
+    
+      }
     return (
         <div>
             <Modal
@@ -55,7 +70,7 @@ function Changepassmodal(props) {
                         </div>
                         <div className='modal-buttons'>
                             <div className='buttons'>
-                                <button className='confirm-button' onClick={() => { props.handleSubmit(); alert(props.notif) }}>Confirm</button>
+                                <button className='confirm-button' onClick={() => { handleChangePassword() }}>Confirm</button>
                             </div>
                             <div className='buttons'>
                                 <button className='confirm-button' onClick={props.handleClose}>Cancel</button>

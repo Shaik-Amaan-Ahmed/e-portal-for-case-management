@@ -9,7 +9,6 @@ import { tokens } from "../../themes";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Home } from "@mui/icons-material";
 import "./login.css";
@@ -60,19 +59,7 @@ export default function SignIn() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  async function handleChangePassword() {
-    console.log(email);
-    // try {
-    //   const res = await axios.post("http://localhost:64000/change-password", { email: email });
-    //   if (res.status === 200) {
-    //     handleClose();
-    //   }
-    // }
-    // catch (err) {
-    //   console.log(err.message);
-    // }
-
-  }
+  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -211,7 +198,7 @@ export default function SignIn() {
                 <Changepassmodal
                   handleOpen={handleOpen}
                   handleClose={handleClose}
-                  handleSubmit={handleChangePassword}
+                  // handleSubmit={handleChangePassword}
                   open={open}
                   message="Change Password?"
                   notif="Mail for changing password sent Successfully"
