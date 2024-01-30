@@ -24,7 +24,7 @@ router.get("/", verifyUser, async (req, res) => {
   const email = req.email;
   const Name = await Judge.findOne({ email: email }).select("name");
   console.log("back judge "+Name);
-  res.json({ message: "success", role: req.role, email: req.email, name: Name });
+  res.json({ message: "success", role: req.role, email: req.email, name: Name.name });
 });
 
 module.exports = router;
