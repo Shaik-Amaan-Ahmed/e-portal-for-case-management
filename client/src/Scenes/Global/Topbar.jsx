@@ -29,16 +29,9 @@ import { useState, useEffect } from "react";
 import SpringModal from "../../Components/Modals/springModal";
 import { Logout, Settings } from "@mui/icons-material";
 import "./Topbar.css";
-import { useLocation } from "react-router-dom";
 const Topbar = () => {
-  const [name, setName] = useState("");
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.name) {
-    setName(location.state.name);
-    }
-  }, [location]);
-  
+  const name = useContext(EmailContext).name.toUpperCase();
+  console.log("topbar "+name);
   const email = useContext(EmailContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

@@ -21,13 +21,14 @@ function Judge() {
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
   const [email, setEmail] = useState("");
-
+  const [name, setName] = useState("");
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios.get("http://localhost:64000/judge").then((res) => {
       if (res.data.message === "success" && res.data.role === "judge") {
         setEmail(res.data.email);
         setIsLoggedIn(true);
+        setName(res.data.name);
       } else {
         setIsLoggedIn(false);
 
@@ -38,7 +39,7 @@ function Judge() {
 
   return ( 
     isloggedIn ? (
-      <EmailContext.Provider value={email}>
+      <EmailContext.Provider value={{email,name}}>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

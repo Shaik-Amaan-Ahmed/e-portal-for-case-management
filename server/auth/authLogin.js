@@ -20,7 +20,7 @@ router.post('/judge', async (req, res) => {
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true });
-            return res.json({ message: "success", role: role, email: email});
+            return res.json({ message: "success", role: role, email: email,name: user.name});
         }
 
     }catch(err) {
@@ -42,7 +42,7 @@ router.post('/registrar', async (req, res) => {
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true });
-            return res.json({ message: "success", role: role});
+            return res.json({ message: "success", role: role,email:email,name: user.name});
         }
 
     }catch(err) {
@@ -64,7 +64,7 @@ router.post('/client', async (req, res) => {
         else{
             const accessToken = jwt.sign({ email: email, role: role}, process.env.SECRET_KEY);
             res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: true});
-            return res.json({ message: "success",role: role, email: email});
+            return res.json({ message: "success",role: role, email: email,name:(user.firstName+" "+user.lastName)});
         }
 
     }catch(err) {

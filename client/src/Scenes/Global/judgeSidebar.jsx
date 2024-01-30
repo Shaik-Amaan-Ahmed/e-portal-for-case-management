@@ -1,10 +1,10 @@
-import { useLocation } from "react-router-dom";
+import { EmailContext } from "../../hooks/emailContext";
 import { Link, Typography } from "@mui/material";
 import "./sidebar.css";
 import { tokens } from "../../themes";
 import { useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import MyImage from "../../assets/user.png";
 import DashboardCustomizeOutlined from "@mui/icons-material/DashboardCustomizeOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -37,13 +37,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 const RegistrarSidebar = () => {
-  const [name, setName] = useState("");
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.name) {
-      setName(location.state.name);
-    }
-  }, [location]);
+  const name = useContext(EmailContext).name;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Dashboard");

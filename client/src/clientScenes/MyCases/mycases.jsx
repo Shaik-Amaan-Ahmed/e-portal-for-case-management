@@ -42,7 +42,7 @@ const CaseDetails = () => {
         
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err.message+"mycases.jsx");
       });
   }, [email, currentPage, itemsPerPage,searchInput]);
 

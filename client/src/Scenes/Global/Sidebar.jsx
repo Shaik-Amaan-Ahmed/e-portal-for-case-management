@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { EmailContext } from "../../hooks/emailContext";
 import { useContext, useState , useEffect} from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -43,13 +43,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
-  const [name, setName] = useState("");
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.name) {
-    setName(location.state.name);
-    }
-  }, [location]);
+  const name= useContext(EmailContext).name.toUpperCase();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Dashboard");
