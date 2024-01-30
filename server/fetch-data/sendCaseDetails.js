@@ -342,10 +342,15 @@ router.get("/judge-review-case-details", async (req, res) => {
 });
 router.get("/judge-active-case-details", async (req, res) => {
   const email = req.query.email;
-
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 2;
+  const skip = (page - 1) * limit;
+  const search = req.query.search || "";
   try {
     const judge = await judges.findOne({ email: email });
     if (judge) {
+      let data;
+      const totalCount = judge.cases.filter(caseObj => caseObj.status === "Summoned the defendant and pending for written statement" || caseObj.status === "Defendant has submitted the written statement and pending for review by judge").length;
       const caseIds = judge.cases
         .filter(
           (caseid) =>
@@ -354,18 +359,42 @@ router.get("/judge-active-case-details", async (req, res) => {
                 "Defendant has submitted the written statement and pending for review by judge"
         )
         .map((caseObj) => caseObj.caseId);
-      const data = await approvedcases
-        .find({ caseId: { $in: caseIds } })
-        .select([
-          "plaintDetails",
-          "caseId",
-          "status",
-          "registrationDate",
-          "caseSensitivity",
-          "docDetails.writtenStatement",
-        ]);
+      if(search){
+        data = await approvedcases
+          .find({ caseId: { $in: caseIds },
+                 $or: [
+                  { caseId: new RegExp(search, "i") },
+                  { plaintDetails: new RegExp(search, "i") },
+                  { registrationDate: new RegExp(search, "i") },
+                  { status: new RegExp(search, "i") },
+                  { caseSensitivity: new RegExp(search, "i")}
+                 ]})
+          .select([
+            "plaintDetails",
+            "caseId",
+            "status",
+            "registrationDate",
+            "caseSensitivity",
+            "docDetails.writtenStatement",
+          ])
+          .skip(skip)
+          .limit(limit);
+      } else {
+          data = await approvedcases
+            .find({ caseId: { $in: caseIds } })
+            .select([
+              "plaintDetails",
+              "caseId",
+              "status",
+              "registrationDate",
+              "caseSensitivity",
+              "docDetails.writtenStatement",
+            ])
+            .skip(skip)
+            .limit(limit);
+      }
       if (data.length > 0) {
-        res.status(200).json({ data: data });
+        res.status(200).json({ data: data, totalCount: String(totalCount)});
       } else {
         res.status(400).json({ message: "No data found" });
       }
