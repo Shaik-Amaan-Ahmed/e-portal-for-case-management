@@ -2,7 +2,7 @@ import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { ColorModeContext, useMode } from "../../themes";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import { CssBaseline, TextField, ThemeProvider } from "@mui/material";
 import { IconButton, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
@@ -31,6 +31,12 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [caseId, setCaseId] = useState("");
   const [role, setRole] = useState("judge");
+  const [emailError, setEmailError] = useState(false);
+  const [caseIdError, setCaseIdError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailErrorMsg, setEmailErrorMsg] = useState("");
+  const [caseIdErrorMsg, setCaseIdErrorMsg] = useState("");
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
@@ -39,7 +45,42 @@ export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const validateForm = () => {
+    let isValid = true;
 
+    if (role === 'defendant' && !caseId) {
+      setCaseIdError(true);
+      setCaseIdErrorMsg("Case Id is required");
+      isValid = false;
+    } else {
+      setCaseIdError(false);
+      setCaseIdErrorMsg("");
+    }
+
+    if (role !== 'defendant' && !email) {
+      setEmailError(true);
+      setEmailErrorMsg("Email is required");
+      isValid = false;
+    } else if (role !== 'defendant' && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(email)) {
+      setEmailError(true);
+      setEmailErrorMsg("Invalid Email");
+      isValid = false;
+    } else {
+      setEmailError(false);
+      setEmailErrorMsg("");
+    }
+
+    if (!password) {
+      setPasswordError(true);
+      setPasswordErrorMsg("Password is required");
+      isValid = false;
+    } else {
+      setPasswordError(false);
+      setPasswordErrorMsg("");
+    }
+
+    return isValid;
+  };
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -59,7 +100,7 @@ export default function SignIn() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -102,6 +143,8 @@ export default function SignIn() {
                 value={role === "defendant" ? caseId : email}
                 label={role === "defendant" ? "Case ID" : "Email"}
                 onChange={role === "defendant" ? (e) => setCaseId(e.target.value) : (e) => { setEmail(e.target.value); }}
+                error={role === "defendant" ? caseIdError : emailError}
+                helperText={role === "defendant" ? caseIdError ? caseIdErrorMsg : "" : emailError ? emailErrorMsg : ""}
                 sx={{
                   width: "100%", marginBottom: '10px',
                   backdropFilter: 'blur(60px)',
@@ -118,40 +161,6 @@ export default function SignIn() {
                 }}
               />
               <br />
-              {/* <input
-                  type={passwordType}
-                  value={password}
-                  required="true"
-                  className="password-box"
-                  placeholder="Password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  style={{width: "100%", display:"flex",height:"40px",background:"transparent",backdropFilter:"blur(60px)",border:"0.1px solid grey", borderRadius:"10px",padding:"10px"}} // Add right padding to prevent text from being hidden by the button
-                />
-               
-                <button
-                  style={{
-                    position: 'absolute',
-                    right: '15px',
-                    top: '6px',
-                    width: "50px",
-                    height: "30px",
-                    borderRadius: "10px",
-                    backgroundColor: "transparent",
-                    cursor: "pointer"
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (passwordType === "password") {
-                      setPasswordType("text");
-                    } else {
-                      setPasswordType("password");
-                    }
-                  }}
-                >
-                  show
-                </button> */}
 
               <FormControl sx={{
                 m: 1, width: '100%', backdropFilter: 'blur(60px)', '& .MuiOutlinedInput-root': {
@@ -169,6 +178,8 @@ export default function SignIn() {
                 <OutlinedInput
                   id="outlined-adornment-password"
                   type={showPassword ? 'text' : 'password'}
+                  error={passwordError}
+                  helperText={passwordError ? passwordErrorMsg : ""}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -180,13 +191,13 @@ export default function SignIn() {
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-
                   }
                   label="Password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
+
                 />
               </FormControl>
               {role === 'client' &&
@@ -204,6 +215,8 @@ export default function SignIn() {
                   notif="Mail for changing password sent Successfully"
                 />
               </Box>
+
+
               <br />
               <div className="submit-enter">
                 <button
