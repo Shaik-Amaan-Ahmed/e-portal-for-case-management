@@ -42,7 +42,7 @@ const ClientChangePassword = () => {
                 <div className='set-password-main-input'>
                     <input type={type} placeholder="Re-enter Password" className="set-password-input" onChange={(e) => setRePassword(e.target.value)} autocomplete="new-password" />
                 </div>
-                <button style={{ color: "white", position: 'absolute', bottom: '0.5em', right: '1.3em' }} onClick={() => {
+                <button style={{ color: "white", position: 'absolute', bottom: '0.5em' }} onClick={() => {
                     type === "password" ? setType("text") : setType("password");
                 }}>Show</button>
             </div>
