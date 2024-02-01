@@ -37,7 +37,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 const RegistrarSidebar = () => {
-  const name = useContext(EmailContext).name;
+  const name = useContext(EmailContext).name.toUpperCase();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Dashboard");
