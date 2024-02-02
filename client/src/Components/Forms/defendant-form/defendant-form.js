@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "../plaintiff-form/plaintiff-form.css";
+import { Typography } from "@mui/material";
 
 export const Item = ({type, placeholder, name,value,onChange}) => {
   return (
     <div className="inner-form-elements">
       <div className="title">
-        <span variant="h5" style={{fontWeight:"bold"}}>{name}</span>
+      <Typography variant="h5" style={{ fontWeight: "500"}}>
+          {name}
+        </Typography>
       </div>
       <div className="input-element">
         <input
@@ -43,7 +46,7 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
     defendantDeadMinor: "",
     defendantDOB: "",
     defendantAge: "",
-    defendantGender: "male",
+    defendantGender: "",
     defendantEmail: "",
     defendantPhone: "",
     defendantAddress: "",
@@ -58,7 +61,7 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 
     //to check whether all the details are filled or not
     const areDetailsFilled = () => { 
-      return Object.values(defendantDetails).every((value) => value !== "");
+      return Object.values(defendantDetails).every((value) => value !== "" && value !== "None");
     }
   
     //handle onclick of the submit button
@@ -78,16 +81,24 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
   
     //onChange event handler common for all the input fields
     const onChange = (sub, value) => {
-      const updatedDetails = {
-        ...defendantDetails,
-        [sub]: value,
-      };
-  
-      setDefendantDetails(updatedDetails);
-      localStorage.setItem("defendantDetails", JSON.stringify(updatedDetails));
+      if(sub==="defendantDeadMinor" && value==="-"){
+        const updatedDetails = {
+          ...defendantDetails,
+          ["defendantDeadMinor"]: "-",
+        };
+        setDefendantDetails(updatedDetails);
+        localStorage.setItem("defendantDetails", JSON.stringify(updatedDetails));
+      }
+      else{
+        const updatedDetails = {
+          ...defendantDetails,
+          [sub]: value,
+        };
+    
+        setDefendantDetails(updatedDetails);
+        localStorage.setItem("defendantDetails", JSON.stringify(updatedDetails));
+      }
     };
-  
-  
 
   return (
     <>
@@ -101,9 +112,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
           <div className="inner-form-elements">
             <div className="title">
               {/* defendant No. */}
-                  <span variant="h5" style={{ fontWeight: "bold" }}>
-                    defendant No.
-                  </span>
+              <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Defendant No.
+        </Typography>
             </div>
             <div className="input-element">
               <select
@@ -135,9 +146,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 {/* Relation */}
           <div className="inner-form-elements">
             <div className="title">
-              <span variant="h5" style={{ fontWeight: "bold" }}>
-                    Relation
-                  </span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Relation
+        </Typography>
             </div>
             <div className="input-element">
               <select
@@ -169,7 +180,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 {/* Is Dead/Minor */}
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{ fontWeight: "bold" }}>Is Dead/Minor</span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Is Dead/Minor
+        </Typography>
             </div>
             <div className="input-element">
               <select
@@ -179,10 +192,14 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
                       onChange("defendantDeadMinor", e.target.value);
                     }}
                   >
-                <option value="Dead" key={1}>
+                <option key={0} value="">--Select--</option>
+                    <option value="NA" key={1}>
+                      NA
+                    </option>
+                <option value="Dead" key={2}>
                       Dead
                     </option>
-                <option value="Minor" key={2}>
+                <option value="Minor" key={3}>
                       Minor
                     </option>
               </select>
@@ -201,7 +218,9 @@ export const Item = ({type, placeholder, name,value,onChange}) => {
 {/* Age */}
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{ fontWeight: "bold" }}>Age</span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Age
+        </Typography>
             </div>
             <div className="input-element">
               <input
@@ -219,7 +238,9 @@ value={value("defendantAge")}
 {/* Gender */}
           <div className="inner-form-elements">
             <div className="title">
-              <span style={{ fontWeight: "bold" }}>Gender</span>
+            <Typography variant="h5" style={{ fontWeight: "500"}}>
+          Gender
+        </Typography>
             </div>
             <div className="input-element">
               <select

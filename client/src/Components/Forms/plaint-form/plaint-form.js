@@ -2,43 +2,59 @@ import { useState, useContext, useEffect } from "react";
 import { EmailContext } from "../../../hooks/emailContext";
 import axios from "axios";
 import "./plaint-form.css";
-
+import { ColorModeContext } from "../../../themes";
+import { Typography } from "@mui/material";
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
-  const caseCategory = ["one", "two", "three"];
+  const [casee,setCasee] = useState({});
   const [earlierCourts, setEarlierCourts] = useState(false);
+  const [option , setOption] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
-  
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   const email = useContext(EmailContext);
-
 
   const storedPlaintDetails = JSON.parse(
     localStorage.getItem("plaintDetails")
   ); //getting the stored data from the local storage
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:64000/case-category")
+      .then((res) => {
+        setCasee(res.data.data[0].caseType);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }, []);
+
+
   const initialDetails = storedPlaintDetails ? storedPlaintDetails : { 
     causeTitlePlaintiff: "",
     causeTitleDefendant: "",
-    caseType: "",
     caseCategory: "",
     caseSubCategory: "",
     numberOfPlaintiff: "",
-    numberOfDefendant: "",
+    numberOfDefendants: "",
   }//
+
+  
 
   const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
 
   //to check whether all the details are filled or not
   const areDetailsFilled = () => {
 
-    return Object.values(plaintDetails).every(value => value !== "");
+    return Object.values(plaintDetails).every(value => value !== "" && value !== "None");
   };
 
   //submitting the plaint details to the database
   const submitPlaintDetails = () => {
+    setIsSubmitted(true);
     if(!areDetailsFilled()){
       setError("Please fill all the details");
     }else{
@@ -63,6 +79,41 @@ const PlaintForm = (props) => {
     setPlaintDetails(updatedDetails);
     localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
   };
+  const caseTypeOnChange = (sub, val) => {
+    if(option !== ""){
+      setOption(val);
+      const updatedDetails = {
+        ...plaintDetails,
+        ["caseSubCategory"]: "None",
+        [sub]: val,
+      };
+
+      setPlaintDetails(updatedDetails);
+      localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+    }
+    else{
+      setOption(val);
+      if(casee[val].length === 1 && casee[val][0] === "-"){
+        const updatedDetails = {
+          ...plaintDetails,
+          ["caseSubCategory"]: "-",
+          [sub]: val,
+        };
+        setPlaintDetails(updatedDetails);
+        localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+      }
+      else{
+        const updatedDetails = {
+          ...plaintDetails,
+          ["caseSubCategory"]: "None",
+          [sub]: val,
+        };
+        setPlaintDetails(updatedDetails);
+        localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+      }
+  }
+  };
+
 
   return (
     <>
@@ -75,12 +126,12 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Cause titile plaintiff */}
-                <span variant="h5">Cause titile plaintiff</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Cause titile plaintiff</Typography>
               </div>
               <div className="input-element">
                 <input
                   type="text"
-                  className="input-field"
+                  className={`input-field ${isSubmitted && !value("inputFieldName") ? 'input-field-error' : ''}`}
                   placeholder="Cause title plaintiff"
                   value={value("causeTitlePlaintiff")}
                   onChange={(e) => onChange("causeTitlePlaintiff", e.target.value) }
@@ -90,8 +141,8 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Cause titile Defendant */}
-                <span variant="h5">Cause titile Defendant</span>
-              </div>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Cause Title Defendant  </Typography>    
+                          </div>
               <div className="input-element">
                 <input
                   type="text"
@@ -104,35 +155,16 @@ const PlaintForm = (props) => {
             </div>
             <div className="inner-form-elements">
               <div className="title">
-                {/* Case Type */}
-                <span>Case Type</span>
-              </div>
-              <div className="input-element">
-                <select
-                  className="input-field"
-                  value={value("caseType")}
-                  onChange={(e) => onChange("caseType", e.target.value)}
-                >
-                  {caseType.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="inner-form-elements">
-              <div className="title">
                 {/* Case Category */}
-                <span>Case Category</span>
-              </div>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Case Category</Typography>              </div>
               <div className="input-element">
                 <select
-                  className="input-field"
                   value={value("caseCategory")}
-                  onChange={(e) => onChange("caseCategory", e.target.value)}
+                  className="input-field"
+                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
                 >
-                  {caseCategory.map((option, index) => (
+                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {Object.keys(casee).map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
@@ -142,8 +174,8 @@ const PlaintForm = (props) => {
             </div>
             <div className="inner-form-elements">
               <div className="title">
-                {/* Case Sub-category */}
-                <span variant="h5">Case Sub-category</span>
+                {/* Case SubCategory */}
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Case SubCategory</Typography>
               </div>
               <div className="input-element">
                 <select
@@ -151,8 +183,11 @@ const PlaintForm = (props) => {
                   value={value("caseSubCategory")}
                   onChange={(e) => onChange("caseSubCategory", e.target.value)}
                 >
-                  {caseCategory.map((option, index) => (
-                    <option key={index}>{option}</option>
+                {!option &&  <option value="none">Select Case SubCategory</option>}
+                  {option && ["None", ...casee[option]].map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -169,7 +204,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Number of Plaintiffs */}
-                <span>Number of Plaintiffs</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Number of Plaintiffs</Typography>
               </div>
               <div className="input-element">
                 <input
@@ -185,7 +220,7 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Number of Defendants */}
-                <span variant="h5">Number of Defendants</span>
+                <Typography variant="h5" style={{ fontWeight: "500"}}>Number of Defendants</Typography>
               </div>
               <div className="input-element">
                 <input
@@ -193,8 +228,8 @@ const PlaintForm = (props) => {
                   min={0}
                   className="input-field"
                   placeholder="No. of Defendants"
-                  value={value("numberOfDefendant")}
-                  onChange={(e) => onChange("numberOfDefendant", e.target.value)}
+                  value={value("numberOfDefendants")}
+                  onChange={(e) => onChange("numberOfDefendants", e.target.value)}
                 />
               </div>
             </div>

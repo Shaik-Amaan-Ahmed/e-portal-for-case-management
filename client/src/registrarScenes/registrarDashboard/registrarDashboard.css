@@ -22,21 +22,29 @@
     margin: 10px;
     background: transparent;
     text-align: left;
+    width: 22%;
 }
-
+.search-input::placeholder {
+    color: inherit;
+    font-weight: 500;
+    opacity: 0.4;
+}
 .registrar-main-inside {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width:100%;
     margin: 10px 10px 10px 10px;
     border-radius: 10px;
     padding: 10px;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: 101%
+
 }
 
-table {
+.registrar-table {
     width: 100%;
     border-bottom: 0.1px solid grey;
 }
@@ -50,12 +58,18 @@ table th {
     border-bottom: 1px solid grey;
 }
 
+.special-td {
+    white-space: nowrap;
+}
+
 table td {
     padding: 15px;
     font-size: large;
     text-align: center;
     font-weight: 400;
     border-bottom: 2px solid grey;
+    width: fit-content;
+
 }
 
 table tr:hover {
@@ -67,11 +81,13 @@ table tr:hover {
     border: none;
     border-radius: 5px;
     padding: 6px;
-    width: auto;
+    width: fit-content;
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
-    color: rgb(4, 4, 4)
+    color: rgb(4, 4, 4);
+    height: fit-content;
+    white-space: nowrap;
 }
 
 .approve-deny {
@@ -102,5 +118,25 @@ table tr:hover {
     width: auto;
     cursor: pointer;
     font-size: 15px;
+    font-weight: 500;
+}
+
+.pagination-registrar {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    
+}
+
+.pagination-registrar button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: black;
+    font-size: larger;
     font-weight: 500;
 }

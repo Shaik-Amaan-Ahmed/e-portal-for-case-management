@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import "./registrarViewDetails.css";
 
 
@@ -30,14 +30,17 @@ const Title = ({title}) => {
 
 function ViewDetails(props) {
   const [viewData, setViewData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [show , setShow] = useState('plaintDetails');
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         "http://localhost:64000/casedetails/registrar-view-details?id=" + props.id
       )
       .then((res) => {
         setViewData(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -53,7 +56,8 @@ function ViewDetails(props) {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <div className="modal-box">
+        <div className="modal-boxs">
+          {loading && (<><CircularProgress style={{color:"white"}}/></>)}
           {viewData.map((item) => {
             return (
               <div className="details-main">
@@ -68,14 +72,12 @@ function ViewDetails(props) {
                 <div className="docu-details">
                   <div className="doc-left">
                     <Item title="Cause Title" value={`${item.plaintDetails.causeTitlePlaintiff} VS ${item.plaintDetails.causeTitleDefendant}`}/>
-                    <Item title="Case Type" value={item.plaintDetails.caseType} />
-                    <Item title="Cause Title Plaintiff" value={item.plaintDetails.causeTitlePlaintiff} />
                     <Item title="Case Category" value={item.plaintDetails.caseCategory} />
                     <Item title="Case SubCategory" value={item.plaintDetails.caseSubCategory} />
                   </div>
                   <div className="doc-right">
                     <Item title="Number of Plaintiffs" value={item.plaintDetails.numberOfPlaintiff} />
-                    <Item title="Number of Defendents" value={item.plaintDetails.numberOfDefandent} />
+                    <Item title="Number of Defendants" value={item.plaintDetails.numberOfDefendants} />
                   </div>
                 </div>
                 </>

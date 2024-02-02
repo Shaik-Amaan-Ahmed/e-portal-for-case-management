@@ -34,7 +34,10 @@ export default function HomePage() {
           <CssBaseline />
           <div className="main">
             <NavBar />
-            <Slider />
+            <div style={{display: "flex", flexDirection:"column", marginTop:"5rem"}}>
+            <Slider/>
+            </div>
+
             {isVisible && (
               <button
                 className="bg-orange-700 py-2 px-2 rounded-full"
@@ -45,9 +48,7 @@ export default function HomePage() {
               </button>
             )}
 
-            <NoticeBoard />
-            <NoticeBoard />
-            <NoticeBoard />
+            
             <Footer />
           </div>
         </ThemeProvider>

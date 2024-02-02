@@ -1,215 +1,119 @@
 import { Typography } from "@mui/material";
-import "../../Scenes/Register/register.css";
+import "../../Register/register.css";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ColorModeContext, useMode } from "../../themes";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import {Grid } from "@mui/material";
-
+import { CircularProgress } from "@mui/material";
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/en-gb';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+const Item = (props) => (
+  <div className="judge-input">
+  <TextField 
+      id="outlined-basic" 
+      label={props.placeholder} 
+      variant="outlined" 
+      value={props.value} 
+      onChange={(e) => props.setData({ ...props.data , [props.toChange] : e.target.value })}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
+    />
+  </div>
+);
+const DateItem = (props) => ( 
+  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-GB">
+  <div className="judge-input">
+    {/* <input
+      type="date"
+      placeholder={props.placeholder}
+      className="judge-register-input"
+      value={props.value}
+      onChange={(e) => props.setData({ ...props.data , [props.toChange] : e.target.value })}
+    /> */}
+    <DatePicker
+      label={props.placeholder}
+      value={props.value}
+      format="DD-MM-YYYY "
+      slotProps={{
+        textField: {
+          error: false, // if you want to force error state
+        },
+      }}
+      onChange={(e) => props.setData({ ...props.data , [props.toChange] : e })}
+      renderInput={(params) => <TextField {...params} />}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
+    />
+  </div>
+  </LocalizationProvider>
+);
 const RegisterForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
-    phoneNumber: "",
+    phone: "",
     dateOfBirth: "",
   });
-
-  // var ml = 0;
-
-  //   const inputRef = useRef(null);
-  //   useEffect(() => {
-  //     ml = inputRef.current.offsetWidth;
-  //     ml = toString(ml);
-  //   },[]);
-
-  const navigitate = useNavigate();
-  const [passwordType, setPasswordType] = useState("password");
-
-  const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:64000/register", data)
-      .then((res) => {
-        if (res.data.message === "User registered") {
-          alert("succesfully registered");
-          navigitate("/login");
-        } else if (res.data.message === "User already exists") {
-          alert("User already exists");
-        } else {
-          console.log("Error occured");
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-        alert("User already exists");
-      });
-  };
+  const handleRegisterSubmit = async (e) => {
+    setData({ ...data, dateOfBirth: data.dateOfBirth });
+    setIsLoading(true);
+    try {
+      const res = await axios.post("http://localhost:64000/client-register", data);
+      if(res.status === 400) {
+        setMessage("Email already exists");
+      }
+      if(res.status === 200) {
+       setMessage("If the email you provided is valid, a set password mail will be sent to that email-address")
+      }
+    } catch (error) {
+      setMessage('Check whether your email is correct or user with this email already exists');
+      console.log(error.message);
+    }finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
-    //main div
-    
-    <div
-      // style={{
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      //   width: "70%",
-      //   border: "1px solid",
-      //   borderRadius: "10px",
-      //   padding: "10px",
-      // }}
-      className="register-container"
-    >
-      {/* title */}
-      <Typography variant="h1">Register</Typography> 
-      <div className="register-form">
-        <div className="inner-register-elements">
-          {/* form elements */}
-          <div className="first-name">
-            <input
-              type="text"
-              placeholder="First Name"
-              className="register-input"
-              onChange={(e) => {
-                setData({ ...data, firstName: e.target.value });
-              }}
-            />
-          </div>
-          <div className="first-name">
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="register-input"
-              onChange={(e) => {
-                setData({ ...data, lastName: e.target.value });
-              }}
-            />
-          </div>
-          <div className="first-name">
-            <input
-              type="email"
-              placeholder="Email"
-              className="register-input"
-              onChange={(e) => {
-                setData({ ...data, email: e.target.value });
-              }}
-            />
-          </div>
-          <div className="password-field">
-            <input
-              type={passwordType}
-              placeholder="Password"
-              className="register-input"
-              onChange={(e) => {
-                setData({ ...data, password: e.target.value });
-              }}
-            />
-            {/* password show button */}
-            <button
-              style={{
-                width: "50px",
-                height: "30px",
-                borderRadius: "10px",
-                backgroundColor: "transparent",
-                cursor: "pointer",
-                marginRight: "5px",
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                if (passwordType === "password") {
-                  setPasswordType("text");
-                } else {
-                  setPasswordType("password");
-                }
-              }}
-            >
-              show
-            </button>
-          </div>
-          <div className="first-name">
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              className="register-input"
-              onChange={(e) => {
-                setData({ ...data, phoneNumber: e.target.value });
-              }}
-            />
-          </div>
-          <div className="first-name">
-            <input
-              type="date"
-              placeholder="Date of Birth"
-              className="register-input"
-              onChange={(e) => {
-                let date = new Date(e.target.value);
-                let formattedDate =
-                  date.getDate() +
-                  "-" +
-                  (date.getMonth() + 1) +
-                  "-" +
-                  date.getFullYear();
-                setData({ ...data, dateOfBirth: formattedDate });
-              }}
-            />
-          </div>
-          {/* <div style={{ display: "flex", flexDirection:"row", width:""}}>
-            <div style={{display:"flex"}}>
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="register-input"
-                onChange={(e) => {
-                  setData({ ...data, phoneNumber: e.target.value });
-                }}
-              />
-            </div>
-            <div>
-              <input
-                type="date"
-                placeholder="Date of Birth"
-                className="register-input"
-                onChange={(e) => {
-                  let date = new Date(e.target.value);
-                  let formattedDate =
-                    date.getDate() +
-                    "-" +
-                    (date.getMonth() + 1) +
-                    "-" +
-                    date.getFullYear();
-                  setData({ ...data, dateOfBirth: formattedDate });
-                }}
-              />
-            </div>
-          </div> */}
-        </div>
-      </div>
-      <div>
-        <button
-          type="submit"
-          style={{
-            width: "100px",
-            height: "50px",
-            borderRadius: "10px",
-            backgroundColor: "#ffbf00",
-            border: "none",
-            cursor: "pointer",
-            outline: "none",
-            marginTop: "20px",
-            marginBottom: "20px",
-            cursor: "pointer",
-          }}
-          className="register-button"
-          onClick={handleRegisterSubmit}
-        >
-          Submit
-        </button>
-      </div>
+    <div className="registrar-register-form-main">
+    {isLoading && <CircularProgress style={{color: "white"}}/>}
+    {message && <Typography variant="h6" color="orange" fontWeight="500" style={{marginBottom:"10px"}}> {message} </Typography>} 
+    <Item placeholder="First Name" value={data.firstName} toChange="firstName" data={data} setData={setData}/>
+    <Item placeholder="Last Name" value={data.lastName} toChange="lastName" data={data} setData={setData}/>
+    <DateItem placeholder="Date of Birth" value={data.dateOfBirth} toChange="dateOfBirth"  data={data} setData={setData}   />
+    <Item placeholder="Email" value={data.email} toChange="email"  data={data} setData={setData}/>
+    <Item placeholder="Phone" value={data.phone} toChange="phone"  data={data} setData={setData}/>
+    <div className="registrar-input">
+      <button className="registrar-register-submit" onClick={handleRegisterSubmit}>Submit</button>
     </div>
+  </div>
+
   );
 };
 

@@ -18,13 +18,14 @@ const Client = () => {
   const navigate = useNavigate();
   const [theme, colorMode] = useMode();
   const [email, setEmail] = useState("");
-
+  const [name, setName] = useState("");
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios.get("http://localhost:64000/client").then((res) => {
       if (res.data.message === "success" && res.data.role === "client") {
         setIsLoggedIn(true);
         setEmail(res.data.email);
+        setName(res.data.name);
       } else {
         setIsLoggedIn(false);
         navigate("/login");
@@ -34,7 +35,7 @@ const Client = () => {
 
 
   return (
-    <EmailContext.Provider value={email}>
+    <EmailContext.Provider value={{email,name}}>
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
