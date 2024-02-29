@@ -93,13 +93,7 @@ function Approve(props) {
             </div>
           </div>
           <div className="approve-btn-container">
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "red", margin: "10px" }}
-              onClick={props.handleClose}
-            >
-              cancel
-            </Button>
+     
             <Button
               variant="contained"
               style={{
@@ -110,6 +104,13 @@ function Approve(props) {
               onClick={handleApprove}
             >
               Approve
+            </Button>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "red", margin: "10px" }}
+              onClick={props.handleClose}
+            >
+              cancel
             </Button>
           </div>
         </div>
