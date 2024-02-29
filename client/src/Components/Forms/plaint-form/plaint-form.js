@@ -4,22 +4,38 @@ import axios from "axios";
 import "./plaint-form.css";
 import { ColorModeContext } from "../../../themes";
 import { Typography } from "@mui/material";
+
+const Item = (props) => {
+  return (
+    <div className="inner-form-elements">
+      <div className="title">
+        <span>{props.title}</span>
+      </div>
+      <div className="input-element">
+        <input
+          type={props.type}
+          className="input-field"
+          placeholder={props.placeholder}
+          value={props.value}
+          onChange={(e) => props.onChange(e.target.value)}
+        />
+      </div>
+    </div>
+  );
+};
+
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
-  const [casee,setCasee] = useState({});
+  const [casee, setCasee] = useState({});
   const [earlierCourts, setEarlierCourts] = useState(false);
-  const [option , setOption] = useState("");
+  const [option, setOption] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
 
-
-
   const email = useContext(EmailContext);
 
-  const storedPlaintDetails = JSON.parse(
-    localStorage.getItem("plaintDetails")
-  ); //getting the stored data from the local storage
+  const storedPlaintDetails = JSON.parse(localStorage.getItem("plaintDetails")); //getting the stored data from the local storage
 
   useEffect(() => {
     axios
@@ -28,45 +44,44 @@ const PlaintForm = (props) => {
         setCasee(res.data.data[0].caseType);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
   }, []);
 
+  const initialDetails = storedPlaintDetails
+    ? storedPlaintDetails
+    : {
+        causeTitlePlaintiff: "",
+        causeTitleDefendant: "",
+        caseCategory: "",
+        caseSubCategory: "",
+        numberOfPlaintiff: "",
+        numberOfDefendants: "",
+      }; //
 
-  const initialDetails = storedPlaintDetails ? storedPlaintDetails : { 
-    causeTitlePlaintiff: "",
-    causeTitleDefendant: "",
-    caseCategory: "",
-    caseSubCategory: "",
-    numberOfPlaintiff: "",
-    numberOfDefendants: "",
-  }//
-
-  
-
-  const [plaintDetails, setPlaintDetails] = useState(initialDetails);//initializing the state with the stored data
+  const [plaintDetails, setPlaintDetails] = useState(initialDetails); //initializing the state with the stored data
 
   //to check whether all the details are filled or not
   const areDetailsFilled = () => {
-
-    return Object.values(plaintDetails).every(value => value !== "" && value !== "None");
+    return Object.values(plaintDetails).every(
+      (value) => value !== "" && value !== "None"
+    );
   };
 
   //submitting the plaint details to the database
   const submitPlaintDetails = () => {
-    if(!areDetailsFilled()){
+    if (!areDetailsFilled()) {
       setError("Please fill all the details");
-    }else{
+    } else {
       setError(null);
       props.handleNext(props.activeStep);
-      
     }
   };
 
   //to get the data from the database and store it in the local storage
   const value = (val) => {
     return plaintDetails[val];
-  }
+  };
 
   //onChange event handler common for all the input fields
   const onChange = (sub, value) => {
@@ -79,7 +94,7 @@ const PlaintForm = (props) => {
     localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
   };
   const caseTypeOnChange = (sub, val) => {
-    if(option !== ""){
+    if (option !== "") {
       setOption(val);
       const updatedDetails = {
         ...plaintDetails,
@@ -89,10 +104,9 @@ const PlaintForm = (props) => {
 
       setPlaintDetails(updatedDetails);
       localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
-    }
-    else{
+    } else {
       setOption(val);
-      if(casee[val].length === 1 && casee[val][0] === "-"){
+      if (casee[val].length === 1 && casee[val][0] === "-") {
         const updatedDetails = {
           ...plaintDetails,
           ["caseSubCategory"]: "-",
@@ -100,8 +114,7 @@ const PlaintForm = (props) => {
         };
         setPlaintDetails(updatedDetails);
         localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
-      }
-      else{
+      } else {
         const updatedDetails = {
           ...plaintDetails,
           ["caseSubCategory"]: "None",
@@ -110,13 +123,12 @@ const PlaintForm = (props) => {
         setPlaintDetails(updatedDetails);
         localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
       }
-  }
+    }
   };
-
 
   return (
     <>
-    {error && <div className="error">{error}</div>}
+      {error && <div className="error">{error}</div>}
       <div className="main-div">
         {/* left start  */}
         <div className="left-main">
@@ -125,7 +137,9 @@ const PlaintForm = (props) => {
             <div className="inner-form-elements">
               <div className="title">
                 {/* Cause titile plaintiff */}
-                <Typography variant="h5" style={{ fontWeight: "500"}}>Cause titile plaintiff</Typography>
+                <Typography variant="h5" style={{ fontWeight: "500" }}>
+                  Cause titile plaintiff
+                </Typography>
               </div>
               <div className="input-element">
                 <input
@@ -133,7 +147,9 @@ const PlaintForm = (props) => {
                   className="input-field"
                   placeholder="Cause title plaintiff"
                   value={value("causeTitlePlaintiff")}
-                  onChange={(e) => onChange("causeTitlePlaintiff", e.target.value) }
+                  onChange={(e) =>
+                    onChange("causeTitlePlaintiff", e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -148,7 +164,9 @@ const PlaintForm = (props) => {
                   className="input-field"
                   placeholder="Cause title defendant"
                   value={value("causeTitleDefendant")}
-                  onChange={(e) => onChange("causeTitleDefendant", e.target.value)}
+                  onChange={(e) =>
+                    onChange("causeTitleDefendant", e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -161,9 +179,13 @@ const PlaintForm = (props) => {
                 <select
                   value={value("caseCategory")}
                   className="input-field"
-                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
+                  onChange={(e) =>
+                    caseTypeOnChange("caseCategory", e.target.value)
+                  }
                 >
-                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {value("caseCategory") === "" && (
+                    <option value="none">Select Case Category</option>
+                  )}
                   {Object.keys(casee).map((option, index) => (
                     <option key={index} value={option}>
                       {option}
@@ -183,12 +205,15 @@ const PlaintForm = (props) => {
                   value={value("caseSubCategory")}
                   onChange={(e) => onChange("caseSubCategory", e.target.value)}
                 >
-                {!option &&  <option value="none">Select Case SubCategory</option>}
-                  {option && ["None", ...casee[option]].map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  {!option && (
+                    <option value="none">Select Case SubCategory</option>
+                  )}
+                  {option &&
+                    ["None", ...casee[option]].map((option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -201,44 +226,28 @@ const PlaintForm = (props) => {
         {/* right start  */}
         <div className="right-main">
           <div className="right-form">
-            <div className="inner-form-elements">
-              <div className="title">
-                {/* Number of Plaintiffs */}
-                <span>Number of Plaintiffs</span>
-              </div>
-              <div className="input-element">
-                <input
-                  type="number"
-                  min={0}
-                  className="input-field"
-                  placeholder="No. of Plaintiffs"
-                  value={value("numberOfPlaintiff")}
-                  onChange={(e) => onChange("numberOfPlaintiff", e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="inner-form-elements">
-              <div className="title">
-                {/* Number of Defendants */}
-                <span variant="h5">Number of Defendants</span>
-              </div>
-              <div className="input-element">
-                <input
-                  type="number"
-                  min={0}
-                  className="input-field"
-                  placeholder="No. of Defendants"
-                  value={value("numberOfDefendants")}
-                  onChange={(e) => onChange("numberOfDefendants", e.target.value)}
-                />
-              </div>
-            </div>
+            <Item
+              title="Number of Plaintiff"
+              placeholder="No. of Plaintiff"
+              type="number"
+              value={value("numberOfPlaintiff")}
+              onChange={(e) => onChange("numberOfPlaintiff", e)}
+            />
+            <Item
+              title="Number of Defendants"
+              placeholder="No. of Defendants"
+              type="number"
+              value={value("numberOfDefendants")}
+              onChange={(e) => onChange("numberOfDefendants", e)}
+            />
           </div>
         </div>
         {/* right end  */}
       </div>
       <div className="submit-button-div">
-        <button className="submit-button" onClick={submitPlaintDetails}>submit</button>
+        <button className="submit-button" onClick={submitPlaintDetails}>
+          submit
+        </button>
       </div>
     </>
   );

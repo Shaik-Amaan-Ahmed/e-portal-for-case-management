@@ -42,6 +42,9 @@ const RegistrarRegisterForm = () => {
       if(res.status === 200) {
        setMessage("Email sent successfully")
       }
+      else{
+        setMessage("Not found")
+      }
     } catch (error) {
       console.log(error.message);
     }finally {

@@ -14,6 +14,7 @@ const registerJudge = require("./create-docs/judgeRegister");
 const registerRegistrar = require("./create-docs/registrarRegister");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
+const dataSender = require("./fetch-data/dataSender");
 const sendCaseCategory = require("./fetch-data/sendCaseCategory");
 const contactUs = require("./create-docs/contact");
 const approvedcaseshandler = require("./create-docs/approvedCasesHandling");
@@ -67,6 +68,7 @@ app.use('/registrar-register',registerRegistrar)
 app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));
+app.use('/data-sender', dataSender);
 app.use('/case-category', sendCaseCategory);
 app.use('/contact-us', contactUs);
 app.use('/approve-cases', approvedcaseshandler);

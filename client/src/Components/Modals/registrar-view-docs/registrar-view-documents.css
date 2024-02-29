@@ -41,14 +41,13 @@
 
 .pdf-container {
 
-    display: block;
+    display: flex;
     height: 100%;
-    width: fit-content;
+    width: 100%;
     justify-content: center;
     align-items: center;
     overflow: auto;
     margin: auto;
-    max-width: 90%;
 }
 
 .pdf-pagination {

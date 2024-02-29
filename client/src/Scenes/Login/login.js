@@ -61,7 +61,7 @@ export default function SignIn() {
         <div className="mains-divs">
           <div className="inner-div">
             <div className="inner-items">
-              <div className="switch-buttons">
+              <div className="role-buttons">
                 <button onClick={() => setRole("judge")}>Judge</button>
                 <button onClick={() => setRole("registrar")}>Registrar</button>
                 <button onClick={() => setRole("client")}>Client</button>

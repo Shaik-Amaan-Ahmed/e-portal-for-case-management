@@ -150,7 +150,6 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
           arrayFilters: [
             {"elem.caseId": caseId}
         ]
-    
         },
         {new:true}
         )

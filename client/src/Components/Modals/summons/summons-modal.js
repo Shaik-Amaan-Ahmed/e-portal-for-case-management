@@ -156,12 +156,12 @@ function SummonModal(props) {
         aria-describedby="keep-mounted-modal-description"
       >
         <div className="summons-modal">
-          <IconButton
+        <IconButton
             size="small"
             style={{
               position: "absolute",
               right: "1%",
-              top: "2%",
+              top: "1%",
               color: "white",
               background:"red",
               borderRadius:"50%",

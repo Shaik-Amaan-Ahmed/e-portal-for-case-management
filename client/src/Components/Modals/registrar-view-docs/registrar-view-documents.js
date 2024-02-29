@@ -7,6 +7,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { Document, Page } from "react-pdf";
+import { IconButton } from "@mui/material";
+import { CloseRounded                      } from "@mui/icons-material";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 function ViewDocuments(props) {
   const [data, setData] = useState([]);
@@ -62,6 +64,21 @@ function ViewDocuments(props) {
         aria-describedby="keep-mounted-modal-description"
       >
         <div className="document-box">
+        <IconButton
+            size="small"
+            style={{
+              position: "absolute",
+              right: "1%",
+              top: "2%",
+              color: "white",
+              background:"red",
+              borderRadius:"50%",
+              alignItems:"center",
+            }}
+            onClick={props.handleClose}
+          >
+            <CloseRounded />
+          </IconButton>
           <div className="select-which-doc">
             <button
               className="which-doc"
@@ -78,9 +95,16 @@ function ViewDocuments(props) {
           </div>
           <div className="pdf-container">
             {whichDoc && (
-              <Document file={whichDoc} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={currentPage} scale={1.8} />
-              </Document>
+              // <Document file={whichDoc} onLoadSuccess={onDocumentLoadSuccess}>
+              //   <Page pageNumber={currentPage} scale={1.8} />
+              // </Document>
+            <div style={{width:"100%", height:"100%", display:"flex",justifyContent:"center"}}>
+              <iframe
+                src={whichDoc}
+                style={{display:"flex",width:"100%",
+                height:"100%"}}
+                type="application/pdf" />
+            </div>
             )}
           </div>
           <div className="pdf-pagination">

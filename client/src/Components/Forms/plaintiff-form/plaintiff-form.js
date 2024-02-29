@@ -334,7 +334,6 @@ const PlaintiffForm = (props) => {
               placeholder="District"
               name="District"
               value={value("plaintiffDistrict")}
-              
               onChange={(e) => {
                 onChange("plaintiffDistrict", e.target.value);
               }}

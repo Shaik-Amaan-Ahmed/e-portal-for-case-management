@@ -123,7 +123,7 @@ const Topbar = () => {
             <IconButton
               onClick={handleClick}
               size="small"
-              sx={{ ml: 2 }}
+              sx={{ ml: 2,mr:2}}
               aria-controls={Open ? "account-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={Open ? "true" : undefined}

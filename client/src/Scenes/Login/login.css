@@ -35,16 +35,16 @@
 
 }
 
-.switch-buttons {
+.role-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     backdrop-filter: blur(60px);
     padding: 10px;
     border-radius: 10px;
-    width: 100%;
+    width: fit-content;
 }
-.switch-buttons::before {
+.role-buttons::before {
     content: "";
     position: absolute;
     top: -5px; /* Adjust these values to match your border size */
@@ -58,7 +58,7 @@
     
 }
 
-.switch-buttons button {
+.role-buttons button {
     display: flex;
     background: orange;
     border-radius: 5px;
