@@ -29,7 +29,11 @@ body,
     
     height: 5px;
 }
-
+::placeholder{
+    color: inherit;
+    font-weight: 500;
+    opacity: 0.3;
+}
 ::-webkit-scrollbar-track {
     background: #171616;
     border-radius: 2rem;

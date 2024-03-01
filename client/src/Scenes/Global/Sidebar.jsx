@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useContext, useState , useEffect} from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -42,6 +43,13 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
+  const [name, setName] = useState("");
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.name) {
+    setName(location.state.name);
+    }
+  }, [location]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Dashboard");
@@ -51,12 +59,10 @@ const Sidebar = () => {
       className="main"
       style={{
         display: "flex",
-        borderRight: "0.5px solid",
         height: "100vh",
         position: "fixed",
         width: "20vh",
         flexDirection: "column",
-        backgroundColor: theme.palette.background.paper,
       }}
     >
       <div className="inner-items">
@@ -64,7 +70,7 @@ const Sidebar = () => {
           variant="h3"
           style={{ textAlign: "center", marginTop: "20px" }}
         >
-          Admin
+          {name}
         </Typography>
         <div
           className="image"
@@ -103,42 +109,6 @@ const Sidebar = () => {
               <Item title="Cases" to="/judge/cases" />
               <Item title="Calendar" to="/judge/calendar" />
             </div>
-            <div className="items">
-              <Typography
-                variant="h7"
-                color={colors.black[100]}
-                marginLeft="20px"
-              >
-                TBD
-              </Typography>
-              <Item title="TBD" to="/judge" icon={DashboardCustomizeOutlined} />
-              <Item title="TBD" to="/judge/" />
-              <Item title="TBD" to="/judge/" />
-            </div>
-            <div className="items">
-              <Typography
-                variant="h7"
-                color={colors.black[100]}
-                marginLeft="20px"
-              >
-                TBD
-              </Typography>
-              <Item title="TBD" to="/judge" icon={DashboardCustomizeOutlined} />
-              <Item title="TBD" to="/judge/" />
-              <Item title="TBD" to="/judge/" />
-            </div>
-            <div className="items">
-              <Typography
-                variant="h7"
-                color={colors.black[100]}
-                marginLeft="20px"
-              >
-                TBD
-              </Typography>
-              <Item title="TBD" to="/judge" icon={DashboardCustomizeOutlined} />
-              <Item title="TBD" to="/judge/" />
-              <Item title="TBD" to="/judge/" />
-            </div>
           </div>
         </div>
       </div>
@@ -147,184 +117,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-// <Box
-//   sx={{
-//     "& .pro-sidebar-inner": {
-//       background: `${theme.palette.background.paper} !important`,
-//     },
-//     "& .pro-icon-wrapper": {
-//       backgroundColor: "transparent !important",
-//     },
-//     "& .pro-inner-item": {
-//       padding: "5px 25px 5px 20px !important",
-//       fontSize: "20px",
-//     },
-//     "& .pro-inner-item:hover": {
-//       color: "#0096FF !important",
-//     },
-//     "& .pro-menu-item.active": {
-//       color: "#0096FF !important",
-//     },
-
-//   }}
-//   borderRight="0.2px solid"
-
-// >
-//   {/* Start */}
-//   <ProSidebar collapsed={isCollapsed}>
-//     {/* Menu icon  */}
-//     <Menu iconShape="square">
-//       <MenuItem
-//         onClick={() => setIsCollapsed(!isCollapsed)}
-//         icon={isCollapsed ? <MenuOutlined /> : undefined}
-//         style={{
-//           margin: "10px 0 20px 0",
-//         }}
-//       >
-//         {!isCollapsed && (
-//           <Box
-//             display="flex"
-//             justifyContent="space-between"
-//             alignItems="center"
-//             ml="50px"
-//           >
-//             <Typography variant="h3" sx={{ color: colors.black[100] }}>
-//               ADMINS
-//             </Typography>
-//             <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-//               <MenuOutlined />
-//             </IconButton>
-//           </Box>
-//         )}
-//       </MenuItem>
-//       {/* USER */}
-//       {!isCollapsed && (
-//         <Box mb="25px">
-//           <Box display="flex" justifyContent="center" alignItems="center">
-//             <img
-//               alt="profile-user"
-//               width="100px"
-//               height="100px"
-//               src={MyImage}
-//               style={{ cursor: "pointer", borderRadius: "50%" }}
-//             />
-//           </Box>
-//           <Box textAlign="center">
-//             <Typography
-//               variant="h4"
-//               fontWeight="bold"
-//               sx={{ m: "10px 0 0 0", color: colors.black[100] }}
-//             >
-//               Mark Zuck Zuck
-//             </Typography>
-//             <Typography variant="h5" color={colors.greenAccent[500]}>
-//               CEO
-//             </Typography>
-//           </Box>
-//         </Box>
-//       )}
-
-//       {/* MENU ITEMS */}
-
-//       <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-//         <Item
-//           title="Dashboard"
-//           to="/judge/cases"
-//           icon={
-//             <DashboardCustomizeOutlined
-//               sx={{ color: colors.blueAccent[100] }}
-//             />
-//           }
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-//         <Typography
-//           variant="h6"
-//           sx={{ m: "15px 0 0 25px", color: colors.redAccent[500] }}
-//         >
-//           DATA
-//         </Typography>
-//         <Item
-//           title="Cause List"
-//           to="/judge/Causelist"
-//           icon={
-//             <PeopleOutlinedIcon sx={{ color: colors.blueAccent[100] }} />
-//           }
-//           onClick={<Causelist />}
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-//         <Item
-//           title="Calendar"
-//           to="/judge/Calendar"
-//           icon={
-//             <CalendarTodayOutlinedIcon
-//               sx={{ color: colors.blueAccent[100] }}
-//             />
-//           }
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-//         <Typography
-//           variant="h6"
-//           sx={{ m: "15px 0 0 25px", color: colors.redAccent[500] }}
-//         >
-//           INFO
-//         </Typography>
-//         <Item
-//           title="Judges"
-//           to="/judge/judges"
-//           icon={
-//             <PeopleOutlinedIcon sx={{ color: colors.blueAccent[100] }} />
-//           }
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-
-//         <Item
-//           title="Lawyers"
-//           to="/judge/lawyers"
-//           icon={
-//             <PeopleOutlinedIcon sx={{ color: colors.blueAccent[100] }} />
-//           }
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-
-//         <Item
-//           title="Parties"
-//           to="/judge/parties"
-//           icon={
-//             <PeopleOutlinedIcon sx={{ color: colors.blueAccent[100] }} />
-//           }
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-//         <Typography
-//           variant="h6"
-//           sx={{ m: "15px 0 0 25px", color: colors.redAccent[500] }}
-//         >
-//           STATS
-//         </Typography>
-//         <Item
-//           title="Line"
-//           to="/judge/"
-//           icon={
-//             <PeopleOutlinedIcon sx={{ color: colors.blueAccent[100] }} />
-//           }
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-
-//         <Item
-//           title="Settings"
-//           to="/judge/Settings"
-//           icon={<SettingsOutlined sx={{ color: colors.blueAccent[100] }} />}
-//           selected={selected}
-//           setSelected={setSelected}
-//         />
-//       </Box>
-//     </Menu>
-//   </ProSidebar>
-// </Box>

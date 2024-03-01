@@ -1,6 +1,7 @@
 import { Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../themes";
+import { Link } from "react-router-dom";
 import Logo from "./logo3.jpg";
 
 const NavBar = () => {
@@ -19,20 +20,20 @@ const NavBar = () => {
         width: "100%",
         alignItems: "center",
         height: "max-content",
-
+        zIndex:1000
       }}
     >
       <div className="flex-1">
         <div className="flex">
           <ul>
             <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <a href="/causelist">Cause List</a>
+              <Link to="/client/e-filing">E-filing</Link>
             </li>
             <li className="text-xl inline-flex p-2 hover:bg-orange-700 rounded-lg">
-              <a href="/profiles">Profiles</a>
+              <Link to="/profiles">Profiles</Link>
             </li>
             <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <a href="/judgements">Judgements</a>
+              <Link to="/judgements">Judgements</Link>
             </li>
           </ul>
         </div>
@@ -41,19 +42,19 @@ const NavBar = () => {
       {/* LOGO */}
       <div className="flex-1 items-center">
         <div className="flex items-center justify-center">
-          <a href="/">
+          <Link to="/">
             <img className="rounded-full w-20 h-20" src={Logo} alt="Logo" />
-          </a>
+          </Link>
           <Typography variant="h3" style={{ marginLeft: "10px" }}>
             <span style={{ fontWeight: "bold", justifyContent:"center", alignItems:"center", display:"flex" }}>
-              <a style={{ display: "flex", justifyContent: "center" , width:"100%"}} href="/">
+              <Link style={{ display: "flex", justifyContent: "center" , width:"100%"}} to="/">
                 HIGH COURT OF
-              </a>
+              </Link>
             </span>
             <span style={{ fontWeight: "bold" }}>
-              <a style={{ display: "flex", justifyContent: "center" }} href="/">
+              <Link style={{ display: "flex", justifyContent: "center" }} to="/">
                 TELANGANA
-              </a>
+              </Link>
             </span>
           </Typography>
         </div>
@@ -61,15 +62,11 @@ const NavBar = () => {
       <div className="flex-1">
         <div className=" flex justify-end">
           <ul className="mr-4">
-            <li className="text-xl inline-flex p-2 mx-5 hover:bg-orange-700 rounded-lg">
-              <a href="/register">
-                Register
-              </a>
-            </li>
+      
             <li className="text-xl inline-flex p-2 mx-5 bg-orange-700 rounded-lg">
-              <a href="/login" className="">
+              <Link to="/login" className="">
                 Login
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

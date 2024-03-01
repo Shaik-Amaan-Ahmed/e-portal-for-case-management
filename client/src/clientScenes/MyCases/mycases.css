@@ -8,6 +8,45 @@
 
 }
 
+.search-div{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-bar {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0.1px solid grey;
+    width: 20%;
+    height: 40px;
+    background: transparent;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.title {
+    display: flex;
+
+}
+
+.main-table {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-bar {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0.1px solid grey;
+    width: 20%;
+    height: 40px;
+    background: transparent;
+    font-size: larger;
+    font-weight: 500;
+}
+
 .title {
     display: flex;
 
@@ -16,21 +55,31 @@
 .main-table {
     display: flex;
     margin-top: 30px;
+    flex-direction: column;
+    width: 100%;
+    overflow: auto;
+    scroll-behavior: smooth;
 }
 
-table {
+.client-table {
     width: 100%;    
     border-bottom: 0.1px solid grey;
     border-radius: 10px;
-
+    overflow: auto;
+    max-width: 100%;
+    
 }
 
 table th {  
-    border-bottom: 0.1px solid grey;
-    padding: 10px;
+
     font-weight: 500;
     font-size: large;
     color: orange;
+    white-space: nowrap;
+}
+
+.case-id {
+    white-space: nowrap;
 }
 
 table td {
@@ -39,7 +88,10 @@ table td {
     font-size: medium;
     font-weight: 400;
     text-align: center;
+    white-space: normal;
 }
+
+
 
 
 .notifications {
@@ -47,14 +99,6 @@ table td {
     bottom: 20px;
     right: 20px;
     position: fixed;
-    border-radius: 50%;
-    border: 0.1px solid;
-    background: orange;
-    padding: 5px;
-}
-
-.noti-icon {
-    display: flex;
     border-radius: 50%;
     align-items: center;
     color: inherit;
@@ -70,4 +114,27 @@ table td {
     display: flex;
     color: red;
     margin-right: 2px;
+}
+
+.pagination-client-table {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+
+}
+
+.pagination-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    border-radius: 5px;
+    height: 40px;
+    margin: 10px;
+    padding: 10px;
+    color: black;
+    font-weight: 500;
+    width: fit-content;
+    font-size: large;
 }

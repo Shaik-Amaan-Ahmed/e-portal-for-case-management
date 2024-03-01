@@ -1,0 +1,138 @@
+.judge-cases-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 99%;
+    margin: 10px 10px 10px 10px;
+
+}
+
+.search-table {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.search-input {
+  display: flex;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  background: transparent;
+  text-align: left;
+}
+.search-input::placeholder {
+  color: inherit;
+  font-weight: 500;
+  opacity: 0.4;
+}
+
+.pagination-registrar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.pagination-registrar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: orange;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: black;
+  font-size: larger;
+  font-weight: 500;
+}
+
+.judge-main-inside {
+    
+display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    padding: 10px;
+   overflow: auto;
+
+}
+
+
+.judge-table {
+    display: table;
+    width: 100%;
+    border-bottom: 0.1px solid grey;
+    overflow: auto;
+    table-layout: fixed;
+}
+
+thead , tbody{
+  
+  display: table-row-group;
+}
+
+.judge-table td, .judge-table th {
+  white-space: nowrap;
+  width: 100%;  /* Change this from 100% to auto */
+  overflow: hidden;  /* Add this line if you want to hide text that overflows the cell */
+  text-overflow: ellipsis;  /* Add this line if you want to show an ellipsis when the text overflows the cell */
+}
+
+.toggle {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+}
+
+.toggle-availability {
+    position: relative;
+    width: 60px;
+    height: 34px;
+    margin: 10px;
+
+  }
+  
+  .toggle-switch-checkbox {
+    display: none;
+  }
+  
+  .toggle-switch-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .toggle-switch-inner {
+    position: absolute;
+    left: 4px;
+    width: 26px;
+    height: 26px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  .toggle-switch-checkbox:checked + .toggle-switch-label {
+    background-color: #ff8800;
+  }
+  
+  .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
+    transform: translateX(26px);
+  }
+  
+  .toggle-switch-label:active .toggle-switch-inner {
+    width: 60px;
+  }

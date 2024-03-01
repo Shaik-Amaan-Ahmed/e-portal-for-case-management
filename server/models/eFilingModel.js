@@ -5,6 +5,17 @@ const efiling = new Schema({
     email: {type : String, required: true},
     caseId: {type: String, required: true},
     status: {type: String},
+    caseSensitivity: {type: String},
+    registrationDate: {type: String},
+    reasonforrejection: {type: String},
+    rejectedDate: {type: String},
+    registrarApprovedDate: {type: String},
+    judgeAssigned: {type: String},
+    judgeAssignedDate: {type: String},
+    judgeApprovedDate: {type: String},
+    summonedDate:{type: String},
+    writtenStatementSubmittedDate: {type: String},
+    courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
@@ -62,6 +73,27 @@ const efiling = new Schema({
         filename: {type: String},
         contentType : {type : String},
         fileData: {type : Buffer}
+      },
+      summon: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
+      writtenStatement: {
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
+    },
+    notifications: {
+      judgements: {
+        judgementDate: {type: Date},
+        judgement: {type: String},
+        judgementFile: {
+          filename: {type: String},
+          contentType : {type : String},
+          fileData: {type : Buffer}
+        }
       }
     }
 })

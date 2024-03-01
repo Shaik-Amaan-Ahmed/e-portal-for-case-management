@@ -1,0 +1,25 @@
+.judge-approve-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400;
+    background-color: transparent;
+    backdrop-filter: blur(60px);
+    border: 0.1px solid #978b8bbb;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 1;
+}
+
+.judge-approve-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}

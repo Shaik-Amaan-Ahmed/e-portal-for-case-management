@@ -1,11 +1,9 @@
 .e-filing-main {
     display: flex;
-    border: 0.1cap solid grey;
     margin: 10px 10px 10px 10px;
     padding: 10px 10px 10px 10px;
-
+    background: inherit;
     border-radius: 10px;
-
 
 }
 
@@ -39,7 +37,6 @@
     flex-direction: row;
     width: 100%;
     margin: 10px 0 10px 0;
-
 }
 
 .title {
