@@ -9,7 +9,9 @@ const Item = (props) => {
   return (
     <div className="inner-form-elements">
       <div className="title">
-        <span>{props.title}</span>
+        <span style={{ fontWeight: "500", fontSize: "larger" }}>
+          {props.title}
+        </span>
       </div>
       <div className="input-element">
         <input
@@ -24,39 +26,145 @@ const Item = (props) => {
   );
 };
 
+const SelectItem = (props) => {
+  return (
+    <div className="inner-form-elements">
+      <div className="title">
+        <span style={{ fontWeight: "500", fontSize: "larger" }}>
+          {props.title}
+        </span>
+      </div>
+      <div className="input-element">
+        <select
+          value={props.value}
+          className="input-field"
+          onChange={(e) => props.onChange(e.target.value)}
+        >
+          {props.value === "" && <option value="none">Select Suit type</option>}
+          {props.options.map((option, index) => {
+            if (typeof option === 'string') {
+              // option is a string
+              return <option key={index} value={option}>{option}</option>;
+            } else {
+              // option is an object
+              const key = Object.keys(option)[0];
+              return <option key={index} value={key}>{key}</option>;
+            }
+
+          })}
+            
+        </select>
+      </div>
+    </div>
+  );
+};
+
+const SubSelectItem = (props) => { 
+
+  const suitType = props.suitTypes.find((suitType) => {
+    return Object.keys(suitType)[0] === props.toFind;
+  })
+
+  if (suitType) { 
+    return (
+      <div className="inner-form-elements">
+        <div className="title">
+          <span style={{ fontWeight: "500", fontSize: "larger" }}>
+            {props.title}
+          </span>
+        </div>
+        <div className="input-element">
+          <select
+            value={props.value}
+            className="input-field"
+            onChange={(e) => props.onChange(e.target.value)}
+          >
+            {props.value === "" && <option value="none">Select Relief sought</option>}
+            {suitType[props.toFind].map((option, index) => {
+              return <option key={index} value={option}>{option}</option>;
+            })}
+          </select>
+        </div>
+      </div>
+    );
+  }
+
+}
+
 const PlaintForm = (props) => {
   const caseType = ["civil", "criminal", "three"];
   const [casee, setCasee] = useState({});
   const [earlierCourts, setEarlierCourts] = useState(false);
-  const [option, setOption] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [amountTitle, setAmountTitle] = useState("");
+  const suitTypes = [
+    "Suits for money",
+    {
+      "Suits for movable property": [
+        "Recovery of possession",
+        "Recovery of declaration and possession of title",
+      ],
+    },
+    {
+      "Suits for immovable property": [
+        "Recovery of possession",
+        "Recovery of declaration and possession of title",
+        "Recovery of declaration and consequential injunction",
+      ],
+    },
+    {
+      "Suits for maintenance and annuities": [
+        "Suits for maintenance",
+        "Suit for enhancement or reduction of maintenance",
+        "Suit for annuities or other sums payable periodically",
+        "Plaintiff's exclusive right to use, sell, print or exhibit any mark, name, book, picture, design or other thing"
+      ],
+    },
+    {"Suits relating to trust property":[
+      "Suits for possession or joint possession of trust property or for declaration of title to trust property",
+    ]},
+    "Suits relating to easements",
+    "Suits relating to mortgages",
+    "Suits for accounts",
+    "Suits for dissolution of partnership",
+    "Partition suits",
+    "Suits for joint possession",
+    "Administration suits",
+    "Suits for cancellation of decrees,etc",
+    "Suits to set aside attachment, etc",
+    "Suits for specific performance",
+    "Suits between landlord and tenant",
+    "Suits for mesne profits",
+  ];
 
   const email = useContext(EmailContext);
 
   const storedPlaintDetails = JSON.parse(localStorage.getItem("plaintDetails")); //getting the stored data from the local storage
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:64000/case-category")
-      .then((res) => {
-        setCasee(res.data.data[0].caseType);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:64000/case-category")
+  //     .then((res) => {
+  //       setCasee(res.data.data[0].caseType);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   const initialDetails = storedPlaintDetails
     ? storedPlaintDetails
     : {
         causeTitlePlaintiff: "",
         causeTitleDefendant: "",
-        caseCategory: "",
-        caseSubCategory: "",
         numberOfPlaintiff: "",
         numberOfDefendants: "",
+        suitType: "",
+        reliefSought: "",
+        amountClaimed: "",
+        courtFee: "",
       }; //
 
   const [plaintDetails, setPlaintDetails] = useState(initialDetails); //initializing the state with the stored data
@@ -93,36 +201,69 @@ const PlaintForm = (props) => {
     setPlaintDetails(updatedDetails);
     localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
   };
-  const caseTypeOnChange = (sub, val) => {
-    if (option !== "") {
-      setOption(val);
-      const updatedDetails = {
-        ...plaintDetails,
-        ["caseSubCategory"]: "None",
-        [sub]: val,
-      };
 
-      setPlaintDetails(updatedDetails);
-      localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+  const calculateCourtFeeHelper = (amount) => {
+    if (amount < 200000) {
+      return 2000;
+    }
+    if (amount === 300000) {
+      return 5426;
     } else {
-      setOption(val);
-      if (casee[val].length === 1 && casee[val][0] === "-") {
-        const updatedDetails = {
-          ...plaintDetails,
-          ["caseSubCategory"]: "-",
-          [sub]: val,
-        };
-        setPlaintDetails(updatedDetails);
-        localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
-      } else {
-        const updatedDetails = {
-          ...plaintDetails,
-          ["caseSubCategory"]: "None",
-          [sub]: val,
-        };
-        setPlaintDetails(updatedDetails);
-        localStorage.setItem("plaintDetails", JSON.stringify(updatedDetails));
+      amount = Math.floor((amount - 200000) / 100);
+      return amount + 5426;
+    }
+  };
+
+  useEffect(() => {
+    onChange(
+      "courtFee",
+      calculateCourtFee(
+        value("suitType"),
+        value("reliefSought"),
+        value("amountClaimed")
+      )
+    );
+  }, [plaintDetails["suitType"], plaintDetails['reliefSought'], plaintDetails["amountClaimed"]]);
+
+  const calculateCourtFee = (suitType, reliefSought, amountClaimed) => {
+    amountClaimed = Number(amountClaimed);
+    var amountOnWhichFeeNeedToBeCalculated = 0;
+    if (suitType === "Suits for movable property") {
+      if (reliefSought === "Recovery of possession") {
+        amountOnWhichFeeNeedToBeCalculated = (1 / 4) * amountClaimed;
+        return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
       }
+
+      if (reliefSought === "Recovery of declaration and possession of title") {
+        return calculateCourtFeeHelper(amountClaimed);
+      }
+    } else if (suitType === "Suits for immovable property") {
+
+      if (reliefSought === "Recovery of possession") { 
+        amountOnWhichFeeNeedToBeCalculated = (1 / 2) * amountClaimed;
+        return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
+      }
+
+      if (reliefSought === "Recovery of declaration and possession of title") {
+        amountOnWhichFeeNeedToBeCalculated = (3 / 4) * amountClaimed;
+        return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
+      }
+
+      if (
+        reliefSought === "Recovery of declaration and consequential injunction"
+      ) {
+        amountOnWhichFeeNeedToBeCalculated = (1 / 2) * amountClaimed;
+        return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
+      }
+    } else if (suitType === "Suits for maintenance and annuities") {
+      return calculateCourtFeeHelper(amountClaimed);
+    }
+    else if (suitType === "Suits relating to trust property") { 
+      amountOnWhichFeeNeedToBeCalculated = 1/5 * amountClaimed;
+      return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
+    }
+    else if(suitType === "Suits relating to easements") { 
+      return calculateCourtFeeHelper(amountClaimed);
     }
   };
 
@@ -170,64 +311,8 @@ const PlaintForm = (props) => {
                 />
               </div>
             </div>
-            <div className="inner-form-elements">
-              <div className="title">
-                {/* Case Category */}
-                <span>Case Category</span>
-              </div>
-              <div className="input-element">
-                <select
-                  value={value("caseCategory")}
-                  className="input-field"
-                  onChange={(e) =>
-                    caseTypeOnChange("caseCategory", e.target.value)
-                  }
-                >
-                  {value("caseCategory") === "" && (
-                    <option value="none">Select Case Category</option>
-                  )}
-                  {Object.keys(casee).map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="inner-form-elements">
-              <div className="title">
-                {/* Case SubCategory */}
-                <span>Case Sub-category</span>
-              </div>
-              <div className="input-element">
-                <select
-                  className="input-field"
-                  value={value("caseSubCategory")}
-                  onChange={(e) => onChange("caseSubCategory", e.target.value)}
-                >
-                  {!option && (
-                    <option value="none">Select Case SubCategory</option>
-                  )}
-                  {option &&
-                    ["None", ...casee[option]].map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* form left end  */}
-
-        {/* left end  */}
-        {/* right start  */}
-        <div className="right-main">
-          <div className="right-form">
             <Item
-              title="Number of Plaintiff"
+              title="Number of Plaintiffs"
               placeholder="No. of Plaintiff"
               type="number"
               value={value("numberOfPlaintiff")}
@@ -240,6 +325,56 @@ const PlaintForm = (props) => {
               value={value("numberOfDefendants")}
               onChange={(e) => onChange("numberOfDefendants", e)}
             />
+          </div>
+        </div>
+
+        {/* form left end  */}
+
+        {/* left end  */}
+        {/* right start  */}
+        <div className="right-main">
+          <div className="right-form">
+            <SelectItem
+              title="Suit Type"
+              value={value("suitType")}
+              options={suitTypes}
+              onChange={(e) => onChange("suitType", e)}
+            />
+            {value("suitType") !== "" && ( 
+              <SubSelectItem 
+                title="Relief sought"
+                value={value("reliefSought")}
+                suitTypes={suitTypes}
+                onChange={(e) => onChange("reliefSought", e)}
+                toFind={value("suitType")}
+              />
+            )}
+            <Item
+              title="Amount claimed in the suit"
+              placeholder="Amount"
+              type="number"
+              value={value("amountClaimed")}
+              onChange={(e) => onChange("amountClaimed", e)}
+            />
+            {value("amountClaimed") !== "" && (
+              <div className="inner-form-elements">
+                <div className="title">
+                  <span variant="h5">*Court Fee</span>
+                </div>
+                <div className="input-element">
+                  <input
+                    type="none"
+                    readOnly
+                    className="input-field"
+                    value={calculateCourtFee(
+                      value("suitType"),
+                      value("reliefSought"),
+                      value("amountClaimed")
+                    )}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {/* right end  */}
