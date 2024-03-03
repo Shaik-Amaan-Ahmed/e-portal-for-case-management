@@ -190,20 +190,27 @@ router.get("/registrar-view-documents", async (req, res) => {
   try {
     const data = await efiling.findOne({ caseId: id }).select("docDetails");
     if (data) {
-      const petitionBase64 = Buffer.from(
-        data.docDetails.petition.fileData
-      ).toString("base64");
-      const aadharBase64 = Buffer.from(
-        data.docDetails.aadhar.fileData
-      ).toString("base64");
-      res
-        .status(200)
-        .json({
-          petition: petitionBase64,
-          aadhar: aadharBase64,
-          petitionName: data.docDetails.petition.filename,
-          aadharName: data.docDetails.aadhar.filename,
-        });
+      let documents = {};
+      for (let docName in data.docDetails) {
+        if (docName === 'others') {
+          documents[docName] = data.docDetails[docName].map((doc, index) => {
+            const docBase64 = Buffer.from(doc.fileData).toString("base64");
+            return {
+              fileData: docBase64,
+              filename: doc.filename
+            };
+          });
+        } else if (data.docDetails[docName].fileData) {
+          const docBase64 = Buffer.from(data.docDetails[docName].fileData).toString("base64");
+          documents[docName] = {
+            fileData: docBase64,
+            filename: data.docDetails[docName].filename
+          };
+        } else {
+          console.log("No file found");
+        }
+      }
+      res.status(200).json(documents);
     } else {
       res.status(400).json({ message: "No data found" });
     }

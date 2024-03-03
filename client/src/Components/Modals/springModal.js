@@ -38,7 +38,7 @@ function SpringModal(props) {
             </div>
             <div className='modal-buttons'>
                 <div className='buttons'>
-                    <button className='confirm-button' onClick={() => {props.handleSubmit(); alert(props.notif)}}>Confirm</button>
+                    <button className='confirm-button' onClick={() => {props.handleSubmit();}}>Confirm</button>
                 </div>  
                 <div className='buttons'>
                     <button className='confirm-button' onClick={props.handleClose}>Cancel</button>

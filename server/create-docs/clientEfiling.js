@@ -14,13 +14,10 @@ require("dotenv").config();
 const upload = multer({ storage: multer.memoryStorage() });
 router.post(
   "/",
-  upload.fields([
-    { name: "petition", maxCount: 1 },
-    { name: "aadhar", maxCount: 1 },
-  ]),
+  upload.any(),
   async (req, res) => {
     const data = req.body;
-
+    const fileData = req.files;
     const generateRegistrationId = () => {
       let year = new Date().getFullYear().toString().substr(2, 2); // Get the last two digits of the current year
       let prefix = "HCT";
@@ -36,6 +33,28 @@ router.post(
       const data = JSON.parse(req.body.details);
       const caseId = regId;
       const email = data.email;
+      const docDetails = { 
+        petition: null,
+        aadhar: null,
+        vakalatnama: null,
+        others: []
+      }
+
+      req.files.forEach(file => {
+        if (file.fieldname === 'petition' || file.fieldname === 'aadhar' || file.fieldname === 'vakalatnama') {
+          docDetails[file.fieldname] = {
+            filename: file.originalname,
+            contentType: file.mimetype,
+            fileData: file.buffer,
+          };
+        } else {
+          docDetails.others.push({
+            filename: file.fieldname,
+            contentType: file.mimetype,
+            fileData: file.buffer,
+          });
+        }
+      });
      
       const newEfiling = new efiling({
         caseId: caseId,
@@ -45,18 +64,7 @@ router.post(
         plaintDetails: data.storedPlaintDetails,
         plaintiffDetails: data.storedPlaintiffDetails,
         defendantDetails: data.storedDefendantDetails,
-        docDetails: {
-          petition: {
-            filename: req.files.petition[0].originalname,
-            contentType: req.files.petition[0].mimetype,
-            fileData: req.files.petition[0].buffer,
-          },
-          aadhar: {
-            filename: req.files.aadhar[0].originalname,
-            contentType: req.files.aadhar[0].mimetype,
-            fileData: req.files.aadhar[0].buffer,
-          },
-        },
+        docDetails: docDetails,
       });
       await newEfiling.save();
       try {
@@ -88,6 +96,7 @@ router.post("/judge-reject-case", async (req, res) => {
         status: "Rejected",
         reasonforrejection: reasonforrejection,
         rejectedDate: rejectedDate,
+        rejectedDate: rejectedDate,
       },
       { new: true } // return the updated document
     );
@@ -95,6 +104,8 @@ router.post("/judge-reject-case", async (req, res) => {
       const newRejectedCase = new rejectedcases(data.toObject());
       await newRejectedCase.save();
       const judge = await judges.findOneAndUpdate(
+        { "cases.caseId":id} , // find a judge with this case id
+        { $pull: { cases:{caseId:id} } }, // remove the case id from the cases array
         { "cases.caseId":id} , // find a judge with this case id
         { $pull: { cases:{caseId:id} } }, // remove the case id from the cases array
         { new: true } // return the updated document
@@ -145,15 +156,16 @@ router.post("/registrar-reject-case", async (req, res) => {
   }
 });
 
+
 let currentJudgeIndex = 0;
 router.post("/approve-case", async (req, res) => {
   const id = req.body.id;
   const registrarApprovedDate = GenerateDate();
   try {
     const caseData = await efiling.findOne({ caseId: id });
-    const val = caseData.value;
+    const val = caseData.plaintDetails.suitValue;
     console.log(val);
-    const mandal = caseData.plaintiffDetails.plaintiffMandal;
+    const mandal = caseData.plaintDetails.mandal;
     console.log(mandal);
 
     let reqrole = val < 2000000 ? "junior" : (val < 5000000 ? "senior" : "chief");
@@ -203,7 +215,7 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: { caseId: id, status: "Approved and pending for summons" } },
+            $push: { cases: { caseId: id, status: "Pending for review by judge" } },
           },
           { new: true } // return the updated document
         );
@@ -226,6 +238,7 @@ router.post("/approve-case", async (req, res) => {
     console.log(error.message);
   }
 });
+
 
 
 module.exports = router;

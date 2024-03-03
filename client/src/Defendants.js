@@ -11,7 +11,6 @@ import { useState, useEffect ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import axios from "axios";
-import Home from "./Scenes/dashboard/dashboard";
 import { CaseIdContext } from "./hooks/caseIdContext";
 import DefendantCaseView from "./DefendantaScenes/defendant-case-view/defendant-case-view";
 

@@ -70,10 +70,9 @@ const Preview = (props) => {
     setFormattedDate(day + "-" + month + "-" + year);
   }, [registrationDate]);
 
-  const [docDetails, setDocdetails] = useState({
-    petition: null,
-    aadhar: null,
-  });
+  const [docDetails, setDocdetails] = useState([]);
+
+  const [additionalFiles, setAdditionalFiles] = useState([]);
 
   const data = {
     email: email,
@@ -87,31 +86,54 @@ const Preview = (props) => {
   const handleSubmit = async () => {
     setLoading1(true);
     handleClose();
+    var flag = 0;
+
+    if(docDetails.length === 0){ 
+      setError("Please upload all the documents");
+      setLoading1(false);
+      flag = 1;
+      return;
+    }
+
+    if (docDetails.some((doc) => doc.file === null)) {
+      setError("Please upload all the documents");
+      setLoading1(false);
+      flag = 1;
+      return;
+    }
+
+    if(docDetails.some((doc) => doc.file.size > 200 * 1024)){ 
+      setError("File size should be less than 200kB");
+      setLoading1(false);
+      flag = 1;
+      return;
+    }
+
+    if (flag === 1) { 
+      return;
+    }
 
     const formData = new FormData();
 
-    if (!docDetails.petition || !docDetails.aadhar) {
-      handleClose();
-      setError("Please upload all documents");
-      return;
-    }
+    docDetails.forEach((doc, index) => {
+      if (!doc.file) { 
+        handleClose();
+        setError("Please upload all the documents");
+        setLoading(false)
+        return;
+      }
+      if(doc.file && doc.file.size> 200 * 1024){
+        handleClose();
+        setError("File size should be less than 200kB");
+        return;
+      }
+      formData.append(doc.name, doc.file);
 
-    // Check file sizes
-    if (docDetails.petition.size > 200 * 1024) {
-      handleClose();
-      setError("Petition size exceeds 200KB");
-      return;
-    }
+    })
 
-    if (docDetails.aadhar.size > 200 * 1024) {
-      handleClose();
-      setError("Aadhar size exceeds 200KB");
-      return;
-    }
-
-    formData.append("petition", docDetails.petition);
-    formData.append("aadhar", docDetails.aadhar);
+    
     formData.append("details", JSON.stringify(data));
+    console.log(formData)
 
     try {
       const uploadres = await axios.post(
@@ -160,12 +182,12 @@ const Preview = (props) => {
               value={storedPlaintDetails.causeTitleDefendant}
             />
             <Item
-              title="Case Category"
-              value={storedPlaintDetails.caseCategory}
+              title="Suit Type"
+              value={storedPlaintDetails.suitType}
             />
             <Item
-              title="Case Sub Category"
-              value={storedPlaintDetails.caseSubCategory}
+              title="Relief Sought"
+              value={storedPlaintDetails.reliefSought}
             />
           </div>
           <div className="doc-right">
@@ -176,6 +198,10 @@ const Preview = (props) => {
             <Item
               title="Number of Defendants"
               value={storedPlaintDetails.numberOfDefendants}
+            />
+            <Item
+              title="Court Fees"
+              value={storedPlaintDetails.courtFees}
             />
           </div>
         </div>
@@ -329,6 +355,8 @@ const Preview = (props) => {
       <UploadDocs
         docDetails={docDetails}
         setDocdetails={setDocdetails}
+        additionalFiles={additionalFiles}
+        setAdditionalFiles={setAdditionalFiles}
         error={error}
       />
 
