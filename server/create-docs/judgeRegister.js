@@ -8,9 +8,8 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
-  const { name,email, phone, casePreferences } = req.body;
-
-  const judge = await Judge.findOne({ email, name, phone });
+  const { name,email, phone, role, mandals } = req.body;
+  const judge = await Judge.findOne({ email, name, phone, role});
   if (judge) {
 
   let transporter = nodemailer.createTransport({
@@ -47,7 +46,7 @@ router.post("/", async (req, res) => {
         const judge = await Judge.findOneAndUpdate(
           { email },//find the judge with this email
           { token ,
-            casePreferences //update the token and casePreferences
+            mandals //update the token and mandals
           },
           { new: true } //return the updated document
         );

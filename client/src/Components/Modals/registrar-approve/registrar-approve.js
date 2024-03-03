@@ -33,7 +33,7 @@ function Approve(props) {
 
     const res = await axios.post(
       "http://localhost:64000/e-filing/approve-case",
-      { id: props.id, caseSensitivity: value,status:props.status}
+      { id: props.id, status:props.status}
     );
     if (res.status === 200) {
       

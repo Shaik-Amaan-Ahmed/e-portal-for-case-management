@@ -148,7 +148,7 @@ function Calendar() {
   return (
     <Box>
       
-      {/* <Header title="Calendar" subtitle="View Calendar" />
+      <Header title="Calendar" subtitle="View Calendar" />
     <Box sx={{marginTop:"10px", padding:"20px", border:"1px solid", borderRadius:"20px"}}>
     <FullCalendar
         dayMaxEventRows={true}
@@ -224,7 +224,7 @@ function Calendar() {
         <Typography variant="h5">{description}</Typography>
         <Typography variant="h5">{description}</Typography>
         <Typography variant="h5">{description}</Typography>
-      </Popover> */}
+      </Popover>
     </Box>
     
   );

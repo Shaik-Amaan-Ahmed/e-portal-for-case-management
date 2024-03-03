@@ -125,7 +125,7 @@ function SummonModal(props) {
     formData.append('summon', summonBlob, 'summon.pdf');
     const petitionBlob = base64ToBlob(petition, 'application/pdf');
     formData.append('petition', petitionBlob, 'petition.pdf');
-    formData.append('defendantEmail', "gajawadah88@gmail.com");
+    formData.append('defendantEmail', caseDetails.defendantDetails.defendantEmail);
     formData.append('caseId', props.caseId);
   
     axios.post("http://localhost:64000/approve-cases/send-summons", formData, {
@@ -136,11 +136,12 @@ function SummonModal(props) {
       if(res.status === 200) { 
         alert("Summon sent successfully");
         props.handleClose();
-        props.setReloadKey((prev) => prev + 1);
+        props.setReloadKey(prevkey=> prevkey + 1);
         setLoading(false);
       }
       if(res.status === 400) { 
         alert("Summon not sent");
+        setLoading(false);
       }
     })
 
@@ -156,12 +157,12 @@ function SummonModal(props) {
         aria-describedby="keep-mounted-modal-description"
       >
         <div className="summons-modal">
-          <IconButton
+        <IconButton
             size="small"
             style={{
               position: "absolute",
               right: "1%",
-              top: "2%",
+              top: "1%",
               color: "white",
               background:"red",
               borderRadius:"50%",

@@ -5,8 +5,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
-    height: 100%;
+    width: 95%;
+    height: 90%;
     border: 0.01px solid rgb(77, 76, 76);
     max-width: 100%;
     border-radius: 10px;
@@ -41,14 +41,21 @@
 
 .pdf-container {
 
-    display: block;
+    display: flex;
     height: 100%;
-    width: fit-content;
+    width: 100%;
     justify-content: center;
     align-items: center;
     overflow: auto;
     margin: auto;
-    max-width: 90%;
+}
+
+.pdf-container .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-auto-flow: row;
+    grid-gap: 20px;
+
 }
 
 .pdf-pagination {
@@ -93,3 +100,39 @@
     font-size: larger;
 }
 
+
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+}
+
+.doc-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 80%;
+    padding: 50px;
+    border: 0.1px solid rgb(77, 76, 76);
+    border-radius: 10px;
+    backdrop-filter: blur(60px);
+
+}
+
+.card-outside {
+    display: flex;
+    height: fit-content;
+    border: 0.1px solid rgb(77, 76, 76);
+    border-radius: 10px;
+    background-color: transparent;
+    margin: 10px;
+;
+}
