@@ -46,6 +46,7 @@ const efiling = new Schema({
         plaintiffState: {type : String},
         plaintiffCountry: {type : String},
         plaintiffPinCode: {type : String},
+        plaintiffMandal: {type : String}
     },
 
     defendantDetails: { 
@@ -110,7 +111,8 @@ const efiling = new Schema({
           fileData: {type : Buffer}
         }
       }
-    }
+    },
+    value: {type: Number}
 })
 
 module.exports = mongoose.model('efiling', efiling);

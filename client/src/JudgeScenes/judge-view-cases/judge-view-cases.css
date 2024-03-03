@@ -8,6 +8,46 @@
 
 }
 
+.search-table {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.search-input {
+  display: flex;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  background: transparent;
+  text-align: left;
+}
+.search-input::placeholder {
+  color: inherit;
+  font-weight: 500;
+  opacity: 0.4;
+}
+
+.pagination-registrar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.pagination-registrar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: orange;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: black;
+  font-size: larger;
+  font-weight: 500;
+}
+
 .judge-main-inside {
     
 display: flex;

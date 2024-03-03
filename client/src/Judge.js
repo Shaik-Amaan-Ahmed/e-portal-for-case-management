@@ -72,7 +72,7 @@ function Judge() {
                 <Topbar />
                 <Routes>
                   <Route path="/" element={<JudgeDashboard />} />
-                  <Route path="/judge-cases" element={<JudgeViewCases />} />
+                  {/* <Route path="/judge-cases" element={<JudgeViewCases />} /> */}
                   <Route path="/ongoing-cases" element={<OnGoingCases />} />
                   <Route path="/Calendar" element={<Calendar />} />
                 </Routes>

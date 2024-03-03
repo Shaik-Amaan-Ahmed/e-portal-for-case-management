@@ -23,7 +23,11 @@
     background: transparent;
     text-align: left;
 }
-
+.search-input::placeholder {
+    color: inherit;
+    font-weight: 500;
+    opacity: 0.4;
+}
 .registrar-main-inside {
     display: flex;
     flex-direction: row;

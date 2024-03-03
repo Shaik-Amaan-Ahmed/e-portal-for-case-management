@@ -40,6 +40,7 @@
     padding: 10px;
     width: 100%;
     height: 100%;
+    height: 100%;
 
 }
 
@@ -65,6 +66,7 @@
     flex: 1;
     width: 100%;
     justify-content: flex-start;
+    height: 50px;
     height: 50px;
 }
 
@@ -117,6 +119,56 @@ option {
     padding: 10px;
     border-radius: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /* {/* <select
+                  value={value("caseCategory")}
+                  className="input-field"
+                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
+                >
+                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {Object.keys(casee).map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select> */ 
+
+
+
+
+/* 
+                                {/* Case SubCategory
+                <Typography variant="h5" style={{ fontWeight: "500" }}>Case SubCategory</Typography>
+              </div>
+              <div className="input-element">
+                <select
+                  className="input-field"
+                  value={value("caseSubCategory")}
+                  onChange={(e) => onChange("caseSubCategory", e.target.value)}
+                >
+                  {!option && <option value="none">Select Case SubCategory</option>}
+                  {option && ["None", ...casee[option]].map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select> */
 
 
 

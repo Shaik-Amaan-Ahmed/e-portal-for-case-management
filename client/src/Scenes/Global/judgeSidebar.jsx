@@ -85,13 +85,6 @@ const RegistrarSidebar = () => {
                 setSelected={setSelected}
               />
               <Item
-                title="Review Cases"
-                to="/judge/judge-cases"
-                icon={DashboardCustomizeOutlined}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
                 title="Active Cases"
                 to="/judge/ongoing-cases"
                 icon={DashboardCustomizeOutlined}

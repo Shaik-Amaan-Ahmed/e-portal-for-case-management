@@ -75,7 +75,7 @@ const UploadDocs = (props) => {
         <form className="form-outside">
           <div className="doc-upload-file">
             <div className="for-label">
-              <label for="petition">Petition</label>
+              <label for="petition">Plaint</label>
             </div>
             <div className="for-input">
               <input

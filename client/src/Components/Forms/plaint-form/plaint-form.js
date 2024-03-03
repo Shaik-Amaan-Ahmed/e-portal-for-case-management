@@ -200,7 +200,6 @@ const PlaintForm = (props) => {
         suitValue: "",
         courtFees: "",
         mandal: "",
-        district: "",
       }; //
 
   const [plaintDetails, setPlaintDetails] = useState(initialDetails); //initializing the state with the stored data
@@ -221,6 +220,7 @@ const PlaintForm = (props) => {
       props.handleNext(props.activeStep);
     }
   };
+
 
   //to get the data from the database and store it in the local storage
   const value = (val) => {

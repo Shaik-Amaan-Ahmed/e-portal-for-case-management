@@ -15,12 +15,30 @@ const SendSummons = () => {
     const [summonOpen, setSummonOpen] = useState(false);
     const [caseId, setCaseId] = useState("");
     const [reloadkey, setReloadKey] = useState(0);
+    const [searchinput, setSearchInput] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [totalCount, setTotalCount] = useState(0);
+
+    const nextPage = () => {
+      setCurrentPage(currentPage + 1);
+    }
+  
+    const prevPage = () => {
+      
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    }
 
     useEffect(() => { 
         setLoading(true);
-        axios.get("http://localhost:64000/casedetails/send-summons").then((res) => {
+        axios
+          .get("http://localhost:64000/casedetails/send-summons?page=" + currentPage + "&limit=" + itemsPerPage + "&search=" + searchinput)
+          .then((res) => {
             if (res.status === 200) {
                 setCaseDetails(res.data.data);
+                setTotalCount(res.data.totalCount);
                 setLoading(false);
             }
             if (res.status === 400) {
@@ -29,9 +47,10 @@ const SendSummons = () => {
             }
         }).catch((err) => {
             console.log(err);
+            setLoading(false);
 
         });
-    },[reloadkey]);
+    },[currentPage, itemsPerPage, reloadkey, searchinput]);
 
     const handleSummonOpen = (id) => { 
         setCaseId(id);
@@ -41,6 +60,14 @@ const SendSummons = () => {
   return (
     <div className="summons-main">
         <Header title={"Send Summons"} />
+        <div className="search-table">
+          <input type="text" placeholder="Search" className="search-input" onChange={(e) => { setSearchInput(e.target.value) }} />
+        </div>
+        {loading && (<div className="loading"><CircularProgress style={{color:"white"}}/><h1>Loading...</h1></div>)}
+        <div className="pagination-registrar">
+          {currentPage > 1 && <button onClick={prevPage}>Previous</button>}
+          {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
+        </div>
         <div className="summons-inside"> 
           <table className="summons-table"> 
             <thead>
@@ -72,7 +99,7 @@ const SendSummons = () => {
             </tbody>
           </table>
           </div>
-        {summonOpen && <SummonModal open={summonOpen} handleClose={() => setSummonOpen(false)} caseId={caseId} setReloadKey={setReloadKey}/> }
+        {summonOpen && <SummonModal open={summonOpen} handleClose={() => setSummonOpen(false)} caseId={caseId} reloadkey={reloadkey} setReloadKey={setReloadKey}/> }
             
         </div>
         
