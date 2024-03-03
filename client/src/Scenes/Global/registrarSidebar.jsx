@@ -83,13 +83,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
                   setSelected={setSelected}
                 />
                 <Item
-                  title="Allocation"
-                  to="/registrar/allocation-of-judge"
-                  icon={DashboardCustomizeOutlined}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
                   title="Send Summons"
                   to="/registrar/send-summons"
                   selected={selected}

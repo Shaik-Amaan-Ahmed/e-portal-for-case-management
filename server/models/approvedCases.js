@@ -100,7 +100,8 @@ const approved = new Schema({
           fileData: {type : Buffer}
         }
       }
-    }
+    },
+    value: {type: Number}
 })
 
 module.exports = mongoose.model('approvedcases', approved);

@@ -124,7 +124,7 @@ const JudgeViewCases = () => {
             <tr key="1">
               <th>Regn. Number</th>
               <th>Regn. Date</th>
-              <th>Case sensitivity</th>
+              {/* <th>Mandal</th> */}
               <th>Cause Title</th>
               <th>Case Status</th>
               <th>View Details</th>
@@ -139,18 +139,7 @@ const JudgeViewCases = () => {
                   <tr key={item.caseId}>
                     <td>{item.caseId}</td>
                     <td>{item.registrationDate}</td>
-                    <td
-                      style={{
-                        color:
-                          item.caseSensitivity === "High"
-                            ? "red"
-                            : item.caseSensitivity === "Medium"
-                            ? "orange"
-                            : "green",
-                      }}
-                    >
-                      {item.caseSensitivity}
-                    </td>
+                    {/* <td>{item.plaintiffDetails.mandal}</td> */}
                     <td>
                       {item.plaintDetails.causeTitlePlaintiff} vs{" "}
                       {item.plaintDetails.causeTitleDefendant}
