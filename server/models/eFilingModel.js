@@ -20,12 +20,14 @@ const efiling = new Schema({
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
-        suitType: {type: String},
-        reliefSought: {type: String},
-        suitValue: {type: String},
-        courtFees: {type: String},
         numberOfPlaintiff: {type: String},
         numberOfDefendants: {type: String},
+        suitType: {type: String},
+        reliefSought: {type: String},
+        mandal: {type: String},
+        district: {type: String},
+        suitValue: {type: String},
+        courtFees: {type: String},
     },
     plaintiffDetails: {
         plaintiffType: {type : String},

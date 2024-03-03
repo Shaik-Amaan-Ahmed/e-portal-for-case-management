@@ -103,7 +103,6 @@ const SubSelectItem = (props) => {
 };
 
 const PlaintForm = (props) => {
- 
   const [option, setOption] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
@@ -153,6 +152,27 @@ const PlaintForm = (props) => {
     "Suits for mesne profits",
   ];
 
+  const mandals = [
+    "Amberpet",
+    "Ameerpet",
+    "Asif Nagar",
+    "Bahadurpura",
+    "Bandlaguda",
+    "Bholakpur Village",
+    "Charminar",
+    "Golconda",
+    "Himayathnagar",
+    "Hyderabad",
+    "Khairatabad",
+    "Mareedpally",
+    "Musheerabad",
+    "Nampally",
+    "Saidabad",
+    "Secunderabad",
+    "Shaikpet",
+    "Tirumalgiri",
+  ];
+
   const email = useContext(EmailContext);
 
   const storedPlaintDetails = JSON.parse(localStorage.getItem("plaintDetails")); //getting the stored data from the local storage
@@ -179,6 +199,8 @@ const PlaintForm = (props) => {
         reliefSought: "",
         suitValue: "",
         courtFees: "",
+        mandal: "",
+        district: "",
       }; //
 
   const [plaintDetails, setPlaintDetails] = useState(initialDetails); //initializing the state with the stored data
@@ -261,7 +283,7 @@ const PlaintForm = (props) => {
         amountOnWhichFeeNeedToBeCalculated = (1 / 4) * suitValue;
         return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
       }
-      if (reliefSought === "Suit for partition and separate possession") { 
+      if (reliefSought === "Suit for partition and separate possession") {
         return calculateCourtFeeHelper(suitValue);
       }
 
@@ -273,7 +295,7 @@ const PlaintForm = (props) => {
         amountOnWhichFeeNeedToBeCalculated = (1 / 2) * suitValue;
         return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
       }
-      if (reliefSought === "Suit for partition and separate possession") { 
+      if (reliefSought === "Suit for partition and separate possession") {
         amountOnWhichFeeNeedToBeCalculated = (3 / 4) * suitValue;
         return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
       }
@@ -290,18 +312,21 @@ const PlaintForm = (props) => {
         return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
       }
     } else if (suitType === "Suits for maintenance and annuities") {
-
       return calculateCourtFeeHelper(suitValue);
-    } 
-    else if (suitType === "Suits relating to trust property") {
-
+    } else if (suitType === "Suits relating to trust property") {
       amountOnWhichFeeNeedToBeCalculated = (1 / 5) * suitValue;
       return calculateCourtFeeHelper(amountOnWhichFeeNeedToBeCalculated);
-
-    } else if (suitType === "Suits relating to easements" || suitType ==="Suits relating to accounts" || suitType === "Suits for dissolution of partnership" || suitType === "Suits for cancellation of decrees,etc"|| suitType === "Suits for specific performance" || suitType === "Suits between landlord and tenant" || suitType === "Suits for mesne profits" || suitType==="Administration suits") {
-
+    } else if (
+      suitType === "Suits relating to easements" ||
+      suitType === "Suits relating to accounts" ||
+      suitType === "Suits for dissolution of partnership" ||
+      suitType === "Suits for cancellation of decrees,etc" ||
+      suitType === "Suits for specific performance" ||
+      suitType === "Suits between landlord and tenant" ||
+      suitType === "Suits for mesne profits" ||
+      suitType === "Administration suits"
+    ) {
       return calculateCourtFeeHelper(suitValue);
-
     }
   };
 
@@ -366,6 +391,12 @@ const PlaintForm = (props) => {
                 toFind={value("suitType")}
               />
             )}
+            <SelectItem
+              title="Mandal where the suit property is situated"
+              value={value("mandal")}
+              options={mandals}
+              onChange={(e) => onChange("mandal", e)}
+              />
             <Item
               title="Amount claimed in the suit"
               placeholder="Amount"
@@ -373,7 +404,7 @@ const PlaintForm = (props) => {
               value={value("suitValue")}
               onChange={(e) => onChange("suitValue", e)}
             />
-            {value("suitValue") !== "" && value("suitType")!=""&& (
+            {value("suitValue") !== "" && value("suitType") != "" && (
               <div className="inner-form-elements">
                 <div className="title">
                   <span variant="h5">*Court Fee</span>
