@@ -202,12 +202,17 @@ export default function JudgeNotes(props) {
                                 
                                 <textarea
                                   value={editedNote}
-                                  style={{background:"transparent"}}
+                                  style={{background:"transparent", border:"0.1px solid grey", borderRadius:"5px", padding:"5px"}}
                                   onChange={(e) =>
                                     setEditedNote(e.target.value)
                                   }
                                 ></textarea>
-                                                        <button onClick={() => {
+                                <div style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "10px"
+                                }}>
+                                        <button onClick={() => {
                             // Save the edited note
                             axios.post('http://localhost:64000/judge-notes/edit-notes', {
                                 email,
@@ -227,7 +232,19 @@ export default function JudgeNotes(props) {
                             });
 
                             setEditingNote(null);
-                        }}>Save</button>
+                        }}
+                        style={{
+                            background: "green",
+                            color: "white",
+                            padding: "5px",
+                            borderRadius: "5px",
+                            border: "none",
+                            display: "flex",
+                            alignSelf: "center",
+
+                        }}  
+                        >Save</button>
+                        </div>
                                 </>
                               ) : (
                                 notesData[date]

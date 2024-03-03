@@ -15,6 +15,20 @@ table {
     width: 100%;
 }
 
+.view-btn {
+  background-color: orange;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  width: fit-content;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(4, 4, 4);
+  height: fit-content;
+  white-space: nowrap;
+}
+
 .search-table {
     display: flex;
     justify-content: flex-end;

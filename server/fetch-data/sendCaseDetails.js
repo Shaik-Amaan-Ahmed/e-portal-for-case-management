@@ -171,6 +171,7 @@ router.get("/registrar-allocation-of-cases", async (req, res) => {
 //registrar view details
 router.get("/registrar-view-details", async (req, res) => {
   const id = req.query.id;
+  console.log(id)
   try {
     const data = await efiling.findOne({ caseId: id });
     if (data) {

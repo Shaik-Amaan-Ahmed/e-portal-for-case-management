@@ -30,7 +30,7 @@ router.get('/get-notes', async (req, res) => {
     try {
         const judge = await Judge.findOne({email});
         if(judge) {
-            const notes = judge.notes.get(caseId);
+            const notes = judge.notes[caseId];
             if(notes) {
                 res.status(200).send(notes);
             } else {
@@ -50,9 +50,14 @@ router.get('/search-notes', async (req, res) => {
     try {
         const judge = await Judge.findOne({email});
         if(judge) {
-            const notes = judge.notes.get(caseId).get(date);
+            const notes = judge.notes[caseId];
             if(notes) {
-                res.status(200).send(notes);
+                const notesOnDate = notes[date];
+                if(notesOnDate) {
+                    res.status(200).send(notesOnDate);
+                } else {
+                    res.status(400).send("No notes found on this date");
+                }
             } else {
                 res.status(400).send("No notes found");
             }

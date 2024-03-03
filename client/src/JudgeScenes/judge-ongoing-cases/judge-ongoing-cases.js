@@ -7,6 +7,8 @@ import { EmailContext } from "../../hooks/emailContext";
 import { Button } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import ViewDocs from "../../Components/Modals/active-cases/view-docs";
+import ViewDetails from "../../Components/Modals/registrar-view-details/registrarViewDetails";
+import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
 import JudgeNotes from "../../Components/Modals/judge-notes/judge-notes";
 import { Edit } from "@mui/icons-material";
 import {IconButton} from "@mui/material";
@@ -16,6 +18,8 @@ const OnGoingCases = () => {
   const [caseDetails, setCaseDetails] = useState([]);
   const [message, setMessage] = useState("");
   const [viewDocOpen, setViewDocOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [allDocsOpen, setAllDocsOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
   const [caseId, setCaseId] = useState(null);
   const email = useContext(EmailContext);
@@ -80,6 +84,19 @@ const OnGoingCases = () => {
 
     const handleClose = () => setViewDocOpen(false);
 
+    const handleDetailsOpen = (id) => {
+        setCaseId(id);
+        console.log(id);
+        setDetailsOpen(true);
+    }
+    const handleDetailsClose = () => setDetailsOpen(false);
+
+    const handleAllDocsOpen = (id) => {
+        setCaseId(id);
+        setAllDocsOpen(true);
+    }
+    const handleAllDocsClose = () => setAllDocsOpen(false);
+
   return (
     <div className="ongoing-main">
       <Header title="On Going Cases" />
@@ -99,8 +116,10 @@ const OnGoingCases = () => {
               <td>Cause Title</td>
               <td>Regn Date</td>
               <td>Case Status</td>
-              <td>View</td>
-              <td>Actions</td>
+              <td>View Details</td>
+              <td>View Documents</td>
+              <td>Pending Actions</td>
+              <td>Notes</td>
             </tr>
           </thead>
           <tbody>
@@ -113,6 +132,12 @@ const OnGoingCases = () => {
                 </td>
                 <td>{item.registrationDate}</td>
                 <td>{item.status}</td>
+                <td>
+                  <button className="view-btn" onClick={() => handleDetailsOpen(item.caseId)}>View Details</button>
+                </td>
+                <td>
+                  <button className="view-btn" onClick={() => handleAllDocsOpen(item.caseId)}>View Documents</button>
+                </td>
                 <td>
                   <Button
                     variant="contained"
@@ -144,7 +169,10 @@ const OnGoingCases = () => {
         </table>
       </div>
       {viewDocOpen && ( <ViewDocs open={handleOpen} handleClose={handleClose} caseId={caseId}/>)}
-      {notesOpen && (<JudgeNotes open={notesOpen} handleClose={notesCloseHandler} caseId={caseId}/>)}
+      {notesOpen && ( <JudgeNotes open={notesOpen} handleClose={notesCloseHandler} caseId={caseId}/>)}
+      {detailsOpen && caseId!==null && (<ViewDetails open={detailsOpen} handleClose={handleDetailsClose} id={caseId}/>)}
+      {allDocsOpen && (<ViewDocuments open={allDocsOpen} handleClose={handleAllDocsClose} id={caseId}/>)}
+
     </div>
   );
 };
