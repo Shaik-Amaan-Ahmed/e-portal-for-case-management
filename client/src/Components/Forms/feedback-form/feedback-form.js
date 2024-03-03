@@ -3,6 +3,7 @@ import './feedback-form.css'
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 export default function FeedbackForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState(""); 
@@ -61,7 +62,7 @@ export default function FeedbackForm() {
                 <strong>Phone:</strong> 9398359211
               </p>
             </address>
-            <p>To clear your queries contact us on above details or visit our <a href="/faq" style={{textDecoration:'underline'}}>FAQ</a> page.
+            <p>To clear your queries contact us on above details or visit our <Link to="/faq" style={{textDecoration:'underline'}}>FAQ</Link> page.
             </p>
           </div>
           <div className="col-lg-7 d-flex align-items-center">

@@ -43,7 +43,9 @@
     margin: 10px 0 10px 0;
 
 }
-
+.input-field-error {
+    border-color: red;
+  }
 .title {
     display: flex;
     flex: 1;

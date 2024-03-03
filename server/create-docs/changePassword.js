@@ -14,8 +14,8 @@ router.post("/", async (req, res) => {
     });
     if (user) {
         const token = crypto.randomBytes(20).toString("hex");
-        console.log(token);
-        console.log(req.body.email);
+        // console.log(token);
+        // console.log(req.body.email);
         const newToken = await ClientData.findOneAndUpdate(
             {email: req.body.email},
             {token: token}, 
@@ -50,6 +50,7 @@ router.post("/client-change-password", async (req, res) => {
             { new: true });
         client.token = null;
         await client.save();
+        // res.clearCookie("accessToken");
         res.status(200).send("Password changed successfully");
         } catch (error) {
             console.log(error.message);

@@ -37,7 +37,7 @@ function ViewAssign(props) {
             setLoading(true);
             const res = await axios.post(
                 "http://localhost:64000/e-filing/registrar-assign-judge",
-                { id: props.id, judgeNames: judges}
+                { id: props.id, judgeNames: judges},
             );
             if (res.status === 200) {
                 setTimeout(() => {

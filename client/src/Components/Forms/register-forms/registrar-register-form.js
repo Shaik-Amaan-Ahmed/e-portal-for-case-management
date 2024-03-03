@@ -10,16 +10,30 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import {CircularProgress} from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 
 const Item = (props) => (
   <div className="registrar-input">
-    <input
-      type="text"
-      placeholder={props.placeholder}
-      className="registrar-register-input"
-      value={props.value}
+      <TextField 
+      id="outlined-basic" 
+      label={props.placeholder} 
+      variant="outlined" 
+      value={props.value} 
       onChange={(e) => props.setRegistrarDetails({ ...props.registrarDetails , [props.toChange] : e.target.value })}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
     />
   </div>
 );
