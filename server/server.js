@@ -20,6 +20,7 @@ const judgeMakeNotes = require("./create-docs/judgeMakeNotes");
 const contactUs = require("./create-docs/contact");
 const approvedcaseshandler = require("./create-docs/approvedCasesHandling");
 const bodyParser = require('body-parser');
+const dataSender = require("./fetch-data/dataSender");
 // require('events').EventEmitter.defaultMaxListeners = 20;
 require("dotenv").config();
 
@@ -73,6 +74,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/case-category', sendCaseCategory);
 app.use('/contact-us', contactUs);
 app.use('/approve-cases', approvedcaseshandler);
+app.use('/data-sender', dataSender);
 app.use("/change-password", changePassword);
 app.use("/judge-notes", judgeMakeNotes);
 

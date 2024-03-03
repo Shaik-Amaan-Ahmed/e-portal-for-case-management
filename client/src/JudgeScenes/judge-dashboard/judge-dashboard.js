@@ -58,11 +58,6 @@ const JudgeDashboard = () => {
                     
                 </div>
                 <div className="grid-item"
-                    style={{backgroundColor:"yellow"}}
-                >
-                <Item title="Review Cases" value={details.reviewCases} />
-                </div>
-                <div className="grid-item"
                     style={{backgroundColor:"red"}}
                 >
                     <Typography variant="h5" style={{ fontWeight:"600"}} color="black">Rejected Cases</Typography>

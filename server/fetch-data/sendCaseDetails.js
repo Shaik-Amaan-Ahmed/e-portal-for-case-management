@@ -27,15 +27,16 @@ router.get("/client-case-details/", async (req, res) => {
             { status: new RegExp(search, "i") },
             { "plaintDetails.caseCategory": new RegExp(search, "i") },
             { registrationDate: new RegExp(search, "i") },
+            {judgeAssigned: new RegExp(search, "i")}  
           ],
         })
-        .select(["plaintDetails", "caseId", "status", "registrationDate"])
+        .select(["plaintDetails", "caseId", "status", "registrationDate","judgeAssigned"])
         .skip(skip)
         .limit(limit);
     } else {
       data = await efiling
         .find({ email: email })
-        .select(["plaintDetails", "caseId", "status", "registrationDate"])
+        .select(["plaintDetails", "caseId", "status", "registrationDate","judgeAssigned"])
         .skip(skip)
         .limit(limit);
     }

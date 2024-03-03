@@ -196,7 +196,7 @@ const PlaintForm = (props) => {
         numberOfPlaintiff: "",
         numberOfDefendants: "",
         suitType: "",
-        reliefSought: "",
+        reliefSought: "nan",
         suitValue: "",
         courtFees: "",
         mandal: "",

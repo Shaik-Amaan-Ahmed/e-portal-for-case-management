@@ -88,8 +88,9 @@ const CaseDetails = () => {
           <th>Registration No </th>
           <th>Regn Date</th>
           <th>Cause Title</th>
-          <th>Case Category</th>
+          <th>Suit Type</th>
           <th>Case Status</th>
+          <th>Court Assigned</th>
           <th>Next Hearing Date</th>
         </tr>
         <tbody>
@@ -101,10 +102,13 @@ const CaseDetails = () => {
                 {item.plaintDetails.causeTitlePlaintiff} VS{" "}
                 {item.plaintDetails.causeTitleDefendant}
               </td>
-              <td>{item.plaintDetails.caseCategory}</td>
+              <td>{item.plaintDetails.suitType}</td>
               <td style={{
-                  color: statusColors[item.status],whiteSpace:"nowrap"
+                  color: statusColors[item.status],
+                  maxWidth: "500px",
+                  overflowWrap: "break-word"
               }}>{item.status}</td>
+              <td>{item.judgeAssigned}</td>
               <td>{item.plaintDetails.nextHearingDate}</td>
             </tr>
           ))}

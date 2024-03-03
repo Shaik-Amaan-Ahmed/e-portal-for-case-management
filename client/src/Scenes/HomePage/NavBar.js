@@ -32,9 +32,7 @@ const NavBar = () => {
             <li className="text-xl inline-flex p-2 hover:bg-orange-700 rounded-lg">
               <Link to="/profiles">Profiles</Link>
             </li>
-            <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <Link to="/judgements">Judgements</Link>
-            </li>
+     
           </ul>
         </div>
       </div>
