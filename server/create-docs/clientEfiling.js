@@ -170,7 +170,7 @@ router.post("/approve-case", async (req, res) => {
     const email = caseData.email;
     console.log(mandal);
 
-    let reqrole = val < 2000000 ? "junior" : (val < 5000000 ? "senior" : "chief");
+    let reqrole = val <= 2000000 ? "junior" : (val <= 5000000 ? "senior" : "chief");
 
     console.log(reqrole);
     const judge = await judges.aggregate([
@@ -192,7 +192,7 @@ router.post("/approve-case", async (req, res) => {
         $project: {
           name: 1,
           numCases: 1,
-
+          email: 1
         },
       }
     ]).limit(1);
@@ -236,8 +236,10 @@ router.post("/approve-case", async (req, res) => {
           res.status(400).json({ message: "fail-new" });
         }
         try {
-          const suc = await sendEmail(email, "Case Approval", "<h1>Your Case has been Approved Succesfully. Your OS number is " + newCaseId+"</h1>");
-          if(suc){
+          const suc1 = await sendEmail(email, "Case Approval", "<h1>Your Case has been Approved Succesfully. Your OS number is " + newCaseId+"</h1>");
+          const suc2 = await sendEmail(judge[0].email, "Case Approval", "<h1>Your have been allocated a case. OS number is " + newCaseId+"</h1>");
+
+          if(suc1 && suc2){
             res.status(200).json({ message: "Email Sent Succesfully" });
           }
           else{
@@ -250,6 +252,7 @@ router.post("/approve-case", async (req, res) => {
       } catch (error) {
         console.log(error.message);
       }
+      
     }
   } catch (error) {
     console.log(error.message);
