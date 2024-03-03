@@ -163,7 +163,7 @@ router.post("/approve-case", async (req, res) => {
   const registrarApprovedDate = GenerateDate();
   try {
     const caseData = await efiling.findOne({ caseId: id });
-    const val = caseData.plaintDetails.suitValue;
+    const val = parseInt(caseData.plaintDetails.suitValue);
     console.log(val);
     const mandal = caseData.plaintDetails.mandal;
     console.log(mandal);
