@@ -2,7 +2,7 @@ import * as React from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import "./registrar-deny.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function RegistrarDeny(props) {
@@ -18,7 +18,7 @@ function RegistrarDeny(props) {
             setError("Please enter the remarks");
             return;
         }
-        const res = await axios.post("http://localhost:64000/e-filing/reject-case", {id: props.id, reasonforrejection: remarks});
+        const res = await axios.post("http://localhost:64000/e-filing/registrar-reject-case", {id: props.id, reasonforrejection: remarks});
         try{
             if(res.status === 200){
                 alert("Case rejected successfully");

@@ -12,8 +12,9 @@ function JudgeApprove(props) {
     const [message, setMessage] = useState(''); 
 
    const handleApprove = async () => {
-
-    const res = await axios.post('http://localhost:64000/e-filing/judge-approve?id=' + props.id);
+    const res = await axios.post('http://localhost:64000/e-filing/judge-approve', 
+    { params: { id: props.id } } // query parameters
+  );
     if(res.status === 200){
       setTimeout(() => {
         setMessage('');

@@ -9,26 +9,55 @@ import {
   FormControl
 } from "@mui/material";
 import axios from "axios";
+
 import {CircularProgress} from "@mui/material";
+import TextField from '@mui/material/TextField';
+import { set } from "mongoose";
 
 
-const Item = (props) => (
+const Item = (props) => {
+return (
   <div className="judge-input">
-    <input
-      type="text"
-      placeholder={props.placeholder}
-      className="judge-register-input"
-      value={props.value}
+    <TextField 
+      id="outlined-basic" 
+      label={props.placeholder} 
+      variant="outlined" 
+      value={props.value} 
       onChange={(e) => props.setJudgeDetails({ ...props.judgeDetails , [props.toChange] : e.target.value })}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: 'rgb(201, 198, 193)',
+          },
+        },
+        '& .MuiInputLabel-root': {
+          '&.Mui-focused': {
+            color: 'white', // change as needed
+          },
+        },
+        
+      }}
+      type={props.type}
+      error={props.nameError || props.emailError || props.phoneError || props.casePreferencesError}
+      helperText={props.nameError ? props.nameErrorMsg : props.emailError ? props.emailErrorMsg : props.phoneError ? props.phoneErrorMsg : props.casePreferencesError ? props.casePreferencesErrorMsg : ""}
     />
   </div>
 );
+  };
 
 const JudgeRegisterForm = () => {
   const [caseCategories, setCaseCategories] = useState({});
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [nameError, setNameError] = useState(false);
+const [emailError, setEmailError] = useState(false);
+const [emailErrorMsg, setEmailErrorMsg] = useState("");
+const [phoneErrorMsg, setPhoneErrorMsg] = useState("");
+const [nameErrorMsg, setNameErrorMsg] = useState("");
+const [casePreferencesErrorMsg, setCasePreferencesErrorMsg] = useState("");
+const [phoneError, setPhoneError] = useState(false);
+const [casePreferencesError, setCasePreferencesError] = useState(false);
   const [judgeDetails,setJudgeDetails] = useState({
     name: "",
     email: "",
@@ -50,7 +79,61 @@ const JudgeRegisterForm = () => {
     }
   }, []);
 
+  const validateForm = () => {
+    let isValid = true;
+  
+    if (!judgeDetails.name) {
+      setNameError(true);
+      setNameErrorMsg("Name is required");
+      isValid = false;
+    } else {
+      setNameError(false);
+      setNameErrorMsg("");
+    }
+    
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!judgeDetails.email) {
+      setEmailError(true);
+      setEmailErrorMsg("Email is required");
+      isValid = false;
+    } else if(!regex.test(judgeDetails.email)){
+      setEmailError(true);
+      setEmailErrorMsg("Invalid Email");
+      isValid = false;
+    }else{
+      setEmailError(false);
+      setEmailErrorMsg("");
+      isValid = true;
+    }
+
+    if (!judgeDetails.phone) {
+      setPhoneError(true);
+      setPhoneErrorMsg("Phone number is required");
+      isValid = false;
+    } else if(!/^[0-9]{10}$/i.test(judgeDetails.phone)){
+        isValid = false;
+        setPhoneErrorMsg("Invalid phone number");
+        setPhoneError(true);
+    } else {
+      setPhoneError(false);
+      setPhoneErrorMsg("");
+      isValid = true;
+    }
+
+  
+    if (!judgeDetails.casePreferences.length) {
+      setCasePreferencesError(true);
+      setCasePreferencesErrorMsg("Please select your case preferences");
+      isValid = false;
+    } else {
+      setCasePreferencesError(false);
+      setCasePreferencesErrorMsg("");
+    }
+  
+    return isValid;
+  };
   const handleJudgeRegister = async () => { 
+    if (validateForm()) {
     setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:64000/judge-register", judgeDetails);
@@ -64,14 +147,15 @@ const JudgeRegisterForm = () => {
       setIsLoading(false);
     }
   }
+};
 
   return (
     <div className="judge-register-form-main">
       {isLoading && <CircularProgress style={{color: "white"}}/>}
       {message && <Typography variant="h6" color="orange" fontWeight="500" style={{marginBottom:"10px"}}> {message} </Typography>} 
-      <Item placeholder="Full Name" value={judgeDetails.name} toChange="name" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails}/>
-      <Item placeholder="Email" value={judgeDetails.email} toChange="email" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails}/>
-      <Item placeholder="Phone" value={judgeDetails.phone} toChange="phone" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails}/>
+      <Item placeholder="Full Name" type="text" value={judgeDetails.name} toChange="name" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} nameError={nameError} nameErrorMsg={nameErrorMsg}/>
+      <Item placeholder="Email" type="email" value={judgeDetails.email} toChange="email" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} emailError={emailError} emailErrorMsg={emailErrorMsg}/>
+      <Item placeholder="Phone" type="text" value={judgeDetails.phone} toChange="phone" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} phoneError={phoneError} phoneErrorMsg = {phoneErrorMsg}/>
       <div className="judge-input">
         <Typography variant="h6" color="orange" fontWeight="500" style={{marginBottom:"10px"}}>
           What type of cases do you deal with?
@@ -83,9 +167,20 @@ const JudgeRegisterForm = () => {
         value={selectedOptions}
         onChange={(e) => setSelectedOptions(e.target.value)}
         input={<OutlinedInput label="Multiple Select" />}
+        error={casePreferencesError}
+        helperText={casePreferencesError ? casePreferencesErrorMsg : ""}
         sx={{
-          background:"transparent",
-          color: "white",
+          '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+              borderColor: 'rgb(201, 198, 193)',
+            },
+          },
+          '& .MuiInputLabel-root': {
+            '&.Mui-focused': {
+              color: 'white', // change as needed
+            },
+          },
+          
         }}
       >
         {Object.keys(caseCategories).map((name) => (

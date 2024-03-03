@@ -8,15 +8,22 @@ const efiling = new Schema({
     caseSensitivity: {type: String},
     registrationDate: {type: String},
     reasonforrejection: {type: String},
+    rejectedDate: {type: String},
+    registrarApprovedDate: {type: String},
     judgeAssigned: {type: String},
+    judgeAssignedDate: {type: String},
+    judgeApprovedDate: {type: String},
+    summonedDate:{type: String},
+    writtenStatementSubmittedDate: {type: String},
     courtRoomAssigned: {type: String},
     nextHearingDate: {type: Date},
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
-        caseType: {type: String},
-        caseCategory: {type: String},
-        caseSubCategory:{type: String},
+        suitType: {type: String},
+        reliefSought: {type: String},
+        suitValue: {type: String},
+        courtFees: {type: String},
         numberOfPlaintiff: {type: String},
         numberOfDefendants: {type: String},
     },
@@ -78,6 +85,18 @@ const efiling = new Schema({
         contentType : {type : String},
         fileData: {type : Buffer}
       },
+      vakalatnama: { 
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
+      others:[
+        {
+          filename: {type: String},
+          contentType : {type : String},
+          fileData: {type : Buffer}
+        }
+      ]
     },
     notifications: {
       judgements: {

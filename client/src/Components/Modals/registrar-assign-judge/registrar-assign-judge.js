@@ -37,12 +37,13 @@ function ViewAssign(props) {
             setLoading(true);
             const res = await axios.post(
                 "http://localhost:64000/e-filing/registrar-assign-judge",
-                { id: props.id, judgeNames: judges}
+                { id: props.id, judgeNames: judges},
             );
             if (res.status === 200) {
                 setTimeout(() => {
                     setMessage("");
                     props.handleClose();
+                    props.setReloadKey(prevkey=> prevkey + 1 );
                 }, 1500)
                 setMessage("Judges Assigned Successfully")
                 window.location.reload();

@@ -1,65 +1,55 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./uploadDocs.css";
 import { EmailContext } from "../../../hooks/emailContext";
 import { Typography } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DeleteRounded from "@mui/icons-material/DeleteRounded";
+import { IconButton } from "@mui/material";
 
 const UploadDocs = (props) => {
-
-
-
-
   const [error, setError] = useState("");
 
   const email = useContext(EmailContext);
+  const [lastLength, setLastLength] = useState(0);
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
-    props.setDocdetails((prevState) => ({
-      ...prevState,
-      [name]: files[0],
-    }));
+    const fileExists = props.docDetails.some(doc => doc.name === name);
+  
+    if (fileExists) {
+      props.setDocdetails(
+        props.docDetails.map((doc) =>
+          doc.name === name ? { name: name, file: files[0] } : doc
+        )
+      );
+    } else {
+      props.setDocdetails([...props.docDetails, { name: name, file: files[0] }]);
+    }
   };
 
-  // const handleSubmit = async (e) => {
-  //     e.preventDefault();
+  const handleAddFile = () => {
+    props.setAdditionalFiles([
+      ...props.additionalFiles,
+      { name: "", file: null },
+    ]);
+  };
 
-  //     if (!docDetails.petition || !docDetails.aadhar) {
-  //         setError('Please upload all documents');
-  //         return;
-  //     }
+  const handleDeleteFile = (fileNameToDelete) => {
+    props.setDocdetails(props.docDetails.filter(file => file.name !== fileNameToDelete));
+    props.setAdditionalFiles(props.additionalFiles.filter(file => file.name !== fileNameToDelete));
+  };
 
-  //     // Check file sizes
-  //     if (docDetails.petition.size > 200 * 1024) {
-  //         setError('Petition size exceeds 200KB');
-  //         return;
-  //     }
+  useEffect(() => {
+    console.log(props.docDetails);
+  }, [props.docDetails]);
 
-  //     if (docDetails.aadhar.size > 200 * 1024) {
-  //         setError('Aadhar size exceeds 200KB');
-  //         return;
-  //     }
-
-  //     const formData = new FormData();
-  //     formData.append('petition', docDetails.petition);
-  //     formData.append('aadhar', docDetails.aadhar);
-  //     formData.append('email', email);
-  //     formData.append('caseId', caseId);
-
-  //     try {
-  //         await axios.post('http://localhost:64000/e-filing/upload-docs', formData, {
-  //             headers: {
-  //                 'Content-Type': 'multipart/form-data'
-  //             }
-  //         });
-  //         props.handleNext(props.activeStep +1);
-
-  //     }catch (error) {
-  //         console.error('Error:', error);
-  //     }
-
-  // }
+  function addFile() {
+    const newFiles = props.additionalFiles.slice(lastLength);
+    props.setDocdetails([...props.docDetails, ...newFiles]);
+    setLastLength(props.additionalFiles.length);
+  }
 
   return (
     <>
@@ -82,26 +72,103 @@ const UploadDocs = (props) => {
         >
           Upload Documents
         </label>
-        <form>
+        <form className="form-outside">
           <div className="doc-upload-file">
-            <label for="petition">Petition</label>
-            <input
-              type="file"
-              name="petition"
-              onChange={handleFileChange}
-              accept=".pdf"
-            />
+            <div className="for-label">
+              <label for="petition">Petition</label>
+            </div>
+            <div className="for-input">
+              <input
+                type="file"
+                name="petition"
+                onChange={handleFileChange}
+                accept=".pdf"
+              />
+            </div>
           </div>
           <div className="doc-upload-file">
-            <label for="petition">Aadhar</label>
-            <input
-              type="file"
-              name="aadhar"
-              onChange={handleFileChange}
-              accept=".pdf"
-            />
+            <div className="for-label">
+              <label for="petition">Aadhar</label>
+            </div>
+            <div className="for-input">
+              <input
+                type="file"
+                name="aadhar"
+                onChange={handleFileChange}
+                accept=".pdf"
+              />
+            </div>
           </div>
+          <div className="doc-upload-file">
+            <div className="for-label">
+              <label for="vakalatnama">Vakalatnama</label>
+            </div>
+            <div className="for-input">
+              <input
+                type="file"
+                name="vakalatnama"
+                onChange={handleFileChange}
+                accept=".pdf"
+              />
+            </div>
+          </div>
+          {props.additionalFiles.map((file, index) => (
+            <div key={index} className="doc-new-add">
+              <div className="for-label">
+                <input
+                  type="text"
+                  placeholder="File name"
+                  className="doc-title-field"
+                  value={file.name}
+                  onChange={(e) => {
+                    const newName = e.target.value;
+                    props.setAdditionalFiles(
+                      props.additionalFiles.map((file, i) =>
+                        i === index ? { ...file, name: newName } : file
+                      )
+                    );
+                  }}
+                />
+              </div>
+              <div className="for-input">
+                <input
+                  type="file"
+                  name={file.name}
+                  onChange={(e) => {
+                    const newFile = e.target.files[0];
+                    props.setAdditionalFiles(
+                      props.additionalFiles.map((file, i) =>
+                        i === index ? { ...file, file: newFile } : file
+                      )
+                    );
+                  }}
+                  accept=".pdf"
+                />
+                <IconButton onClick={addFile}>
+                  <CheckCircleIcon
+                    style={{ color: "green" }}
+                  />
+                </IconButton>
+                <IconButton onClick={() => {
+                      handleDeleteFile(file.name);
+                    }}>
+                  <DeleteRounded
+                    style={{ color: "red" }}
+                  />
+                </IconButton>
+              </div>
+            </div>
+          ))}
         </form>
+        <div>
+          <button
+            className="submit"
+            style={{ padding: "10px", display: "flex", color: "whitesmoke" }}
+            onClick={handleAddFile}
+          >
+            Add
+          </button>
+        </div>
       </div>
     </>
   );

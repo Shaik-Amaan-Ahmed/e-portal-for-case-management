@@ -6,13 +6,14 @@ import Typography from "@mui/material/Typography";
 import "./registrar-approve.css";
 import { Snackbar, Alert, CircularProgress } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { green } from "@mui/material/colors";
 
 function Approve(props) {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
   const options = ["High", "Medium", "Low"]
   const [error, setError] = useState("");
   const [value, setValue] = useState("");

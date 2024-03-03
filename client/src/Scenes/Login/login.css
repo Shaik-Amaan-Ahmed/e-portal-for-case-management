@@ -28,23 +28,23 @@
     display: flex;
     justify-items: center;
     margin-block: auto;
-    height: fit-content;
+    height:auto;
     padding: 20px;
     width: 30%;
     border-radius: 10px;
 
 }
 
-.role-buttons {
+.switch-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     backdrop-filter: blur(60px);
     padding: 10px;
     border-radius: 10px;
-    width: fit-content;
+    width: 100%;
 }
-.role-buttons::before {
+.switch-buttons::before {
     content: "";
     position: absolute;
     top: -5px; /* Adjust these values to match your border size */
@@ -58,7 +58,7 @@
     
 }
 
-.role-buttons button {
+.switch-buttons button {
     display: flex;
     background: orange;
     border-radius: 5px;
@@ -143,6 +143,9 @@
     font-weight: 600;
     color: orange;
 }
+.no-account-register:hover {
+    border-bottom: 0.5px solid orange;
+}
 
 .username::placeholder {
     color: inherit;
@@ -154,4 +157,5 @@
     color: inherit;
     font-weight: 600;
     opacity: 0.5;
+    
 }

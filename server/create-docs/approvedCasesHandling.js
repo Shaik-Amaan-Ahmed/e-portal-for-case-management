@@ -8,7 +8,7 @@ const approvedCases = require("../models/approvedCases");
 const eFilingModel = require("../models/eFilingModel");
 const defendantDetails = require("../models/defendantDetails");
 const judges = require("../models/judges");
-
+const GenerateDate = require("../DateGenerator/DateGenerator");
 router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { name: 'petition', maxCount: 1 }]) ,async (req, res) => { 
     const summon = req.files.summon[0].buffer;
     const summonFileName = req.files.summon[0].originalname;
@@ -16,7 +16,6 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
     const petitionFileName = req.files.petition[0].originalname;
     const defendantEmail = req.body.defendantEmail;
     const caseId = req.body.caseId;
-
     try {
         function generatePassword() {
             let password = '';
@@ -48,9 +47,11 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
         ],res)
 
     // Start the update processes
+    const summonedDate = GenerateDate();
     const updatePromise1 = await eFilingModel.findOneAndUpdate(
         {caseId: caseId},
-        {status: "Summoned the defendant and pending for written statement"},
+        {status: "Summoned the defendant and pending for written statement",
+        summonedDate: summonedDate},
         {new:true}
     );
     const updatePromise2 = approvedCases.findOneAndUpdate(
@@ -60,7 +61,8 @@ router.post("/send-summons",upload.fields([{ name: 'summon', maxCount: 1 }, { na
             filename: summonFileName,
             contentType: req.files.summon[0].mimetype,
             fileData: summon
-        }
+        },
+        summonedDate: summonedDate
     },
         {new:true}
     );
@@ -104,7 +106,8 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
     const writtenStatement = req.files.writtenStatement[0].buffer;
     const writtenStatementFileName = req.files.writtenStatement[0].originalname;
     const caseId = req.body.caseId;
-    
+   
+    const writtenStatementSubmittedDate = GenerateDate() ;
     try {
         const approvedCase = await approvedCases.findOneAndUpdate(
             {caseId: caseId},
@@ -116,8 +119,8 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-
-            }
+            },
+            writtenStatementSubmittedDate: writtenStatementSubmittedDate
         },
             {new:true}
         )
@@ -131,8 +134,9 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
                     contentType: req.files.writtenStatement[0].mimetype,
                     fileData: writtenStatement
                 },
-
-            }
+                
+            },
+            writtenStatementSubmittedDate:writtenStatementSubmittedDate
         },
             {new:true}
         )
@@ -150,6 +154,7 @@ router.post("/defendant-written-statement",upload.fields([{ name: 'writtenStatem
           arrayFilters: [
             {"elem.caseId": caseId}
         ]
+    
         },
         {new:true}
         )

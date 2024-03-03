@@ -38,7 +38,7 @@ function SpringModal(props) {
             </div>
             <div className='modal-buttons'>
                 <div className='buttons'>
-                    <button className='confirm-button' onClick={props.handleSubmit}>Confirm</button>
+                    <button className='confirm-button' onClick={() => {props.handleSubmit();}}>Confirm</button>
                 </div>  
                 <div className='buttons'>
                     <button className='confirm-button' onClick={props.handleClose}>Cancel</button>
@@ -58,6 +58,7 @@ const Backdrop = React.forwardRef((props, ref) => {
 
 Backdrop.propTypes = {
   open: PropTypes.bool.isRequired,
+  notif: PropTypes.string
 };
 
 const Modal = styled(BaseModal)`

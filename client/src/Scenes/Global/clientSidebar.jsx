@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Typography } from "@mui/material";
 import "./sidebar.css";
 import { tokens } from "../../themes";
