@@ -16,6 +16,7 @@ const registerRegistrar = require("./create-docs/registrarRegister");
 const efiling = require("./create-docs/clientEfiling");
 const casedetails = require("./fetch-data/sendCaseDetails");
 const sendCaseCategory = require("./fetch-data/sendCaseCategory");
+const judgeMakeNotes = require("./create-docs/judgeMakeNotes");
 const contactUs = require("./create-docs/contact");
 const approvedcaseshandler = require("./create-docs/approvedCasesHandling");
 const bodyParser = require('body-parser');
@@ -73,6 +74,7 @@ app.use('/case-category', sendCaseCategory);
 app.use('/contact-us', contactUs);
 app.use('/approve-cases', approvedcaseshandler);
 app.use("/change-password", changePassword);
+app.use("/judge-notes", judgeMakeNotes);
 
 app
   .listen(port, (res, req) => {
