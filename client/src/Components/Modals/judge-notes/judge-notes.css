@@ -1,0 +1,90 @@
+.notes-main {  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 80%;
+    background-color: transparent;
+    backdrop-filter: blur(60px);
+    border: 0.1px solid #776a6a9e;
+    padding: 4;
+    border-radius: 10px;
+    display: flex;
+}
+
+.notes-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    margin: 10px;
+    border-right: 0.1px solid #b4b4b4f4;
+    width: 15%; /* adjust as needed */
+    /* add other styles as needed */
+}
+
+.notes-inside {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.notes-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    
+
+}
+
+.notes-body {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.notes-text-area {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    color: inherit;
+    overflow: auto;
+    color: green;
+    background-color: rgba(233, 227, 227, 0.874);
+    border: 0.1px solid #ffffff9e;
+    border-radius: 10px;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.notes-btn {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.search {
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+
+}
+
+.search input {
+
+    height: 100%;
+    border: 0.1px solid #ffffff9e;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: transparent;
+    margin-right: 20px;
+}
+input::placeholder {
+    color: inherit !important;
+}
