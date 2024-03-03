@@ -27,14 +27,12 @@ const NavBar = () => {
         <div className="flex">
           <ul>
             <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <Link to="/client/e-filing">Efiling</Link>
+              <Link to="/client/e-filing">E-filing</Link>
             </li>
             <li className="text-xl inline-flex p-2 hover:bg-orange-700 rounded-lg">
               <Link to="/profiles">Profiles</Link>
             </li>
-            <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <Link to="/judgements">Judgements</Link>
-            </li>
+     
           </ul>
         </div>
       </div>
@@ -62,11 +60,7 @@ const NavBar = () => {
       <div className="flex-1">
         <div className=" flex justify-end">
           <ul className="mr-4">
-            <li className="text-xl inline-flex p-2 mx-5 hover:bg-orange-700 rounded-lg">
-              <Link to="/register">
-                Register
-              </Link>
-            </li>
+      
             <li className="text-xl inline-flex p-2 mx-5 bg-orange-700 rounded-lg">
               <Link to="/login" className="">
                 Login

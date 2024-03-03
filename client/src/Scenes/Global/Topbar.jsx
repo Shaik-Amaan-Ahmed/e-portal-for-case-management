@@ -1,6 +1,7 @@
 import {
   Box,
   Divider,
+  Icon,
   IconButton,
   ListItemIcon,
   Menu,
@@ -8,6 +9,7 @@ import {
   rgbToHex,
   useTheme,
 } from "@mui/material";
+import {EmailContext} from "../../hooks/emailContext";
 import { useContext, React } from "react";
 import { ColorModeContext, tokens } from "../../themes";
 import InputBase from "@mui/material/InputBase";
@@ -20,6 +22,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { PasswordRounded } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -36,6 +39,7 @@ const Topbar = () => {
     }
   }, [location]);
   
+  const email = useContext(EmailContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -43,6 +47,18 @@ const Topbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  function handleChangePassword() {
+    // console.log(email);
+    try {
+      const res = axios.post("http://localhost:64000/change-password", {email: email});
+      if (res.status === 200) {
+        handleClose();
+      }
+    }
+    catch (err) {
+      console.log(err.message);
+    }
+  }
 
   function handleLogout() {
     handleClose();        
@@ -71,45 +87,10 @@ const Topbar = () => {
       <Box
         display="flex"
         backgroundColor="transparent"
-        justifyContent="space-between"
+        justifyContent="flex-end"
+        p={2}
       >
-        {/* SEARCH BAR */}
-        <Box display="flex" borderRadius="3px" align="center">
-          <input
-            style={{
-              width: "100%",
-              border: "0.1px solid grey",
-              height: "40px",
-              padding: "10px",
-              borderRadius: "10px",
-              margin: "10px 10px 10px 10px",
-              justifyContent: "center",
-              color: "inherit",
-              backgroundColor: "transparent",
-              textAlign: "center"
-            }}
-            className="search-bar"
-            placeholder="Search"
-          />
-          
-          <IconButton
-            type="button"
-            sx={{
-              display: "flex",
-              border: "solid",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "auto"
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Box>
         
-
         {/* ICONS */}
         <Box display="flex">
           <IconButton sx={{ ml: 8 }} onClick={colorMode.toggleColorMode}>
@@ -169,6 +150,12 @@ const Topbar = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Divider />
+        <MenuItem onClick={handleOpen}>
+          <ListItemIcon>
+            <PasswordRounded />
+          </ListItemIcon>
+          Change Password
+        </MenuItem>
 
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
@@ -177,15 +164,16 @@ const Topbar = () => {
           Logout
         </MenuItem>
       </Menu>
-      {/* <Box>
+      <Box>
         <SpringModal
           handleOpen={handleOpen}
           handleClose={handleClose}
           open={open}
-          handleSubmit={handleLogout}
-          message="logout"
+          handleSubmit={handleChangePassword}
+          message="Change Password?"
+          notif="Mail for changing password sent Successfully"
         />
-      </Box> */}
+      </Box>
     </>
   );
 };

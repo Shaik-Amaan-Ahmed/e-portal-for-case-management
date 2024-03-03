@@ -78,20 +78,13 @@ const RegistrarSidebar = () => {
 
               <Item
                 title="Dashboard"
-                to="/judge"
+                to="/defendant"
                 icon={DashboardCustomizeOutlined}
                 selected={selected}
 
                 setSelected={setSelected}
               />
-              <Item
-                title="Active Cases"
-                to="/judge/ongoing-cases"
-                icon={DashboardCustomizeOutlined}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
+     
             </div>
           </div>
         </div>

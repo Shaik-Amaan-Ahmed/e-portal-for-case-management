@@ -2,7 +2,7 @@ import { ColorModeContext, useMode } from "./themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./Scenes/Global/Topbar";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import Sidebar from "./Scenes/Global/judgeSidebar";
+import Sidebar from "./Scenes/Global/defendantSidebar";
 import Calendar from "./Scenes/Calendar/calendar";
 import Causelist from "./Scenes/Causelist/causelist";
 import JudgeViewCases from "./JudgeScenes/judge-view-cases/judge-view-cases";
@@ -11,7 +11,6 @@ import { useState, useEffect ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import axios from "axios";
-import Home from "./Scenes/dashboard/dashboard";
 import { CaseIdContext } from "./hooks/caseIdContext";
 import DefendantCaseView from "./DefendantaScenes/defendant-case-view/defendant-case-view";
 

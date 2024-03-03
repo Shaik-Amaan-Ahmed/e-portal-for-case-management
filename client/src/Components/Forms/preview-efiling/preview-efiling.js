@@ -70,10 +70,9 @@ const Preview = (props) => {
     setFormattedDate(day + "-" + month + "-" + year);
   }, [registrationDate]);
 
-  const [docDetails, setDocdetails] = useState({
-    petition: null,
-    aadhar: null,
-  });
+  const [docDetails, setDocdetails] = useState([]);
+
+  const [additionalFiles, setAdditionalFiles] = useState([]);
 
   const data = {
     email: email,
@@ -84,34 +83,55 @@ const Preview = (props) => {
     storedDefendantDetails: storedDefendantDetails,
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     setLoading1(true);
     handleClose();
-    event.preventDefault();
+    var flag = 0;
+
+    if (docDetails.length === 0) {
+      setError("Please upload all the documents");
+      setLoading1(false);
+      flag = 1;
+      return;
+    }
+
+    if (docDetails.some((doc) => doc.file === null)) {
+      setError("Please upload all the documents");
+      setLoading1(false);
+      flag = 1;
+      return;
+    }
+
+    if (docDetails.some((doc) => doc.file.size > 200 * 1024)) {
+      setError("File size should be less than 200kB");
+      setLoading1(false);
+      flag = 1;
+      return;
+    }
+
+    if (flag === 1) {
+      return;
+    }
+
     const formData = new FormData();
 
-    if (!docDetails.petition || !docDetails.aadhar) {
-      handleClose();
-      setError("Please upload all documents");
-      return;
-    }
+    docDetails.forEach((doc, index) => {
+      if (!doc.file) {
+        handleClose();
+        setError("Please upload all the documents");
+        setLoading(false);
+        return;
+      }
+      if (doc.file && doc.file.size > 200 * 1024) {
+        handleClose();
+        setError("File size should be less than 200kB");
+        return;
+      }
+      formData.append(doc.name, doc.file);
+    });
 
-    // Check file sizes
-    if (docDetails.petition.size > 200 * 1024) {
-      handleClose();
-      setError("Petition size exceeds 200KB");
-      return;
-    }
-
-    if (docDetails.aadhar.size > 200 * 1024) {
-      handleClose();
-      setError("Aadhar size exceeds 200KB");
-      return;
-    }
-
-    formData.append("petition", docDetails.petition);
-    formData.append("aadhar", docDetails.aadhar);
     formData.append("details", JSON.stringify(data));
+    console.log(formData);
 
     try {
       const uploadres = await axios.post(
@@ -142,11 +162,11 @@ const Preview = (props) => {
     <div className="preview-main">
       {/* Plaint Details */}
       <Typography variant="h3">Preview</Typography>
-      {loading1 && 
-      <div className="loading-container">
-        <CircularProgress style={{ color: "White" }} />
-      </div>
-    }
+      {loading1 && (
+        <div className="loading-container">
+          <CircularProgress style={{ color: "White" }} />
+        </div>
+      )}
       <div className="docs-details">
         <Title title={"Plaint Details"} />
         <div className="doc-main">
@@ -159,14 +179,14 @@ const Preview = (props) => {
               title="Cause Title Defendant"
               value={storedPlaintDetails.causeTitleDefendant}
             />
-            <Item
-              title="Case Category"
-              value={storedPlaintDetails.caseCategory}
-            />
-            <Item
-              title="Case Sub Category"
-              value={storedPlaintDetails.caseSubCategory}
-            />
+            <Item title="Suit Type" value={storedPlaintDetails.suitType} />
+            {}
+            {storedPlaintDetails.reliefSought!=="nan" && (
+              <Item
+                title="Relief Sought"
+                value={storedPlaintDetails.reliefSought}
+              />
+            )}
           </div>
           <div className="doc-right">
             <Item
@@ -177,6 +197,7 @@ const Preview = (props) => {
               title="Number of Defendants"
               value={storedPlaintDetails.numberOfDefendants}
             />
+            <Item title="Court Fees" value={storedPlaintDetails.courtFees} />
           </div>
         </div>
       </div>
@@ -329,6 +350,8 @@ const Preview = (props) => {
       <UploadDocs
         docDetails={docDetails}
         setDocdetails={setDocdetails}
+        additionalFiles={additionalFiles}
+        setAdditionalFiles={setAdditionalFiles}
         error={error}
       />
 

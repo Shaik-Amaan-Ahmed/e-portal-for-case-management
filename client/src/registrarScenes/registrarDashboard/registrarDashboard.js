@@ -23,6 +23,7 @@ const RegistrarDashboard = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [reloadkey, setReloadKey] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState(0);
   const [status, setStatus] = useState("");
   const handleOpen = (id) => {
     setId(id);
@@ -44,11 +45,29 @@ const RegistrarDashboard = () => {
     setDenyOpen(!denyOpen);
   }
 
-  const handleApproveOpen = (id,status) => {
-    setId(id);
-    setStatus(status);
-    setApproveOpen(!approveOpen);
+  const handleApprove = async (id,status) => {
+  try{
+    setLoading(true);
+
+    const res = await axios.post(
+      "http://localhost:64000/e-filing/approve-case",
+      { id: id, status:status}
+    );
+    if (res.status === 200) {
+      setTimeout(() => { 
+        setReloadKey(prevkey=> prevkey + 1 );
+      },1500)
+      alert("Case approved and court is allocated successfully");
+      setLoading(false);
+      
+    }
+    
+  }catch(err){ 
+    setTimeout(() => { 
+    },3000);
+    setLoading(false);
   }
+}
 
   const handleApproveClose = () => setApproveOpen(false);
   const handleDenyClose = () => setDenyOpen(false);
@@ -72,6 +91,7 @@ const RegistrarDashboard = () => {
       .get("http://localhost:64000/casedetails/registrar-case-details?page=" + currentPage + "&limit=" + itemsPerPage + "&search=" + searchinput)
       .then((res) => {
         setData(res.data.data);
+        setValue(res.data.value);
         setTotalCount(res.data.totalCount);
         setLoading(false);
       })
@@ -123,7 +143,7 @@ const RegistrarDashboard = () => {
                   </td>
                   <td>
                     <div className="approve-deny">
-                      <button className="approve-btn" onClick={() => handleApproveOpen(item.caseId,item.status)}>Assign</button>
+                      <button className="approve-btn" onClick={() => handleApprove(item.caseId,item.status)}>Assign</button>
                       <button className="deny-btn" onClick={() => handleDenyOpen(item.caseId)}>Reject</button>
                     </div>
                   </td>
@@ -135,7 +155,6 @@ const RegistrarDashboard = () => {
       </div>
 
       {denyOpen && <RegistrarDeny open={denyOpen} handleClose={handleDenyClose} id={id} />}
-      {approveOpen && <Approve open={approveOpen} handleClose={handleApproveClose} id={id} setReloadKey={setReloadKey} reloadkey={reloadkey} status={status}/>}
       {viewDocOpen && <ViewDocuments open={viewDocOpen} handleClose={handleViewDocClose} id={id} />}
       {open && id !== null && <ViewDetails open={open} handleClose={handleClose} id={id} setId={setId} />}
 

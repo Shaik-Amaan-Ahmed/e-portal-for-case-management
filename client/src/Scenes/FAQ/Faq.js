@@ -7,8 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import './Faq.css'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import { Link } from "react-router-dom";
-
+import { Link } from 'react-router-dom';
 export default function FAQ() {
     function MyAccordion({ Ques, Ans }) {
         const [expanded, setExpanded] = React.useState(false);
@@ -79,10 +78,14 @@ export default function FAQ() {
                 </div>} />
                 <h1 style={{ fontSize: '32px', marginBottom: '7px' }}>Other Queries:</h1>
                 <MyAccordion Ques="How do I contact us for any queries?"
-                Ans={<div>You can contact us on <Link to="/contact-us" style={{textDecoration:'underline'}}>Contact US </Link> page.<br />
+                Ans={<div>You can contact us on our <Link to="/contact-us" style={{textDecoration:'underline'}}>Contact Us</Link> page. <br />
                 </div>} />
-                <MyAccordion Ques="Where can I see the list of judges in the court?" />
-                <MyAccordion Ques="How do I get the latest updates and notification about the court?" />
+                <MyAccordion Ques="Where can I see the list of judges in the court?"
+                Ans={<div>You can view the profiles of each Judge on our Homepage.<br />
+                </div>} />
+                <MyAccordion Ques="How do I get the latest updates and notification about the court?"
+                Ans={<div>The Homepage of out website displays the latest updates and notifications about the court.<br />
+                </div>} />
             </div>
         </div>
     );

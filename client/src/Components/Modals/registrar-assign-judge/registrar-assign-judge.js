@@ -11,7 +11,6 @@ function ViewAssign(props) {
     const [selectedJudges, setSelectedJudges] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-  
     useEffect(() => {
     axios
         .get(
@@ -44,6 +43,7 @@ function ViewAssign(props) {
                 setTimeout(() => {
                     setMessage("");
                     props.handleClose();
+                    props.setReloadKey(prevkey=> prevkey + 1 );
                 }, 1500)
                 setMessage("Judges Assigned Successfully")
                 window.location.reload();

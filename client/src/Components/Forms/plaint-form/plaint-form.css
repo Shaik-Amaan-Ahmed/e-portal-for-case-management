@@ -18,6 +18,12 @@
     color: inherit;
     font-weight: 500;
     opacity: 0.6;
+
+}
+.input-field::placeholder{
+    color: inherit;
+    font-weight: 500;
+    opacity: 0.6;
 }
 .left-main {
     display: flex;
@@ -33,6 +39,7 @@
     flex-direction: column;
     padding: 10px;
     width: 100%;
+    height: 100%;
     height: 100%;
 
 }
@@ -60,12 +67,13 @@
     width: 100%;
     justify-content: flex-start;
     height: 50px;
+    height: 50px;
 }
 
 .input-field {
     width: 100%;
     height: 90px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: transparent;
     color: inherit;
     border: 0.1px solid grey;
@@ -111,6 +119,56 @@ option {
     padding: 10px;
     border-radius: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /* {/* <select
+                  value={value("caseCategory")}
+                  className="input-field"
+                  onChange={(e) => caseTypeOnChange("caseCategory", e.target.value)}
+                >
+                  {value("caseCategory") === "" && <option value="none">Select Case Category</option>}
+                  {Object.keys(casee).map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select> */ 
+
+
+
+
+/* 
+                                {/* Case SubCategory
+                <Typography variant="h5" style={{ fontWeight: "500" }}>Case SubCategory</Typography>
+              </div>
+              <div className="input-element">
+                <select
+                  className="input-field"
+                  value={value("caseSubCategory")}
+                  onChange={(e) => onChange("caseSubCategory", e.target.value)}
+                >
+                  {!option && <option value="none">Select Case SubCategory</option>}
+                  {option && ["None", ...casee[option]].map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select> */
 
 
 

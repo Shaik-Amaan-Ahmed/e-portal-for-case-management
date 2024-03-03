@@ -7,7 +7,8 @@ const Judge = mongoose.model("judges", new Schema({
     token: {type: String},
     password: {type:String},
     phone: {type: String, required: true},
-    casePreferences: [{type : String}],
+    mandals: [{type: String}],
+    role: {type: String},
     cases: [{
         caseId: {type: String},
         status: {type: String},

@@ -20,11 +20,14 @@ const efiling = new Schema({
     plaintDetails: {
         causeTitlePlaintiff: {type: String},
         causeTitleDefendant: {type: String},
-        caseType: {type: String},
-        caseCategory: {type: String},
-        caseSubCategory:{type: String},
         numberOfPlaintiff: {type: String},
         numberOfDefendants: {type: String},
+        suitType: {type: String},
+        reliefSought: {type: String},
+        mandal: {type: String},
+        district: {type: String},
+        suitValue: {type: String},
+        courtFees: {type: String},
     },
     plaintiffDetails: {
         plaintiffType: {type : String},
@@ -43,6 +46,7 @@ const efiling = new Schema({
         plaintiffState: {type : String},
         plaintiffCountry: {type : String},
         plaintiffPinCode: {type : String},
+        plaintiffMandal: {type : String}
     },
 
     defendantDetails: { 
@@ -84,6 +88,18 @@ const efiling = new Schema({
         contentType : {type : String},
         fileData: {type : Buffer}
       },
+      vakalatnama: { 
+        filename: {type: String},
+        contentType : {type : String},
+        fileData: {type : Buffer}
+      },
+      others:[
+        {
+          filename: {type: String},
+          contentType : {type : String},
+          fileData: {type : Buffer}
+        }
+      ]
     },
     notifications: {
       judgements: {
@@ -95,7 +111,8 @@ const efiling = new Schema({
           fileData: {type : Buffer}
         }
       }
-    }
+    },
+    value: {type: Number}
 })
 
 module.exports = mongoose.model('efiling', efiling);

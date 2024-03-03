@@ -25,16 +25,33 @@ const JudgeViewCases = () => {
   const [reloadkey, setReloadKey] = useState(0);
   const [loading , setLoading] = useState(false);
   const [rejectOpen, setRejectOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [totalCount, setTotalCount] = useState(0);
+  const [searchinput, setSearchInput] = useState('');
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  }
+
+  const prevPage = () => {
+    
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
 
   useEffect(() => {
     setLoading(true);
     axios
       .get(
-        "http://localhost:64000/casedetails/judge-review-case-details?email=" + email
+        "http://localhost:64000/casedetails/judge-review-case-details?email=" + email + "&page=" + currentPage + "&limit=" + itemsPerPage + "&search=" + searchinput
       )
       .then((res) => {
         if (res.status === 200) {
           setCaseDetails(res.data.data);
+          setTotalCount(res.data.totalCount);
           setLoading(false);
         }
         if (res.status === 400) {
@@ -46,7 +63,7 @@ const JudgeViewCases = () => {
       }).finally(() => {
         setLoading(false);
       });
-  }, [email,reloadkey]);
+  }, [email, currentPage, searchinput, reloadkey]);
 
   const handleOpen = (id) => {
     setId(id);
@@ -77,6 +94,9 @@ const JudgeViewCases = () => {
   return (
     <div className="judge-cases-main">
       <Header title="Active cases" />
+      <div className="search-table">
+          <input type="text" placeholder="Search" className="search-input" onChange={(e) => (setSearchInput(e.target.value))} />
+      </div>
     <div className="toggle">
       <div className="toggle-availability">
         <input
@@ -93,6 +113,10 @@ const JudgeViewCases = () => {
       </div>
       </div>
       {loading && <div className='loading'><CircularProgress style={{color:"white"}}/></div>}
+      <div className="pagination-registrar">
+        {currentPage > 1 && <button onClick={prevPage}>Previous</button>}
+        {currentPage * itemsPerPage < totalCount && <button onClick={nextPage}>Next</button>}
+      </div>
       <div className="judge-main-inside">
 
         <table className="judge-table">
@@ -100,7 +124,7 @@ const JudgeViewCases = () => {
             <tr key="1">
               <th>Regn. Number</th>
               <th>Regn. Date</th>
-              <th>Case sensitivity</th>
+              {/* <th>Mandal</th> */}
               <th>Cause Title</th>
               <th>Case Status</th>
               <th>View Details</th>
@@ -115,18 +139,7 @@ const JudgeViewCases = () => {
                   <tr key={item.caseId}>
                     <td>{item.caseId}</td>
                     <td>{item.registrationDate}</td>
-                    <td
-                      style={{
-                        color:
-                          item.caseSensitivity === "High"
-                            ? "red"
-                            : item.caseSensitivity === "Medium"
-                            ? "orange"
-                            : "green",
-                      }}
-                    >
-                      {item.caseSensitivity}
-                    </td>
+                    {/* <td>{item.plaintiffDetails.mandal}</td> */}
                     <td>
                       {item.plaintDetails.causeTitlePlaintiff} vs{" "}
                       {item.plaintDetails.causeTitleDefendant}

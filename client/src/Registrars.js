@@ -8,7 +8,6 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import RegistrarSidebar from "./Scenes/Global/registrarSidebar";
 import RegistrarDashboard from "./registrarScenes/registrarDashboard/registrarDashboard"
-import AllocateCases from "./registrarScenes/registrar-allocate-cases/registrar-allocate-cases";
 import SendSummons from "./registrarScenes/registrar-send-summons/registrar-send-summons";
 
 function Registrar() {
@@ -44,7 +43,6 @@ function Registrar() {
               <Topbar/>
               <Routes>
                 <Route path="/" element={<RegistrarDashboard />} />
-                <Route path="/allocation-of-judge" element={<AllocateCases />} />
                 <Route path="/send-summons" element={<SendSummons />}/>
               </Routes>
             </div>

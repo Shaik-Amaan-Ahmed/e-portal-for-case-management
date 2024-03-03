@@ -12,7 +12,6 @@ import axios from "axios";
 
 import {CircularProgress} from "@mui/material";
 import TextField from '@mui/material/TextField';
-import { set } from "mongoose";
 
 
 const Item = (props) => {
@@ -38,23 +37,25 @@ return (
         
       }}
       type={props.type}
-      error={props.nameError || props.emailError || props.phoneError || props.casePreferencesError}
-      helperText={props.nameError ? props.nameErrorMsg : props.emailError ? props.emailErrorMsg : props.phoneError ? props.phoneErrorMsg : props.casePreferencesError ? props.casePreferencesErrorMsg : ""}
+      error={props.nameError || props.emailError || props.phoneError || props.roleError || props.casePreferencesError}
+      helperText={props.nameError ? props.nameErrorMsg : props.emailError ? props.emailErrorMsg : props.phoneError ? props.phoneErrorMsg : props.roleError ? props.roleErrorMsg : props.casePreferencesError ? props.casePreferencesErrorMsg : ""}
     />
   </div>
 );
   };
 
 const JudgeRegisterForm = () => {
-  const [caseCategories, setCaseCategories] = useState({});
+  const options = ['Amberpet', 'Ameerpet', 'Asif Nagar', 'Bahadurpura', 'Bandlaguda', 'Bholakpur Village', 'Charminar', 'Golconda', 'Himayathnagar', 'Hyderabad', 'Khairatabad', 'Mareedpally', 'Musheerabad', 'Nampally', 'Saidabad', 'Secunderabad', 'Shaikpet', 'Tirumalgiri'];
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [nameError, setNameError] = useState(false);
 const [emailError, setEmailError] = useState(false);
+const [roleError, setRoleError] = useState(false);
 const [emailErrorMsg, setEmailErrorMsg] = useState("");
 const [phoneErrorMsg, setPhoneErrorMsg] = useState("");
 const [nameErrorMsg, setNameErrorMsg] = useState("");
+const [roleErrorMsg, setRoleErrorMsg] = useState("");
 const [casePreferencesErrorMsg, setCasePreferencesErrorMsg] = useState("");
 const [phoneError, setPhoneError] = useState(false);
 const [casePreferencesError, setCasePreferencesError] = useState(false);
@@ -62,22 +63,14 @@ const [casePreferencesError, setCasePreferencesError] = useState(false);
     name: "",
     email: "",
     phone: "",
-    casePreferences: selectedOptions
+    role: "",
+    mandals: selectedOptions
   });
 
   useEffect(() => {
-    setJudgeDetails(prevDetails => ({ ...prevDetails, casePreferences: selectedOptions }));
+    setJudgeDetails(prevDetails => ({ ...prevDetails, mandals: selectedOptions }));
   }, [selectedOptions]);
 
-  useEffect(() => {
-    try {
-      axios.get("http://localhost:64000/case-category").then((res) => {
-        setCaseCategories(res.data.data[0].caseType);
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
 
   const validateForm = () => {
     let isValid = true;
@@ -120,8 +113,16 @@ const [casePreferencesError, setCasePreferencesError] = useState(false);
       isValid = true;
     }
 
+    if (!judgeDetails.role) {
+      setRoleError(true);
+      setRoleErrorMsg("Role is required");
+      isValid = false;
+    } else {
+      setRoleError(false);
+      setRoleErrorMsg("");
+    }
   
-    if (!judgeDetails.casePreferences.length) {
+    if (!judgeDetails.mandals.length) {
       setCasePreferencesError(true);
       setCasePreferencesErrorMsg("Please select your case preferences");
       isValid = false;
@@ -156,9 +157,10 @@ const [casePreferencesError, setCasePreferencesError] = useState(false);
       <Item placeholder="Full Name" type="text" value={judgeDetails.name} toChange="name" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} nameError={nameError} nameErrorMsg={nameErrorMsg}/>
       <Item placeholder="Email" type="email" value={judgeDetails.email} toChange="email" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} emailError={emailError} emailErrorMsg={emailErrorMsg}/>
       <Item placeholder="Phone" type="text" value={judgeDetails.phone} toChange="phone" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} phoneError={phoneError} phoneErrorMsg = {phoneErrorMsg}/>
+      <Item placeholder="Role" type="text" value={judgeDetails.role} toChange="role" judgeDetails={judgeDetails} setJudgeDetails={setJudgeDetails} roleError={roleError} roleErrorMsg = {roleErrorMsg}/>
       <div className="judge-input">
         <Typography variant="h6" color="orange" fontWeight="500" style={{marginBottom:"10px"}}>
-          What type of cases do you deal with?
+          Select all the mandals under your jurisdiction
         </Typography>
         <FormControl className="judge-input">
       <InputLabel sx={{borderColor:"white",backdropFilter:"blur(60px)"}}>Multiple Select</InputLabel>
@@ -183,7 +185,7 @@ const [casePreferencesError, setCasePreferencesError] = useState(false);
           
         }}
       >
-        {Object.keys(caseCategories).map((name) => (
+        {options.map((name) => (
           <MenuItem key={name} value={name} sx={{color: selectedOptions.includes(name) ? "orange" : "white",backgroundColor:'black'}}>
             <button className="select-multiple-opns">{name}</button>
           </MenuItem>

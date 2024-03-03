@@ -14,14 +14,17 @@ export default function Footer() {
         <br />
         <Link
         className='text-neutral-800 dark:text-neutral-400'
-        to='/contact-us'
-        style={{ textDecoration: 'underline'  }}
+        to='/contact-us' style={{ marginRight: '10px' }}
+        onMouseEnter={e => e.target.style.textDecoration = 'underline'}  // Add underline on hover
+  onMouseLeave={e => e.target.style.textDecoration = 'none'}  // Remove underline when not hovering
         >Contact Us</Link>
         <Link
+        
         className='text-neutral-800 dark:text-neutral-400'
-        to='/faq'
-        style={{ textDecoration: 'underline', marginLeft: '10px'  }} 
-        >FAQ</Link>
+        to='/faq' style={{ marginRight: '10px' }}
+        onMouseEnter={e => e.target.style.textDecoration = 'underline'} 
+  onMouseLeave={e => e.target.style.textDecoration = 'none'}  
+  >FAQ</Link>
       </div>
     </footer>
   );
