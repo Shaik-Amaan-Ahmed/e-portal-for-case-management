@@ -170,7 +170,7 @@ router.post("/approve-case", async (req, res) => {
     const email = caseData.email;
     console.log(mandal);
 
-    let reqrole = val < 2000000 ? "junior" : (val < 5000000 ? "senior" : "chief");
+    let reqrole = val <= 2000000 ? "junior" : (val <= 5000000 ? "senior" : "chief");
 
     console.log(reqrole);
     const judge = await judges.aggregate([
