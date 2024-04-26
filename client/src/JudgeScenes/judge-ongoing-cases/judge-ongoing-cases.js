@@ -9,6 +9,10 @@ import { CircularProgress } from "@mui/material";
 import ViewDocs from "../../Components/Modals/active-cases/view-docs";
 import ViewDetails from "../../Components/Modals/registrar-view-details/registrarViewDetails";
 import ViewDocuments from "../../Components/Modals/registrar-view-docs/registrar-view-documents";
+import JudgeNotes from "../../Components/Modals/judge-notes/judge-notes";
+import { Edit } from "@mui/icons-material";
+import {IconButton} from "@mui/material";
+
 
 const OnGoingCases = () => {
   const [caseDetails, setCaseDetails] = useState([]);
@@ -16,6 +20,7 @@ const OnGoingCases = () => {
   const [viewDocOpen, setViewDocOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [allDocsOpen, setAllDocsOpen] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
   const [caseId, setCaseId] = useState(null);
   const email = useContext(EmailContext);
   const [reloadkey, setReloadKey] = useState(0);
@@ -34,6 +39,17 @@ const OnGoingCases = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  }
+
+  const notesOpenHandler = (id) => { 
+    setCaseId(id);
+    setNotesOpen(true);
+  }
+
+  const notesCloseHandler = () => { 
+
+    setNotesOpen(false);
+  
   }
 
   useEffect(() => {
@@ -103,6 +119,7 @@ const OnGoingCases = () => {
               <td>View Details</td>
               <td>View Documents</td>
               <td>Pending Actions</td>
+              <td>Notes</td>
             </tr>
           </thead>
           <tbody>
@@ -141,14 +158,21 @@ const OnGoingCases = () => {
                     View
                   </Button>
                 </td>
+                <td>
+                    <IconButton onClick={() => notesOpenHandler(item.caseId)}>
+                        <Edit/>
+                    </IconButton>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       {viewDocOpen && ( <ViewDocs open={handleOpen} handleClose={handleClose} caseId={caseId}/>)}
+      {notesOpen && ( <JudgeNotes open={notesOpen} handleClose={notesCloseHandler} caseId={caseId}/>)}
       {detailsOpen && caseId!==null && (<ViewDetails open={detailsOpen} handleClose={handleDetailsClose} id={caseId}/>)}
       {allDocsOpen && (<ViewDocuments open={allDocsOpen} handleClose={handleAllDocsClose} id={caseId}/>)}
+
     </div>
   );
 };

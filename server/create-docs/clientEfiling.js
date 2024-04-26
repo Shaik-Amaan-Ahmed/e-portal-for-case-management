@@ -12,22 +12,23 @@ const GenerateDate = require("../DateGenerator/DateGenerator");
 require("dotenv").config();
 
 const upload = multer({ storage: multer.memoryStorage() });
+const generateRegistrationId = (pre) => {
+  let year = new Date().getFullYear().toString().substr(2, 2); // Get the last two digits of the current year
+  let prefix = "HCT";
+  let randomString = Math.random().toString(36).substr(2, 10); // Generate a random string of 10 characters
+
+  let caseId = pre + year + prefix + randomString;
+  return caseId;
+};
 router.post(
   "/",
   upload.any(),
   async (req, res) => {
     const data = req.body;
     const fileData = req.files;
-    const generateRegistrationId = () => {
-      let year = new Date().getFullYear().toString().substr(2, 2); // Get the last two digits of the current year
-      let prefix = "HCT";
-      let randomString = Math.random().toString(36).substr(2, 10); // Generate a random string of 10 characters
 
-      let caseId = year + prefix + randomString;
-      return caseId;
-    };
 
-    const regId = generateRegistrationId();
+    const regId = generateRegistrationId("SR");
 
     try {
       const data = JSON.parse(req.body.details);
@@ -68,7 +69,7 @@ router.post(
       });
       await newEfiling.save();
       try {
-        const suc = await sendEmail(data.email, "Case Registration", "<h1>Your case has been registered successfully. Your case id is" + caseId+"</h1>");
+        const suc = await sendEmail(data.email, "Case Registration", "<h1>Your case has been registered successfully. Your case id is " + caseId+"</h1>");
         if(suc){
           res.status(200).json({ message: "Email Sent Succesfully" });
         }
@@ -163,12 +164,13 @@ router.post("/approve-case", async (req, res) => {
   const registrarApprovedDate = GenerateDate();
   try {
     const caseData = await efiling.findOne({ caseId: id });
-    const val = parseInt(caseData.plaintDetails.suitValue);
+    const val = caseData.plaintDetails.suitValue;
     console.log(val);
     const mandal = caseData.plaintDetails.mandal;
+    const email = caseData.email;
     console.log(mandal);
 
-    let reqrole = val < 2000000 ? "junior" : (val < 5000000 ? "senior" : "chief");
+    let reqrole = val <= 2000000 ? "junior" : (val <= 5000000 ? "senior" : "chief");
 
     console.log(reqrole);
     const judge = await judges.aggregate([
@@ -190,7 +192,7 @@ router.post("/approve-case", async (req, res) => {
         $project: {
           name: 1,
           numCases: 1,
-
+          email: 1
         },
       }
     ]).limit(1);
@@ -200,11 +202,13 @@ router.post("/approve-case", async (req, res) => {
       res.status(400).json({ message: "No judges available" });
     } else {
       const judgeName = judge[0].name;
+      const newCaseId = generateRegistrationId("OS");
       console.log(judgeName);
       try {
         const data = await efiling.findOneAndUpdate(
           { caseId: id }, // find a document with this id
           {
+            caseId: newCaseId,
             status: "Approved and pending for summons",
             judgeAssigned: judgeName,
             registrarApprovedDate:registrarApprovedDate
@@ -215,7 +219,7 @@ router.post("/approve-case", async (req, res) => {
         const judgeData = await judges.findOneAndUpdate(
           { name: judgeName }, // find a document with this name
           {
-            $push: { cases: { caseId: id, status: "Pending for review by judge" } },
+            $push: { cases: { caseId: newCaseId, status: "Pending for review by judge" } },
           },
           { new: true } // return the updated document
         );
@@ -225,14 +229,29 @@ router.post("/approve-case", async (req, res) => {
 
         if(newApprovedCase){ 
           res.status(200).json({ message: "success" });
+          
         }
         else{
           res.status(400).json({ message: "fail-new" });
         }
+        try {
+          const suc1 = await sendEmail(email, "Case Approval", "<h1>Your Case has been Approved Succesfully. Your OS number is " + newCaseId+"</h1>");
+          const suc2 = await sendEmail(judge[0].email, "Case Approval", "<h1>Your have been allocated a case. OS number is " + newCaseId+"</h1>");
 
+          if(suc1 && suc2){
+            res.status(200).json({ message: "Email Sent Succesfully" });
+          }
+          else{
+            res.status(400).json({ message: "fail" });
+          }
+      } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "fail" });
+      }
       } catch (error) {
         console.log(error.message);
       }
+      
     }
   } catch (error) {
     console.log(error.message);

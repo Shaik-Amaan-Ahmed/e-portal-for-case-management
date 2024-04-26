@@ -32,9 +32,7 @@ const NavBar = () => {
             <li className="text-xl inline-flex p-2 hover:bg-orange-700 rounded-lg">
               <Link to="/profiles">Profiles</Link>
             </li>
-            <li className="text-xl inline-flex p-2  hover:bg-orange-700 rounded-lg">
-              <Link to="/judgements">Judgements</Link>
-            </li>
+     
           </ul>
         </div>
       </div>
@@ -43,17 +41,17 @@ const NavBar = () => {
       <div className="flex-1 items-center">
         <div className="flex items-center justify-center">
           <Link to="/">
-            <img className="rounded-full w-20 h-20" src={Logo} alt="Logo" />
+            <img className="w-12 h-12" src={Logo} alt="Logo" />
           </Link>
           <Typography variant="h3" style={{ marginLeft: "10px" }}>
             <span style={{ fontWeight: "bold", justifyContent:"center", alignItems:"center", display:"flex" }}>
               <Link style={{ display: "flex", justifyContent: "center" , width:"100%"}} to="/">
-                HIGH COURT OF
+                E-PORTAL FOR 
               </Link>
             </span>
             <span style={{ fontWeight: "bold" }}>
               <Link style={{ display: "flex", justifyContent: "center" }} to="/">
-                TELANGANA
+                CASE MANAGEMENT
               </Link>
             </span>
           </Typography>

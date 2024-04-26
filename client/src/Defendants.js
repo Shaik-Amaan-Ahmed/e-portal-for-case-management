@@ -2,7 +2,7 @@ import { ColorModeContext, useMode } from "./themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./Scenes/Global/Topbar";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import Sidebar from "./Scenes/Global/judgeSidebar";
+import Sidebar from "./Scenes/Global/defendantSidebar";
 import Calendar from "./Scenes/Calendar/calendar";
 import Causelist from "./Scenes/Causelist/causelist";
 import JudgeViewCases from "./JudgeScenes/judge-view-cases/judge-view-cases";

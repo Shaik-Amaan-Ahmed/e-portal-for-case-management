@@ -41,7 +41,7 @@ const SelectItem = (props) => {
           className="input-field"
           onChange={(e) => props.onChange(e.target.value)}
         >
-          {props.value === "" && <option value="none">Select Suit type</option>}
+          {props.value === "" && <option value="none">Select</option>}
           {props.options.map((option, index) => {
             if (typeof option === "string") {
               // option is a string
@@ -196,7 +196,7 @@ const PlaintForm = (props) => {
         numberOfPlaintiff: "",
         numberOfDefendants: "",
         suitType: "",
-        reliefSought: "",
+        reliefSought: "nan",
         suitValue: "",
         courtFees: "",
         mandal: "",
@@ -319,6 +319,7 @@ const PlaintForm = (props) => {
     } else if (
       suitType === "Suits relating to easements" ||
       suitType === "Suits relating to accounts" ||
+      suitType === "Suits for money" ||
       suitType === "Suits for dissolution of partnership" ||
       suitType === "Suits for cancellation of decrees,etc" ||
       suitType === "Suits for specific performance" ||

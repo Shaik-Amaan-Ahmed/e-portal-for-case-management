@@ -57,7 +57,10 @@ const Efiling = () => {
   };
 
   const handleStep = (step) => () => {
-    setActiveStep(step);
+    if (step <= activeStep) {
+      setActiveStep(step);
+    }
+    // setActiveStep(step);
   };
 
   const handleReset = () => {

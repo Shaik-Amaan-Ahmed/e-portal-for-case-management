@@ -88,7 +88,7 @@ const Preview = (props) => {
     handleClose();
     var flag = 0;
 
-    if(docDetails.length === 0){ 
+    if (docDetails.length === 0) {
       setError("Please upload all the documents");
       setLoading1(false);
       flag = 1;
@@ -102,38 +102,36 @@ const Preview = (props) => {
       return;
     }
 
-    if(docDetails.some((doc) => doc.file.size > 200 * 1024)){ 
+    if (docDetails.some((doc) => doc.file.size > 200 * 1024)) {
       setError("File size should be less than 200kB");
       setLoading1(false);
       flag = 1;
       return;
     }
 
-    if (flag === 1) { 
+    if (flag === 1) {
       return;
     }
 
     const formData = new FormData();
 
     docDetails.forEach((doc, index) => {
-      if (!doc.file) { 
+      if (!doc.file) {
         handleClose();
         setError("Please upload all the documents");
-        setLoading(false)
+        setLoading(false);
         return;
       }
-      if(doc.file && doc.file.size> 200 * 1024){
+      if (doc.file && doc.file.size > 200 * 1024) {
         handleClose();
         setError("File size should be less than 200kB");
         return;
       }
       formData.append(doc.name, doc.file);
+    });
 
-    })
-
-    
     formData.append("details", JSON.stringify(data));
-    console.log(formData)
+    console.log(formData);
 
     try {
       const uploadres = await axios.post(
@@ -164,11 +162,11 @@ const Preview = (props) => {
     <div className="preview-main">
       {/* Plaint Details */}
       <Typography variant="h3">Preview</Typography>
-      {loading1 && 
-      <div className="loading-container">
-        <CircularProgress style={{ color: "White" }} />
-      </div>
-    }
+      {loading1 && (
+        <div className="loading-container">
+          <CircularProgress style={{ color: "White" }} />
+        </div>
+      )}
       <div className="docs-details">
         <Title title={"Plaint Details"} />
         <div className="doc-main">
@@ -181,14 +179,14 @@ const Preview = (props) => {
               title="Cause Title Defendant"
               value={storedPlaintDetails.causeTitleDefendant}
             />
-            <Item
-              title="Suit Type"
-              value={storedPlaintDetails.suitType}
-            />
-            <Item
-              title="Relief Sought"
-              value={storedPlaintDetails.reliefSought}
-            />
+            <Item title="Suit Type" value={storedPlaintDetails.suitType} />
+            {}
+            {storedPlaintDetails.reliefSought!=="nan" && (
+              <Item
+                title="Relief Sought"
+                value={storedPlaintDetails.reliefSought}
+              />
+            )}
           </div>
           <div className="doc-right">
             <Item
@@ -199,10 +197,7 @@ const Preview = (props) => {
               title="Number of Defendants"
               value={storedPlaintDetails.numberOfDefendants}
             />
-            <Item
-              title="Court Fees"
-              value={storedPlaintDetails.courtFees}
-            />
+            <Item title="Court Fees" value={storedPlaintDetails.courtFees} />
           </div>
         </div>
       </div>

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MyImage from "../../assets/user.png";
 import DashboardCustomizeOutlined from "@mui/icons-material/DashboardCustomizeOutlined";
-import Calendar from "../Calendar/calendar";
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme);
@@ -79,27 +78,13 @@ const RegistrarSidebar = () => {
 
               <Item
                 title="Dashboard"
-                to="/judge"
+                to="/defendant"
                 icon={DashboardCustomizeOutlined}
                 selected={selected}
 
                 setSelected={setSelected}
               />
-              <Item
-                title="Active Cases"
-                to="/judge/ongoing-cases"
-                icon={DashboardCustomizeOutlined}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Calendar"
-                to="/judge/calendar"
-                icon={DashboardCustomizeOutlined}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
+     
             </div>
           </div>
         </div>
