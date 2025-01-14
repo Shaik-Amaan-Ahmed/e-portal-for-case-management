@@ -67,7 +67,6 @@ app.use('/defendant', defendantToken)
 app.use('/client-register', registerClient);
 app.use('/judge-register',registerJudge);
 app.use('/registrar-register',registerRegistrar)
-app.use('/registrar-register',registerRegistrar)
 app.use('/e-filing', efiling);
 app.use('/casedetails',casedetails);
 app.use('/uploads', express.static('uploads'));

@@ -6,7 +6,7 @@ export default function Slider() {
   return (
     <div>
       <Box sx={{
-            backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://tshc.gov.in/dds/images/6.jpg')",
+            backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://tshc.gov.in/images/2024_08_17T16_58_031.png')",
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',

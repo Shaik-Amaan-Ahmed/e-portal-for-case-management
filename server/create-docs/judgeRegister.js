@@ -12,17 +12,20 @@ router.post("/", async (req, res) => {
   const judge = await Judge.findOne({ email, name, phone, role});
   if (judge) {
 
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: process.env.MAIL_USERNAME,
-      pass: process.env.MAIL_PASSWORD,
-      clientId: process.env.OAUTH_CLIENTID,
-      clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-    },
-  });
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        type: "OAuth2",
+        user: process.env.MAIL_USERNAME,
+        clientId: process.env.OAUTH_CLIENTID,
+        clientSecret: process.env.OAUTH_CLIENT_SECRET,
+        refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+        accessToken: process.env.OAUTH_ACCESS_TOKEN
+      },
+    });
   const token = crypto.randomBytes(20).toString("hex");
 
   let mailOptions = {

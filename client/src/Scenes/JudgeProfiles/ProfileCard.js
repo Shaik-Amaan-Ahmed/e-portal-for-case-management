@@ -1,20 +1,13 @@
 import * as React from 'react';
-import { ThemeProvider, styled } from '@mui/material/styles';
+import { ThemeProvider} from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { Popover } from '@mui/material';
 import { ColorModeContext,useMode } from '../../themes'
 import { CssBaseline} from "@mui/material";
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
-});
 export default function JudgeItem(props) {
     const [open, setOpen] = useState(false);
     const [anchorPosition, setAnchorPosition] = useState({
@@ -23,7 +16,7 @@ export default function JudgeItem(props) {
     });
     const [theme, colorMode] = useMode();
     const [popoverContent, setPopoverContent] = useState("");
-    const {name, description, imageUrl} = props;
+    const {name, description} = props;
     // const [judgeDescription, setJudgeDescription] = useState("");
     const handleEventClick = (info) => {
       setPopoverContent(info.name);
@@ -57,11 +50,6 @@ export default function JudgeItem(props) {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="judge" src={imageUrl} />
-          </ButtonBase>
-        </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={4}>
             <Grid item xs>
